@@ -49,7 +49,7 @@ export default function PortfolioSection({ title, subtitle }: PortfolioSectionPr
               />
 
               {/* Overlay */}
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/50 transition-colors duration-300 flex items-center justify-center">
+              {/* <div className="absolute inset-0 bg-black/0 group-hover:bg-black/50 transition-colors duration-300 flex items-center justify-center">
                 <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-center px-4">
                   <div className="bg-white/90 backdrop-blur-sm rounded-lg px-4 py-2">
                     <h3 className="font-semibold text-gray-800">
@@ -58,7 +58,7 @@ export default function PortfolioSection({ title, subtitle }: PortfolioSectionPr
                     <p className="text-sm text-gray-600">{item.category}</p>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
           ))}
         </div>

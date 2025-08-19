@@ -4,7 +4,6 @@ export interface HeroData {
   title: string;
   subtitle: string;
   description: string;
-  buttons: string[];
 }
 
 export interface BenefitsData {
@@ -44,7 +43,6 @@ export const doubleDeckHeroData: HeroData = {
   subtitle: "DESIGN & BUILD",
   description:
     "If you want to make your brand easily spotted on the show floor then contact Chronicles to get double-decker exhibit stands. These booths allow users to expand the usable space upwards. We have designed and built double-decker exhibition stands for 1150+ trade shows in Europe and clients worldwide trust us for their exhibit needs. Our designed two-story booths add prominence to the brand and drive traffic to the stall.",
-  buttons: ["REQUEST FOR FREE DESIGN", "REQUEST FOR QUOTATION"],
 };
 
 export const doubleDeckBenefitsData: BenefitsData = {

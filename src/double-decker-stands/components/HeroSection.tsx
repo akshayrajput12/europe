@@ -1,4 +1,5 @@
 import { doubleDeckHeroData } from "@/data/double-decker-stands"
+import { Button } from "@/components/ui/button"
 
 export default function HeroSection() {
   return (
@@ -26,15 +27,20 @@ export default function HeroSection() {
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          {doubleDeckHeroData.buttons.map((btn, index) => (
-            <button
-              key={index}
-              className="px-8 py-3 border-2 border-white text-white hover:bg-white hover:text-black transition-all duration-300 rounded-full font-semibold"
-            >
-              {btn}
-            </button>
-          ))}
-        </div>
+  <Button
+    size="lg"
+    className="border-background border-2 text-white hover:bg-white hover:text-black transition-all duration-300 bg-transparent"
+  >
+    REQUEST FOR FREE DESIGN
+  </Button>
+  
+  <Button
+    size="lg"
+    className="bg-[#A5CD39] hover:bg-[#8fb32e] text-white transition-all duration-300"
+  >
+    REQUEST FOR QUOTATION
+  </Button>
+</div>
       </div>
     </section>
   )

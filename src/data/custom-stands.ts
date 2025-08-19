@@ -2,17 +2,13 @@
 
 // 1. Interfaces for strong typing
 
-export interface HeroButton {
-  text: string
-  variant?: "outline" | "solid" // optional - for styling in UI
-}
+
 
 export interface HeroSection {
   title: string
   subtitle?: string
   description: string
   backgroundImage: string
-  buttons: HeroButton[]
 }
 
 export interface BenefitsSection {
@@ -72,10 +68,7 @@ export const customStandsData: CustomStandsData = {
       "CHRONICLES SP Z O.O. has 20+ years of experience in designing and building custom exhibition stands that maximize client ROI. As a leading exhibition stand contractor, we are experts in building unique and tailor-made exhibition stands on your behalf. Our team of skilled professionals will work closely with you to create a custom exhibition stand that perfectly reflects your company's vision and outshines competitors. Our design and builds boldly reflect the brand's identity and make your brand stand out at any trade show.",
     backgroundImage:
       "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1200&h=600&fit=crop",
-    buttons: [
-      { text: "REQUEST FOR FREE DESIGN", variant: "outline" },
-      { text: "REQUEST FOR QUOTATION", variant: "solid" },
-    ],
+    
   },
 
   benefits: {

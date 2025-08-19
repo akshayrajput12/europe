@@ -2,10 +2,6 @@ export interface ModularStandsHero {
   title: string
   subtitle: string
   description: string
-  buttons: {
-    primary: string
-    secondary: string
-  }
   backgroundImage: string
 }
 
@@ -27,9 +23,7 @@ export interface ModularBenefitsSection {
 
 export interface ChooseUsSection {
   title: string
-  subtitle: string
   description: string
-  images: string[]
 }
 
 export interface ModularDiversitySection {
@@ -55,10 +49,6 @@ export const modularStandsHero: ModularStandsHero = {
   subtitle: "DESIGN & BUILD",
   description:
     "Chronicles SP Z.O.O. is a leading modular exhibition stand construction company in Europe. As an experienced builder for the last 20+ years, we have designed captivating modular display stands for 600+ clients. We offer customizable, easy-to-configure exhibition and cost-effective modular exhibits that can be easily assembled at the fairgrounds. The modular trade show booth construction designed and built by us is lightweight, sturdy, and reusable and helps showcase the products in the best way.",
-  buttons: {
-    primary: "REQUEST FOR FREE DESIGN",
-    secondary: "REQUEST FOR QUOTATION",
-  },
   backgroundImage: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1920&h=1080&fit=crop",
 }
 
@@ -84,17 +74,9 @@ export const modularBenefitsSection: ModularBenefitsSection = {
 
 export const chooseUsSection: ChooseUsSection = {
   title: "CHOOSE CHRONICLES SP Z.O.O.",
-  subtitle: "FOR MODULAR EXHIBITION STANDS",
+  // subtitle: "FOR MODULAR EXHIBITION STANDS",
   description:
     "Chronicles SP Z.O.O. is one of the most trusted modular exhibition stand builders in Europe. Our modular exhibits allow exhibitors to make maximum use of the available indoor exhibition turnkey services that we provide. We are with you right from the conceptualization, designing, building, and manufacturing to storage, shipping, installation, and dismantling of your modular exhibition systems.",
-  images: [
-    "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&h=300&fit=crop",
-    "https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=400&h=300&fit=crop",
-    "https://images.unsplash.com/photo-1551818255-e6e10975cd17?w=400&h=300&fit=crop",
-    "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&h=300&fit=crop",
-    "https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=400&h=300&fit=crop",
-    "https://images.unsplash.com/photo-1551818255-e6e10975cd17?w=400&h=300&fit=crop",
-  ],
 }
 
 export const modularDiversitySection: ModularDiversitySection = {

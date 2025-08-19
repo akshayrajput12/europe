@@ -1,7 +1,26 @@
+import React from "react"; 
 import { footerData } from "@/data/footer";
 import Link from "next/link";
+import {
+  Facebook,
+  Twitter,
+  Instagram,
+  Linkedin,
+  Youtube,
+} from "lucide-react";
+
+// Map social names to icons
+const socialIcons: Record<string, React.ReactNode> = {
+  facebook: <Facebook className="w-5 h-5" />,
+  twitter: <Twitter className="w-5 h-5" />,
+  instagram: <Instagram className="w-5 h-5" />,
+  linkedin: <Linkedin className="w-5 h-5" />,
+  youtube: <Youtube className="w-5 h-5" />,
+};
 
 export default function Footer() {
+  const currentYear = new Date().getFullYear();
+
   return (
     <footer className="bg-secondary text-white">
       <div className="container mx-auto px-4 py-12">
@@ -23,6 +42,8 @@ export default function Footer() {
                 </li>
               ))}
             </ul>
+
+            {/* Social Media with Icons */}
             <div className="flex space-x-3 mt-6">
               {footerData.social.map((social, index) => (
                 <a
@@ -30,10 +51,14 @@ export default function Footer() {
                   href={social.href}
                   className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors"
                   aria-label={social.name}
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
-                  <span className="text-white text-sm font-bold">
-                    {social.icon.charAt(0).toUpperCase()}
-                  </span>
+                  {socialIcons[social.name.toLowerCase()] || (
+                    <span className="text-white text-sm font-bold">
+                      {social.icon.charAt(0).toUpperCase()}
+                    </span>
+                  )}
                 </a>
               ))}
             </div>
@@ -67,7 +92,9 @@ export default function Footer() {
               {footerData.locations.countries.map((country, index) => (
                 <Link
                   key={index}
-                  href={`/locations/${country.toLowerCase().replace(" ", "-")}`}
+                  href={`/locations/${country
+                    .toLowerCase()
+                    .replace(" ", "-")}`}
                   className="text-gray-300 hover:text-white transition-colors"
                 >
                   {country}
@@ -136,7 +163,7 @@ export default function Footer() {
         {/* Copyright */}
         <div className="border-t border-white/20 mt-6 pt-6 text-center">
           <p className="text-gray-300">
-            Copyright © 2024 Chronicles. All rights reserved.
+            Copyright © {currentYear} Chronicles. All rights reserved.
           </p>
         </div>
       </div>

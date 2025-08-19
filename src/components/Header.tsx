@@ -15,11 +15,13 @@ export default function Header() {
           <div className="flex items-center justify-between">
             {/* Logo */}
           <div className="flex items-center">
+            <a href="/">
   <img
     src={navigationData.logo.imageUrl}
     alt={navigationData.logo.alt}
     className="h-12 w-auto object-contain"
   />
+  </a>
 </div>
 
 
@@ -39,20 +41,13 @@ export default function Header() {
 
             <div className="hidden md:flex lg:hidden items-center justify-between w-full">
               <button className="p-2" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
-                <Menu size={24} className="text-slate-800" />
+                <Menu size={24} className="text-background" />
               </button>
-              <div className="bg-blue-600 px-4 py-2 rounded">
-                <div className="flex items-center space-x-2">
-                  <div className="w-6 h-6 bg-[#A5CD39] rounded flex items-center justify-center">
-                    <span className="text-white font-bold text-sm">C</span>
-                  </div>
-                  <span className="text-white font-bold text-lg">CHRONICLES</span>
-                </div>
-              </div>
+              
             </div>
 
             {/* Mobile Menu Button */}
-            <button className="md:hidden p-2" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+            <button className="md:hidden text-background p-2" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
               {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
           </div>

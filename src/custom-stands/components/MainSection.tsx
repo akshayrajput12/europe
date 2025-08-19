@@ -12,12 +12,12 @@ export default function MainSection() {
           {pointsTable.title}
         </h2>
 
-        <div className="space-y-6 mb-8">
+        <div className="space-y-6 mb-8 text-justify">
           {pointsTable.items.map((point, index) => (
             <div key={index} className="flex items-start gap-4">
               <div
                 className="w-3 h-3 rounded-full mt-2 flex-shrink-0"
-                style={{ backgroundColor: "primary" }}
+                style={{ backgroundColor: "#A5CD39" }}
               />
               <p className="text-gray-700 leading-relaxed">{point}</p>
             </div>

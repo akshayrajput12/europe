@@ -20,11 +20,11 @@ export default function ProjectsSection() {
           )}
 
           {/* Subtitle (optional) */}
-          {StandProjectText.highlight && (
+          {/* {StandProjectText.highlight && (
             <p className="text-lg md:text-xl font-medium mb-4 text-gray-200">
               {StandProjectText.highlight}
             </p>
-          )}
+          )} */}
 
           {/* Description */}
           {StandProjectText.description && (

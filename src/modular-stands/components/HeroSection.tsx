@@ -29,18 +29,19 @@ export default function HeroSection() {
           <p className="text-base md:text-lg lg:text-xl max-w-3xl mx-auto leading-relaxed">
             {modularStandsHero.description}
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center pt-6">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
               size="lg"
-              className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-gray-900 transition-all duration-300 px-8 py-3 text-sm md:text-base"
+              className="border-background border-2 text-white hover:bg-white hover:text-black transition-all duration-300 bg-transparent"
             >
-              {modularStandsHero.buttons.primary}
+              REQUEST FOR FREE DESIGN
             </Button>
+            
             <Button
               size="lg"
-              className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-gray-900 transition-all duration-300 px-8 py-3 text-sm md:text-base"
+              className="bg-[#A5CD39] hover:bg-[#8fb32e] text-white transition-all duration-300"
             >
-              {modularStandsHero.buttons.secondary}
+              REQUEST FOR QUOTATION
             </Button>
           </div>
         </div>

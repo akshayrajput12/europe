@@ -21,20 +21,19 @@ export default function HeroSection() {
           {customStandsData.hero.description}
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-  {customStandsData.hero.buttons.map((btn, i) => (
-    <Button
-      key={i}
-      size="lg"
-      variant={btn.variant === "outline" ? "outline" : "default"}
-      className={
-        btn.variant === "outline"
-          ? "border-white text-white hover:bg-white hover:text-black transition-all duration-300 bg-transparent"
-          : "bg-[#A5CD39] hover:bg-[#8fb32e] text-white transition-all duration-300"
-      }
-    >
-      {btn.text}
-    </Button>
-  ))}
+  <Button
+    size="lg"
+    className="border-background border-2 text-white hover:bg-white hover:text-black transition-all duration-300 bg-transparent"
+  >
+    REQUEST FOR FREE DESIGN
+  </Button>
+  
+  <Button
+    size="lg"
+    className="bg-[#A5CD39] hover:bg-[#8fb32e] text-white transition-all duration-300"
+  >
+    REQUEST FOR QUOTATION
+  </Button>
 </div>
       </div>
     </section>
