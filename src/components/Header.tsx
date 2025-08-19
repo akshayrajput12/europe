@@ -14,12 +14,14 @@ export default function Header() {
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             {/* Logo */}
-            <div className="flex items-center space-x-2">
-              <div className="w-10 h-10 bg-[#A5CD39] rounded-full flex items-center justify-center">
-                <span className="text-white font-bold text-xl">{navigationData.logo.icon}</span>
-              </div>
-              <span className="text-2xl font-bold text-background">{navigationData.logo.text}</span>
-            </div>
+          <div className="flex items-center">
+  <img
+    src={navigationData.logo.imageUrl}
+    alt={navigationData.logo.alt}
+    className="h-12 w-auto object-contain"
+  />
+</div>
+
 
             {/* Desktop CTA Buttons */}
             <div className="hidden lg:flex items-center space-x-3">
@@ -60,7 +62,7 @@ export default function Header() {
         <div className="bg-slate-50 border-t border-slate-200 hidden lg:block">
           <div className="container mx-auto px-4">
             <div className="flex items-center justify-between py-3">
-              <nav className="hidden md:flex items-center space-x-4 lg:space-x-8 flex-1">
+              <nav className="hidden  md:flex items-center space-x-4 lg:space-x-8 flex-1">
                 {navigationData.menuItems.map((item, index) => (
                   <a
                     key={index}
@@ -72,20 +74,10 @@ export default function Header() {
                 ))}
               </nav>
 
-              <div className="hidden md:flex items-center space-x-2 lg:space-x-4">
-                <div className="flex items-center space-x-2">
-                  <div className="w-6 h-6 lg:w-8 lg:h-8 bg-[#A5CD39] rounded flex items-center justify-center">
-                    <span className="text-white font-bold text-xs lg:text-sm">C</span>
-                  </div>
-                  <span className="text-sm lg:text-lg font-bold text-slate-800">
-                    {navigationData.secondaryHeader.logo}
-                  </span>
-                </div>
                 
               </div>
             </div>
           </div>
-        </div>
 
         {isMobileMenuOpen && (
           <div className="md:absolute top-full left-0 right-0 bg-white border-t border-slate-200 z-50 shadow-lg">

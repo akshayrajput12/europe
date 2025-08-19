@@ -40,7 +40,11 @@ export default function ContactSection() {
                     </SelectContent>
                   </Select>
                 ) : (
-                  <Input type={field.type} required={field.required} className="w-full" />
+                  <Input
+                    type={field.type}
+                    required={field.required}
+                    className="w-full border-black"
+                  />
                 )}
               </div>
             ))}

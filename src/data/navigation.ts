@@ -1,7 +1,7 @@
 export const navigationData = {
   logo: {
-    text: "CHRONICLES", // Changed company name from RADON to CHRONICLES
-    icon: "C", // Updated icon to match new company name
+    imageUrl: "https://chronicleexhibits.com/chronicle-logo-2.svg", // Replace with your logo image path
+    alt: "CHRONICLES Logo", // Optional alt text for accessibility
   },
   menuItems: [
     { label: "HOME", href: "/" },
