@@ -9,7 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { contactData } from "@/data/contact"
 
 export default function ContactSection() {
-  const [formData, setFormData] = useState({})
+  const [formData] = useState({})
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()

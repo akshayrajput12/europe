@@ -1,4 +1,5 @@
 import { doubleDeckBenefitsData } from "../../data/double-decker-stands"
+import Image from "next/image"
 
 export default function BenefitsSection() {
   return (
@@ -17,7 +18,7 @@ export default function BenefitsSection() {
             </ul>
           </div>
           <div className="lg:order-last">
-            <img
+            <Image
               src={doubleDeckBenefitsData.image || "/placeholder.svg"}
               alt="Double Decker Exhibition Stand"
               className="w-full h-auto rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300"

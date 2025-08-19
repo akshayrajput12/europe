@@ -1,5 +1,3 @@
-import Image from "next/image"
-import { Button } from "@/components/ui/button"
 import { customStandsData } from "@/data/custom-stands"
 
 export default function ProjectsSection() {

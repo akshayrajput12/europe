@@ -1,5 +1,3 @@
-import Image from "next/image"
-import { Button } from "@/components/ui/button"
 import { chooseUsSection } from "@/data/modular-stands"
 
 export default function ChooseUsSection() {

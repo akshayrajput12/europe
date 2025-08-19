@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button"
 import { navigationData } from "@/data/navigation"
 import { Menu, X } from "lucide-react"
 import { useState } from "react"
+import Image from "next/image"
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -15,13 +16,11 @@ export default function Header() {
           <div className="flex items-center justify-between">
             {/* Logo */}
           <div className="flex items-center">
-            <a href="/">
-  <img
+  <Image
     src={navigationData.logo.imageUrl}
     alt={navigationData.logo.alt}
     className="h-12 w-auto object-contain"
   />
-  </a>
 </div>
 
 

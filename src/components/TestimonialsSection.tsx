@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { testimonialsData, Testimonial } from "@/data/testimonials";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import Image from "next/image"
 
 export default function TestimonialsSection() {
   const [current, setCurrent] = useState(0);
@@ -73,7 +74,7 @@ export default function TestimonialsSection() {
                   <div className="mb-3 sm:mb-4 flex justify-center">
                     <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 bg-gray-100 rounded-full flex items-center justify-center overflow-hidden">
                       {testimonial.logo ? (
-                        <img
+                        <Image
                           src={testimonial.logo}
                           alt={testimonial.company}
                           className="object-contain w-full h-full p-2 sm:p-3"
