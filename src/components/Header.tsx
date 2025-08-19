@@ -1,119 +1,122 @@
-"use client";
+"use client"
 
-import { Button } from "@/components/ui/button";
-import { navigation } from "@/data/navigation";
-import Link from "next/link";
-import { useState } from "react";
+import { Button } from "@/components/ui/button"
+import { navigationData } from "@/data/navigation"
+import { Menu, X } from "lucide-react"
+import { useState } from "react"
 
 export default function Header() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   return (
-    <header className="bg-white shadow-sm border-b border-gray-200">
-      {/* Top Bar */}
-      <div className="bg-secondary text-white py-2">
-        <div className="container mx-auto px-4 flex justify-between items-center">
-          <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
-              <span className="text-white font-bold text-sm">C</span>
+    <>
+      <header className="bg-secondary text-slate-800 shadow-lg fixed w-full top-0 z-50">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
+            {/* Logo */}
+            <div className="flex items-center space-x-2">
+              <div className="w-10 h-10 bg-[#A5CD39] rounded-full flex items-center justify-center">
+                <span className="text-white font-bold text-xl">{navigationData.logo.icon}</span>
+              </div>
+              <span className="text-2xl font-bold text-background">{navigationData.logo.text}</span>
             </div>
-            <span className="font-bold text-lg">{navigation.logo}</span>
-          </div>
-          <div className="hidden md:flex space-x-4">
-            {navigation.ctaButtons.map((button, index) => (
-              <Button
-                key={index}
-                variant="outline"
-                size="sm"
-                className="border-white text-white hover:bg-white hover:text-secondary"
-                asChild
-              >
-                <Link href={button.href}>{button.label}</Link>
-              </Button>
-            ))}
-          </div>
-        </div>
-      </div>
 
-      {/* Navigation Bar */}
-      <nav className="container mx-auto px-4 py-4">
-        <div className="flex justify-between items-center">
-          {/* Mobile menu button */}
-          <button
-            className="md:hidden"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            aria-label="Toggle navigation menu"
-          >
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-            </svg>
-          </button>
-
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex space-x-8">
-            {navigation.menuItems.map((item, index) => (
-              <Link
-                key={index}
-                href={item.href}
-                className="text-gray-700 hover:text-primary font-medium transition-colors"
-              >
-                {item.label}
-              </Link>
-            ))}
-          </div>
-
-          {/* Logo and EU Flag */}
-          <div className="flex items-center space-x-2">
-            <span className="font-bold text-xl text-secondary">
-              {navigation.logo}
-            </span>
-            <div className="w-6 h-4 bg-blue-600 rounded flex items-center justify-center">
-              <span className="text-white text-xs font-bold">EU</span>
+            {/* Desktop CTA Buttons */}
+            <div className="hidden lg:flex items-center space-x-3">
+              {navigationData.ctaButtons.map((button, index) => (
+                <Button
+                  key={index}
+                  variant="outline"
+                  size="sm"
+                  className="text-slate-800 border-slate-800 hover:bg-[#A5CD39] hover:text-white hover:border-[#A5CD39] bg-background px-6 py-2 rounded-full font-medium transition-all duration-300 hover:scale-105"
+                >
+                  {button.label}
+                </Button>
+              ))}
             </div>
+
+            <div className="hidden md:flex lg:hidden items-center justify-between w-full">
+              <button className="p-2" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+                <Menu size={24} className="text-slate-800" />
+              </button>
+              <div className="bg-blue-600 px-4 py-2 rounded">
+                <div className="flex items-center space-x-2">
+                  <div className="w-6 h-6 bg-[#A5CD39] rounded flex items-center justify-center">
+                    <span className="text-white font-bold text-sm">C</span>
+                  </div>
+                  <span className="text-white font-bold text-lg">CHRONICLES</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Mobile Menu Button */}
+            <button className="md:hidden p-2" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
           </div>
         </div>
 
-        {/* Mobile Navigation */}
-        {isMenuOpen && (
-          <div className="md:hidden mt-4 pb-4 border-t border-gray-200">
-            <div className="flex flex-col space-y-4 pt-4">
-              {navigation.menuItems.map((item, index) => (
-                <Link
+        {/* Secondary Navigation Bar - Hidden on tablet */}
+        <div className="bg-slate-50 border-t border-slate-200 hidden lg:block">
+          <div className="container mx-auto px-4">
+            <div className="flex items-center justify-between py-3">
+              <nav className="hidden md:flex items-center space-x-4 lg:space-x-8 flex-1">
+                {navigationData.menuItems.map((item, index) => (
+                  <a
+                    key={index}
+                    href={item.href}
+                    className="hover:text-[#A5CD39] transition-colors font-medium text-xs md:text-sm text-slate-700 hover:scale-105 transform duration-200 whitespace-nowrap"
+                  >
+                    {item.label}
+                  </a>
+                ))}
+              </nav>
+
+              <div className="hidden md:flex items-center space-x-2 lg:space-x-4">
+                <div className="flex items-center space-x-2">
+                  <div className="w-6 h-6 lg:w-8 lg:h-8 bg-[#A5CD39] rounded flex items-center justify-center">
+                    <span className="text-white font-bold text-xs lg:text-sm">C</span>
+                  </div>
+                  <span className="text-sm lg:text-lg font-bold text-slate-800">
+                    {navigationData.secondaryHeader.logo}
+                  </span>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {isMobileMenuOpen && (
+          <div className="md:absolute top-full left-0 right-0 bg-white border-t border-slate-200 z-50 shadow-lg">
+            <div className="container mx-auto px-4 py-4 space-y-4">
+              {navigationData.menuItems.map((item, index) => (
+                <a
                   key={index}
                   href={item.href}
-                  className="text-gray-700 hover:text-primary font-medium transition-colors"
-                  onClick={() => setIsMenuOpen(false)}
+                  className="block hover:text-[#A5CD39] transition-colors font-medium text-sm py-2 text-slate-700"
+                  onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {item.label}
-                </Link>
+                </a>
               ))}
-              <div className="flex flex-col space-y-2 pt-4 border-t border-gray-200">
-                {navigation.ctaButtons.map((button, index) => (
+              <div className="flex flex-col space-y-3 pt-4 border-t border-slate-200 lg:hidden">
+                {navigationData.ctaButtons.map((button, index) => (
                   <Button
                     key={index}
                     variant="outline"
                     size="sm"
-                    className="border-secondary text-secondary hover:bg-secondary hover:text-white"
-                    asChild
+                    className="text-slate-800 border-slate-800 hover:bg-[#A5CD39] hover:text-white hover:border-[#A5CD39] bg-transparent rounded-full font-medium transition-all duration-300"
                   >
-                    <Link href={button.href}>{button.label}</Link>
+                    {button.label}
                   </Button>
                 ))}
               </div>
             </div>
           </div>
         )}
-      </nav>
-    </header>
-  );
+      </header>
+      <div className="h-[80px] lg:h-[120px]"></div>
+    </>
+  )
 }

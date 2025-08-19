@@ -1,53 +1,39 @@
-import { homeData } from "@/data/home";
+import Image from "next/image"
+import { homeData } from "@/data/home"
 
 export default function HeroSection() {
-  return (
-    <section className="relative h-[600px] flex items-center justify-center overflow-hidden">
-      {/* Background Image */}
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage: `url(${homeData.hero.image})`,
-        }}
-      >
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-black/40"></div>
-      </div>
+  const { hero } = homeData
 
-      {/* Content */}
-      <div className="relative z-10 text-center text-white px-4 max-w-4xl mx-auto">
-        <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
-          {homeData.hero.title}
-        </h1>
-        <p className="text-xl md:text-2xl mb-8 text-gray-200 max-w-2xl mx-auto">
-          {homeData.hero.subtitle}
-        </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <button className="bg-primary text-white px-8 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors">
-            Get Started
-          </button>
-          <button className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-secondary transition-colors">
-            View Portfolio
-          </button>
+  return (
+    <section className="relative h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] xl:h-[700px] bg-gray-100">
+      <Image
+        src={hero.backgroundImage}
+        alt="Chronicles facility aerial view"
+        fill
+        className="object-cover"
+        priority
+      />
+      <div className="absolute inset-0 bg-opacity-20" />
+
+      <div className="absolute inset-0 flex items-center justify-center">
+        <div className="text-center text-white px-4 max-w-4xl">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-4 leading-tight">
+            {hero.title}
+          </h1>
+          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-6">
+            {hero.subtitle.includes("EUROPE") ? (
+              <>
+                IN <span className="text-[#A5CD39]">EUROPE</span>
+              </>
+            ) : (
+              hero.subtitle
+            )}
+          </h2>
+          <p className="text-sm sm:text-base md:text-lg lg:text-xl max-w-3xl mx-auto leading-relaxed">
+            {hero.description}
+          </p>
         </div>
       </div>
-
-      {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-        <svg
-          className="w-6 h-6 text-white"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M19 14l-7 7m0 0l-7-7m7 7V3"
-          />
-        </svg>
-      </div>
     </section>
-  );
+  )
 }

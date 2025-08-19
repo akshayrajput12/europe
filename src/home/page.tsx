@@ -1,21 +1,21 @@
-import HeroSection from "./components/HeroSection";
-import MainContent from "./components/MainContent";
-import SolutionsSection from "./components/SolutionsSection";
-import PortfolioSection from "@/components/PortfolioSection";
-import CountriesSection from "./components/CountriesSection";
-import WhyBestSection from "./components/WhyBestSection";
-import TestimonialsSection from "./components/TestimonialsSection";
+import HeroSection from "./components/HeroSection"
+import { ExhibitionSection } from "./components/ExhibitionSection"
+import MainContent from "./components/MainContent"
+import SolutionsSection from "./components/SolutionsSection"
+import PortfolioSection from "./components/PortfolioSection"
+import TestimonialsSection from "../components/TestimonialsSection"
+import WhyBestSection from "./components/WhyBestSection"
 
 export default function HomePage() {
   return (
-    <main>
+    <div className="min-h-screen bg-white">
       <HeroSection />
-      <MainContent />
+      <ExhibitionSection />
       <SolutionsSection />
       <PortfolioSection />
-      <CountriesSection />
+      <MainContent />
       <WhyBestSection />
       <TestimonialsSection />
-    </main>
-  );
+    </div>
+  )
 }
