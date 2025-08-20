@@ -3,6 +3,7 @@ import HeroSection from "./components/HeroSection"
 import MainSection from "./components/MainSection"
 import BenefitsSection from "./components/BenefitsSection"
 import PortfolioSection from "@/components/PortfolioSection"
+import ExhibitionBenefitsSection from "./components/ExhibitionBenefitsSection"
 import ChooseUsSection from "./components/ChooseUsSection"
 import ModularDiversitySection from "./components/ModularDiversitySection"
 import FastestConstructionSection from "./components/FastestConstructionSection"
@@ -17,6 +18,7 @@ export default function ModularStandsPage() {
         <BenefitsSection />
         <ChooseUsSection />
         <PortfolioSection />
+        <ExhibitionBenefitsSection />
         <ModularDiversitySection />
         <FastestConstructionSection />
         <ExpertsSection />

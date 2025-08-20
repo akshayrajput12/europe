@@ -29,6 +29,12 @@ export interface StatementData {
   subtitle: string;
   description: string;
 }
+export interface ExhibitionBenefits {
+  title: string
+  subtitle: string
+  items: string[]
+  image: string
+}
 
 export interface PointsTableData {
   title: string;
@@ -91,3 +97,16 @@ export const doubleDeckPointsTable: PointsTableData = {
     "Our innovative booth designs help clients achieve maximum impact with functional, creative, and visually striking two-story exhibition stands.",
   ],
 };
+
+export const exhibitionBenefitsData: ExhibitionBenefits = {
+  title: "Why Choose Our Exhibition Stands?",
+  subtitle: "Discover the advantages that make our stands unique and effective.",
+  items: [
+    "Tailor-made designs to match your brand identity.",
+    "High-quality materials ensuring durability and elegance.",
+    "Eco-friendly and sustainable production methods.",
+    "On-time delivery and hassle-free installation.",
+    "Cost-effective solutions without compromising on quality.",
+  ],
+  image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=500&h=300&fit=crop", // update path if needed
+}

@@ -72,19 +72,17 @@ export default function TestimonialsSection() {
                 <div className="bg-white rounded-lg shadow-md p-3 sm:p-4 flex flex-col items-center h-full">
                   {/* Company Logo */}
                   <div className="mb-3 sm:mb-4 flex justify-center">
-                    <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 bg-gray-100 rounded-full flex items-center justify-center overflow-hidden">
-                      {testimonial.logo ? (
-                        <Image
-                          src={testimonial.logo}
-                          alt={testimonial.company}
-                          className="object-contain w-full h-full p-2 sm:p-3"
-                        />
-                      ) : (
-                        <span className="text-gray-600 font-semibold text-xs sm:text-sm">
-                          {testimonial.company}
-                        </span>
-                      )}
-                    </div>
+                    <div className="relative w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 bg-gray-100 rounded-full flex items-center justify-center overflow-hidden">
+  {testimonial.logo ? (
+    <Image
+      src={testimonial.logo}
+      alt={testimonial.company}
+      fill
+      className="object-contain p-2 sm:p-3"
+    />
+  ) : null}
+</div>
+
                   </div>
 
                   {/* Client Name */}

@@ -28,12 +28,12 @@ export default function ContactSection() {
                 <label className="block text-sm font-medium mb-2">{field.label}</label>
                 {field.type === "select" ? (
                   <Select>
-                    <SelectTrigger>
+                    <SelectTrigger className="border-black">
                       <SelectValue placeholder="Choose Budget Range" />
-                    </SelectTrigger >
-                    <SelectContent >
+                    </SelectTrigger>
+                    <SelectContent>
                       {field.options?.map((option) => (
-                        <SelectItem  key={option} value={option}>
+                        <SelectItem key={option} value={option}>
                           {option}
                         </SelectItem>
                       ))}
@@ -51,8 +51,12 @@ export default function ContactSection() {
           </div>
 
           <div className="mb-6">
-            <label className="block  text-sm font-medium mb-2">Additional Information</label>
-            <Textarea rows={4} className="border-black w-full" placeholder="Enter your message here..." />
+            <label className="block text-sm font-medium mb-2">Additional Information</label>
+            <Textarea
+              rows={4}
+              className="border-black w-full"
+              placeholder="Enter your message here..."
+            />
           </div>
 
           <div className="text-center">

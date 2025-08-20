@@ -28,7 +28,7 @@ export default function MainSection() {
           {pointsTable.descriptions.map((paragraph, index) => (
             <p
               key={index}
-              className="text-gray-700 leading-relaxed text-center"
+              className="text-gray-700 leading-relaxed text-justify"
             >
               {paragraph}
             </p>

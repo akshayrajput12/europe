@@ -1,6 +1,9 @@
 // Interfaces for strong typing
 export interface Hero {
   backgroundImage: string
+}
+
+export interface MainSection {
   title: string
   subtitle: string
   description: string
@@ -33,6 +36,7 @@ export interface WhyBest {
 
 export interface HomeData {
   hero: Hero
+  mainSection: MainSection
   exhibitionData: {
     [key: string]: Exhibition // e.g., 'europe', 'usa'
   }
@@ -47,11 +51,15 @@ export const homeData: HomeData = {
   hero: {
     backgroundImage:
       "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+  },
+
+  mainSection: {
     title: "YOUR EXHIBITION STAND BUILDER",
     subtitle: "IN EUROPE",
     description:
       "As a leading exhibition stand builder, we offer complete exhibition stand design and fabrication services in Europe. From start to finish, we cover all the aspects you need for stress-free exhibition participation.",
   },
+
   exhibitionData: {
     europe: {
       title: "YOUR EXHIBITION STAND BUILDER",
@@ -74,6 +82,7 @@ export const homeData: HomeData = {
       ],
     },
   },
+
   solutions: {
     title: "EXHIBITION STAND SOLUTIONS",
     subtitle:
@@ -109,12 +118,24 @@ export const homeData: HomeData = {
       },
     ],
   },
+
   portfolio: [
     "https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
     "https://images.unsplash.com/photo-1559136555-9303baea8ebd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
     "https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80",
   ],
-  countries: ["Germany", "France", "Netherlands", "United Kingdom", "Switzerland", "Spain", "Italy", "Austria"],
+
+  countries: [
+    "Germany",
+    "France",
+    "Netherlands",
+    "United Kingdom",
+    "Switzerland",
+    "Spain",
+    "Italy",
+    "Austria",
+  ],
+
   whyBest: {
     title: "WHY WE ARE ONE OF THE",
     subtitle: "BEST EXHIBITION STAND DESIGN COMPANIES?",

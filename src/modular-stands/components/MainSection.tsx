@@ -8,7 +8,7 @@ export default function MainSection() {
   return (
     <section className="py-16 px-4 max-w-4xl mx-auto">
       <div>
-        <h2 className="text-2xl md:text-3xl text-center font-bold text-gray-900 mb-8">
+        <h2 className="text-2xl md:text-3xl text-justify font-bold text-gray-900 mb-8">
           {title}
         </h2>
 
@@ -28,7 +28,7 @@ export default function MainSection() {
           {descriptions.map((paragraph, index) => (
             <p
               key={index}
-              className="text-gray-700 leading-relaxed text-center"
+              className="text-gray-700 leading-relaxed text-justify"
             >
               {paragraph}
             </p>

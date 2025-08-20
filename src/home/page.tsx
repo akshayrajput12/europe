@@ -1,4 +1,5 @@
 import HeroSection from "./components/HeroSection"
+import { homeData } from "@/data/home"
 import { ExhibitionSection } from "./components/ExhibitionSection"
 import MainContent from "./components/MainContent"
 import SolutionsSection from "./components/SolutionsSection"
@@ -13,7 +14,7 @@ export default function HomePage() {
       <ExhibitionSection />
       <SolutionsSection />
       <PortfolioSection />
-      <MainContent />
+      <MainContent/>
       <WhyBestSection />
       <TestimonialsSection />
     </div>

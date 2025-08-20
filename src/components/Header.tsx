@@ -15,13 +15,15 @@ export default function Header() {
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             {/* Logo */}
-          <div className="flex items-center">
+          <div className="relative h-12 w-32">
   <Image
     src={navigationData.logo.imageUrl}
     alt={navigationData.logo.alt}
-    className="h-12 w-auto object-contain"
+    fill
+    className="object-contain"
   />
 </div>
+
 
 
             {/* Desktop CTA Buttons */}

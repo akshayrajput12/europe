@@ -21,6 +21,12 @@ export interface ModularBenefitsSection {
   image: string
 }
 
+export interface ExhibitionBenefits {
+  title: string
+  subtitle: string
+  items: string[]
+  image: string
+}
 export interface ChooseUsSection {
   title: string
   description: string
@@ -118,5 +124,20 @@ export const modularPointsTable: ModularPointsTable = {
     "We design customizable, easy-to-configure modular booths that are lightweight, sturdy, reusable, and perfect for showcasing products at any trade show.",
     "Our modular trade show booth construction ensures efficiency, cost-effectiveness, and visual impact, helping your brand stand out at every event."
   ]
+}
+
+export const exhibitionBenefits: ExhibitionBenefits = {
+  title: "BENEFITS OF MODULAR EXHIBITION STANDS:",
+  subtitle:
+    "Discover why modular exhibition booths are the most practical and cost-effective solution for your brand in Europe.",
+  items: [
+    "Modular booths are the most user-friendly and can be assembled, shipped, and dismantled in a short period.",
+    "Modular exhibits offer endless scope for reconfiguration as they can be broken down into different parts and rebuilt for new experiences.",
+    "Modular stands are light in weight and strong, so they can be carried easily at different venues.",
+    "Modular exhibits can be easily packed in compact cases and stored for a long time for reuse at the next event.",
+    "Modular stands are the most budget-friendly option that requires less maintenance costs and shipping package charges.",
+  ],
+  image:
+    "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&h=400&fit=crop",
 }
 

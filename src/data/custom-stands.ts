@@ -2,8 +2,6 @@
 
 // 1. Interfaces for strong typing
 
-
-
 export interface HeroSection {
   title: string
   subtitle?: string
@@ -23,6 +21,12 @@ export interface StandProjectText {
   description: string
 }
 
+export interface ExhibitionBenefits {
+  title: string
+  subtitle: string
+  items: string[]
+  image: string
+}
 
 export interface BespokeSection {
   title: string
@@ -48,10 +52,12 @@ export interface PointsTable {
   descriptions: string[]
 }
 
+// ✅ Added `exhibitionBenefits` here
 export interface CustomStandsData {
   hero: HeroSection
   benefits: BenefitsSection
   StandProjectText: StandProjectText
+  exhibitionBenefits: ExhibitionBenefits
   bespoke: BespokeSection
   freshDesign: FreshDesignSection
   costSection: CostSection
@@ -68,7 +74,6 @@ export const customStandsData: CustomStandsData = {
       "CHRONICLES SP Z O.O. has 20+ years of experience in designing and building custom exhibition stands that maximize client ROI. As a leading exhibition stand contractor, we are experts in building unique and tailor-made exhibition stands on your behalf. Our team of skilled professionals will work closely with you to create a custom exhibition stand that perfectly reflects your company's vision and outshines competitors. Our design and builds boldly reflect the brand's identity and make your brand stand out at any trade show.",
     backgroundImage:
       "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1200&h=600&fit=crop",
-    
   },
 
   benefits: {
@@ -85,13 +90,24 @@ export const customStandsData: CustomStandsData = {
   },
 
   StandProjectText: {
-  title: "SOME OF OUR",
-  highlight: "CUSTOM EXHIBITION STAND", // green span
-  description:
-    "Check some of the designs aesthetically created and delivered in the best quality by our professional bespoke exhibition stand builders. The below pictures demonstrate our specially tailored exhibition stands to meet the client's objectives and maximise the expo's success.",
+    title: "SOME OF OUR",
+    highlight: "CUSTOM EXHIBITION STAND", // green span
+    description:
+      "Check some of the designs aesthetically created and delivered in the best quality by our professional bespoke exhibition stand builders. The below pictures demonstrate our specially tailored exhibition stands to meet the client's objectives and maximise the expo's success.",
+  },
 
-},
-
+  exhibitionBenefits: {
+    title: "Why Choose Our Exhibition Stands?",
+    subtitle: "Discover the advantages that make our stands unique and effective.",
+    items: [
+      "Tailor-made designs to match your brand identity.",
+      "High-quality materials ensuring durability and elegance.",
+      "Eco-friendly and sustainable production methods.",
+      "On-time delivery and hassle-free installation.",
+      "Cost-effective solutions without compromising on quality.",
+    ],
+    image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=500&h=300&fit=crop", // update path if needed
+  },
 
   bespoke: {
     title: "A BESPOKE EXHIBITION STAND:",
