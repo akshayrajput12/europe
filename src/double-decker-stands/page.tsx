@@ -14,8 +14,8 @@ export default function DoubleDeckPage() {
     <div className="min-h-screen">
       <main>
         <HeroSection />
-        <MainSection />
         <BenefitsSection />
+        <MainSection />
         <StandProjectText />
         <PortfolioSection />
         <ExhibitionBenefitsSection />

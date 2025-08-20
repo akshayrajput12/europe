@@ -127,7 +127,7 @@ export const modularPointsTable: ModularPointsTable = {
 }
 
 export const exhibitionBenefits: ExhibitionBenefits = {
-  title: "BENEFITS OF MODULAR EXHIBITION STANDS:",
+  title: "lets see OF MODULAR EXHIBITION STANDS:",
   subtitle:
     "Discover why modular exhibition booths are the most practical and cost-effective solution for your brand in Europe.",
   items: [

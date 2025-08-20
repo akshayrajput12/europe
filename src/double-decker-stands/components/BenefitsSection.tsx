@@ -18,11 +18,15 @@ export default function BenefitsSection() {
             </ul>
           </div>
           <div className="lg:order-last">
-            <Image
-              src={doubleDeckBenefitsData.image || "/placeholder.svg"}
-              alt="Double Decker Exhibition Stand"
-              className="w-full h-auto rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300"
-            />
+            <div className="relative w-full h-80 lg:h-96">
+  <Image
+    src={doubleDeckBenefitsData.image || "/placeholder.svg"}
+    alt="Double Decker Exhibition Stand"
+    fill
+    className="object-cover rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300"
+  />
+</div>
+
           </div>
         </div>
       </div>

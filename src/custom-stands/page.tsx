@@ -15,8 +15,8 @@ export default function CustomStandsPage() {
     <div className="min-h-screen">
       <main>
         <HeroSection />
-        <MainSection />
         <BenefitsSection />
+        <MainSection />
         <StandProjectTextSection />
         <PortfolioSection />
         <ExhibitionBenefitsSection />
