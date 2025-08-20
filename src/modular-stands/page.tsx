@@ -14,8 +14,8 @@ export default function ModularStandsPage() {
     <div className="min-h-screen">
       <main>
         <HeroSection />
-        <MainSection />
         <BenefitsSection />
+        <MainSection />
         <ChooseUsSection />
         <PortfolioSection />
         <ExhibitionBenefitsSection />

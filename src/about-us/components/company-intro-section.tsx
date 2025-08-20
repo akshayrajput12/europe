@@ -27,7 +27,10 @@ export default function CompanyIntroSection() {
             </div>
             <div className="flex-1 pt-2 sm:pt-4">
               <div className="relative">
-                <div className="text-4xl sm:text-6xl text-slate-300 absolute -top-4 -left-2 font-serif">"</div>
+                <div className="text-4xl sm:text-6xl text-slate-300 absolute -top-4 -left-2 font-serif">
+  &quot;
+</div>
+
                 <p className="text-slate-500 text-sm sm:text-base md:text-lg leading-relaxed pl-6 sm:pl-8">
                   {companyInfo.globalExhibitionText}
                 </p>
@@ -38,7 +41,10 @@ export default function CompanyIntroSection() {
           {/* Second Quote */}
           <div className="lg:pl-8">
             <div className="relative">
-              <div className="text-4xl sm:text-6xl text-slate-300 absolute -top-4 -left-2 font-serif">"</div>
+              <div className="text-4xl sm:text-6xl text-slate-300 absolute -top-4 -left-2 font-serif">
+  &quot;
+</div>
+
               <p className="text-slate-500 text-sm sm:text-base md:text-lg leading-relaxed pl-6 sm:pl-8">
                 {companyInfo.quote}
               </p>
@@ -85,7 +91,6 @@ function StatCard({ stat }: { stat: { value: number; label: string; icon: React.
   const [count, setCount] = useState(0)
 
   useEffect(() => {
-    let start = 0
     const end = stat.value
     const duration = 2000 // ms
     const frameRate = 30 // fps
