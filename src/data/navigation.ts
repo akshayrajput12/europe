@@ -7,7 +7,7 @@ export const navigationData = {
     { label: "HOME", href: "/" },
     { label: "COMPANY", href: "#" },
     { label: "PORTFOLIO", href: "portfolio" },
-    { label: "TESTIMONIALS", href: "#" },
+    { label: "TESTIMONIALS", href: "/review" },
     { label: "FURNITURE PRODUCTION", href: "#" },
     { label: "CONTACT US", href: "contact-us" },
   ],

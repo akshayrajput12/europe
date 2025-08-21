@@ -2,12 +2,14 @@
 
 import type React from "react"
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { contactData } from "@/data/contact-data"
 
 export default function ContactSection() {
+  const router = useRouter()
   const [formData, setFormData] = useState({
     firstName: "",
     email: "",
@@ -19,6 +21,11 @@ export default function ContactSection() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     console.log("Form submitted:", formData)
+
+    // 👉 simulate form submit success
+    setTimeout(() => {
+      router.push("/thank-you")
+    }, 500) // optional delay for UX
   }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -35,7 +42,9 @@ export default function ContactSection() {
           {/* Contact Info Card */}
           <div className="bg-[#1E293B] text-white p-6 md:p-8 rounded-lg relative order-2 lg:order-1">
             <div className="absolute top-4 right-4 w-16 h-16 md:w-20 md:h-20 bg-[#A5CD39] rounded-full opacity-20"></div>
-            <h3 className="text-xl md:text-2xl font-bold mb-6 text-white">{contactData.contactInfo.title}</h3>
+            <h3 className="text-xl md:text-2xl font-bold mb-6 text-white">
+              {contactData.contactInfo.title}
+            </h3>
 
             <div className="space-y-6">
               <div className="flex items-start gap-3">
