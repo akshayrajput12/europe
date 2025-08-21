@@ -1,0 +1,100 @@
+export interface ContactInfo {
+  address: string
+  city: string
+  country: string
+  phone: string[]
+  email: string
+}
+
+export interface FormField {
+  name: string
+  type: string
+  placeholder: string
+  required: boolean
+}
+
+export interface SupportItem {
+  icon: string
+  title: string
+  description: string
+}
+
+export interface OfficeLocation {
+  name: string
+  address: string
+  phone: string
+  email: string
+  website: string
+}
+
+export const contactData = {
+  hero: {
+    title: "Contact Us",
+    description:
+      "Ready to make a statement at your next exhibition? Reach out to our stand designing and building experts to get quick solutions for your next event.",
+    backgroundImage:
+      "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1926&q=80",
+  },
+
+  contactInfo: {
+    title: "Contact Us",
+    address: "RADON SP. Z.O.O.",
+    fullAddress: "Ul. Gorzowska 2B, 65 - 127 Nefana Góra, Poland",
+    phone: ["+4 678 789 4774", "+48 531 904 068"],
+    email: "enquiry@radonexhibitions.pl",
+  },
+
+  formFields: [
+    { name: "firstName", type: "text", placeholder: "Your Name*", required: true },
+    { name: "email", type: "email", placeholder: "Email ID*", required: true },
+    { name: "phone", type: "tel", placeholder: "Phone Number", required: false },
+    { name: "country", type: "text", placeholder: "Your Country*", required: true },
+    { name: "additionalInfo", type: "textarea", placeholder: "Additional Information*", required: true },
+  ],
+
+  otherOffices: {
+    title: "OTHER OFFICES",
+    offices: [
+      {
+        name: "Chronicle Exhibits USA",
+        address: "8465 W. Sahara Ave., Suite 111 Unit #1163 Las Vegas, NV 89117, United States",
+        phone: "+1 (725) 333-1920",
+        email: "info@chronicleexhibits.com",
+        website: "chronicleexhibits.com",
+      },
+    ],
+  },
+
+  support: {
+    title: "SUPPORT",
+    description:
+      "Your exhibition's success is our commitment. We are here to provide dedicated support for you and your clients, ensuring a seamless experience.",
+    backgroundImage:
+      "https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+    items: [
+      {
+        icon: "design",
+        title: "GET FREE DESIGN",
+        description:
+          "Receive free initially crafted exhibition stand design just for your brand and get ready to stand out at the next event.",
+      },
+      {
+        icon: "submit",
+        title: "SUBMIT YOUR DESIGN",
+        description:
+          "Already have a design? Submit your exhibition stand services for your seamless experience. From design to installation, we have got you covered.",
+      },
+      {
+        icon: "phone",
+        title: "GET PHONE CALL",
+        description:
+          "Ready for quickest service? Call your exhibition stand requirements to us, we are here to support your exhibition stand requirements delivered on time.",
+      },
+    ],
+  },
+
+  map: {
+    backgroundImage:
+      "https://images.unsplash.com/photo-1524661135-423995f22d0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2074&q=80",
+  },
+}

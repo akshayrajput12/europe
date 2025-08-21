@@ -9,7 +9,7 @@ export const navigationData = {
     { label: "PORTFOLIO", href: "portfolio" },
     { label: "TESTIMONIALS", href: "#" },
     { label: "FURNITURE PRODUCTION", href: "#" },
-    { label: "CONTACT US", href: "#" },
+    { label: "CONTACT US", href: "contact-us" },
   ],
   ctaButtons: [
     {
