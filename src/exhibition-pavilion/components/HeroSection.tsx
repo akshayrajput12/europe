@@ -1,7 +1,12 @@
+"use client"
+
 import { Button } from "@/components/ui/button"
 import { pavilionData } from "@/data/pavilionData"
+import { useQuoteModal } from "@/contexts/QuoteModalContext"
 
 export default function HeroSection() {
+  const { openDesignModal } = useQuoteModal()
+
   return (
     <section
       className="relative h-[500px] bg-cover bg-center bg-slate-800"
@@ -13,7 +18,11 @@ export default function HeroSection() {
         <div className="text-center text-white">
           <h1 className="text-5xl md:text-6xl font-bold mb-2">{pavilionData.hero.title.main}</h1>
           <h2 className="text-5xl md:text-6xl font-bold text-primary mb-8">{pavilionData.hero.title.highlight}</h2>
-          <Button size="lg" className="bg-primary hover:bg-primary text-white px-8 py-3">
+          <Button 
+            size="lg" 
+            onClick={openDesignModal}
+            className="bg-primary hover:bg-primary text-white px-8 py-3"
+          >
             {pavilionData.hero.ctaButton}
           </Button>
         </div>

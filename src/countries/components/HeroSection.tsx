@@ -1,10 +1,15 @@
+"use client"
+
 import { CountryHero } from "@/data/countries"
+import { useQuoteModal } from "@/contexts/QuoteModalContext"
 
 interface HeroSectionProps {
   data: CountryHero
 }
 
 export default function HeroSection({ data }: HeroSectionProps) {
+  const { openQuoteModal } = useQuoteModal()
+
   return (
     <section className="relative h-[500px] flex items-center justify-center">
       <div
@@ -23,7 +28,10 @@ export default function HeroSection({ data }: HeroSectionProps) {
           {data.subtitle}
         </h2>
         <div className="mt-8">
-          <button className="bg-[#A5CD39] hover:bg-[#8fb52f] text-black font-semibold px-8 py-3 rounded-sm transition-colors">
+          <button 
+            onClick={openQuoteModal}
+            className="bg-[#A5CD39] hover:bg-[#8fb52f] text-black font-semibold px-8 py-3 rounded-sm transition-colors"
+          >
             REQUEST FOR QUOTATION
           </button>
         </div>

@@ -1,0 +1,17 @@
+{
+  "name": "Chronicles - Exhibition Stand Builder in Europe",
+  "short_name": "Chronicles",
+  "description": "Comprehensive exhibition stand design and fabrication services across Europe",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#a5cd39",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

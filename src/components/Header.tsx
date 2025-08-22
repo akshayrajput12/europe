@@ -5,9 +5,19 @@ import { navigationData } from "@/data/navigation"
 import { Menu, X } from "lucide-react"
 import { useState } from "react"
 import Image from "next/image"
+import { useQuoteModal } from "@/contexts/QuoteModalContext"
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const { openQuoteModal, openDesignModal } = useQuoteModal()
+
+  const handleCTAClick = (label: string) => {
+    if (label.toLowerCase().includes('design')) {
+      openDesignModal()
+    } else {
+      openQuoteModal()
+    }
+  }
 
   return (
     <>
@@ -31,6 +41,7 @@ export default function Header() {
                   key={index}
                   variant="outline"
                   size="sm"
+                  onClick={() => handleCTAClick(button.label)}
                   className="text-slate-800 border-slate-800 hover:bg-[#A5CD39] hover:text-white hover:border-[#A5CD39] bg-background px-3 sm:px-4 md:px-6 py-1.5 sm:py-2 md:py-2 rounded-full font-medium transition-all duration-300 hover:scale-105 text-xs sm:text-sm md:text-base"
                 >
                   {button.label}
@@ -89,6 +100,10 @@ export default function Header() {
                     key={index}
                     variant="outline"
                     size="sm"
+                    onClick={() => {
+                      handleCTAClick(button.label)
+                      setIsMobileMenuOpen(false)
+                    }}
                     className="text-slate-800 border-slate-800 hover:bg-[#A5CD39] hover:text-white hover:border-[#A5CD39] bg-transparent rounded-full font-medium transition-all duration-300 text-sm sm:text-base py-2 sm:py-3"
                   >
                     {button.label}
