@@ -41,8 +41,6 @@ export interface HomeData {
     [key: string]: Exhibition // e.g., 'europe', 'usa'
   }
   solutions: Solutions
-  portfolio: string[]
-  countries: string[]
   whyBest: WhyBest
 }
 
@@ -118,23 +116,6 @@ export const homeData: HomeData = {
       },
     ],
   },
-
-  portfolio: [
-    "https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
-    "https://images.unsplash.com/photo-1559136555-9303baea8ebd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
-    "https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80",
-  ],
-
-  countries: [
-    "Germany",
-    "France",
-    "Netherlands",
-    "United Kingdom",
-    "Switzerland",
-    "Spain",
-    "Italy",
-    "Austria",
-  ],
 
   whyBest: {
     title: "WHY WE ARE ONE OF THE",

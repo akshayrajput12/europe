@@ -6,11 +6,11 @@ import { homeData } from "@/data/home"
 
 export default function SolutionsSection() {
   return (
-    <section className="bg-gray-50 py-12 md:py-16 -mx-4 px-4 mb-12 md:mb-16">
-      <div className="container mx-auto">
+    <section className="bg-gray-50 py-8 sm:py-12 md:py-16 lg:py-20 -mx-4 px-4 mb-8 sm:mb-12 md:mb-16">
+      <div className="container mx-auto px-2 sm:px-4">
         {/* Section Header */}
-        <div className="text-center mb-8 md:mb-12">
-          <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold mb-4">
+        <div className="text-center mb-6 sm:mb-8 md:mb-12 lg:mb-16">
+          <h2 className="text-xl sm:text-2xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-3 sm:mb-4 md:mb-6">
             {homeData.solutions.title.split(" ").map((word, index) =>
               word === "SOLUTIONS" ? (
                 <span key={index} className="text-[#A5CD39]">
@@ -23,13 +23,13 @@ export default function SolutionsSection() {
               )
             )}
           </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto text-sm md:text-base leading-relaxed px-4 md:px-0">
+          <p className="text-gray-600 max-w-xl md:max-w-2xl lg:max-w-3xl mx-auto text-xs sm:text-sm md:text-base lg:text-lg leading-relaxed px-2 sm:px-4 md:px-0">
             {homeData.solutions.subtitle}
           </p>
         </div>
 
         {/* Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8 lg:gap-6 xl:gap-8">
           {homeData.solutions.items.map((solution, index) => {
             const linkMap: { [key: string]: string } = {
               "Custom Exhibition Stands": "/custom-stands",
@@ -43,27 +43,27 @@ export default function SolutionsSection() {
                 key={index}
                 className="border border-gray-200 text-center hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 hover:scale-105"
               >
-                <CardContent className="p-4">
-                  <div className="overflow-hidden mb-4 rounded-md">
+                <CardContent className="p-3 sm:p-4 md:p-5 lg:p-4 xl:p-6">
+                  <div className="overflow-hidden mb-3 sm:mb-4 rounded-md">
                     <Image
                       src={solution.image || "/placeholder.svg"}
                       alt={solution.title}
                       width={300}
                       height={200}
-                      className="w-full h-40 md:h-48 object-cover group-hover:scale-105 transition-transform duration-300 rounded-md"
+                      className="w-full h-32 sm:h-36 md:h-40 lg:h-44 xl:h-48 object-cover group-hover:scale-105 transition-transform duration-300 rounded-md"
                     />
                   </div>
-                  <h3 className="font-bold text-lg mb-2 text-gray-900">
+                  <h3 className="font-bold text-sm sm:text-base md:text-lg lg:text-xl mb-2 sm:mb-3 text-gray-900 leading-tight">
                     {solution.title}
                   </h3>
-                  <p className="text-gray-600 text-sm mb-4 leading-relaxed">
+                  <p className="text-gray-600 text-xs sm:text-sm md:text-base mb-3 sm:mb-4 leading-relaxed">
                     {solution.description}
                   </p>
                   <Link href={linkMap[solution.title] || "#"}>
                     <Button
                       variant="outline"
                       size="sm"
-                      className="text-xs md:text-sm border-gray-400 text-gray-900 hover:bg-[#A5CD39] hover:text-white hover:border-[#A5CD39] transition-all duration-300"
+                      className="text-xs md:text-sm border-gray-400 text-gray-900 hover:bg-[#A5CD39] hover:text-white hover:border-[#A5CD39] transition-all duration-300 px-3 sm:px-4 py-1.5 sm:py-2"
                     >
                       LEARN MORE
                     </Button>

@@ -1,9 +1,13 @@
 "use client"
 
 import { homeData } from "@/data/home"
+import { countriesData } from "@/data/countries"
 
 export default function MainContent() {
-  const { mainSection, countries } = homeData
+  const { mainSection } = homeData
+  
+  // Filter only featured countries for home page display
+  const featuredCountries = countriesData.countries.filter(country => country.featured)
 
   return (
     <main className="container mx-auto px-4 py-8 md:py-16">
@@ -30,16 +34,16 @@ export default function MainContent() {
         </p>
       </div>
 
-      {/* Countries Grid */}
+      {/* Countries Grid - Only Featured Countries */}
       <div className="max-w-6xl mx-auto mb-16 md:mb-20">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-8">
-          {countries.map((country, index) => (
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 mb-8">
+          {featuredCountries.map((country, index) => (
             <div
               key={index}
               className="bg-gray-50 hover:bg-white p-6 md:p-8 text-center rounded-lg transition-all duration-300 hover:shadow-lg cursor-pointer group border border-gray-100"
             >
               <h3 className="font-medium text-lg md:text-xl text-gray-800 group-hover:text-[#A5CD39] transition-colors duration-300">
-                {country}
+                {country.name}
               </h3>
             </div>
           ))}

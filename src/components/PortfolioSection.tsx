@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { portfolioData } from "@/data/portfolio";
 
 type PortfolioSectionProps = {
@@ -9,6 +10,9 @@ type PortfolioSectionProps = {
 
 export default function PortfolioSection({ title, subtitle }: PortfolioSectionProps) {
   const { items, ctaText, ctaLink } = portfolioData;
+
+  // Filter only featured items for display
+  const featuredItems = items.filter(item => item.featured);
 
   // ✅ If no props are passed, section header is hidden
   const showTitle = title ?? null;
@@ -33,23 +37,23 @@ export default function PortfolioSection({ title, subtitle }: PortfolioSectionPr
           </div>
         )}
 
-        {/* Portfolio Grid */}
+        {/* Portfolio Grid - Only Featured Items */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {items.map((item, index) => (
+          {featuredItems.map((item, index) => (
             <div
               key={index}
               className="group relative aspect-[4/3] bg-gray-200 rounded-lg overflow-hidden"
             >
               {/* Image with hover zoom */}
-              <div
-                className="w-full h-full bg-cover bg-center transition-transform duration-300 group-hover:scale-105"
-                style={{
-                  backgroundImage: `url(${item.image})`,
-                }}
+              <Image
+                src={item.image}
+                alt={item.title}
+                fill
+                className="object-cover transition-transform duration-300 group-hover:scale-105"
               />
 
               {/* Overlay */}
-              {/* <div className="absolute inset-0 bg-black/0 group-hover:bg-black/50 transition-colors duration-300 flex items-center justify-center">
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/50 transition-colors duration-300 flex items-center justify-center">
                 <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-center px-4">
                   <div className="bg-white/90 backdrop-blur-sm rounded-lg px-4 py-2">
                     <h3 className="font-semibold text-gray-800">
@@ -58,7 +62,7 @@ export default function PortfolioSection({ title, subtitle }: PortfolioSectionPr
                     <p className="text-sm text-gray-600">{item.category}</p>
                   </div>
                 </div>
-              </div> */}
+              </div>
             </div>
           ))}
         </div>

@@ -1,44 +1,51 @@
 import Image from "next/image"
+import Link from "next/link"
+import { Button } from "@/components/ui/button"
+import { portfolioData } from "@/data/portfolio"
 
 export default function PortfolioSection() {
-  const portfolioImages = [
-    "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&h=600&fit=crop",
-    "https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=800&h=600&fit=crop",
-    "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=600&fit=crop",
-    "https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=800&h=600&fit=crop",
-    "https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=800&h=600&fit=crop",
-    "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&h=600&fit=crop",
-  ]
-
+  // Filter only featured items for home page display
+  const featuredItems = portfolioData.items.filter(item => item.featured);
+  
   return (
-    <section className="py-16 md:py-20">
-      <div className="mb-12 text-center px-4">
-        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-          OUR <span className="text-[#A5CD39]">PORTFOLIO</span>
-        </h2>
-        <p className="text-gray-600 max-w-2xl mx-auto text-base md:text-lg">
-          Explore our extensive portfolio of exhibition stands and discover the quality and creativity we bring to
-          every project.
-        </p>
+    <section className="py-12 sm:py-14 md:py-16 lg:py-20 xl:py-24">
+      <div className="mb-8 sm:mb-10 md:mb-12 lg:mb-16 text-center">
+        <div className="container mx-auto px-2 sm:px-4 md:px-6 lg:px-8">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-3 sm:mb-4 md:mb-6">
+            OUR <span className="text-[#A5CD39]">PORTFOLIO</span>
+          </h2>
+          <p className="text-gray-600 max-w-sm sm:max-w-lg md:max-w-2xl lg:max-w-3xl mx-auto text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed px-2 sm:px-4 md:px-0">
+            Explore our extensive portfolio of exhibition stands and discover the quality and creativity we bring to
+            every project.
+          </p>
+        </div>
       </div>
 
-      {/* Full-width gallery with small gaps */}
-      <div className="w-full">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1 md:gap-2 lg:gap-4">
-          {portfolioImages.map((image, index) => (
-            <div
-              key={index}
-              className="group overflow-hidden aspect-[4/3] relative "
-            >
-              <Image
-                src={image || "/placeholder.svg"}
-                alt={`Exhibition stand portfolio ${index + 1}`}
-                fill
-                className="object-cover group-hover:scale-110 transition-transform duration-500"
-              />
-              <div className="absolute inset-0  bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300" />
-            </div>
-          ))}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-1">
+        {featuredItems.map((item, index) => (
+          <div
+            key={index}
+            className="group overflow-hidden aspect-[4/3] relative shadow-md hover:shadow-xl transition-all duration-300"
+          >
+            <Image
+              src={item.image || "/placeholder.svg"}
+              alt={item.title}
+              fill
+              className="object-cover group-hover:scale-110 transition-transform duration-500"
+            />
+            <div className="absolute inset-0 bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300" />
+          </div>
+        ))}
+      </div>
+
+      {/* View Portfolio Button */}
+      <div className="text-center mt-8 sm:mt-10 md:mt-12 lg:mt-16">
+        <div className="container mx-auto px-2 sm:px-4 md:px-6 lg:px-8">
+          <Link href={portfolioData.ctaLink}>
+            <Button className="bg-[#A5CD39] hover:bg-[#8fb52f] text-black font-semibold px-4 sm:px-6 md:px-8 py-2 sm:py-3 md:py-4 rounded-sm transition-colors text-sm sm:text-base md:text-lg">
+              {portfolioData.ctaText}
+            </Button>
+          </Link>
         </div>
       </div>
     </section>
