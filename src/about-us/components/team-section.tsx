@@ -1,4 +1,5 @@
 import { teamInfo } from "@/data/about-data"
+import Image from "next/image"
 
 export default function TeamSection() {
   return (
@@ -12,11 +13,14 @@ export default function TeamSection() {
             <p className="text-slate-700 leading-relaxed text-base md:text-lg">{teamInfo.description}</p>
           </div>
           <div className="lg:pl-8">
-            <img
-              src={teamInfo.teamImage || "/placeholder.svg"}
-              alt="Our professional team"
-              className="w-full h-[350px] object-cover hover:scale-110 transition-all duration-300"
-            />
+            <div className="relative w-full h-[350px]">
+              <Image
+                src={teamInfo.teamImage || "/placeholder.svg"}
+                alt="Our professional team"
+                fill
+                className="object-cover hover:scale-110 transition-all duration-300"
+              />
+            </div>
           </div>
         </div>
       </div>

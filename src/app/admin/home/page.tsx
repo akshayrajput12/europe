@@ -7,16 +7,17 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
+import ImageUpload from "@/components/ui/ImageUpload"
+import Image from "next/image"
 import { 
   Save, 
   Eye, 
   Plus, 
   Trash2, 
-  Image, 
+  Image as ImageIcon, 
   FileText,
   ArrowLeft,
-  Edit3,
-  Upload
+  Edit3
 } from "lucide-react"
 import { homeData, type SolutionItem } from "@/data/home"
 
@@ -137,7 +138,7 @@ export default function AdminHomePage() {
       <Card className="p-6">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-xl font-semibold flex items-center gap-2">
-            <Image className="h-5 w-5" />
+            <ImageIcon className="h-5 w-5" />
             Hero Section
           </h2>
           <div className="flex gap-2">
@@ -156,14 +157,12 @@ export default function AdminHomePage() {
         
         {isEditing.hero ? (
           <div className="space-y-4">
-            <div>
-              <label className="text-sm font-medium mb-2 block">Background Image URL</label>
-              <Input
-                value={formData.heroImage}
-                onChange={(e) => setFormData(prev => ({ ...prev, heroImage: e.target.value }))}
-                placeholder="Enter image URL..."
-              />
-            </div>
+            <ImageUpload
+              value={formData.heroImage}
+              onChange={(value) => setFormData(prev => ({ ...prev, heroImage: value }))}
+              label="Hero Background Image"
+              className="w-full"
+            />
           </div>
         ) : (
           <div className="h-48 rounded-lg overflow-hidden bg-cover bg-center relative" 
@@ -323,27 +322,14 @@ export default function AdminHomePage() {
                           onChange={(e) => updateSolution(index, 'description', e.target.value)}
                         />
                       </div>
-                      <div>
-                        <label className="text-sm font-medium mb-2 block">Image URL</label>
-                        <Input
-                          value={solution.image}
-                          onChange={(e) => updateSolution(index, 'image', e.target.value)}
-                          placeholder="Enter image URL..."
-                        />
-                      </div>
                     </div>
                     <div className="space-y-3">
-                      <label className="text-sm font-medium block">Preview</label>
-                      <div className="aspect-video bg-gray-200 rounded-lg overflow-hidden">
-                        <img 
-                          src={solution.image} 
-                          alt={solution.title} 
-                          className="w-full h-full object-cover"
-                          onError={(e) => {
-                            e.currentTarget.style.display = 'none'
-                          }}
-                        />
-                      </div>
+                      <ImageUpload
+                        value={solution.image}
+                        onChange={(value) => updateSolution(index, 'image', value)}
+                        label="Solution Image"
+                        className="w-full"
+                      />
                     </div>
                   </div>
                 </div>
@@ -364,13 +350,226 @@ export default function AdminHomePage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
               {formData.solutions.map((item, index) => (
                 <div key={index} className="p-4 border rounded-lg hover:shadow-md transition-shadow">
-                  <div className="aspect-video bg-gray-200 rounded mb-3 overflow-hidden">
-                    <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
+                  <div className="aspect-video bg-gray-200 rounded mb-3 overflow-hidden relative">
+                    <Image 
+                      src={item.image} 
+                      alt={item.title} 
+                      fill
+                      className="object-cover"
+                    />
                   </div>
                   <h4 className="font-medium text-sm mb-2">{item.title}</h4>
                   <p className="text-xs text-gray-500 line-clamp-3">{item.description}</p>
                 </div>
               ))}
+            </div>
+          </div>
+        )}
+      </Card>
+
+      {/* Exhibition Section */}
+      <Card className="p-6">
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-xl font-semibold flex items-center gap-2">
+            <FileText className="h-5 w-5" />
+            Exhibition Data Section
+          </h2>
+          <div className="flex gap-2">
+            <Button variant="outline" size="sm" onClick={() => toggleEdit('exhibition')}>
+              <Edit3 className="h-4 w-4 mr-2" />
+              {isEditing.exhibition ? 'Cancel' : 'Edit'}
+            </Button>
+            {isEditing.exhibition && (
+              <Button size="sm" onClick={() => handleSave('exhibition')}>
+                <Save className="h-4 w-4 mr-2" />
+                Save
+              </Button>
+            )}
+          </div>
+        </div>
+
+        {isEditing.exhibition ? (
+          <div className="space-y-6">
+            {/* Europe Section */}
+            <div className="border rounded-lg p-4">
+              <h3 className="text-lg font-semibold mb-4">Europe Exhibition Data</h3>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                <div className="space-y-4">
+                  <div>
+                    <label className="text-sm font-medium mb-2 block">Title</label>
+                    <Input
+                      value={formData.europeTitle}
+                      onChange={(e) => setFormData(prev => ({ ...prev, europeTitle: e.target.value }))}
+                    />
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium mb-2 block">Subtitle</label>
+                    <Input
+                      value={formData.europeSubtitle}
+                      onChange={(e) => setFormData(prev => ({ ...prev, europeSubtitle: e.target.value }))}
+                    />
+                  </div>
+                </div>
+                <div>
+                  <ImageUpload
+                    value={formData.europeBoothImage}
+                    onChange={(value) => setFormData(prev => ({ ...prev, europeBoothImage: value }))}
+                    label="Europe Booth Image"
+                    className="w-full"
+                  />
+                </div>
+              </div>
+              <div className="mt-4">
+                <label className="text-sm font-medium mb-2 block">Paragraphs ({formData.europeParagraphs.length})</label>
+                <div className="space-y-3">
+                  {formData.europeParagraphs.map((paragraph, index) => (
+                    <div key={index} className="flex gap-2">
+                      <Textarea
+                        value={paragraph}
+                        onChange={(e) => {
+                          const newParagraphs = [...formData.europeParagraphs]
+                          newParagraphs[index] = e.target.value
+                          setFormData(prev => ({ ...prev, europeParagraphs: newParagraphs }))
+                        }}
+                        rows={2}
+                        className="flex-1"
+                      />
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => {
+                          const newParagraphs = formData.europeParagraphs.filter((_, i) => i !== index)
+                          setFormData(prev => ({ ...prev, europeParagraphs: newParagraphs }))
+                        }}
+                        className="text-red-600 hover:bg-red-50"
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  ))}
+                  <Button
+                    onClick={() => {
+                      setFormData(prev => ({
+                        ...prev,
+                        europeParagraphs: [...prev.europeParagraphs, "New paragraph..."]
+                      }))
+                    }}
+                    size="sm"
+                    variant="outline"
+                  >
+                    <Plus className="h-4 w-4 mr-2" />
+                    Add Paragraph
+                  </Button>
+                </div>
+              </div>
+            </div>
+
+            <Separator />
+
+            {/* USA Section */}
+            <div className="border rounded-lg p-4">
+              <h3 className="text-lg font-semibold mb-4">USA Exhibition Data</h3>
+              <div className="space-y-4">
+                <div>
+                  <label className="text-sm font-medium mb-2 block">Title</label>
+                  <Input
+                    value={formData.usaTitle}
+                    onChange={(e) => setFormData(prev => ({ ...prev, usaTitle: e.target.value }))}
+                  />
+                </div>
+                <div>
+                  <label className="text-sm font-medium mb-2 block">Paragraphs ({formData.usaParagraphs.length})</label>
+                  <div className="space-y-3">
+                    {formData.usaParagraphs.map((paragraph, index) => (
+                      <div key={index} className="flex gap-2">
+                        <Textarea
+                          value={paragraph}
+                          onChange={(e) => {
+                            const newParagraphs = [...formData.usaParagraphs]
+                            newParagraphs[index] = e.target.value
+                            setFormData(prev => ({ ...prev, usaParagraphs: newParagraphs }))
+                          }}
+                          rows={3}
+                          className="flex-1"
+                        />
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => {
+                            const newParagraphs = formData.usaParagraphs.filter((_, i) => i !== index)
+                            setFormData(prev => ({ ...prev, usaParagraphs: newParagraphs }))
+                          }}
+                          className="text-red-600 hover:bg-red-50"
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    ))}
+                    <Button
+                      onClick={() => {
+                        setFormData(prev => ({
+                          ...prev,
+                          usaParagraphs: [...prev.usaParagraphs, "New paragraph..."]
+                        }))
+                      }}
+                      size="sm"
+                      variant="outline"
+                    >
+                      <Plus className="h-4 w-4 mr-2" />
+                      Add Paragraph
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div className="space-y-6">
+            {/* Europe Preview */}
+            <div className="border rounded-lg p-4">
+              <div className="flex items-center justify-between mb-3">
+                <Badge variant="secondary">Europe Section</Badge>
+              </div>
+              <h3 className="text-lg font-bold mb-2">{formData.europeTitle}</h3>
+              <h4 className="text-md text-gray-700 mb-3">{formData.europeSubtitle}</h4>
+              {formData.europeBoothImage && (
+                <div className="aspect-video bg-gray-200 rounded-lg overflow-hidden mb-3 max-w-sm relative">
+                  <Image
+                    src={formData.europeBoothImage}
+                    alt="Europe booth"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+              )}
+              <div className="space-y-2">
+                <p className="text-sm font-medium">Content ({formData.europeParagraphs.length} paragraphs)</p>
+                <div className="max-h-32 overflow-y-auto space-y-1">
+                  {formData.europeParagraphs.map((paragraph, index) => (
+                    <p key={index} className="text-xs text-gray-600 p-2 bg-gray-50 rounded">
+                      {paragraph.slice(0, 150)}{paragraph.length > 150 ? '...' : ''}
+                    </p>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* USA Preview */}
+            <div className="border rounded-lg p-4">
+              <div className="flex items-center justify-between mb-3">
+                <Badge variant="secondary">USA Section</Badge>
+              </div>
+              <h3 className="text-lg font-bold mb-3">{formData.usaTitle}</h3>
+              <div className="space-y-2">
+                <p className="text-sm font-medium">Content ({formData.usaParagraphs.length} paragraphs)</p>
+                <div className="max-h-32 overflow-y-auto space-y-1">
+                  {formData.usaParagraphs.map((paragraph, index) => (
+                    <p key={index} className="text-xs text-gray-600 p-2 bg-gray-50 rounded">
+                      {paragraph.slice(0, 150)}{paragraph.length > 150 ? '...' : ''}
+                    </p>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         )}

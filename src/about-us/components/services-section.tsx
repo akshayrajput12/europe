@@ -1,4 +1,5 @@
 import { services } from "@/data/about-data"
+import Image from "next/image"
 
 export default function ServicesSection() {
   return (
@@ -36,11 +37,14 @@ export default function ServicesSection() {
               <p className="text-slate-700 leading-relaxed text-base md:text-lg">{service.description}</p>
             </div>
             <div className={`${service.isReversed ? "lg:col-start-1 lg:pr-8" : "lg:pl-8"}`}>
-              <img
-                src={service.image || "/placeholder.svg"}
-                alt={service.title}
-                className="w-full h-[300px] object-cover hover:scale-110 transition-all duration-300"
-              />
+              <div className="relative w-full h-[300px]">
+                <Image
+                  src={service.image || "/placeholder.svg"}
+                  alt={service.title}
+                  fill
+                  className="object-cover hover:scale-110 transition-all duration-300"
+                />
+              </div>
             </div>
           </div>
         ))}

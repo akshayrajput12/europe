@@ -1,4 +1,5 @@
 import { WhyChooseUs as WhyChooseUsType } from "@/data/countries"
+import Image from "next/image"
 
 interface WhyChooseUsSectionProps {
   data: WhyChooseUsType
@@ -11,11 +12,14 @@ export default function WhyChooseUsSection({ data }: WhyChooseUsSectionProps) {
         <div className="grid lg:grid-cols-2 gap-8 items-start">
           {/* Left side - Image */}
           <div className="lg:pr-8">
-            <img
-              src={data.mainImage}
-              alt="Exhibition stand"
-              className="w-full h-[400px] object-cover rounded-sm"
-            />
+            <div className="relative w-full h-[400px] rounded-sm overflow-hidden">
+              <Image
+                src={data.mainImage}
+                alt="Exhibition stand"
+                fill
+                className="object-cover"
+              />
+            </div>
           </div>
 
           {/* Right side - Content */}
