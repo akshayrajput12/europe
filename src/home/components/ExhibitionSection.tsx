@@ -24,7 +24,7 @@ export function ExhibitionSection() {
         {/* Left Column - Trade Show Booth Image */}
         <div className="relative">
           <Image
-            src={homeData.exhibitionData.europe.boothImage}
+            src={homeData.exhibitionData.europe.boothImage || "/placeholder.svg"}
             alt={homeData.exhibitionData.europe.title}
             width={600}
             height={384}
