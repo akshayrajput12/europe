@@ -6,7 +6,7 @@ export const footerData = {
       { label: "About Us", href: "/about-us" },
       { label: "Testimonials", href: "/review" },
       { label: "Portfolio", href: "/portfolio" },
-      { label: "Upcoming Tradeshow", href: "/tradeshow" },
+      { label: "Upcoming Tradeshow", href: "/trade-shows" },
       { label: "Contact Us", href: "/contact-us" },
       { label: "Blog", href: "/blog" },
     ],

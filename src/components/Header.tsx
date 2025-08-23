@@ -114,7 +114,8 @@ export default function Header() {
           </div>
         )}
       </header>
-      <div className="h-16 sm:h-[70px] md:h-[80px] lg:h-[120px] xl:h-[130px]"></div>
+      {/* Header spacer to account for fixed header - precisely calculated */}
+      <div className="h-12 sm:h-16 md:h-20 lg:h-28"></div>
     </>
   )
 }
