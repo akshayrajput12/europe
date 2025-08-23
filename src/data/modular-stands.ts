@@ -54,7 +54,7 @@ export const modularStandsHero: ModularStandsHero = {
   title: "MODULAR EXHIBITION STANDS",
   subtitle: "DESIGN & BUILD",
   description:
-    "Chronicles SP Z.O.O. is a leading modular exhibition stand construction company in Europe. As an experienced builder for the last 20+ years, we have designed captivating modular display stands for 600+ clients. We offer customizable, easy-to-configure exhibition and cost-effective modular exhibits that can be easily assembled at the fairgrounds. The modular trade show booth construction designed and built by us is lightweight, sturdy, and reusable and helps showcase the products in the best way.",
+    "CHRONICLES SP Z O.O. has 20+ years of experience in designing and building custom exhibition stands that maximize client ROI. As a leading exhibition stand contractor, we are experts in building unique and tailor-made exhibition stands on your behalf",
   backgroundImage: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1920&h=1080&fit=crop",
 }
 

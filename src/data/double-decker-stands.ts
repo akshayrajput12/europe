@@ -48,7 +48,7 @@ export const doubleDeckHeroData: HeroData = {
   title: "DOUBLE DECKER EXHIBITION STANDS",
   subtitle: "DESIGN & BUILD",
   description:
-    "If you want to make your brand easily spotted on the show floor then contact Chronicles to get double-decker exhibit stands. These booths allow users to expand the usable space upwards. We have designed and built double-decker exhibition stands for 1150+ trade shows in Europe and clients worldwide trust us for their exhibit needs. Our designed two-story booths add prominence to the brand and drive traffic to the stall.",
+    "CHRONICLES SP Z O.O. has 20+ years of experience in designing and building custom exhibition stands that maximize client ROI. As a leading exhibition stand contractor, we are experts in building unique and tailor-made exhibition stands on your behalf",
 };
 
 export const doubleDeckBenefitsData: BenefitsData = {

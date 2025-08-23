@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button"
 import { homeData } from "@/data/home"
+import Image from "next/image"
 
 export function ExhibitionSection() {
   return (
@@ -22,9 +23,11 @@ export function ExhibitionSection() {
       <div className="grid lg:grid-cols-2 gap-12 items-start">
         {/* Left Column - Trade Show Booth Image */}
         <div className="relative">
-          <img
+          <Image
             src={homeData.exhibitionData.europe.boothImage}
-      alt={homeData.exhibitionData.europe.title}
+            alt={homeData.exhibitionData.europe.title}
+            width={600}
+            height={384}
             className="w-full h-80 md:h-96 object-cover rounded-lg shadow-lg"
           />
         </div>

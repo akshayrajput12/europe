@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { X, Clock } from "lucide-react"
-import { sortedCountryCodes, type CountryCode } from "@/data/countryCodes"
+import { sortedCountryCodes } from "@/data/countryCodes"
 
 interface RequestQuoteModalProps {
   isOpen: boolean
@@ -30,7 +30,6 @@ export default function RequestQuoteModal({ isOpen, onClose, type = "quote" }: R
   
   const [countrySearch, setCountrySearch] = useState("")
   const [isCountryDropdownOpen, setIsCountryDropdownOpen] = useState(false)
-  const [isDetectingCountry, setIsDetectingCountry] = useState(false)
 
   const isDesignRequest = type === "design"
   const title = isDesignRequest ? "Request a Free Design" : "Request a Quotation"
@@ -56,7 +55,6 @@ export default function RequestQuoteModal({ isOpen, onClose, type = "quote" }: R
 
   // Function to detect country based on IP
   const detectCountryByIP = async () => {
-    setIsDetectingCountry(true)
     try {
       const response = await fetch('https://ip-api.com/json/')
       const data = await response.json()
@@ -68,8 +66,6 @@ export default function RequestQuoteModal({ isOpen, onClose, type = "quote" }: R
       }
     } catch (error) {
       console.log('Could not detect country from IP:', error)
-    } finally {
-      setIsDetectingCountry(false)
     }
   }
 

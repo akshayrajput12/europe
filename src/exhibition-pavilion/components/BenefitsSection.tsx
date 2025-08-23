@@ -1,4 +1,5 @@
 import { pavilionData } from "@/data/pavilionData"
+import Image from "next/image"
 
 export default function BenefitsSection() {
   return (
@@ -16,10 +17,12 @@ export default function BenefitsSection() {
               ))}
             </ul>
           </div>
-          <div>
-            <img
+          <div className="relative">
+            <Image
               src={pavilionData.benefits.image || "/placeholder.svg"}
               alt="Exhibition Pavilion Benefits"
+              width={600}
+              height={400}
               className="w-full h-auto rounded-lg shadow-lg"
             />
           </div>

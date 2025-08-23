@@ -21,21 +21,23 @@ export default function PortfolioSection() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-1">
-        {featuredItems.map((item, index) => (
-          <div
-            key={index}
-            className="group overflow-hidden aspect-[4/3] relative shadow-md hover:shadow-xl transition-all duration-300"
-          >
-            <Image
-              src={item.image || "/placeholder.svg"}
-              alt={item.title}
-              fill
-              className="object-cover group-hover:scale-110 transition-transform duration-500"
-            />
-            <div className="absolute inset-0 bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300" />
-          </div>
-        ))}
+      <div className="px-1">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-1">
+          {featuredItems.map((item, index) => (
+            <div
+              key={index}
+              className="group overflow-hidden aspect-[4/3] relative shadow-md hover:shadow-xl transition-all duration-300"
+            >
+              <Image
+                src={item.image || "/placeholder.svg"}
+                alt={item.title}
+                fill
+                className="object-cover group-hover:scale-110 transition-transform duration-500"
+              />
+              <div className="absolute inset-0 bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300" />
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* View Portfolio Button */}

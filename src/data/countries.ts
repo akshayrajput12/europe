@@ -115,7 +115,7 @@ export const franceData: CountryData = {
   hero: {
     title: "EXHIBITION STAND DESIGN AND BUILD IN",
     subtitle: "FRANCE",
-    backgroundImage: "https://images.unsplash.com/photo-1502602898536-47ad22581b52?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80"
+    backgroundImage: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=500&h=400&fit=crop"
   },
 
   whyChooseUs: {
@@ -249,23 +249,161 @@ export const franceData: CountryData = {
   }
 }
 
-// Generic country data that can be customized for different countries
-export const getCountryData = (countryName: string): CountryData => {
-  // This can be extended to return different data based on the country
-  // For now, returning France data as template
-  return {
-    ...franceData,
-    hero: {
-      ...franceData.hero,
-      subtitle: countryName.toUpperCase()
-    },
-    whyChooseUs: {
-      ...franceData.whyChooseUs,
-      subtitle: countryName
-    },
-    bestCompany: {
-      ...franceData.bestCompany,
-      title: `BEST EXHIBITION STAND DESIGN COMPANY IN ${countryName.toUpperCase()} FOR`
+// Germany data
+export const germanyData: CountryData = {
+  hero: {
+    title: "EXHIBITION STAND DESIGN AND BUILD IN",
+    subtitle: "GERMANY",
+    backgroundImage: "https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=500&h=400&fit=crop"
+  },
+
+  whyChooseUs: {
+    title: "Why Choose Us for Exhibition Stands in",
+    subtitle: "Germany?",
+    mainImage: "https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=500&h=400&fit=crop",
+    benefits: [
+      {
+        icon: "🎯",
+        title: "Leading exhibition stand builders in Germany",
+        description: "Your trusted partner for success in German trade shows"
+      },
+      {
+        icon: "⚡",
+        title: "Local expertise with European manufacturing",
+        description: "Understanding German market requirements and regulations"
+      },
+      {
+        icon: "🛡️",
+        title: "German-speaking project managers",
+        description: "Seamless communication throughout your project"
+      },
+      {
+        icon: "💰",
+        title: "Competitive German market pricing",
+        description: "Best value for money without compromising quality"
+      },
+      {
+        icon: "⏰",
+        title: "Complete exhibition services in Germany",
+        description: "From design to dismantling - we handle everything"
+      }
+    ]
+  },
+
+  companyInfo: {
+    title: "PREMIER EXHIBITION STAND BUILDER IN GERMANY",
+    content: [
+      "At RADON SP Z O.O., we specialize in delivering exceptional exhibition stand construction services in Germany. Our team combines deep understanding of German trade show culture with cutting-edge design and construction expertise to create stands that make lasting impressions.",
+      "Germany hosts some of Europe's most prestigious trade shows, and we understand the unique requirements of German exhibition venues. Our experienced team navigates local regulations, venue specifications, and cultural preferences to ensure your exhibition stand performs exceptionally.",
+      "We pride ourselves on German precision and efficiency, delivering projects that meet the highest standards of quality and punctuality. Our comprehensive approach covers every aspect of your exhibition participation in Germany.",
+      "With state-of-the-art manufacturing facilities and a dedicated German market team, we provide cost-effective solutions that maximize your exhibition ROI in Germany's competitive trade show environment.",
+      "From concept to completion, we ensure your brand message resonates with German audiences through innovative design and flawless execution."
+    ],
+    stats: {
+      projects: 3500,
+      years: 18,
+      tradeshows: 950
     }
+  },
+
+  bestCompany: {
+    title: "BEST EXHIBITION STAND DESIGN COMPANY IN GERMANY FOR",
+    subtitle: "OUTSTANDING RESULTS",
+    content: [
+      "We are committed to creating exceptional brand experiences that capture the attention of German trade show visitors. With over 18 years of experience in the German exhibition market, we have established ourselves as a premier exhibition stand contractor.",
+      "Our portfolio includes successful projects for 800+ clients across 3500+ projects in Germany's leading exhibition venues. Our German-focused team delivers customized exhibition solutions that effectively communicate your brand message to German audiences.",
+      "With our advanced manufacturing capabilities and deep understanding of German exhibition standards, we deliver projects with remarkable efficiency and quality. Partner with Germany's most trusted exhibition stand design company."
+    ],
+    stats: {
+      clients: 800,
+      projects: 3500,
+      manufacturingUnit: "European-standard"
+    }
+  },
+
+  processSection: {
+    title: "Our Proven Exhibition Stand Design &",
+    subtitle: "Build Process in Germany",
+    steps: [
+      {
+        icon: "💡",
+        title: "Briefing",
+        subtitle: "Understanding German market requirements",
+        description: "Comprehensive briefing sessions tailored to German exhibition standards and audience preferences."
+      },
+      {
+        icon: "✏️",
+        title: "3D Design",
+        subtitle: "German precision in 3D visualization",
+        description: "Detailed 3D renderings that meet German exhibition venue specifications and regulations."
+      },
+      {
+        icon: "🏭",
+        title: "Manufacturing",
+        subtitle: "European-standard production facilities",
+        description: "High-quality manufacturing with German-level precision and attention to detail."
+      },
+      {
+        icon: "🚚",
+        title: "Logistics",
+        subtitle: "Efficient logistics to German venues",
+        description: "Specialized transportation solutions for major German exhibition centers."
+      },
+      {
+        icon: "🔧",
+        title: "Installation",
+        subtitle: "Professional setup by German-experienced team",
+        description: "Expert installation team familiar with German venue requirements and safety standards."
+      },
+      {
+        icon: "🎯",
+        title: "Show Support",
+        subtitle: "Continuous support during German trade shows",
+        description: "24/7 German-language support throughout your exhibition period."
+      }
+    ]
+  },
+
+  citiesSection: {
+    title: "EXHIBITION STANDS IN",
+    subtitle: "GERMANY",
+    cities: [
+      { name: "BERLIN", link: "/countries/germany/berlin" },
+      { name: "MUNICH", link: "/countries/germany/munich" },
+      { name: "FRANKFURT", link: "/countries/germany/frankfurt" },
+      { name: "HAMBURG", link: "/countries/germany/hamburg" },
+      { name: "COLOGNE", link: "/countries/germany/cologne" },
+      { name: "STUTTGART", link: "/countries/germany/stuttgart" },
+      { name: "DÜSSELDORF", link: "/countries/germany/dusseldorf" },
+      { name: "LEIPZIG", link: "/countries/germany/leipzig" },
+      { name: "DORTMUND", link: "/countries/germany/dortmund" },
+      { name: "ESSEN", link: "/countries/germany/essen" },
+      { name: "BREMEN", link: "/countries/germany/bremen" },
+      { name: "HANOVER", link: "/countries/germany/hanover" },
+      { name: "NUREMBERG", link: "/countries/germany/nuremberg" },
+      { name: "DRESDEN", link: "/countries/germany/dresden" }
+    ]
   }
+}
+
+// Country data mapping for easy data management
+export const countryDataMap: Record<string, CountryData> = {
+  france: franceData,
+  germany: germanyData
+}
+
+// Function to get country data by key
+export const getCountryDataByKey = (countryKey: string): CountryData | null => {
+  const key = countryKey.toLowerCase()
+  return countryDataMap[key] || null
+}
+
+// Function to get all available countries
+export const getAvailableCountries = (): string[] => {
+  return Object.keys(countryDataMap)
+}
+
+// Function to check if country is available
+export const isCountryAvailable = (countryKey: string): boolean => {
+  return getAvailableCountries().includes(countryKey.toLowerCase())
 }

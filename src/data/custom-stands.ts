@@ -71,7 +71,7 @@ export const customStandsData: CustomStandsData = {
     title: "CUSTOM EXHIBITION STANDS",
     subtitle: "DESIGN & BUILD",
     description:
-      "CHRONICLES SP Z O.O. has 20+ years of experience in designing and building custom exhibition stands that maximize client ROI. As a leading exhibition stand contractor, we are experts in building unique and tailor-made exhibition stands on your behalf. Our team of skilled professionals will work closely with you to create a custom exhibition stand that perfectly reflects your company's vision and outshines competitors. Our design and builds boldly reflect the brand's identity and make your brand stand out at any trade show.",
+      "CHRONICLES SP Z O.O. has 20+ years of experience in designing and building custom exhibition stands that maximize client ROI. As a leading exhibition stand contractor, we are experts in building unique and tailor-made exhibition stands on your behalf",
     backgroundImage:
       "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1200&h=600&fit=crop",
   },

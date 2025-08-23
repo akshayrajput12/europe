@@ -42,27 +42,15 @@ export default function PortfolioSection({ title, subtitle }: PortfolioSectionPr
           {featuredItems.map((item, index) => (
             <div
               key={index}
-              className="group relative aspect-[4/3] bg-gray-200 rounded-lg overflow-hidden"
+              className="relative aspect-[4/3] bg-gray-200 rounded-lg overflow-hidden"
             >
-              {/* Image with hover zoom */}
+              {/* Image */}
               <Image
                 src={item.image}
                 alt={item.title}
                 fill
-                className="object-cover transition-transform duration-300 group-hover:scale-105"
+                className="object-cover"
               />
-
-              {/* Overlay */}
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/50 transition-colors duration-300 flex items-center justify-center">
-                <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-center px-4">
-                  <div className="bg-white/90 backdrop-blur-sm rounded-lg px-4 py-2">
-                    <h3 className="font-semibold text-gray-800">
-                      {item.title}
-                    </h3>
-                    <p className="text-sm text-gray-600">{item.category}</p>
-                  </div>
-                </div>
-              </div>
             </div>
           ))}
         </div>
