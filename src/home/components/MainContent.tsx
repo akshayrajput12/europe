@@ -1,22 +1,23 @@
 "use client"
 
+import Link from "next/link"
 import { homeData } from "@/data/home"
-import { countriesData } from "@/data/countries"
+import { getCountryCards } from "@/data/countries"
 
 export default function MainContent() {
   const { mainSection } = homeData
   
-  // Filter only featured countries for home page display
-  const featuredCountries = countriesData.countries.filter(country => country.featured)
+  // Get country cards for home page display
+  const featuredCountries = getCountryCards()
 
   return (
     <main className="container mx-auto px-4 py-8 md:py-16">
       {/* Title Section */}
       <div className="text-center mb-12 md:mb-16">
-        <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-4 text-slate-800">
+        <h1 className="text-2xl md:text-3xl font-bold mb-4 text-slate-800">
           {mainSection.title}
         </h1>
-        <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-6">
+        <h2 className="text-2xl md:text-3xl font-bold mb-6">
           {mainSection.subtitle.split(" ").map((word, index) =>
             word === "EUROPE" ? (
               <span key={index} className="text-[#A5CD39]">
@@ -37,15 +38,16 @@ export default function MainContent() {
       {/* Countries Grid - Only Featured Countries */}
       <div className="max-w-6xl mx-auto mb-16 md:mb-20">
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 mb-8">
-          {featuredCountries.map((country, index) => (
-            <div
-              key={index}
+          {featuredCountries.map((country) => (
+            <Link
+              key={country.slug}
+              href={`/countries/${country.slug}`}
               className="bg-gray-50 hover:bg-white p-6 md:p-8 text-center rounded-lg transition-all duration-300 hover:shadow-lg cursor-pointer group border border-gray-100"
             >
               <h3 className="font-medium text-lg md:text-xl text-gray-800 group-hover:text-[#A5CD39] transition-colors duration-300">
                 {country.name}
               </h3>
-            </div>
+            </Link>
           ))}
         </div>
 

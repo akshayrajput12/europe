@@ -1,7 +1,8 @@
 import HeroSection from "./components/HeroSection"
 import { ExhibitionSection } from "./components/ExhibitionSection"
 import MainContent from "./components/MainContent"
-import SolutionsSection from "./components/SolutionsSection"
+import SolutionsHeaderSection from "./components/SolutionsHeaderSection"
+import SolutionCardsSection from "./components/SolutionCardsSection"
 import PortfolioSection from "./components/PortfolioSection"
 import TestimonialsSection from "../components/TestimonialsSection"
 import WhyBestSection from "./components/WhyBestSection"
@@ -11,7 +12,8 @@ export default function HomePage() {
     <div className="min-h-screen bg-white">
       <HeroSection />
       <ExhibitionSection />
-      <SolutionsSection />
+      <SolutionsHeaderSection />
+      <SolutionCardsSection />
       <PortfolioSection />
       <MainContent/>
       <WhyBestSection />

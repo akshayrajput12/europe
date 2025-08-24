@@ -1,5 +1,8 @@
 // src/data/trade-shows.ts
 
+// Shared hero image for all trade show detail pages
+export const TRADE_SHOW_HERO_IMAGE = "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1920&h=800&fit=crop"
+
 export interface TradeShow {
   id: string
   slug: string
@@ -12,7 +15,6 @@ export interface TradeShow {
   country: string
   city: string
   featuredImage: string
-  heroImage: string
   category: string
   logo: string
   organizer?: string
@@ -167,7 +169,7 @@ export const tradeShowData: TradeShowData = {
       country: "Spain",
       city: "Madrid",
       featuredImage: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=800&h=600&fit=crop",
-      heroImage: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=1920&h=800&fit=crop",
+
       category: "Medical & Healthcare",
       organizer: "European Society of Cardiology",
       website: "https://www.escardio.org/Congresses-Events/ESC-Congress",
@@ -318,7 +320,7 @@ export const tradeShowData: TradeShowData = {
       country: "Italy", 
       city: "Milan",
       featuredImage: "https://images.unsplash.com/photo-1549298916-b41d501d3772?w=800&h=600&fit=crop",
-      heroImage: "https://images.unsplash.com/photo-1549298916-b41d501d3772?w=1920&h=800&fit=crop",
+
       category: "Fashion & Footwear",
       organizer: "Assocalzaturifici",
       website: "https://www.micamonline.com",
@@ -487,7 +489,7 @@ export const tradeShowData: TradeShowData = {
       country: "Denmark",
       city: "Copenhagen",
       featuredImage: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=800&h=600&fit=crop",
-      heroImage: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=1920&h=800&fit=crop",
+
       category: "Medical & Research",
       organizer: "European Society for Movement Analysis in Adults and Children",
       website: "https://www.esmac.org",

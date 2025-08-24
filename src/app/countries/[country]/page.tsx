@@ -1,11 +1,12 @@
 import { 
-  getCountryDataByKey, 
+  getCountryDetailBySlug, 
   getAvailableCountries, 
   isCountryAvailable 
 } from "@/data/countries"
 import HeroSection from "@/countries/components/HeroSection"
 import WhyChooseUsSection from "@/countries/components/WhyChooseUsSection"
-import SolutionsSection from "@/home/components/SolutionsSection"
+import WhatWeDoSection from "@/countries/components/WhatWeDoSection"
+import SolutionCardsSection from "@/home/components/SolutionCardsSection"
 import PortfolioSection from "@/home/components/PortfolioSection"
 import CompanyInfoSection from "@/countries/components/CompanyInfoSection"
 import BestCompanySection from "@/countries/components/BestCompanySection"
@@ -30,7 +31,7 @@ export default async function CountryDetailPage({ params }: CountryPageProps) {
   }
 
   // Get country-specific data using the new dynamic system
-  const countryData = getCountryDataByKey(countryKey)
+  const countryData = getCountryDetailBySlug(countryKey)
   
   // This should not happen since we checked availability above, but for TypeScript safety
   if (!countryData) {
@@ -41,7 +42,8 @@ export default async function CountryDetailPage({ params }: CountryPageProps) {
     <main>
       <HeroSection data={countryData.hero} />
       <WhyChooseUsSection data={countryData.whyChooseUs} />
-      <SolutionsSection />
+      <WhatWeDoSection data={countryData.whatWeDo} />
+      <SolutionCardsSection />
       <PortfolioSection />
       <CompanyInfoSection data={countryData.companyInfo} />
       <BestCompanySection data={countryData.bestCompany} />

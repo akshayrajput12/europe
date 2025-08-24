@@ -10,7 +10,7 @@ export default function CompanyInfoSection({ data }: CompanyInfoSectionProps) {
       <div className="container mx-auto px-4">
         {/* Title */}
         <div className="text-center mb-12">
-          <h2 className="text-2xl md:text-3xl font-bold text-slate-800 tracking-wide">
+          <h2 className="text-2xl md:text-3xl font-bold text-slate-800">
             {data.title}
           </h2>
         </div>

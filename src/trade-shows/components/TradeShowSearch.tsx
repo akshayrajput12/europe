@@ -29,7 +29,7 @@ export default function TradeShowSearch({ onSearch }: TradeShowSearchProps) {
   }
 
   return (
-    <div className="bg-purple-100 py-6 sm:py-8 mb-6 sm:mb-8">
+    <div className="bg-chart-2 py-6 sm:py-8 mb-6 sm:mb-8">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-center">
           <div className="flex flex-col sm:flex-row gap-2 sm:gap-0 w-full max-w-md">
@@ -43,7 +43,7 @@ export default function TradeShowSearch({ onSearch }: TradeShowSearchProps) {
             />
             <button
               onClick={handleSearch}
-              className="bg-slate-800 hover:bg-slate-700 text-white px-4 sm:px-6 py-2 sm:py-2.5 rounded-md sm:rounded-l-none sm:rounded-r-md transition-colors duration-300 text-sm font-medium whitespace-nowrap"
+              className="bg-primary hover:bg-slate-700 text-white px-4 sm:px-6 py-2 sm:py-2.5 rounded-md sm:rounded-l-none sm:rounded-r-md transition-colors duration-300 text-sm font-medium whitespace-nowrap"
             >
               Search Fairs
             </button>

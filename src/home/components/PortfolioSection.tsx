@@ -11,7 +11,7 @@ export default function PortfolioSection() {
     <section className="py-12 sm:py-14 md:py-16 lg:py-20 xl:py-24">
       <div className="mb-8 sm:mb-10 md:mb-12 lg:mb-16 text-center">
         <div className="container mx-auto px-2 sm:px-4 md:px-6 lg:px-8">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-3 sm:mb-4 md:mb-6">
+          <h2 className="text-2xl md:text-3xl font-bold mb-3 sm:mb-4 md:mb-6">
             OUR <span className="text-[#A5CD39]">PORTFOLIO</span>
           </h2>
           <p className="text-gray-600 max-w-sm sm:max-w-lg md:max-w-2xl lg:max-w-3xl mx-auto text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed px-2 sm:px-4 md:px-0">

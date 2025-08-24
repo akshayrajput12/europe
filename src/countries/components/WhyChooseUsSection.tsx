@@ -37,10 +37,8 @@ export default function WhyChooseUsSection({ data }: WhyChooseUsSectionProps) {
 
             <div className="space-y-6">
               {data.benefits.map((benefit, index) => (
-                <div key={index} className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-8 h-8 bg-[#A5CD39] rounded-full flex items-center justify-center text-white font-bold text-sm">
-                    ✓
-                  </div>
+                <div key={index} className="flex items-start gap-3">
+                  <div className="w-2 h-2 bg-[#A5CD39] rounded-full mt-2 flex-shrink-0"></div>
                   <div>
                     <p className="text-slate-700 font-medium">
                       {benefit.title}

@@ -21,10 +21,10 @@ export default function HeroSection({ data }: HeroSectionProps) {
         <div className="absolute inset-0 bg-black/60"></div>
       </div>
       <div className="relative z-10 text-center px-4">
-        <h1 className="text-3xl md:text-5xl font-bold text-white tracking-[0.2em] mb-4">
+        <h1 className="text-3xl md:text-5xl font-bold text-white mb-4">
           {data.title}
         </h1>
-        <h2 className="text-4xl md:text-6xl font-bold text-[#A5CD39] tracking-[0.2em]">
+        <h2 className="text-4xl md:text-6xl font-bold text-[#A5CD39]">
           {data.subtitle}
         </h2>
         <div className="mt-8">

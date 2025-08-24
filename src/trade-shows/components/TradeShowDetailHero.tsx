@@ -1,5 +1,5 @@
 import Image from "next/image"
-import { TradeShow } from "@/data/trade-shows"
+import { TradeShow, TRADE_SHOW_HERO_IMAGE } from "@/data/trade-shows"
 
 interface TradeShowDetailHeroProps {
   show: TradeShow
@@ -10,7 +10,7 @@ export default function TradeShowDetailHero({ show }: TradeShowDetailHeroProps) 
     <section className="relative h-[400px] md:h-[500px] overflow-hidden">
       <div className="absolute inset-0">
         <Image
-          src={show.heroImage}
+          src={TRADE_SHOW_HERO_IMAGE}
           alt={show.title}
           fill
           className="object-cover"

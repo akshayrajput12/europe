@@ -1,6 +1,6 @@
 "use client"
 
-import { getBlogPostBySlug, getRelatedPosts } from "@/data/blog"
+import { getBlogPostBySlug, getRelatedPosts, BlogPost } from "@/data/blog"
 import { notFound } from "next/navigation"
 import BlogDetailHero from "@/blog/components/BlogDetailHero"
 import RelatedPosts from "@/blog/components/RelatedPosts"
@@ -16,14 +16,12 @@ interface BlogDetailPageProps {
 }
 
 export default function BlogDetailPage({ params }: BlogDetailPageProps) {
-  const [post, setPost] = useState<any>(null)
-  const [slug, setSlug] = useState<string>('')
+  const [post, setPost] = useState<BlogPost | null>(null)
 
   useEffect(() => {
     async function loadData() {
       const resolvedParams = await params
       const currentSlug = resolvedParams.slug
-      setSlug(currentSlug)
       
       const blogPost = getBlogPostBySlug(currentSlug)
       if (!blogPost) {
@@ -113,4 +111,3 @@ export default function BlogDetailPage({ params }: BlogDetailPageProps) {
     </main>
   )
 }
-

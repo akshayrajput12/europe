@@ -4,25 +4,94 @@ import { useState, useCallback } from "react"
 import { getTradeShows } from "@/data/trade-shows"
 import TradeShowCard from "./TradeShowCard"
 import TradeShowSearch from "./TradeShowSearch"
+import { ChevronLeft, ChevronRight } from "lucide-react"
+
+const ITEMS_PER_PAGE = 6
 
 export default function TradeShowGrid() {
   const allShows = getTradeShows()
   const [filteredShows, setFilteredShows] = useState(allShows)
+  const [currentPage, setCurrentPage] = useState(1)
 
   const handleSearch = useCallback((searchTerm: string) => {
     if (!searchTerm.trim()) {
       setFilteredShows(allShows)
-      return
+    } else {
+      const filtered = allShows.filter(show => 
+        show.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        show.location.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        show.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        show.excerpt.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+      setFilteredShows(filtered)
     }
-
-    const filtered = allShows.filter(show => 
-      show.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      show.location.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      show.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      show.excerpt.toLowerCase().includes(searchTerm.toLowerCase())
-    )
-    setFilteredShows(filtered)
+    setCurrentPage(1) // Reset to first page when searching
   }, [allShows])
+
+  // Calculate pagination
+  const totalPages = Math.ceil(filteredShows.length / ITEMS_PER_PAGE)
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE
+  const endIndex = startIndex + ITEMS_PER_PAGE
+  const currentShows = filteredShows.slice(startIndex, endIndex)
+
+  const goToPage = (page: number) => {
+    setCurrentPage(page)
+    // Scroll to top of grid
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  const goToPrevious = () => {
+    if (currentPage > 1) {
+      goToPage(currentPage - 1)
+    }
+  }
+
+  // Generate page numbers with ellipsis
+  const generatePageNumbers = () => {
+    const pages = []
+    const showEllipsis = totalPages > 7
+    
+    if (!showEllipsis) {
+      // Show all pages if 7 or fewer
+      for (let i = 1; i <= totalPages; i++) {
+        pages.push(i)
+      }
+    } else {
+      // Always show first page
+      pages.push(1)
+      
+      if (currentPage <= 4) {
+        // Show 1, 2, 3, 4, 5, ..., last
+        for (let i = 2; i <= 5; i++) {
+          pages.push(i)
+        }
+        pages.push('...')
+        pages.push(totalPages)
+      } else if (currentPage >= totalPages - 3) {
+        // Show 1, ..., last-4, last-3, last-2, last-1, last
+        pages.push('...')
+        for (let i = totalPages - 4; i <= totalPages; i++) {
+          pages.push(i)
+        }
+      } else {
+        // Show 1, ..., current-1, current, current+1, ..., last
+        pages.push('...')
+        for (let i = currentPage - 1; i <= currentPage + 1; i++) {
+          pages.push(i)
+        }
+        pages.push('...')
+        pages.push(totalPages)
+      }
+    }
+    
+    return pages
+  }
+
+  const goToNext = () => {
+    if (currentPage < totalPages) {
+      goToPage(currentPage + 1)
+    }
+  }
 
   return (
     <>
@@ -32,11 +101,70 @@ export default function TradeShowGrid() {
       {/* Trade Shows Grid */}
       <section className="bg-gray-50 py-6 sm:py-8 lg:py-12">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
-            {filteredShows.map((show) => (
-              <TradeShowCard key={show.id} show={show} />
-            ))}
+          {/* First card needs extra top padding for logo */}
+          <div className="pt-8 sm:pt-10">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10">
+              {currentShows.map((show) => (
+                <TradeShowCard key={show.id} show={show} />
+              ))}
+            </div>
           </div>
+
+          {/* Pagination Controls */}
+          {totalPages > 1 && (
+            <div className="flex justify-center items-center mt-8 sm:mt-12">
+              <div className="flex items-center border border-gray-300 rounded-lg bg-white shadow-sm">
+                {/* Previous Button */}
+                <button
+                  onClick={goToPrevious}
+                  disabled={currentPage === 1}
+                  className={`px-3 py-2 text-gray-500 hover:text-gray-700 transition-colors border-r border-gray-300 ${
+                    currentPage === 1 ? 'cursor-not-allowed opacity-50' : 'hover:bg-gray-50'
+                  }`}
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                </button>
+
+                {/* Page Numbers */}
+                {generatePageNumbers().map((page, index) => (
+                  <div key={index}>
+                    {page === '...' ? (
+                      <span className="px-3 py-2 text-gray-500 border-r border-gray-300">...</span>
+                    ) : (
+                      <button
+                        onClick={() => goToPage(page as number)}
+                        className={`px-3 py-2 text-sm font-medium transition-colors border-r border-gray-300 last:border-r-0 ${
+                          currentPage === page
+                            ? 'bg-slate-800 text-white'
+                            : 'text-gray-700 hover:bg-gray-50'
+                        }`}
+                      >
+                        {page}
+                      </button>
+                    )}
+                  </div>
+                ))}
+
+                {/* Next Button */}
+                <button
+                  onClick={goToNext}
+                  disabled={currentPage === totalPages}
+                  className={`px-3 py-2 text-gray-500 hover:text-gray-700 transition-colors ${
+                    currentPage === totalPages ? 'cursor-not-allowed opacity-50' : 'hover:bg-gray-50'
+                  }`}
+                >
+                  <ChevronRight className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* Results Info */}
+          {filteredShows.length > 0 && (
+            <div className="text-center mt-4 text-sm text-gray-600">
+              Showing {startIndex + 1}-{Math.min(endIndex, filteredShows.length)} of {filteredShows.length} trade shows
+            </div>
+          )}
 
           {/* No Results Message */}
           {filteredShows.length === 0 && (
