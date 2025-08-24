@@ -1,7 +1,7 @@
 "use client"
 
 import { TradeShow } from "@/data/trade-shows"
-import "@/styles/trade-show-content.css"
+import "@/styles/content.css"
 import { useEffect } from "react"
 
 interface TradeShowContentProps {
@@ -11,7 +11,7 @@ interface TradeShowContentProps {
 export default function TradeShowContent({ show }: TradeShowContentProps) {
   useEffect(() => {
     // Add data labels to table cells for mobile responsiveness
-    const tables = document.querySelectorAll('.trade-show-content table')
+    const tables = document.querySelectorAll('.rich-content table')
     tables.forEach(table => {
       const headers = table.querySelectorAll('th')
       const rows = table.querySelectorAll('tbody tr')
@@ -41,7 +41,7 @@ export default function TradeShowContent({ show }: TradeShowContentProps) {
               <p className="text-base sm:text-lg">{show.excerpt}</p>
               
               <div 
-                className="trade-show-content text-sm sm:text-base"
+                className="rich-content text-sm sm:text-base"
                 dangerouslySetInnerHTML={{ __html: show.content }}
               />
             </div>

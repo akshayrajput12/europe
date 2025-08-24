@@ -1,9 +1,7 @@
 export interface HeroData {
-  title: {
-    main: string
-    highlight: string
-  }
-  ctaButton: string
+  title: string
+  subtitle?: string
+  description: string
   backgroundImage: string
 }
 
@@ -38,13 +36,9 @@ export interface AdvantagesData {
 }
 
 export interface PortfolioData {
-  title: {
-    main: string
-    highlight: string
-  }
+  title: string
+  subtitle?: string
   description: string
-  images: string[]
-  ctaButton: string
 }
 
 export interface CompanyInfoData {
@@ -74,11 +68,9 @@ export interface FooterData {
 // Consolidated pavilion data
 export const pavilionData = {
   hero: {
-    title: {
-      main: "EXHIBITION",
-      highlight: "PAVILION DESIGN",
-    },
-    ctaButton: "REQUEST FOR FREE DESIGN",
+    title: "EXHIBITION PAVILION DESIGN",
+    subtitle: "DESIGN & BUILD",
+    description: "Design and build custom exhibition pavilions that showcase your brand with maximum impact and professional excellence.",
     backgroundImage: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1200&h=600&fit=crop",
   } as HeroData,
 
@@ -145,13 +137,9 @@ export const pavilionData = {
   } as AdvantagesData,
 
   portfolio: {
-    title: {
-      main: "WE CREATE CAPTIVATING",
-      highlight: "EXHIBITION PAVILION DESIGN",
-    },
+    title: "WE CREATE CAPTIVATING EXHIBITION DESIGN & BUILD",
     description:
       "RADON SP Z.O.O. is a pavilion builder was launched in 2003, proving us more than a decade-old exhibition pavilion designer and builder in Europe. We have expertise in designing an exhibition pavilion that reflects your professionalism and business goals. We are a team of creative minds with extensive experience in the exhibition industry.",
-
   } as PortfolioData,
 
   companyInfo: {

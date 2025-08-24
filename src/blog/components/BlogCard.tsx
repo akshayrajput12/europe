@@ -20,14 +20,7 @@ export default function BlogCard({ post }: BlogCardProps) {
       </div>
 
       {/* Content */}
-      <div className="p-6">
-        {/* Category Badge */}
-        <div className="mb-4">
-          <span className="bg-[#A5CD39] text-white text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wide">
-            {post.category}
-          </span>
-        </div>
-
+      <div className="p-6 text-center">
         {/* Title */}
         <h3 className="text-xl font-bold text-slate-800 mb-3 leading-tight">
           <Link href={`/blog/${post.slug}`} className="hover:text-[#A5CD39] transition-colors duration-300">

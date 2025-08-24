@@ -1,8 +1,19 @@
-export interface ModularStandsHero {
+export interface HeroSection {
   title: string
-  subtitle: string
+  subtitle?: string
   description: string
   backgroundImage: string
+}
+
+export interface ModularStandsData {
+  hero: HeroSection
+  benefits: ModularBenefitsSection
+  StandProjectText: ChooseUsSection
+  exhibitionBenefits: ExhibitionBenefits
+  pointsTable: ModularPointsTable
+  modularDiversity: ModularDiversitySection
+  fastestConstruction: FastestConstructionSection
+  experts: ExpertsSection
 }
 
 export interface ModularPointsTable {
@@ -50,7 +61,7 @@ export interface ExpertsSection {
   additionalText: string
 }
 
-export const modularStandsHero: ModularStandsHero = {
+export const modularStandsHero: HeroSection = {
   title: "MODULAR EXHIBITION STANDS",
   subtitle: "DESIGN & BUILD",
   description:
@@ -139,5 +150,23 @@ export const exhibitionBenefits: ExhibitionBenefits = {
   ],
   image:
     "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&h=400&fit=crop",
+}
+
+// Main consolidated data export
+export const modularStandsData: ModularStandsData = {
+  hero: {
+    title: "MODULAR EXHIBITION STANDS",
+    subtitle: "DESIGN & BUILD",
+    description:
+      "CHRONICLES SP Z O.O. has 20+ years of experience in designing and building custom exhibition stands that maximize client ROI. As a leading exhibition stand contractor, we are experts in building unique and tailor-made exhibition stands on your behalf",
+    backgroundImage: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1920&h=1080&fit=crop",
+  },
+  benefits: modularBenefitsSection,
+  StandProjectText: chooseUsSection,
+  exhibitionBenefits: exhibitionBenefits,
+  pointsTable: modularPointsTable,
+  modularDiversity: modularDiversitySection,
+  fastestConstruction: fastestConstructionSection,
+  experts: expertsSection,
 }
 

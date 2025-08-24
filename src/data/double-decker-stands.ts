@@ -4,6 +4,7 @@ export interface HeroData {
   title: string;
   subtitle: string;
   description: string;
+  backgroundImage: string;
 }
 
 export interface BenefitsData {
@@ -49,6 +50,7 @@ export const doubleDeckHeroData: HeroData = {
   subtitle: "DESIGN & BUILD",
   description:
     "CHRONICLES SP Z O.O. has 20+ years of experience in designing and building custom exhibition stands that maximize client ROI. As a leading exhibition stand contractor, we are experts in building unique and tailor-made exhibition stands on your behalf",
+  backgroundImage: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1200&h=600&fit=crop",
 };
 
 export const doubleDeckBenefitsData: BenefitsData = {

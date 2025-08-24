@@ -5,25 +5,33 @@ import { pavilionData } from "@/data/pavilionData"
 import { useQuoteModal } from "@/contexts/QuoteModalContext"
 
 export default function HeroSection() {
-  const { openDesignModal } = useQuoteModal()
+  const { openQuoteModal } = useQuoteModal()
 
   return (
     <section
-      className="relative h-[500px] bg-cover bg-center bg-slate-800"
+      className="relative min-h-[70vh] flex items-center justify-center text-white"
       style={{
-        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('${pavilionData.hero.backgroundImage}')`,
+        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${pavilionData.hero.backgroundImage})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
       }}
     >
-      <div className="container mx-auto px-4 h-full flex items-center justify-center">
-        <div className="text-center text-white">
-          <h1 className="text-5xl md:text-6xl font-bold mb-2">{pavilionData.hero.title.main}</h1>
-          <h2 className="text-5xl md:text-6xl font-bold text-primary mb-8">{pavilionData.hero.title.highlight}</h2>
-          <Button 
-            size="lg" 
-            onClick={openDesignModal}
-            className="bg-primary hover:bg-primary text-white px-8 py-3"
+      <div className="container mx-auto px-4 text-center">
+        <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-4">{pavilionData.hero.title}</h1>
+        <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold mb-6 text-primary">
+          {pavilionData.hero.subtitle}
+        </h2>
+        <p className="text-base md:text-lg max-w-4xl mx-auto mb-8 leading-relaxed">
+          {pavilionData.hero.description}
+        </p>
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <Button
+            size="lg"
+            onClick={openQuoteModal}
+            className="bg-[#A5CD39] hover:bg-[#8fb32e] text-white transition-all duration-300"
           >
-            {pavilionData.hero.ctaButton}
+            REQUEST FOR QUOTATION
           </Button>
         </div>
       </div>

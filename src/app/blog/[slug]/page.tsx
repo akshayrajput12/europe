@@ -1,9 +1,13 @@
-import { getBlogPostBySlug, getBlogPosts, getRelatedPosts } from "@/data/blog"
+"use client"
+
+import { getBlogPostBySlug, getRelatedPosts } from "@/data/blog"
 import { notFound } from "next/navigation"
 import BlogDetailHero from "@/blog/components/BlogDetailHero"
 import RelatedPosts from "@/blog/components/RelatedPosts"
 import InlineQuoteForm from "@/blog/components/InlineQuoteForm"
 import Image from "next/image"
+import { useEffect, useState } from "react"
+import "@/styles/content.css"
 
 interface BlogDetailPageProps {
   params: Promise<{
@@ -11,12 +15,48 @@ interface BlogDetailPageProps {
   }>
 }
 
-export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
-  const { slug } = await params
-  const post = getBlogPostBySlug(slug)
+export default function BlogDetailPage({ params }: BlogDetailPageProps) {
+  const [post, setPost] = useState<any>(null)
+  const [slug, setSlug] = useState<string>('')
+
+  useEffect(() => {
+    async function loadData() {
+      const resolvedParams = await params
+      const currentSlug = resolvedParams.slug
+      setSlug(currentSlug)
+      
+      const blogPost = getBlogPostBySlug(currentSlug)
+      if (!blogPost) {
+        notFound()
+      }
+      setPost(blogPost)
+    }
+    
+    loadData()
+  }, [params])
+
+  useEffect(() => {
+    if (post?.content) {
+      // Add data labels to table cells for mobile responsiveness
+      const tables = document.querySelectorAll('.rich-content table')
+      tables.forEach(table => {
+        const headers = table.querySelectorAll('th')
+        const rows = table.querySelectorAll('tbody tr')
+        
+        rows.forEach(row => {
+          const cells = row.querySelectorAll('td')
+          cells.forEach((cell, index) => {
+            if (headers[index]) {
+              cell.setAttribute('data-label', headers[index].textContent || '')
+            }
+          })
+        })
+      })
+    }
+  }, [post?.content])
 
   if (!post) {
-    notFound()
+    return <div>Loading...</div>
   }
 
   return (
@@ -55,7 +95,7 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
                 {/* Article Content */}
                 <div className="max-w-none">
                   <div 
-                    className="prose prose-base max-w-none prose-headings:text-slate-800 prose-headings:font-bold prose-p:text-gray-700 prose-p:leading-relaxed prose-a:text-[#A5CD39] prose-a:no-underline hover:prose-a:underline prose-strong:text-slate-800 prose-ol:text-gray-700 prose-ul:text-gray-700 prose-li:mb-2"
+                    className="rich-content text-sm sm:text-base"
                     dangerouslySetInnerHTML={{ __html: post.content }}
                   />
                 </div>
@@ -74,10 +114,3 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
   )
 }
 
-// Generate static params for available blog posts
-export async function generateStaticParams() {
-  const posts = getBlogPosts()
-  return posts.map((post) => ({
-    slug: post.slug,
-  }))
-}

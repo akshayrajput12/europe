@@ -21,14 +21,14 @@ export default function BlogDetailHero({ post }: BlogDetailHeroProps) {
       
       <div className="relative z-10 h-full flex items-center">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl">
+          <div className="max-w-4xl mx-auto text-center">
             {/* Title */}
-            <h1 className="text-center text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-4 leading-tight">
+            <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-4 leading-tight">
               {post.title}
             </h1>
             
             {/* Meta Information */}
-            <div className="flex items-center gap-6 text-white/90">
+            <div className="flex items-center justify-center gap-6 text-white/90">
               <span>{new Date(post.publishedDate).toLocaleDateString("en-US", { 
                 year: 'numeric', 
                 month: 'long', 
