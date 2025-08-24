@@ -6,7 +6,7 @@ export default function SolutionsHeaderSection() {
       <div className="container mx-auto px-2 sm:px-4">
         {/* Section Header */}
         <div className="text-center">
-          <h2 className="text-xl sm:text-2xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-3 sm:mb-4 md:mb-6">
+          <h2 className="text-2xl md:text-3xl font-bold mb-3 sm:mb-4 md:mb-6">
             {homeData.solutions.title.split(" ").map((word, index) =>
               word === "SOLUTIONS" ? (
                 <span key={index} className="text-[#A5CD39]">

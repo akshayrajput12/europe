@@ -43,7 +43,7 @@ export interface PortfolioData {
 
 export interface CompanyInfoData {
   title: string
-  description: string
+  points: string[]  // Changed from description to points array
 }
 
 export interface FooterData {
@@ -144,7 +144,13 @@ export const pavilionData = {
 
   companyInfo: {
     title: "RADON SP Z.O.O. AND ITS STAND-BUILDING SERVICES",
-    description:
-      "As a premier exhibition stand builder in Europe, we offer a range of services and solutions in all the major exhibiting countries across Europe, including the Netherlands, Germany, Spain, and others. We always aim to understand the client's marketing goals. We always aim to understand the client's marketing goals and deliver a perfect exhibition position. We always use an integrated approach and methodology that ensures outstanding results every time we take up a project. Since 2003, we have a project-only idea understanding the client's marketing goals.",
+    points: [  // Changed from description to points array
+      "As a premier exhibition stand builder in Europe, we offer a range of services and solutions in all the major exhibiting countries across Europe, including the Netherlands, Germany, Spain, and others.",
+      "We always aim to understand the client's marketing goals and deliver a perfect exhibition position.",
+      "We use an integrated approach and methodology that ensures outstanding results every time we take up a project.",
+      "Since 2003, we have been providing project-only solutions with a deep understanding of client's marketing goals.",
+      "Our team consists of certified architects, interior designers, and project managers who understand the nuances of different industries.",
+      "We maintain strategic partnerships with leading material suppliers and logistics companies to ensure cost-effective solutions without compromising on quality standards."
+    ]
   } as CompanyInfoData,
 }

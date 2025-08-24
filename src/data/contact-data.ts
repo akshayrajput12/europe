@@ -30,8 +30,6 @@ export interface OfficeLocation {
 export const contactData = {
   hero: {
     title: "Contact Us",
-    description:
-      "Ready to make a statement at your next exhibition? Reach out to our stand designing and building experts to get quick solutions for your next event.",
     backgroundImage:
       "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1926&q=80",
   },
@@ -69,8 +67,6 @@ export const contactData = {
     title: "SUPPORT",
     description:
       "Your exhibition's success is our commitment. We are here to provide dedicated support for you and your clients, ensuring a seamless experience.",
-    backgroundImage:
-      "https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
     items: [
       {
         icon: "design",
