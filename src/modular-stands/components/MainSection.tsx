@@ -28,7 +28,7 @@ export default function MainSection() {
           {descriptions.map((paragraph, index) => (
             <p
               key={index}
-              className="text-gray-700 leading-relaxed text-justify"
+              className="text-gray-700 leading-relaxed text-justify text-lg font-medium"
             >
               {paragraph}
             </p>

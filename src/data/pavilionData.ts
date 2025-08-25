@@ -5,6 +5,12 @@ export interface HeroData {
   backgroundImage: string
 }
 
+export interface StandProjectText {
+  title: string
+  highlight?: string
+  description: string
+}
+
 export interface WhyChooseData {
   title: string
   paragraphs: string[]
@@ -65,6 +71,13 @@ export interface FooterData {
   }
 }
 
+export const pavilionStandProjectText: StandProjectText = {
+  title: "SOME OF OUR",
+  highlight: "EXHIBITION PAVILION DESIGNS",
+  description:
+    "Check some of the designs aesthetically created and delivered in the best quality by our professional exhibition pavilion designers. The below pictures demonstrate our specially tailored pavilion designs to meet the client's objectives and maximise the expo's success.",
+}
+
 // Consolidated pavilion data
 export const pavilionData = {
   hero: {
@@ -73,6 +86,8 @@ export const pavilionData = {
     description: "Design and build custom exhibition pavilions that showcase your brand with maximum impact and professional excellence.",
     backgroundImage: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1200&h=600&fit=crop",
   } as HeroData,
+
+  StandProjectText: pavilionStandProjectText,
 
   whyChoose: {
     title: "WHY TO CHOOSE US?",

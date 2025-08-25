@@ -8,7 +8,7 @@ export interface HeroSection {
 export interface ModularStandsData {
   hero: HeroSection
   benefits: ModularBenefitsSection
-  StandProjectText: ChooseUsSection
+  StandProjectText: StandProjectText
   exhibitionBenefits: ExhibitionBenefits
   pointsTable: ModularPointsTable
   modularDiversity: ModularDiversitySection
@@ -38,8 +38,10 @@ export interface ExhibitionBenefits {
   items: string[]
   image: string
 }
-export interface ChooseUsSection {
+
+export interface StandProjectText {
   title: string
+  highlight?: string
   description: string
 }
 
@@ -61,14 +63,6 @@ export interface ExpertsSection {
   additionalText: string
 }
 
-export const modularStandsHero: HeroSection = {
-  title: "MODULAR EXHIBITION STANDS",
-  subtitle: "DESIGN & BUILD",
-  description:
-    "CHRONICLES SP Z O.O. has 20+ years of experience in designing and building custom exhibition stands that maximize client ROI. As a leading exhibition stand contractor, we are experts in building unique and tailor-made exhibition stands on your behalf",
-  backgroundImage: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1920&h=1080&fit=crop",
-}
-
 export const modularBenefitsSection: ModularBenefitsSection = {
   title: "BENEFITS OF MODULAR EXHIBITION STANDS:",
   benefits: [
@@ -87,13 +81,6 @@ export const modularBenefitsSection: ModularBenefitsSection = {
     },
   ],
   image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&h=400&fit=crop",
-}
-
-export const chooseUsSection: ChooseUsSection = {
-  title: "CHOOSE CHRONICLES SP Z.O.O.",
-  // subtitle: "FOR MODULAR EXHIBITION STANDS",
-  description:
-    "Chronicles SP Z.O.O. is one of the most trusted modular exhibition stand builders in Europe. Our modular exhibits allow exhibitors to make maximum use of the available indoor exhibition turnkey services that we provide. We are with you right from the conceptualization, designing, building, and manufacturing to storage, shipping, installation, and dismantling of your modular exhibition systems.",
 }
 
 export const modularDiversitySection: ModularDiversitySection = {
@@ -121,6 +108,14 @@ export const expertsSection: ExpertsSection = {
   additionalText:
     "From delivery to set-up, we take care of every minute detail at your exhibition venue, ensuring a hassle-free experience. Our professionally skilled team also provides complete on-site supervision to guarantee flawless execution. To know more, call us right away!",
 }
+
+export const standProjectText: StandProjectText = {
+  title: "SOME OF OUR",
+  highlight: "MODULAR EXHIBITION STANDS",
+  description:
+    "Check some of the designs aesthetically created and delivered in the best quality by our professional modular exhibition stand builders. The below pictures demonstrate our specially tailored exhibition stands to meet the client's objectives and maximise the expo's success.",
+}
+
 export const modularPointsTable: ModularPointsTable = {
   title: "BENEFITS OF MODULAR EXHIBITION STANDS",
   items: [
@@ -162,11 +157,10 @@ export const modularStandsData: ModularStandsData = {
     backgroundImage: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1920&h=1080&fit=crop",
   },
   benefits: modularBenefitsSection,
-  StandProjectText: chooseUsSection,
+  StandProjectText: standProjectText,
   exhibitionBenefits: exhibitionBenefits,
   pointsTable: modularPointsTable,
   modularDiversity: modularDiversitySection,
   fastestConstruction: fastestConstructionSection,
   experts: expertsSection,
 }
-

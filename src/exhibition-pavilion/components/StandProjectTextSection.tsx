@@ -1,7 +1,7 @@
-import { doubleDeckStandsData } from "../../data/double-decker-stands"
+import { pavilionData } from "@/data/pavilionData"
 
 export default function StandProjectTextSection() {
-  const { StandProjectText } = doubleDeckStandsData
+  const { StandProjectText } = pavilionData
 
   return (
     <section className="py-12 md:py-16 bg-foreground text-white">

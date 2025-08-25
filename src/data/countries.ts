@@ -108,10 +108,10 @@ export interface CountryDetailsData {
 
 // Simple country cards data (derived from detail data)
 export const getCountryCards = (): CountryCard[] => {
-  return [
-    { slug: "france", name: "France" },
-    { slug: "germany", name: "Germany" }
-  ]
+  return countryDetailsData.countries.map(country => ({
+    slug: country.slug,
+    name: country.hero.subtitle
+  }))
 }
 
 // Country detail pages data
@@ -402,7 +402,7 @@ export const getCountries = (): CountryCard[] => {
 }
 
 export const getCountryBySlug = (slug: string): CountryCard | null => {
-  return getCountryCards().find(country => country.slug === slug) || null
+  return getCountryCards().find(country => country.slug.toLowerCase() === slug.toLowerCase()) || null
 }
 
 // Helper functions for country details
@@ -411,7 +411,7 @@ export const getCountryDetails = (): CountryDetail[] => {
 }
 
 export const getCountryDetailBySlug = (slug: string): CountryDetail | null => {
-  return countryDetailsData.countries.find(country => country.slug === slug) || null
+  return countryDetailsData.countries.find(country => country.slug.toLowerCase() === slug.toLowerCase()) || null
 }
 
 // Function to get complete country data (listing + detail merged)

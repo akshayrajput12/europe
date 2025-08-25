@@ -4,7 +4,7 @@ import BenefitsSection from "./components/BenefitsSection"
 import OurExpertiseSection from "./components/OurExpertiseSection"
 import AdvantagesSection from "./components/AdvantagesSection"
 import PortfolioSection from "@/components/PortfolioSection"
-import PortfolioSectionTest from "./components/PortfolioSectionText"
+import StandProjectTextSection from "./components/StandProjectTextSection"
 import CompanyInfoSection from "./components/CompanyInfoSection"
 
 export default function PavilionPage() {
@@ -13,7 +13,7 @@ export default function PavilionPage() {
       <HeroSection />
       <WhyChooseSection />
       <BenefitsSection />
-      <PortfolioSectionTest />
+      <StandProjectTextSection />
       <PortfolioSection />
       <AdvantagesSection />
       <OurExpertiseSection />

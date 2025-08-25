@@ -26,10 +26,17 @@ export interface PartnerData {
 }
 
 export interface StatementData {
-  title: string;
-  subtitle: string;
-  description: string;
+  title: string
+  subtitle: string
+  description: string
 }
+
+export interface StandProjectText {
+  title: string
+  highlight?: string
+  description: string
+}
+
 export interface ExhibitionBenefits {
   title: string
   subtitle: string
@@ -65,13 +72,6 @@ export const doubleDeckBenefitsData: BenefitsData = {
     "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=500&h=400&fit=crop",
 };
 
-export const doubleDeckPortfolioData: PortfolioData = {
-  title: "OUR PORTFOLIO",
-  description:
-    "Please check some of our double-decker booth designs that we have made on order for our valuable clients. These designs were aesthetically stunning and filled with lots of creativity.",
-
-};
-
 export const doubleDeckPartnerData: PartnerData = {
   title: "CHRONICLES",
   subtitle: "YOUR IDEAL DOUBLE DECK BOOTH PARTNER",
@@ -84,6 +84,13 @@ export const doubleDeckStatementData: StatementData = {
   subtitle: "DOUBLE DECKER EXHIBITION STAND",
   description:
     "The double-decker booths designed by Chronicles not only increase the exhibiting space but also make a solid impression amidst the competition.",
+};
+
+export const doubleDeckStandProjectText: StandProjectText = {
+  title: "SOME OF OUR",
+  highlight: "DOUBLE DECKER EXHIBITION STANDS",
+  description:
+    "Check some of the designs aesthetically created and delivered in the best quality by our professional double decker exhibition stand builders. The below pictures demonstrate our specially tailored exhibition stands to meet the client's objectives and maximise the expo's success.",
 };
 
 export const doubleDeckPointsTable: PointsTableData = {
@@ -112,3 +119,14 @@ export const exhibitionBenefitsData: ExhibitionBenefits = {
   ],
   image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=500&h=300&fit=crop", // update path if needed
 }
+
+// Consolidated data export
+export const doubleDeckStandsData = {
+  hero: doubleDeckHeroData,
+  benefits: doubleDeckBenefitsData,
+  StandProjectText: doubleDeckStandProjectText,
+  exhibitionBenefits: exhibitionBenefitsData,
+  partner: doubleDeckPartnerData,
+  statement: doubleDeckStatementData,
+  pointsTable: doubleDeckPointsTable,
+};
