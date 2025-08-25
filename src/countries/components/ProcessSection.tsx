@@ -23,12 +23,9 @@ export default function ProcessSection({ data }: ProcessSectionProps) {
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-12">
-          <h2 className="text-2xl md:text-3xl font-bold text-slate-800 mb-2">
+          <h2 className="text-2xl md:text-3xl font-bold text-slate-800">
             {data.title}
           </h2>
-          <h3 className="text-2xl md:text-3xl font-bold text-[#A5CD39]">
-            {data.subtitle}
-          </h3>
         </div>
 
         {/* Process Steps */}
@@ -43,12 +40,9 @@ export default function ProcessSection({ data }: ProcessSectionProps) {
                 </div>
                 
                 {/* Content */}
-                <h4 className="text-lg font-bold text-slate-800 mb-2">
+                <h4 className="text-lg font-bold text-slate-800 mb-3">
                   {step.title}
                 </h4>
-                <h5 className="text-sm font-semibold text-[#A5CD39] mb-3">
-                  {step.subtitle}
-                </h5>
                 <p className="text-slate-600 text-sm leading-relaxed">
                   {step.description}
                 </p>

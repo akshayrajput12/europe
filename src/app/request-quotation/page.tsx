@@ -103,53 +103,6 @@ export default function RequestQuotationPage() {
         <div className="max-w-4xl mx-auto">
           <form onSubmit={handleSubmit} className="space-y-8">
             
-            {/* Event Details */}
-            <div className="bg-gray-50 p-6 rounded-lg">
-              <h2 className="text-lg font-semibold mb-6 text-primary">
-                {requestQuotationFormData.eventDetails.title}
-              </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <Input
-                  placeholder={requestQuotationFormData.eventDetails.fields.eventName}
-                  value={formData.eventName}
-                  onChange={(e) => handleInputChange("eventName", e.target.value)}
-                  className="border-gray-300 bg-white"
-                />
-                <Input
-                  placeholder={requestQuotationFormData.eventDetails.fields.eventCity}
-                  value={formData.eventCity}
-                  onChange={(e) => handleInputChange("eventCity", e.target.value)}
-                  className="border-gray-300 bg-white"
-                />
-              </div>
-            </div>
-
-            {/* Upload Your Design */}
-            <div className="bg-gray-50 p-6 rounded-lg">
-              <h2 className="text-lg font-semibold mb-6 text-primary">
-                {requestQuotationFormData.uploadDesign.title}
-              </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <Input
-                  placeholder={requestQuotationFormData.uploadDesign.fields.boothSize}
-                  value={formData.boothSize}
-                  onChange={(e) => handleInputChange("boothSize", e.target.value)}
-                  className="border-gray-300 bg-white"
-                />
-                <div>
-                  <input
-                    type="file"
-                    accept=".jpg,.jpeg,.png,.pdf,.ai,.psd"
-                    onChange={(e) => handleFileChange(e.target.files?.[0] || null)}
-                    className="w-full border border-gray-300 rounded p-3 bg-white file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-medium file:bg-gray-100 file:text-gray-700 hover:file:bg-gray-200"
-                  />
-                  {formData.uploadFile && (
-                    <p className="text-sm text-gray-600 mt-1">Selected: {formData.uploadFile.name}</p>
-                  )}
-                </div>
-              </div>
-            </div>
-
             {/* Contact Details */}
             <div className="bg-gray-50 p-6 rounded-lg">
               <h2 className="text-lg font-semibold mb-6 text-primary">
@@ -191,6 +144,53 @@ export default function RequestQuotationPage() {
                   onChange={(e) => handleInputChange("additionalInfo", e.target.value)}
                   className="border-gray-300 bg-white min-h-32"
                   rows={4}
+                />
+              </div>
+            </div>
+
+            {/* Upload Your Design */}
+            <div className="bg-gray-50 p-6 rounded-lg">
+              <h2 className="text-lg font-semibold mb-6 text-primary">
+                {requestQuotationFormData.uploadDesign.title}
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <Input
+                  placeholder={requestQuotationFormData.uploadDesign.fields.boothSize}
+                  value={formData.boothSize}
+                  onChange={(e) => handleInputChange("boothSize", e.target.value)}
+                  className="border-gray-300 bg-white"
+                />
+                <div>
+                  <input
+                    type="file"
+                    accept=".jpg,.jpeg,.png,.pdf,.ai,.psd"
+                    onChange={(e) => handleFileChange(e.target.files?.[0] || null)}
+                    className="w-full border border-gray-300 rounded p-3 bg-white file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-medium file:bg-gray-100 file:text-gray-700 hover:file:bg-gray-200"
+                  />
+                  {formData.uploadFile && (
+                    <p className="text-sm text-gray-600 mt-1">Selected: {formData.uploadFile.name}</p>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {/* Event Details */}
+            <div className="bg-gray-50 p-6 rounded-lg">
+              <h2 className="text-lg font-semibold mb-6 text-primary">
+                {requestQuotationFormData.eventDetails.title}
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <Input
+                  placeholder={requestQuotationFormData.eventDetails.fields.eventName}
+                  value={formData.eventName}
+                  onChange={(e) => handleInputChange("eventName", e.target.value)}
+                  className="border-gray-300 bg-white"
+                />
+                <Input
+                  placeholder={requestQuotationFormData.eventDetails.fields.eventCity}
+                  value={formData.eventCity}
+                  onChange={(e) => handleInputChange("eventCity", e.target.value)}
+                  className="border-gray-300 bg-white"
                 />
               </div>
             </div>

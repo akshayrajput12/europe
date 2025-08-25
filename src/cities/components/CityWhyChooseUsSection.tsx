@@ -30,30 +30,16 @@ export default function CityWhyChooseUsSection({ data }: CityWhyChooseUsSectionP
             <h3 className="text-2xl md:text-3xl font-bold text-[#A5CD39] mb-8">
               {data.subtitle}
             </h3>
-            
-            <p className="text-slate-600 mb-8 leading-relaxed">
-              We are more than just exhibition stand builders in {data.subtitle.toLowerCase()}, we are your gateway to success
-            </p>
-
-            <div className="space-y-6">
-              {data.benefits.map((benefit, index) => (
-                <div key={index} className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-[#A5CD39] rounded-full mt-2 flex-shrink-0"></div>
-                  <div>
-                    <p className="text-slate-700 font-medium">
-                      {benefit.title}
-                    </p>
-                    {benefit.description && (
-                      <p className="text-slate-600 text-sm mt-1">
-                        {benefit.description}
-                      </p>
-                    )}
-                  </div>
-                </div>
-              ))}
+            <div className="space-y-4">
+              <p className="text-slate-700 leading-relaxed">
+                {data.benefits[0]?.text}
+              </p>
             </div>
           </div>
         </div>
+        
+        {/* Gray line at section ending */}
+        <div className="mt-12 border-b border-gray-300"></div>
       </div>
     </section>
   )

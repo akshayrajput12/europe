@@ -23,23 +23,16 @@ export interface WhyChooseUs {
 export interface CompanyInfo {
   title: string
   content: string[]
-  stats: {
-    projects: number
-    years: number
-    tradeshows: number
-  }
 }
 
 export interface ProcessStep {
   icon: string
   title: string
-  subtitle: string
   description: string
 }
 
 export interface ProcessSection {
   title: string
-  subtitle: string
   steps: ProcessStep[]
 }
 
@@ -169,12 +162,7 @@ export const countryDetailsData: CountryDetailsData = {
           "Our future and team are ready for further iterations of your organization and what you construct we add experience comprehensive information where we get for re-connections that help enhance our team service delivery such a record service throughout your entire exhibition journey.",
           "We offer high-quality materials and rely on the latest tools and machinery to boost construction in France and deliver to best construction we are thingshex. etc. bench here",
           "As exhibitors in France, the record we have now covers combining technology with extensive such as innovation and throughout experience - that's it! From making to service your information to product today."
-        ],
-        stats: {
-          projects: 4000,
-          years: 20,
-          tradeshows: 1200
-        }
+        ]
       },
       bestCompany: {
         title: "BEST EXHIBITION STAND DESIGN COMPANY IN FRANCE FOR",
@@ -191,43 +179,36 @@ export const countryDetailsData: CountryDetailsData = {
         }
       },
       processSection: {
-        title: "The Art And Science Behind Our Exhibition Stand Design &",
-        subtitle: "Build Process",
+        title: "The Art And Science Behind Our Exhibition Stand Design & Build Process",
         steps: [
           {
             icon: "💡",
             title: "Brief",
-            subtitle: "Design the team based on client brief",
             description: "Understanding your specific requirements and exhibition goals through detailed briefing sessions."
           },
           {
             icon: "✏️",
             title: "3D Visuals",
-            subtitle: "Quick turnaround 3D visuals and brief confirmation for client review",
             description: "Creating realistic 3D visualizations to help you envision your exhibition stand before construction."
           },
           {
             icon: "🏭",
             title: "Production",
-            subtitle: "In-house design excellence builds production management line",
             description: "Professional manufacturing in our state-of-the-art facilities with quality control at every step."
           },
           {
             icon: "🚚",
             title: "Logistics",
-            subtitle: "Effective logistics planning and management",
             description: "Seamless transportation and delivery to ensure your stand arrives on time and in perfect condition."
           },
           {
             icon: "🔧",
             title: "Installation",
-            subtitle: "Professional installation team with skilled technical expertise",
             description: "Expert installation team ensures proper setup and functionality of all stand components."
           },
           {
             icon: "🎯",
             title: "Show Support",
-            subtitle: "24/7 support during event duration",
             description: "Round-the-clock support throughout your exhibition to address any issues immediately."
           }
         ]
@@ -290,12 +271,7 @@ export const countryDetailsData: CountryDetailsData = {
           "We pride ourselves on German precision and efficiency, delivering projects that meet the highest standards of quality and punctuality. Our comprehensive approach covers every aspect of your exhibition participation in Germany.",
           "With state-of-the-art manufacturing facilities and a dedicated German market team, we provide cost-effective solutions that maximize your exhibition ROI in Germany's competitive trade show environment.",
           "From concept to completion, we ensure your brand message resonates with German audiences through innovative design and flawless execution."
-        ],
-        stats: {
-          projects: 3500,
-          years: 18,
-          tradeshows: 950
-        }
+        ]
       },
       bestCompany: {
         title: "BEST EXHIBITION STAND DESIGN COMPANY IN GERMANY FOR",
@@ -312,43 +288,36 @@ export const countryDetailsData: CountryDetailsData = {
         }
       },
       processSection: {
-        title: "Our Proven Exhibition Stand Design &",
-        subtitle: "Build Process in Germany",
+        title: "Our Proven Exhibition Stand Design & Build Process in Germany",
         steps: [
           {
             icon: "💡",
             title: "Briefing",
-            subtitle: "Understanding German market requirements",
             description: "Comprehensive briefing sessions tailored to German exhibition standards and audience preferences."
           },
           {
             icon: "✏️",
             title: "3D Design",
-            subtitle: "German precision in 3D visualization",
             description: "Detailed 3D renderings that meet German exhibition venue specifications and regulations."
           },
           {
             icon: "🏭",
             title: "Manufacturing",
-            subtitle: "European-standard production facilities",
             description: "High-quality manufacturing with German-level precision and attention to detail."
           },
           {
             icon: "🚚",
             title: "Logistics",
-            subtitle: "Efficient logistics to German venues",
             description: "Specialized transportation solutions for major German exhibition centers."
           },
           {
             icon: "🔧",
             title: "Installation",
-            subtitle: "Professional setup by German-experienced team",
             description: "Expert installation team familiar with German venue requirements and safety standards."
           },
           {
             icon: "🎯",
             title: "Show Support",
-            subtitle: "Continuous support during German trade shows",
             description: "24/7 German-language support throughout your exhibition period."
           }
         ]

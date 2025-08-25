@@ -4,7 +4,7 @@ export default function StandProjectTextSection() {
   const { StandProjectText } = doubleDeckStandsData
 
   return (
-    <section className="py-12 md:py-16 bg-foreground text-white">
+    <section className="py-12 md:py-16 bg-secondary  text-white">
       <div className="container mx-auto px-4">
         <div className="text-center mb-8 md:mb-12">
           {/* Title (optional) */}

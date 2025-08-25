@@ -6,6 +6,8 @@ import {
 import HeroSection from "@/countries/components/HeroSection"
 import WhyChooseUsSection from "@/countries/components/WhyChooseUsSection"
 import WhatWeDoSection from "@/countries/components/WhatWeDoSection"
+import SolutionCardsSection from "@/home/components/SolutionCardsSection"
+import PortfolioSection from "@/components/PortfolioSection"
 import CompanyInfoSection from "@/countries/components/CompanyInfoSection"
 import BestCompanySection from "@/countries/components/BestCompanySection"
 import ProcessSection from "@/countries/components/ProcessSection"
@@ -41,6 +43,8 @@ export default async function CountryDetailPage({ params }: CountryPageProps) {
       <HeroSection data={countryData.hero} />
       <WhyChooseUsSection data={countryData.whyChooseUs} />
       <WhatWeDoSection data={countryData.whatWeDo} />
+      <SolutionCardsSection />
+      <PortfolioSection title="OUR PORTFOLIO" subtitle="Explore our extensive portfolio of exhibition stands and discover the quality and creativity we bring to every project." />
       <CompanyInfoSection data={countryData.companyInfo} />
       <BestCompanySection data={countryData.bestCompany} />
       <ProcessSection data={countryData.processSection} />

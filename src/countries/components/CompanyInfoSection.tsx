@@ -25,33 +25,6 @@ export default function CompanyInfoSection({ data }: CompanyInfoSectionProps) {
             ))}
           </div>
 
-          {/* Stats */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 mt-12 text-center">
-            <div className="bg-gray-50 p-6 rounded-sm">
-              <div className="text-3xl md:text-4xl font-bold text-[#A5CD39] mb-2">
-                {data.stats.projects.toLocaleString()}+
-              </div>
-              <div className="text-slate-600 font-medium text-sm">
-                COMPLETED PROJECTS
-              </div>
-            </div>
-            <div className="bg-gray-50 p-6 rounded-sm">
-              <div className="text-3xl md:text-4xl font-bold text-[#A5CD39] mb-2">
-                {data.stats.years}+
-              </div>
-              <div className="text-slate-600 font-medium text-sm">
-                YEARS OF EXPERIENCE
-              </div>
-            </div>
-            <div className="bg-gray-50 p-6 rounded-sm">
-              <div className="text-3xl md:text-4xl font-bold text-[#A5CD39] mb-2">
-                {data.stats.tradeshows.toLocaleString()}+
-              </div>
-              <div className="text-slate-600 font-medium text-sm">
-                TRADE SHOWS
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </section>

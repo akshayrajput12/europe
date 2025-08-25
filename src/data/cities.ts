@@ -16,9 +16,7 @@ export interface WhatWeDo {
 
 // Benefit Item Interface
 export interface BenefitItem {
-  icon: string;
-  title: string;
-  description: string;
+  text: string;
 }
 
 // Why Choose Us Interface
@@ -82,29 +80,7 @@ export const citiesData: CitiesData = {
         mainImage: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=500&h=400&fit=crop",
         benefits: [
           {
-            icon: "🎯",
-            title: "Local expertise in Paris exhibition venues",
-            description: "Familiar with all major Paris venues including Paris Expo Porte de Versailles and Paris Nord Villepinte"
-          },
-          {
-            icon: "⚡",
-            title: "Bilingual project management",
-            description: "French-speaking team for seamless communication"
-          },
-          {
-            icon: "🛡️",
-            title: "Compliance with Paris exhibition regulations",
-            description: "Full understanding of local requirements and standards"
-          },
-          {
-            icon: "💰",
-            title: "Competitive pricing for Paris trade shows",
-            description: "Excellent value without compromising on quality"
-          },
-          {
-            icon: "⏰",
-            title: "On-site support throughout Paris exhibitions",
-            description: "24/7 assistance for the duration of your event"
+            text: "With 15+ years worth of experience we are confident from our displays and exhibits. With 15+ years worth of experience we are confident from our displays and exhibits as our experience team can handle their own designing, building, and delivering process well within the deadline. All of the exhibitions are well-organized and thoroughly inspected for safety. At Chronicles CORP LTD, we are aware that exhibitions and trade shows have now a fantastic opportunity for companies to display their products and services to potential customers. For this reason, we offer booth attendance custom-made show ideas that make your business stand out from the rest. As exhibition trade show booth builders, we have accomplished 1000+ trade show booth displays design and building projects successfully. Our team of experienced professionals will handle all your display with efficiency and satisfaction."
           }
         ]
       },
@@ -154,29 +130,7 @@ export const citiesData: CitiesData = {
         mainImage: "https://images.unsplash.com/photo-1578322956407-eec75ad3ba41?w=500&h=400&fit=crop",
         benefits: [
           {
-            icon: "🎯",
-            title: "Specialized knowledge of Reims exhibition venues",
-            description: "Extensive experience with Centre des Congrès de Reims and other local venues"
-          },
-          {
-            icon: "⚡",
-            title: "Regional expertise in Champagne-Ardenne",
-            description: "Understanding of local business culture and exhibition practices"
-          },
-          {
-            icon: "🛡️",
-            title: "Full compliance with Reims venue requirements",
-            description: "Seamless navigation of local regulations and specifications"
-          },
-          {
-            icon: "💰",
-            title: "Excellent value for Reims exhibitions",
-            description: "Competitive pricing structure for this regional market"
-          },
-          {
-            icon: "⏰",
-            title: "Dedicated support for all Reims trade shows",
-            description: "Continuous assistance before, during, and after your exhibition"
+            text: "With 15+ years worth of experience we are confident from our displays and exhibits. With 15+ years worth of experience we are confident from our displays and exhibits as our experience team can handle their own designing, building, and delivering process well within the deadline. All of the exhibitions are well-organized and thoroughly inspected for safety. At Chronicles CORP LTD, we are aware that exhibitions and trade shows have now a fantastic opportunity for companies to display their products and services to potential customers. For this reason, we offer booth attendance custom-made show ideas that make your business stand out from the rest. As exhibition trade show booth builders, we have accomplished 1000+ trade show booth displays design and building projects successfully. Our team of experienced professionals will handle all your display with efficiency and satisfaction."
           }
         ]
       },

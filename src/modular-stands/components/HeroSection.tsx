@@ -22,9 +22,6 @@ export default function HeroSection() {
         <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold mb-6 text-primary">
           {modularStandsData.hero.subtitle}
         </h2>
-        <p className="text-base md:text-lg max-w-4xl mx-auto mb-8 leading-relaxed">
-          {modularStandsData.hero.description}
-        </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Button
             size="lg"

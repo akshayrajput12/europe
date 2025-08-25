@@ -6,7 +6,6 @@ import {
 import { notFound } from 'next/navigation'
 import SolutionCardsSection from "@/home/components/SolutionCardsSection"
 import PortfolioSection from "@/components/PortfolioSection"
-import ContactSection from "@/components/ContactSection"
 
 // Import specialized city components
 import CityHeroSection from "../../../../cities/components/CityHeroSection"
@@ -49,7 +48,6 @@ export default async function CityDetailPage({ params }: CityDetailPageProps) {
       <PortfolioSection title={`Our Portfolio in ${cityData.name}`} subtitle="View our exhibition stand projects" />
       <ExhibitingExperienceSection data={cityData.exhibitingExperience} />
       <TradeShowsCarouselSection cityName={cityData.name} />
-      <ContactSection />
     </main>
   )
 }

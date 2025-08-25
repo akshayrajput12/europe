@@ -165,7 +165,7 @@ export default function Footer() {
         {/* Copyright */}
         <div className="border-t border-white/20 mt-4 sm:mt-6 md:mt-8 pt-4 sm:pt-6 md:pt-8 text-center">
           <p className="text-gray-300 text-sm sm:text-base md:text-lg">
-            Copyright © {currentYear} Chronicles. All rights reserved.
+            Copyright © {currentYear} Chronicle Exhibition Organizing LLC. All rights reserved.
           </p>
         </div>
       </div>
