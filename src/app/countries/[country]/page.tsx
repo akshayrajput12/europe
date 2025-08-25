@@ -44,7 +44,7 @@ export default async function CountryDetailPage({ params }: CountryPageProps) {
       <CompanyInfoSection data={countryData.companyInfo} />
       <BestCompanySection data={countryData.bestCompany} />
       <ProcessSection data={countryData.processSection} />
-      <CitiesSection data={countryData.citiesSection} />
+      <CitiesSection data={countryData.citiesSection} countrySlug={countryKey} />
       <ContactSection />
     </main>
   )

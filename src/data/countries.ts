@@ -51,7 +51,6 @@ export interface City {
 export interface CitiesSection {
   title: string
   subtitle: string
-  cities: City[]
 }
 
 export interface BestCompany {
@@ -235,25 +234,7 @@ export const countryDetailsData: CountryDetailsData = {
       },
       citiesSection: {
         title: "EXHIBITION STANDS IN",
-        subtitle: "FRANCE",
-        cities: [
-          { name: "ANGERS", link: "/countries/france/angers" },
-          { name: "BORDEAUX", link: "/countries/france/bordeaux" },
-          { name: "CANNES", link: "/countries/france/cannes" },
-          { name: "GRENOBLE", link: "/countries/france/grenoble" },
-          { name: "LE MANS", link: "/countries/france/le-mans" },
-          { name: "LILLE", link: "/countries/france/lille" },
-          { name: "LYON", link: "/countries/france/lyon" },
-          { name: "MARSEILLE", link: "/countries/france/marseille" },
-          { name: "METZ", link: "/countries/france/metz" },
-          { name: "MONTPELLIER", link: "/countries/france/montpellier" },
-          { name: "NANTES", link: "/countries/france/nantes" },
-          { name: "NICE", link: "/countries/france/nice" },
-          { name: "PARIS", link: "/countries/france/paris" },
-          { name: "REIMS", link: "/countries/france/reims" },
-          { name: "STRASBOURG", link: "/countries/france/strasbourg" },
-          { name: "TOULOUSE", link: "/countries/france/toulouse" }
-        ]
+        subtitle: "FRANCE"
       }
     },
     {
@@ -374,23 +355,7 @@ export const countryDetailsData: CountryDetailsData = {
       },
       citiesSection: {
         title: "EXHIBITION STANDS IN",
-        subtitle: "GERMANY",
-        cities: [
-          { name: "BERLIN", link: "/countries/germany/berlin" },
-          { name: "MUNICH", link: "/countries/germany/munich" },
-          { name: "FRANKFURT", link: "/countries/germany/frankfurt" },
-          { name: "HAMBURG", link: "/countries/germany/hamburg" },
-          { name: "COLOGNE", link: "/countries/germany/cologne" },
-          { name: "STUTTGART", link: "/countries/germany/stuttgart" },
-          { name: "DÜSSELDORF", link: "/countries/germany/dusseldorf" },
-          { name: "LEIPZIG", link: "/countries/germany/leipzig" },
-          { name: "DORTMUND", link: "/countries/germany/dortmund" },
-          { name: "ESSEN", link: "/countries/germany/essen" },
-          { name: "BREMEN", link: "/countries/germany/bremen" },
-          { name: "HANOVER", link: "/countries/germany/hanover" },
-          { name: "NUREMBERG", link: "/countries/germany/nuremberg" },
-          { name: "DRESDEN", link: "/countries/germany/dresden" }
-        ]
+        subtitle: "GERMANY"
       }
     }
   ]

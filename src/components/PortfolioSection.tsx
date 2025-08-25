@@ -42,14 +42,14 @@ export default function PortfolioSection({ title, subtitle }: PortfolioSectionPr
           {featuredItems.map((item, index) => (
             <div
               key={index}
-              className="relative aspect-[4/3] bg-gray-200 rounded-lg overflow-hidden"
+              className="relative aspect-[4/3] bg-gray-200 rounded-lg overflow-hidden group shadow-md hover:shadow-xl transition-all duration-300"
             >
               {/* Image */}
               <Image
                 src={item.image}
                 alt={item.title}
                 fill
-                className="object-cover"
+                className="object-cover group-hover:scale-110 transition-transform duration-500"
               />
             </div>
           ))}

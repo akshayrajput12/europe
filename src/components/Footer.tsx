@@ -8,6 +8,7 @@ import {
   Linkedin,
   Youtube,
 } from "lucide-react";
+import { getCountryCards } from "@/data/countries";
 
 // Map social names to icons
 const socialIcons: Record<string, React.ReactNode> = {
@@ -20,6 +21,9 @@ const socialIcons: Record<string, React.ReactNode> = {
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
+  
+  // Get only countries that have been created (exist in countries.ts)
+  const availableCountries = getCountryCards();
 
   return (
     <footer className="bg-secondary text-white">
@@ -89,15 +93,13 @@ export default function Footer() {
               {footerData.locations.title}
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-1 sm:gap-2 md:gap-3">
-              {footerData.locations.countries.map((country, index) => (
+              {availableCountries.map((country, index) => (
                 <Link
                   key={index}
-                  href={`/countries/${country
-                    .toLowerCase()
-                    .replace(" ", "-")}`}
+                  href={`/countries/${country.slug}`}
                   className="text-gray-300 hover:text-white transition-colors text-sm sm:text-base md:text-lg"
                 >
-                  {country}
+                  {country.name}
                 </Link>
               ))}
             </div>

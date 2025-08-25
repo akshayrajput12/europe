@@ -165,9 +165,9 @@ export const tradeShowData: TradeShowData = {
       `,
       startDate: "2025-08-29",
       endDate: "2025-09-01",
-      location: "Madrid, Spain",
-      country: "Spain",
-      city: "Madrid",
+      location: "paris, france",
+      country: "france",
+      city: "paris",
       featuredImage: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=800&h=600&fit=crop",
 
       category: "Medical & Healthcare",

@@ -52,9 +52,11 @@ export default function MainContent() {
         </div>
 
         <div className="text-center">
-          <button className="bg-[#A5CD39] hover:bg-[#94b832] text-white px-8 py-3 rounded-full font-medium transition-colors duration-300 shadow-lg hover:shadow-xl">
-            Load More
-          </button>
+          <Link href="/countries">
+            <button className="bg-[#A5CD39] hover:bg-[#94b832] text-white px-8 py-3 rounded-full font-medium transition-colors duration-300 shadow-lg hover:shadow-xl">
+              Load More
+            </button>
+          </Link>
         </div>
       </div>
     </main>
