@@ -15,12 +15,12 @@ export const navigationData = {
     {
       label: "REQUEST FOR FREE DESIGN",
       variant: "outline" as const,
-      href: "#",
+      href: "/request-free-design",
     },
     {
       label: "REQUEST FOR QUOTATION",
       variant: "default" as const,
-      href: "#",
+      href: "/request-quotation",
     },
   ],
   secondaryHeader: {

@@ -5,19 +5,10 @@ import { navigationData } from "@/data/navigation"
 import { Menu, X } from "lucide-react"
 import { useState } from "react"
 import Image from "next/image"
-import { useQuoteModal } from "@/contexts/QuoteModalContext"
+import Link from "next/link"
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-  const { openQuoteModal, openDesignModal } = useQuoteModal()
-
-  const handleCTAClick = (label: string) => {
-    if (label.toLowerCase().includes('design')) {
-      openDesignModal()
-    } else {
-      openQuoteModal()
-    }
-  }
 
   return (
     <>
@@ -37,15 +28,15 @@ export default function Header() {
             {/* Desktop CTA Buttons */}
             <div className="hidden lg:flex items-center space-x-2 lg:space-x-3 xl:space-x-4">
               {navigationData.ctaButtons.map((button, index) => (
-                <Button
-                  key={index}
-                  variant="outline"
-                  size="sm"
-                  onClick={() => handleCTAClick(button.label)}
-                  className="text-slate-800 border-slate-800 hover:bg-[#A5CD39] hover:text-white hover:border-[#A5CD39] bg-background px-3 sm:px-4 md:px-6 py-1.5 sm:py-2 md:py-2 rounded-full font-medium transition-all duration-300 hover:scale-105 text-xs sm:text-sm md:text-base"
-                >
-                  {button.label}
-                </Button>
+                <Link key={index} href={button.href}>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="text-slate-800 border-slate-800 hover:bg-[#A5CD39] hover:text-white hover:border-[#A5CD39] bg-background px-3 sm:px-4 md:px-6 py-1.5 sm:py-2 md:py-2 rounded-full font-medium transition-all duration-300 hover:scale-105 text-xs sm:text-sm md:text-base"
+                  >
+                    {button.label}
+                  </Button>
+                </Link>
               ))}
             </div>
 
@@ -96,18 +87,16 @@ export default function Header() {
               ))}
               <div className="flex flex-col space-y-2 sm:space-y-3 pt-3 sm:pt-4 border-t border-slate-200 lg:hidden">
                 {navigationData.ctaButtons.map((button, index) => (
-                  <Button
-                    key={index}
-                    variant="outline"
-                    size="sm"
-                    onClick={() => {
-                      handleCTAClick(button.label)
-                      setIsMobileMenuOpen(false)
-                    }}
-                    className="text-slate-800 border-slate-800 hover:bg-[#A5CD39] hover:text-white hover:border-[#A5CD39] bg-transparent rounded-full font-medium transition-all duration-300 text-sm sm:text-base py-2 sm:py-3"
-                  >
-                    {button.label}
-                  </Button>
+                  <Link key={index} href={button.href}>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className="text-slate-800 border-slate-800 hover:bg-[#A5CD39] hover:text-white hover:border-[#A5CD39] bg-transparent rounded-full font-medium transition-all duration-300 text-sm sm:text-base py-2 sm:py-3 w-full"
+                    >
+                      {button.label}
+                    </Button>
+                  </Link>
                 ))}
               </div>
             </div>
