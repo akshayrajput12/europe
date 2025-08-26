@@ -27,17 +27,19 @@ export default function RequestFreeDesignPage() {
     facilities: [] as string[],
     budget: "",
     additionalInfo: "",
-    sampleDesign: null as File | null,
-    floorDesign: null as File | null,
-    graphicLogo: null as File | null
+    sampleDesign: [] as File[],
+    floorDesign: [] as File[],
+    graphicLogo: [] as File[]
   })
 
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }))
   }
 
-  const handleFileChange = (field: string, file: File | null) => {
-    setFormData(prev => ({ ...prev, [field]: file }))
+  const handleFileChange = (field: string, files: FileList | null) => {
+    if (files) {
+      setFormData(prev => ({ ...prev, [field]: Array.from(files) }))
+    }
   }
 
   const handleFacilityChange = (facility: string, checked: boolean) => {
@@ -201,14 +203,34 @@ export default function RequestFreeDesignPage() {
                   <Input
                     placeholder="10"
                     value={formData.width}
-                    onChange={(e) => handleInputChange("width", e.target.value)}
+                    onChange={(e) => {
+                      const width = e.target.value;
+                      handleInputChange("width", width);
+                      // Calculate area when width changes
+                      if (width && formData.length) {
+                        const area = (parseFloat(width) || 0) * (parseFloat(formData.length) || 0);
+                        handleInputChange("area", area.toString());
+                      } else if (!width) {
+                        handleInputChange("area", "");
+                      }
+                    }}
                     className="w-20 border-black"
                   />
                   <span className="text-lg">X</span>
                   <Input
                     placeholder="20"
                     value={formData.length}
-                    onChange={(e) => handleInputChange("length", e.target.value)}
+                    onChange={(e) => {
+                      const length = e.target.value;
+                      handleInputChange("length", length);
+                      // Calculate area when length changes
+                      if (length && formData.width) {
+                        const area = (parseFloat(formData.width) || 0) * (parseFloat(length) || 0);
+                        handleInputChange("area", area.toString());
+                      } else if (!length) {
+                        handleInputChange("area", "");
+                      }
+                    }}
                     className="w-20 border-black"
                   />
                   <span className="text-lg">=</span>
@@ -322,12 +344,19 @@ export default function RequestFreeDesignPage() {
                 </label>
                 <input
                   type="file"
-                  accept=".jpg,.jpeg,.png,.pdf,.ai,.psd"
-                  onChange={(e) => handleFileChange("sampleDesign", e.target.files?.[0] || null)}
+                  multiple
+                  onChange={(e) => handleFileChange("sampleDesign", e.target.files)}
                   className="w-full border border-black rounded p-3 bg-white file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-medium file:bg-primary file:text-white hover:file:bg-[#8fb32e]"
                 />
-                {formData.sampleDesign && (
-                  <p className="text-sm text-gray-600 mt-1">Selected: {formData.sampleDesign.name}</p>
+                {formData.sampleDesign.length > 0 && (
+                  <div className="text-sm text-gray-600 mt-1">
+                    Selected files:
+                    <ul className="list-disc list-inside">
+                      {formData.sampleDesign.map((file, index) => (
+                        <li key={index}>{file.name}</li>
+                      ))}
+                    </ul>
+                  </div>
                 )}
               </div>
               <div>
@@ -336,12 +365,19 @@ export default function RequestFreeDesignPage() {
                 </label>
                 <input
                   type="file"
-                  accept=".jpg,.jpeg,.png,.pdf,.ai,.psd"
-                  onChange={(e) => handleFileChange("floorDesign", e.target.files?.[0] || null)}
+                  multiple
+                  onChange={(e) => handleFileChange("floorDesign", e.target.files)}
                   className="w-full border border-black rounded p-3 bg-white file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-medium file:bg-primary file:text-white hover:file:bg-[#8fb32e]"
                 />
-                {formData.floorDesign && (
-                  <p className="text-sm text-gray-600 mt-1">Selected: {formData.floorDesign.name}</p>
+                {formData.floorDesign.length > 0 && (
+                  <div className="text-sm text-gray-600 mt-1">
+                    Selected files:
+                    <ul className="list-disc list-inside">
+                      {formData.floorDesign.map((file, index) => (
+                        <li key={index}>{file.name}</li>
+                      ))}
+                    </ul>
+                  </div>
                 )}
               </div>
               <div className="md:col-span-2">
@@ -350,12 +386,19 @@ export default function RequestFreeDesignPage() {
                 </label>
                 <input
                   type="file"
-                  accept=".jpg,.jpeg,.png,.pdf,.ai,.psd,.svg"
-                  onChange={(e) => handleFileChange("graphicLogo", e.target.files?.[0] || null)}
+                  multiple
+                  onChange={(e) => handleFileChange("graphicLogo", e.target.files)}
                   className="w-full border border-black rounded p-3 bg-white file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-medium file:bg-primary file:text-white hover:file:bg-[#8fb32e]"
                 />
-                {formData.graphicLogo && (
-                  <p className="text-sm text-gray-600 mt-1">Selected: {formData.graphicLogo.name}</p>
+                {formData.graphicLogo.length > 0 && (
+                  <div className="text-sm text-gray-600 mt-1">
+                    Selected files:
+                    <ul className="list-disc list-inside">
+                      {formData.graphicLogo.map((file, index) => (
+                        <li key={index}>{file.name}</li>
+                      ))}
+                    </ul>
+                  </div>
                 )}
               </div>
             </div>

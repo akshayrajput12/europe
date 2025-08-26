@@ -13,7 +13,7 @@ export default function RequestQuotationPage() {
     eventName: "",
     eventCity: "",
     boothSize: "",
-    uploadFile: null as File | null,
+    uploadFiles: [] as File[],
     fullName: "",
     emailId: "",
     phoneNumber: "",
@@ -25,8 +25,10 @@ export default function RequestQuotationPage() {
     setFormData(prev => ({ ...prev, [field]: value }))
   }
 
-  const handleFileChange = (file: File | null) => {
-    setFormData(prev => ({ ...prev, uploadFile: file }))
+  const handleFileChange = (files: FileList | null) => {
+    if (files) {
+      setFormData(prev => ({ ...prev, uploadFiles: Array.from(files) }))
+    }
   }
 
   const validateForm = () => {
@@ -163,12 +165,19 @@ export default function RequestQuotationPage() {
                 <div>
                   <input
                     type="file"
-                    accept=".jpg,.jpeg,.png,.pdf,.ai,.psd"
-                    onChange={(e) => handleFileChange(e.target.files?.[0] || null)}
+                    multiple
+                    onChange={(e) => handleFileChange(e.target.files)}
                     className="w-full border border-gray-300 rounded p-3 bg-white file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-medium file:bg-gray-100 file:text-gray-700 hover:file:bg-gray-200"
                   />
-                  {formData.uploadFile && (
-                    <p className="text-sm text-gray-600 mt-1">Selected: {formData.uploadFile.name}</p>
+                  {formData.uploadFiles.length > 0 && (
+                    <div className="text-sm text-gray-600 mt-1">
+                      Selected files:
+                      <ul className="list-disc list-inside">
+                        {formData.uploadFiles.map((file, index) => (
+                          <li key={index}>{file.name}</li>
+                        ))}
+                      </ul>
+                    </div>
                   )}
                 </div>
               </div>

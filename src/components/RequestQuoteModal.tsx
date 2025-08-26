@@ -49,8 +49,7 @@ export default function RequestQuoteModal({ isOpen, onClose, type = "quote" }: R
     "€5000 - €10000",
     "€10000 - €20000",
     "€20000 - €50000",
-    "€50000+",
-    "Not Sure"
+    "€50000+"
   ]
 
   // Function to detect country based on IP
