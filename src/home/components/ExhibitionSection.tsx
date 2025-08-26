@@ -45,8 +45,8 @@ export function ExhibitionSection() {
           {/* Request Form Button */}
           <div className="mt-8">
             <Button
-              variant="outline"
-              className="px-8 py-3 border-2 border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white transition-colors duration-200 rounded-full font-medium bg-transparent"
+              size="lg"
+              className="bg-[#A5CD39] hover:bg-[#8fb32e] text-white px-8"
             >
               Request Form
             </Button>

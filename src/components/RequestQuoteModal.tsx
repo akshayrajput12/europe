@@ -334,7 +334,7 @@ export default function RequestQuoteModal({ isOpen, onClose, type = "quote" }: R
             </Button>
             <Button
               type="submit"
-              className="bg-[#A5CD39] hover:bg-[#94b832] text-white px-8"
+              className="bg-[#A5CD39] hover:bg-[#8fb32e] text-white px-8"
             >
               Send Request
             </Button>

@@ -266,7 +266,7 @@ export default function GetPhoneCallPage() {
               disabled={!selectedDate || !selectedTime}
               className={`px-8 py-3 rounded font-medium transition-colors ${
                 selectedDate && selectedTime 
-                  ? 'bg-primary hover:bg-primary/90 text-white' 
+                  ? 'bg-primary hover:bg-[#8fb32e] text-white' 
                   : 'bg-gray-400 text-gray-600 cursor-not-allowed'
               }`}
             >

@@ -44,7 +44,10 @@ export default function PortfolioSection() {
       <div className="text-center mt-8 sm:mt-10 md:mt-12 lg:mt-16">
         <div className="container mx-auto px-2 sm:px-4 md:px-6 lg:px-8">
           <Link href={portfolioData.ctaLink}>
-            <Button className="bg-[#A5CD39] hover:bg-[#8fb52f] text-black font-semibold px-4 sm:px-6 md:px-8 py-2 sm:py-3 md:py-4 rounded-sm transition-colors text-sm sm:text-base md:text-lg">
+            <Button 
+              size="lg"
+              className="bg-[#A5CD39] hover:bg-[#8fb32e] text-white px-8"
+            >
               {portfolioData.ctaText}
             </Button>
           </Link>

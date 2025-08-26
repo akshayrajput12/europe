@@ -324,7 +324,7 @@ export default function RequestFreeDesignPage() {
                   type="file"
                   accept=".jpg,.jpeg,.png,.pdf,.ai,.psd"
                   onChange={(e) => handleFileChange("sampleDesign", e.target.files?.[0] || null)}
-                  className="w-full border border-black rounded p-3 bg-white file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-medium file:bg-primary file:text-white hover:file:bg-primary/90"
+                  className="w-full border border-black rounded p-3 bg-white file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-medium file:bg-primary file:text-white hover:file:bg-[#8fb32e]"
                 />
                 {formData.sampleDesign && (
                   <p className="text-sm text-gray-600 mt-1">Selected: {formData.sampleDesign.name}</p>
@@ -338,7 +338,7 @@ export default function RequestFreeDesignPage() {
                   type="file"
                   accept=".jpg,.jpeg,.png,.pdf,.ai,.psd"
                   onChange={(e) => handleFileChange("floorDesign", e.target.files?.[0] || null)}
-                  className="w-full border border-black rounded p-3 bg-white file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-medium file:bg-primary file:text-white hover:file:bg-primary/90"
+                  className="w-full border border-black rounded p-3 bg-white file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-medium file:bg-primary file:text-white hover:file:bg-[#8fb32e]"
                 />
                 {formData.floorDesign && (
                   <p className="text-sm text-gray-600 mt-1">Selected: {formData.floorDesign.name}</p>
@@ -352,7 +352,7 @@ export default function RequestFreeDesignPage() {
                   type="file"
                   accept=".jpg,.jpeg,.png,.pdf,.ai,.psd,.svg"
                   onChange={(e) => handleFileChange("graphicLogo", e.target.files?.[0] || null)}
-                  className="w-full border border-black rounded p-3 bg-white file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-medium file:bg-primary file:text-white hover:file:bg-primary/90"
+                  className="w-full border border-black rounded p-3 bg-white file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-medium file:bg-primary file:text-white hover:file:bg-[#8fb32e]"
                 />
                 {formData.graphicLogo && (
                   <p className="text-sm text-gray-600 mt-1">Selected: {formData.graphicLogo.name}</p>
@@ -391,7 +391,7 @@ export default function RequestFreeDesignPage() {
             <div>
               <Button
                 type="submit"
-                className="bg-primary hover:bg-primary/90 text-white px-8 py-3 rounded font-semibold"
+                className="bg-[#A5CD39] hover:bg-[#8fb32e] text-white px-8 py-3 rounded font-semibold"
               >
                 {requestDesignFormData.submitButton}
               </Button>

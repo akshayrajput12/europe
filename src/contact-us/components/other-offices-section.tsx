@@ -42,7 +42,7 @@ export default function OtherOfficesSection() {
                       href={`https://${office.website}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-[#A5CD39] hover:text-[#8FB82E] transition-colors text-sm md:text-base"
+                      className="text-[#A5CD39] hover:text-[#8fb32e] transition-colors text-sm md:text-base"
                     >
                       {office.website}
                     </a>

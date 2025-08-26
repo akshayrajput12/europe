@@ -41,9 +41,8 @@ export default function SolutionCardsSection() {
                   </p>
                   <Link href={linkMap[solution.title] || "#"}>
                     <Button
-                      variant="outline"
-                      size="sm"
-                      className="text-xs md:text-sm border-gray-400 text-gray-900 hover:bg-[#A5CD39] hover:text-white hover:border-[#A5CD39] transition-all duration-300 px-3 sm:px-4 py-1.5 sm:py-2"
+                      size="lg"
+                      className="bg-[#A5CD39] hover:bg-[#8fb32e] text-white px-8"
                     >
                       LEARN MORE
                     </Button>

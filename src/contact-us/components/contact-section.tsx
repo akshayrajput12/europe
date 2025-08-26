@@ -137,7 +137,7 @@ export default function ContactSection() {
 
                 <Button
                   type="submit"
-                  className="bg-[#A5CD39] text-white px-8 py-3 h-12 rounded-full hover:bg-[#8FB82E] hover:scale-105 transition-all duration-300 font-semibold"
+                  className="bg-[#A5CD39] text-white px-8 py-3 h-12 rounded-full hover:bg-[#8fb32e] hover:scale-105 transition-all duration-300 font-semibold"
                 >
                   SEND MESSAGE
                 </Button>

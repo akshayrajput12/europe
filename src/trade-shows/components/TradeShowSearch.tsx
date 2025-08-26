@@ -43,7 +43,7 @@ export default function TradeShowSearch({ onSearch }: TradeShowSearchProps) {
             />
             <button
               onClick={handleSearch}
-              className="bg-primary hover:bg-slate-700 text-white px-4 sm:px-6 py-2 sm:py-2.5 rounded-md sm:rounded-l-none sm:rounded-r-md transition-colors duration-300 text-sm font-medium whitespace-nowrap"
+              className="bg-[#A5CD39] hover:bg-[#8fb32e] text-white px-4 sm:px-6 py-2 sm:py-2.5 rounded-md sm:rounded-l-none sm:rounded-r-md transition-colors duration-300 text-sm font-medium whitespace-nowrap"
             >
               Search Fairs
             </button>

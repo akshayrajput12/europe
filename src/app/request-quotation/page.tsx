@@ -199,7 +199,7 @@ export default function RequestQuotationPage() {
             <div className="text-center">
               <Button
                 type="submit"
-                className="bg-primary hover:bg-primary/90 text-white px-8 py-3 rounded font-semibold"
+                className="bg-[#A5CD39] hover:bg-[#8fb32e] text-white px-8 py-3 rounded font-semibold"
               >
                 {requestQuotationFormData.submitButton}
               </Button>

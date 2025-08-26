@@ -26,7 +26,7 @@ export default function HeroSection() {
           <Button
             size="lg"
             onClick={openQuoteModal}
-            className="bg-[#A5CD39] hover:bg-[#8fb32e] text-white transition-all duration-300"
+            className="bg-[#A5CD39] hover:bg-[#8fb32e] text-white px-8"
           >
             REQUEST FOR QUOTATION
           </Button>

@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import { Button } from "@/components/ui/button"
 import { homeData } from "@/data/home"
 import { getCountryCards } from "@/data/countries"
 
@@ -53,9 +54,12 @@ export default function MainContent() {
 
         <div className="text-center">
           <Link href="/countries">
-            <button className="bg-[#A5CD39] hover:bg-[#94b832] text-white px-8 py-3 rounded-full font-medium transition-colors duration-300 shadow-lg hover:shadow-xl">
+            <Button 
+              size="lg"
+              className="bg-[#A5CD39] hover:bg-[#8fb32e] text-white px-8"
+            >
               Load More
-            </button>
+            </Button>
           </Link>
         </div>
       </div>

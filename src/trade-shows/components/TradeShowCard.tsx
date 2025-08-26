@@ -66,7 +66,7 @@ export default function TradeShowCard({ show }: TradeShowCardProps) {
       <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
         <Link
           href={`/trade-shows/${show.slug}`}
-          className="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-2.5 sm:py-3 px-4 sm:px-6 rounded-full transition-colors duration-300 text-xs sm:text-sm text-center flex items-center justify-center gap-2"
+          className="flex-1 bg-[#A5CD39] hover:bg-[#8fb32e] text-white font-medium py-2.5 sm:py-3 px-4 sm:px-6 rounded-full transition-colors duration-300 text-xs sm:text-sm text-center flex items-center justify-center gap-2"
         >
           <Eye className="w-3 h-3 sm:w-4 sm:h-4" />
           View Fair Detail

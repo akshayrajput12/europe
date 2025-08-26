@@ -162,7 +162,7 @@ function SaveCallDetailContent() {
               <div className="text-center mt-8">
                 <Button
                   type="submit"
-                  className="bg-primary hover:bg-primary/90 text-white px-12 py-4 rounded-full font-semibold text-lg"
+                  className="bg-[#A5CD39] hover:bg-[#8fb32e] text-white px-12 py-4 rounded-full font-semibold text-lg"
                 >
                   {getPhoneCallFormData.saveCallDetail.submitButton}
                 </Button>

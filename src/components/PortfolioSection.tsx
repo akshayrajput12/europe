@@ -2,6 +2,8 @@
 
 import Image from "next/image";
 import { portfolioData } from "@/data/portfolio";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 type PortfolioSectionProps = {
   title?: string;
@@ -21,7 +23,8 @@ export default function PortfolioSection({ title, subtitle }: PortfolioSectionPr
   return (
     <section className="py-16 bg-gray-50">
       <div className="container mx-auto px-4">
-        {/* Section Header (only shows if props passed) */}
+        {/* Section Header (only shows if props passed) */
+        }
         {(showTitle || showSubtitle) && (
           <div className="text-center mb-12">
             {showTitle && (
@@ -58,12 +61,14 @@ export default function PortfolioSection({ title, subtitle }: PortfolioSectionPr
         {/* CTA Button */}
         {ctaText && ctaLink && (
           <div className="text-center mt-12">
-            <a
-              href={ctaLink}
-              className="bg-primary text-white px-8 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors"
-            >
-              {ctaText}
-            </a>
+            <Link href={ctaLink}>
+              <Button 
+                size="lg"
+                className="bg-[#A5CD39] hover:bg-[#8fb32e] text-white px-8"
+              >
+                {ctaText}
+              </Button>
+            </Link>
           </div>
         )}
       </div>
