@@ -11,7 +11,7 @@ export const contactData = {
       label: "Stand Budget*",
       type: "select",
       required: true,
-      options: ["Under $10,000", "$10,000 - $25,000", "$25,000 - $50,000", "$50,000+"],
+      options: ["Under €5000", "€5000 - €10000", "€10000 - €20000", "€20000+"],
     },
   ],
 }

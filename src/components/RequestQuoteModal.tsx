@@ -45,11 +45,11 @@ export default function RequestQuoteModal({ isOpen, onClose, type = "quote" }: R
   )
 
   const budgetOptions = [
-    "$5,000 - $10,000",
-    "$10,000 - $25,000",
-    "$25,000 - $50,000",
-    "$50,000 - $100,000",
-    "$100,000+",
+    "Under €5000",
+    "€5000 - €10000",
+    "€10000 - €20000",
+    "€20000 - €50000",
+    "€50000+",
     "Not Sure"
   ]
 
