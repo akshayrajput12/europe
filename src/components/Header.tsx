@@ -15,15 +15,17 @@ export default function Header() {
       <header className="bg-secondary text-slate-800 shadow-lg fixed w-full top-0 z-50">
         <div className="container mx-auto px-2 sm:px-4 md:px-6 lg:px-8 py-2 sm:py-3 md:py-4">
           <div className="flex items-center justify-between">
-            {/* Logo */}
-            <div className="relative h-8 w-24 sm:h-10 w-28 md:h-12 w-32 lg:h-14 w-36">
-              <Image
-                src={navigationData.logo.imageUrl}
-                alt={navigationData.logo.alt}
-                fill
-                className="object-contain"
-              />
-            </div>
+            {/* Logo - now wrapped in Link to redirect to home page */}
+            <Link href="/">
+              <div className="relative h-8 w-24 sm:h-10 w-28 md:h-12 w-32 lg:h-14 w-36 cursor-pointer">
+                <Image
+                  src={navigationData.logo.imageUrl}
+                  alt={navigationData.logo.alt}
+                  fill
+                  className="object-contain"
+                />
+              </div>
+            </Link>
 
             {/* Desktop CTA Buttons */}
             <div className="hidden lg:flex items-center space-x-2 lg:space-x-3 xl:space-x-4">

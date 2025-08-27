@@ -1,7 +1,6 @@
 export interface RequestQuotationFormData {
   hero: {
     title: string;
-    subtitle: string;
     backgroundImage: string;
   };
   eventDetails: {
@@ -34,7 +33,6 @@ export interface RequestQuotationFormData {
 export const requestQuotationFormData: RequestQuotationFormData = {
   hero: {
     title: "Contact For Booth Design & Construction Services",
-    subtitle: "Simply fill out the form with your stand requirements, and we will create a unique design just for you. Let us transform your vision into a reality. Receive a stand design and quotation for free, with no booking obligations.",
     backgroundImage: "https://plus.unsplash.com/premium_photo-1723517419729-1ecee473604c?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwxfHx8ZW58MHx8fHx8"
   },
   eventDetails: {

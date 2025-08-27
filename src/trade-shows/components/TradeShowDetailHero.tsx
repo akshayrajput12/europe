@@ -66,46 +66,46 @@ export default function TradeShowDetailHero({ show }: TradeShowDetailHeroProps) 
           
           {/* Countdown Timer and Join Button - Positioned at bottom of hero */}
           <div className="flex flex-col sm:flex-row gap-1 sm:gap-2 md:gap-3 lg:gap-4 xl:gap-6 bg-transparent">
-            {/* Timer Section - Purple/Pink Gradient */}
-            <div className="flex-1 bg-gradient-to-r from-purple-500 via-pink-500 to-pink-600 py-2 sm:py-3 md:py-4 lg:py-5 xl:py-6">
+            {/* Timer Section - Pink */}
+            <div className="flex-1 bg-[#bd2771] py-4 sm:py-5 md:py-6 lg:py-7 xl:py-8">
               <div className="container mx-auto px-2 sm:px-4 md:px-6 lg:px-8">
-                <div className="flex items-center justify-center gap-2 sm:gap-4 md:gap-6 lg:gap-8 xl:gap-12 2xl:gap-16">
+                <div className="flex items-center justify-center gap-4 sm:gap-6 md:gap-8 lg:gap-10 xl:gap-16 2xl:gap-24">
                   {/* Days */}
                   <div className="text-center">
-                    <div className="text-sm sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl font-bold text-white leading-none">
+                    <div className="text-lg sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-bold text-white leading-none">
                       {timeLeft.days.toString().padStart(3, '0')}
                     </div>
-                    <div className="text-xs sm:text-xs md:text-sm lg:text-base text-white/90 uppercase tracking-wider font-medium mt-0.5 sm:mt-1">
+                    <div className="text-sm sm:text-base md:text-lg lg:text-xl text-white/90 uppercase tracking-wider font-medium mt-1 sm:mt-2">
                       DAYS
                     </div>
                   </div>
 
                   {/* Hours */}
                   <div className="text-center">
-                    <div className="text-sm sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl font-bold text-white leading-none">
+                    <div className="text-lg sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-bold text-white leading-none">
                       {timeLeft.hours.toString().padStart(2, '0')}
                     </div>
-                    <div className="text-xs sm:text-xs md:text-sm lg:text-base text-white/90 uppercase tracking-wider font-medium mt-0.5 sm:mt-1">
+                    <div className="text-sm sm:text-base md:text-lg lg:text-xl text-white/90 uppercase tracking-wider font-medium mt-1 sm:mt-2">
                       HRS
                     </div>
                   </div>
 
                   {/* Minutes */}
                   <div className="text-center">
-                    <div className="text-sm sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl font-bold text-white leading-none">
+                    <div className="text-lg sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-bold text-white leading-none">
                       {timeLeft.minutes.toString().padStart(2, '0')}
                     </div>
-                    <div className="text-xs sm:text-xs md:text-sm lg:text-base text-white/90 uppercase tracking-wider font-medium mt-0.5 sm:mt-1">
+                    <div className="text-sm sm:text-base md:text-lg lg:text-xl text-white/90 uppercase tracking-wider font-medium mt-1 sm:mt-2">
                       MIN
                     </div>
                   </div>
 
                   {/* Seconds */}
                   <div className="text-center">
-                    <div className="text-sm sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl font-bold text-white leading-none">
+                    <div className="text-lg sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-bold text-white leading-none">
                       {timeLeft.seconds.toString().padStart(2, '0')}
                     </div>
-                    <div className="text-xs sm:text-xs md:text-sm lg:text-base text-white/90 uppercase tracking-wider font-medium mt-0.5 sm:mt-1">
+                    <div className="text-sm sm:text-base md:text-lg lg:text-xl text-white/90 uppercase tracking-wider font-medium mt-1 sm:mt-2">
                       SEC
                     </div>
                   </div>
@@ -114,11 +114,11 @@ export default function TradeShowDetailHero({ show }: TradeShowDetailHeroProps) 
             </div>
 
             {/* Join Button Section - Orange */}
-            <div className="flex-1 bg-gradient-to-r from-orange-500 to-orange-600 hover:bg-gray-500 transition-colors duration-300 py-2 sm:py-3 md:py-4 lg:py-5 xl:py-6 cursor-pointer">
-              <div className="h-full flex items-center justify-center px-2 sm:px-4 md:px-6 lg:px-8">
-                <div className="group flex items-center gap-1 sm:gap-2 md:gap-3 lg:gap-4 text-white">
-                  <div className="text-sm sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl font-bold">+</div>
-                  <div className="text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl font-bold uppercase tracking-wider group-hover:scale-105 transition-transform duration-300">
+            <div className="flex-1 bg-[rgb(255,144,0)] hover:bg-gray-500 transition-colors duration-300 py-5 sm:py-6 md:py-7 lg:py-8 xl:py-9 cursor-pointer">
+              <div className="h-full flex items-center justify-center px-3 sm:px-5 md:px-7 lg:px-9">
+                <div className="group flex items-center gap-4 sm:gap-5 md:gap-6 lg:gap-7 text-white">
+                  <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-bold">+</div>
+                  <div className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-bold uppercase tracking-wider group-hover:scale-105 transition-transform duration-300">
                     <span className="hidden sm:inline">JOIN THE EVENT</span>
                     <span className="sm:hidden">JOIN EVENT</span>
                   </div>

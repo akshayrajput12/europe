@@ -12,7 +12,6 @@ export interface PortfolioItem {
 
 export interface PortfolioPageData {
   title: string;
-  subtitle: string;
   items: PortfolioItem[];
 }
 
@@ -97,7 +96,6 @@ export const portfolioData: PortfolioData = {
 // Portfolio Page Data with extensive portfolio items
 export const portfolioPageData: PortfolioPageData = {
   title: "PORTFOLIO",
-  subtitle: "Check out our extensive portfolio of exhibition stands designed and fabricated with love and care for our clients around the world. We have been designing and building exhibition stands for over 20+ years.",
   items: [
     {
       image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&h=600&fit=crop",

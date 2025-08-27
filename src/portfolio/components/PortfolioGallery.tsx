@@ -46,7 +46,7 @@ export default function PortfolioGallery() {
     })
     
     setItemHeights(heights)
-  }, [])
+  }, [heightSequence.length])
   
   return (
     <section className="py-16 md:py-20">

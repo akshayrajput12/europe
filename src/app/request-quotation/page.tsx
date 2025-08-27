@@ -86,17 +86,18 @@ export default function RequestQuotationPage() {
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
       <section 
-        className="text-white py-16 px-4 bg-cover bg-center bg-no-repeat relative"
-        style={{ backgroundImage: `url(${requestQuotationFormData.hero.backgroundImage})` }}
+        className="relative min-h-[70vh] flex items-center justify-center text-white"
+        style={{ 
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${requestQuotationFormData.hero.backgroundImage})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        }}
       >
-        <div className="absolute inset-0 bg-black/50"></div>
-        <div className="max-w-4xl mx-auto text-center relative z-10">
-          <h1 className="text-3xl md:text-4xl font-bold mb-6">
+        <div className="container mx-auto px-4 text-center">
+          <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-4">
             {requestQuotationFormData.hero.title}
           </h1>
-          <p className="text-lg md:text-xl leading-relaxed max-w-3xl mx-auto">
-            {requestQuotationFormData.hero.subtitle}
-          </p>
         </div>
       </section>
 
@@ -204,16 +205,11 @@ export default function RequestQuotationPage() {
               </div>
             </div>
 
-            {/* Submit Button */}
             <div className="text-center">
-              <Button
-                type="submit"
-                className="bg-[#A5CD39] hover:bg-[#8fb32e] text-white px-8 py-3 rounded font-semibold"
-              >
+              <Button type="submit" className="bg-primary hover:bg-primary/90 text-white px-8 py-3 text-lg font-semibold">
                 {requestQuotationFormData.submitButton}
               </Button>
             </div>
-
           </form>
         </div>
       </section>

@@ -102,12 +102,16 @@ export default function RequestFreeDesignPage() {
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
       <section 
-        className="text-white py-16 px-4 bg-cover bg-center bg-no-repeat relative"
-        style={{ backgroundImage: `url(${requestDesignFormData.hero.backgroundImage})` }}
+        className="relative min-h-[70vh] flex items-center justify-center text-white"
+        style={{ 
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${requestDesignFormData.hero.backgroundImage})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        }}
       >
-        <div className="absolute inset-0 bg-black/50"></div>
-        <div className="max-w-4xl mx-auto text-center relative z-10">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">
+        <div className="container mx-auto px-4 text-center">
+          <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-4">
             {requestDesignFormData.hero.title.split(' ').map((word, index) => {
               if (word === 'FREE' || word === 'DESIGN') {
                 return <span key={index} className="text-primary">{word} </span>
@@ -115,9 +119,6 @@ export default function RequestFreeDesignPage() {
               return word + ' '
             })}
           </h1>
-          <p className="text-lg md:text-xl leading-relaxed max-w-3xl mx-auto">
-            {requestDesignFormData.hero.subtitle}
-          </p>
         </div>
       </section>
 
@@ -274,28 +275,114 @@ export default function RequestFreeDesignPage() {
               <h2 className="text-xl font-semibold mb-6 border-b-2 border-primary pb-2 inline-block">
                 {requestDesignFormData.yourSpaceIs.title}
               </h2>
-              <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-                {requestDesignFormData.yourSpaceIs.options.map((option) => (
-                  <label key={option.id} className="flex flex-col items-center gap-2 cursor-pointer">
+              <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
+                {/* One Side Open */}
+                <div className="flex flex-col items-center">
+                  <label className="flex items-center mb-3">
                     <input
                       type="radio"
                       name="spaceType"
-                      value={option.id}
-                      checked={formData.spaceType === option.id}
+                      value="one-side-open"
+                      checked={formData.spaceType === "one-side-open"}
                       onChange={(e) => handleInputChange("spaceType", e.target.value)}
-                      className="sr-only"
+                      className="mr-2"
                     />
-                    <div className={`w-16 h-16 border-2 rounded flex items-center justify-center ${
-                      formData.spaceType === option.id 
-                        ? "border-primary bg-primary/10" 
-                        : "border-gray-300"
-                    }`}>
-                      {/* Placeholder for space type icon */}
-                      <div className="w-8 h-8 bg-gray-200 rounded"></div>
-                    </div>
-                    <span className="text-sm text-center">{option.label}</span>
+                    <span>One Side Open</span>
                   </label>
-                ))}
+                  <div className={`w-20 h-16 relative ${formData.spaceType === "one-side-open" ? "opacity-100" : "opacity-50"}`}>
+                    <svg width="100%" height="100%" viewBox="0 0 112 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <rect x="1" y="1" width="110" height="94" stroke="#648a00" strokeWidth="3" />
+                      <line x1="1" y1="95" x2="111" y2="95" stroke="white" strokeWidth="2" />
+                    </svg>
+                  </div>
+                </div>
+
+                {/* Two Side F & L */}
+                <div className="flex flex-col items-center">
+                  <label className="flex items-center mb-3">
+                    <input
+                      type="radio"
+                      name="spaceType"
+                      value="two-side-l-t"
+                      checked={formData.spaceType === "two-side-l-t"}
+                      onChange={(e) => handleInputChange("spaceType", e.target.value)}
+                      className="mr-2"
+                    />
+                    <span>Two Side F & L</span>
+                  </label>
+                  <div className={`w-20 h-16 relative ${formData.spaceType === "two-side-l-t" ? "opacity-100" : "opacity-50"}`}>
+                    <svg width="100%" height="100%" viewBox="0 0 112 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <rect x="1" y="1" width="110" height="94" stroke="#648a00" strokeWidth="3" />
+                      <line x1="1" y1="95" x2="111" y2="95" stroke="white" strokeWidth="2" />
+                      <line x1="111" y1="1" x2="111" y2="95" stroke="white" strokeWidth="2" />
+                    </svg>
+                  </div>
+                </div>
+
+                {/* Two Side F & R */}
+                <div className="flex flex-col items-center">
+                  <label className="flex items-center mb-3">
+                    <input
+                      type="radio"
+                      name="spaceType"
+                      value="two-side-f-b"
+                      checked={formData.spaceType === "two-side-f-b"}
+                      onChange={(e) => handleInputChange("spaceType", e.target.value)}
+                      className="mr-2"
+                    />
+                    <span>Two Side F & R</span>
+                  </label>
+                  <div className={`w-20 h-16 relative ${formData.spaceType === "two-side-f-b" ? "opacity-100" : "opacity-50"}`}>
+                    <svg width="100%" height="100%" viewBox="0 0 112 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <rect x="1" y="1" width="110" height="94" stroke="#648a00" strokeWidth="3" />
+                      <line x1="1" y1="1" x2="1" y2="95" stroke="white" strokeWidth="2" />
+                      <line x1="1" y1="95" x2="111" y2="95" stroke="white" strokeWidth="2" />
+                    </svg>
+                  </div>
+                </div>
+
+                {/* Three Side Open */}
+                <div className="flex flex-col items-center">
+                  <label className="flex items-center mb-3">
+                    <input
+                      type="radio"
+                      name="spaceType"
+                      value="three-side-open"
+                      checked={formData.spaceType === "three-side-open"}
+                      onChange={(e) => handleInputChange("spaceType", e.target.value)}
+                      className="mr-2"
+                    />
+                    <span>Three Side Open</span>
+                  </label>
+                  <div className={`w-20 h-16 relative ${formData.spaceType === "three-side-open" ? "opacity-100" : "opacity-50"}`}>
+                    <svg width="100%" height="100%" viewBox="0 0 112 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <rect x="1" y="1" width="110" height="94" stroke="#648a00" strokeWidth="3" />
+                      <line x1="1" y1="95" x2="111" y2="95" stroke="white" strokeWidth="2" />
+                      <line x1="1" y1="1" x2="1" y2="95" stroke="white" strokeWidth="2" />
+                      <line x1="111" y1="1" x2="111" y2="95" stroke="white" strokeWidth="2" />
+                    </svg>
+                  </div>
+                </div>
+
+                {/* Island */}
+                <div className="flex flex-col items-center">
+                  <label className="flex items-center mb-3">
+                    <input
+                      type="radio"
+                      name="spaceType"
+                      value="island"
+                      checked={formData.spaceType === "island"}
+                      onChange={(e) => handleInputChange("spaceType", e.target.value)}
+                      className="mr-2"
+                    />
+                    <span>Island</span>
+                  </label>
+                  <div className={`w-20 h-16 relative ${formData.spaceType === "island" ? "opacity-100" : "opacity-50"}`}>
+                    <svg width="100%" height="100%" viewBox="0 0 112 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <rect x="1" y="1" width="110" height="94" stroke="#648a00" strokeWidth="3" />
+                    </svg>
+                  </div>
+                </div>
               </div>
             </div>
 

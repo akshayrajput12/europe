@@ -1,7 +1,6 @@
 export interface RequestDesignFormData {
   hero: {
     title: string;
-    subtitle: string;
     backgroundImage: string;
   };
   contactDetails: {
@@ -82,7 +81,6 @@ export interface RequestDesignFormData {
 export const requestDesignFormData: RequestDesignFormData = {
   hero: {
     title: "REQUEST FREE DESIGN",
-    subtitle: "Wondering how to get started? We will walk you through the steps of filling out the inquiry form. It is a simple process that ensures we have all the details needed to create your desired exhibition stand. Get a free stand design and quotation without any commitment to book.",
     backgroundImage: "https://plus.unsplash.com/premium_photo-1723517419729-1ecee473604c?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwxfHx8ZW58MHx8fHx8"
   },
   contactDetails: {

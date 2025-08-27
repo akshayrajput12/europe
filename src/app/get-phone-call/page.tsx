@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { getPhoneCallFormData } from "@/data/get-phone-call-form"
 import { Button } from "@/components/ui/button"
@@ -97,15 +97,19 @@ export default function GetPhoneCallPage() {
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
       <section 
-        className="text-white py-16 px-4 bg-cover bg-center bg-no-repeat relative"
-        style={{ backgroundImage: `url(${getPhoneCallFormData.hero.backgroundImage})` }}
+        className="relative min-h-[70vh] flex flex-col items-center justify-center text-white"
+        style={{ 
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${getPhoneCallFormData.hero.backgroundImage})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        }}
       >
-        <div className="absolute inset-0 bg-black/50"></div>
-        <div className="max-w-4xl mx-auto text-center relative z-10">
-          <h1 className="text-3xl md:text-5xl font-bold mb-6">
+        <div className="container mx-auto px-4 text-center">
+          <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-4">
             {getPhoneCallFormData.hero.title}
           </h1>
-          <h2 className="text-4xl md:text-6xl font-bold mb-8 text-primary">
+          <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold mb-6 text-primary">
             {getPhoneCallFormData.hero.highlightText}
           </h2>
         </div>
@@ -259,16 +263,10 @@ export default function GetPhoneCallPage() {
             </div>
           </div>
 
-          {/* Continue Button */}
           <div className="text-center mt-8">
-            <Button
+            <Button 
               onClick={handleContinue}
-              disabled={!selectedDate || !selectedTime}
-              className={`px-8 py-3 rounded font-medium transition-colors ${
-                selectedDate && selectedTime 
-                  ? 'bg-primary hover:bg-[#8fb32e] text-white' 
-                  : 'bg-gray-400 text-gray-600 cursor-not-allowed'
-              }`}
+              className="bg-primary hover:bg-primary/90 text-white px-8 py-3 text-lg font-semibold"
             >
               {getPhoneCallFormData.continueButton}
             </Button>

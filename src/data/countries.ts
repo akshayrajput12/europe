@@ -50,11 +50,6 @@ export interface BestCompany {
   title: string
   subtitle: string
   content: string[]
-  stats: {
-    clients: number
-    projects: number
-    manufacturingUnit: string
-  }
 }
 
 export interface WhatWeDo {
@@ -171,12 +166,7 @@ export const countryDetailsData: CountryDetailsData = {
           "We are dedicated to designing a unique brand experience that fully showcases your brand essence and enhances your presence. As we have been delivering quality construction services for 20+ years, we have now become an exhibition stand contractor that delivers exceptional results.",
           "Our team has successfully delivered quality services to 1000+ clients and completed 4000+ projects across 50+ exhibition events globally. Our professional team is here to provide customized exhibition services to help you convey your brand message effectively. We have a state-of-the-art manufacturing unit that allows us to deliver booth building projects with quick turnaround time.",
           "Our team puts the latest of their skills and experience to work on creative solutions to meet your exhibition floor. Get in touch with the most trusted exhibition stand design company in France to deliver a distinct and unparalleled experience at your next trade show in France."
-        ],
-        stats: {
-          clients: 1000,
-          projects: 4000,
-          manufacturingUnit: "state-of-the-art"
-        }
+        ]
       },
       processSection: {
         title: "The Art And Science Behind Our Exhibition Stand Design & Build Process",
@@ -280,12 +270,7 @@ export const countryDetailsData: CountryDetailsData = {
           "We are committed to creating exceptional brand experiences that capture the attention of German trade show visitors. With over 18 years of experience in the German exhibition market, we have established ourselves as a premier exhibition stand contractor.",
           "Our portfolio includes successful projects for 800+ clients across 3500+ projects in Germany's leading exhibition venues. Our German-focused team delivers customized exhibition solutions that effectively communicate your brand message to German audiences.",
           "With our advanced manufacturing capabilities and deep understanding of German exhibition standards, we deliver projects with remarkable efficiency and quality. Partner with Germany's most trusted exhibition stand design company."
-        ],
-        stats: {
-          clients: 800,
-          projects: 3500,
-          manufacturingUnit: "European-standard"
-        }
+        ]
       },
       processSection: {
         title: "Our Proven Exhibition Stand Design & Build Process in Germany",

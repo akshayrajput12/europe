@@ -6,9 +6,10 @@ export const navigationData = {
   menuItems: [
     { label: "HOME", href: "/" },
     { label: "COMPANY", href: "#" },
+    { label: "SERVICES", href: "/services" },
     { label: "PORTFOLIO", href: "/portfolio" },
     { label: "TESTIMONIALS", href: "/review" },
-    { label: "FURNITURE PRODUCTION", href: "#" },
+    { label: "TRADE SHOWS", href: "/trade-shows" },
     { label: "CONTACT US", href: "/contact-us" },
   ],
   ctaButtons: [

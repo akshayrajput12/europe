@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, Suspense } from "react"
+import { useState, Suspense } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import { getPhoneCallFormData } from "@/data/get-phone-call-form"
 import { Button } from "@/components/ui/button"

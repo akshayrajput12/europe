@@ -2,7 +2,6 @@ export interface GetPhoneCallFormData {
   hero: {
     title: string;
     highlightText: string;
-    subtitle: string;
     backgroundImage: string;
   };
   description: {
@@ -48,7 +47,6 @@ export const getPhoneCallFormData: GetPhoneCallFormData = {
   hero: {
     title: "GET CALL BACK IN JUST",
     highlightText: "30 MINUTES",
-    subtitle: "Seeking for innovative exhibition stand? Connect with our designing experts now to get a bespoke stand for your upcoming show!",
     backgroundImage: "https://plus.unsplash.com/premium_photo-1723517419729-1ecee473604c?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwxfHx8ZW58MHx8fHx8"
   },
   description: {

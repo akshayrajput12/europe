@@ -27,34 +27,6 @@ export default function BestCompanySection({ data }: BestCompanySectionProps) {
               </p>
             ))}
           </div>
-
-          {/* Stats */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
-            <div className="bg-white p-6 rounded-sm shadow-sm">
-              <div className="text-3xl md:text-4xl font-bold text-[#A5CD39] mb-2">
-                {data.stats.clients.toLocaleString()}+
-              </div>
-              <div className="text-slate-600 font-medium text-sm">
-                SATISFIED CLIENTS
-              </div>
-            </div>
-            <div className="bg-white p-6 rounded-sm shadow-sm">
-              <div className="text-3xl md:text-4xl font-bold text-[#A5CD39] mb-2">
-                {data.stats.projects.toLocaleString()}+
-              </div>
-              <div className="text-slate-600 font-medium text-sm">
-                COMPLETED PROJECTS
-              </div>
-            </div>
-            <div className="bg-white p-6 rounded-sm shadow-sm">
-              <div className="text-lg md:text-xl font-bold text-[#A5CD39] mb-2 capitalize">
-                {data.stats.manufacturingUnit}
-              </div>
-              <div className="text-slate-600 font-medium text-sm">
-                MANUFACTURING UNIT
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </section>
