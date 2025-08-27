@@ -10,7 +10,7 @@ export default function BlogDetailHero({ post }: BlogDetailHeroProps) {
     <section className="relative h-[400px] md:h-[500px] overflow-hidden">
       <div className="absolute inset-0">
         <Image
-          src={post.heroImage}
+          src="https://images.unsplash.com/photo-1495020689067-958852a7765e?w=1920&h=800&fit=crop&crop=center"
           alt={post.title}
           fill
           className="object-cover"

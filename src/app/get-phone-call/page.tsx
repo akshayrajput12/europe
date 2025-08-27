@@ -97,7 +97,7 @@ export default function GetPhoneCallPage() {
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
       <section 
-        className="relative min-h-[70vh] flex flex-col items-center justify-center text-white"
+        className="relative h-[50vh] flex flex-col items-center justify-center text-white"
         style={{ 
           backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${getPhoneCallFormData.hero.backgroundImage})`,
           backgroundSize: "cover",

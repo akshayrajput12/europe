@@ -6,7 +6,7 @@ export default function BlogHeroSection() {
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: `url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1920&h=800&fit=crop&crop=center')`,
+          backgroundImage: `url('https://images.unsplash.com/photo-1495020689067-958852a7765e?w=1920&h=800&fit=crop&crop=center')`,
         }}
       >
         <div className="absolute inset-0 bg-black/80"></div>

@@ -9,7 +9,7 @@ export default function HeroSection() {
 
   return (
     <section
-      className="relative min-h-[70vh] flex items-center justify-center text-white"
+      className="relative h-[50vh] flex items-center justify-center text-white"
       style={{
         backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${customStandsData.hero.backgroundImage})`,
         backgroundSize: "cover",

@@ -86,7 +86,7 @@ export default function RequestQuotationPage() {
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
       <section 
-        className="relative min-h-[70vh] flex items-center justify-center text-white"
+        className="relative h-[50vh] flex items-center justify-center text-white"
         style={{ 
           backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${requestQuotationFormData.hero.backgroundImage})`,
           backgroundSize: "cover",

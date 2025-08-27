@@ -46,26 +46,6 @@ export default function Footer() {
                 </li>
               ))}
             </ul>
-
-            {/* Social Media with Icons */}
-            <div className="flex space-x-2 sm:space-x-3 md:space-x-4 mt-4 sm:mt-6 md:mt-8">
-              {footerData.social.map((social, index) => (
-                <a
-                  key={index}
-                  href={social.href}
-                  className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors"
-                  aria-label={social.name}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {socialIcons[social.name.toLowerCase()] || (
-                    <span className="text-white text-xs sm:text-sm font-bold">
-                      {social.icon.charAt(0).toUpperCase()}
-                    </span>
-                  )}
-                </a>
-              ))}
-            </div>
           </div>
 
           {/* Services Column */}
@@ -158,6 +138,26 @@ export default function Footer() {
                   {footerData.contact.phone}
                 </a>
               </div>
+            </div>
+            
+            {/* Social Media with Icons - Moved to the right side */}
+            <div className="flex space-x-2 sm:space-x-3 md:space-x-4">
+              {footerData.social.map((social, index) => (
+                <a
+                  key={index}
+                  href={social.href}
+                  className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors"
+                  aria-label={social.name}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {socialIcons[social.name.toLowerCase()] || (
+                    <span className="text-white text-xs sm:text-sm font-bold">
+                      {social.icon.charAt(0).toUpperCase()}
+                    </span>
+                  )}
+                </a>
+              ))}
             </div>
           </div>
         </div>

@@ -84,7 +84,7 @@ export default function ContactSection() {
 
           {/* Contact Form */}
           <div className="order-1 lg:order-2">
-            <div className="border-2 border-gray-800 rounded-lg p-6 md:p-8">
+            <div className="rounded-lg p-6 md:p-8">
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-4">
                   <Input

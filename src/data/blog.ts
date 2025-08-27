@@ -8,7 +8,6 @@ export interface BlogPost {
   content: string
   publishedDate: string
   featuredImage: string
-  heroImage: string
   category: string
   author?: string
   readTime?: string
@@ -147,7 +146,6 @@ export const blogData: BlogData = {
       `,
       publishedDate: "2024-01-15",
       featuredImage: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&h=600&fit=crop",
-      heroImage: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1920&h=800&fit=crop",
       category: "Technology",
       author: "Exhibition Strategy Team",
       readTime: "8 min read",
@@ -285,7 +283,6 @@ export const blogData: BlogData = {
       `,
       publishedDate: "2024-01-20",
       featuredImage: "https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=800&h=600&fit=crop",
-      heroImage: "https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=1920&h=800&fit=crop",
       category: "Design Strategy",
       author: "Small Booth Specialists",
       readTime: "12 min read",
@@ -466,7 +463,6 @@ export const blogData: BlogData = {
       `,
       publishedDate: "2024-01-25",
       featuredImage: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800&h=600&fit=crop",
-      heroImage: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1920&h=800&fit=crop",
       category: "Packaging Industry",
       author: "German Market Experts",
       readTime: "10 min read",
