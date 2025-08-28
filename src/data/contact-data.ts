@@ -54,10 +54,10 @@ export const contactData = {
     title: "OTHER OFFICES",
     offices: [
       {
-        name: "Chronicle Exhibits USA",
-        address: "8465 W. Sahara Ave., Suite 111 Unit #1163 Las Vegas, NV 89117, United States",
-        phone: "+1 (725) 333-1920",
-        email: "info@chronicleexhibits.com",
+        name: "Chronicle Exhibits DUBAI",
+        address: "Street 5 Lootah Warehouses - WH#11 - 11th St - Mina Jebel Ali - Industrial Area 1 - Dubai - United Arab Emirates",
+        phone: "+971 54 347 4645",
+        email: "info@chronicleexhibits.ae",
         website: "chronicleexhibits.com",
       },
     ],

@@ -427,27 +427,6 @@ export default function RequestFreeDesignPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="block text-sm font-medium mb-2">
-                  {requestDesignFormData.designOptions.sampleDesign.label}
-                </label>
-                <input
-                  type="file"
-                  multiple
-                  onChange={(e) => handleFileChange("sampleDesign", e.target.files)}
-                  className="w-full border border-black rounded p-3 bg-white file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-medium file:bg-primary file:text-white hover:file:bg-[#8fb32e]"
-                />
-                {formData.sampleDesign.length > 0 && (
-                  <div className="text-sm text-gray-600 mt-1">
-                    Selected files:
-                    <ul className="list-disc list-inside">
-                      {formData.sampleDesign.map((file, index) => (
-                        <li key={index}>{file.name}</li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-2">
                   {requestDesignFormData.designOptions.floorDesign.label}
                 </label>
                 <input
@@ -461,6 +440,27 @@ export default function RequestFreeDesignPage() {
                     Selected files:
                     <ul className="list-disc list-inside">
                       {formData.floorDesign.map((file, index) => (
+                        <li key={index}>{file.name}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-2">
+                  {requestDesignFormData.designOptions.sampleDesign.label}
+                </label>
+                <input
+                  type="file"
+                  multiple
+                  onChange={(e) => handleFileChange("sampleDesign", e.target.files)}
+                  className="w-full border border-black rounded p-3 bg-white file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-medium file:bg-primary file:text-white hover:file:bg-[#8fb32e]"
+                />
+                {formData.sampleDesign.length > 0 && (
+                  <div className="text-sm text-gray-600 mt-1">
+                    Selected files:
+                    <ul className="list-disc list-inside">
+                      {formData.sampleDesign.map((file, index) => (
                         <li key={index}>{file.name}</li>
                       ))}
                     </ul>
