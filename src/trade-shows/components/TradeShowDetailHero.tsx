@@ -118,7 +118,7 @@ export default function TradeShowDetailHero({ show }: TradeShowDetailHeroProps) 
               <div className="h-full flex items-center justify-center px-3 sm:px-5 md:px-7 lg:px-9">
                 <div className="group flex items-center gap-4 sm:gap-5 md:gap-6 lg:gap-7 text-white">
                   <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-bold">+</div>
-                  <div className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-bold uppercase tracking-wider group-hover:scale-105 transition-transform duration-300">
+                  <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-bold uppercase tracking-wider group-hover:scale-105 transition-transform duration-300">
                     <span className="hidden sm:inline">JOIN THE EVENT</span>
                     <span className="sm:hidden">JOIN EVENT</span>
                   </div>

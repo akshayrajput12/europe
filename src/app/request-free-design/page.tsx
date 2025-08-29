@@ -6,6 +6,7 @@ import { requestDesignFormData } from "@/data/request-design-form"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
 export default function RequestFreeDesignPage() {
   const router = useRouter()
@@ -202,7 +203,7 @@ export default function RequestFreeDesignPage() {
               <div className="space-y-6">
                 <div className="flex items-center gap-4 flex-wrap">
                   <Input
-                    placeholder="10"
+                    placeholder="Length[m]"
                     value={formData.width}
                     onChange={(e) => {
                       const width = e.target.value;
@@ -215,11 +216,11 @@ export default function RequestFreeDesignPage() {
                         handleInputChange("area", "");
                       }
                     }}
-                    className="w-20 border-black"
+                    className="w-28 border-black"
                   />
                   <span className="text-lg">X</span>
                   <Input
-                    placeholder="20"
+                    placeholder="Breadth[m]"
                     value={formData.length}
                     onChange={(e) => {
                       const length = e.target.value;
@@ -232,11 +233,11 @@ export default function RequestFreeDesignPage() {
                         handleInputChange("area", "");
                       }
                     }}
-                    className="w-20 border-black"
+                    className="w-28 border-black"
                   />
                   <span className="text-lg">=</span>
                   <Input
-                    placeholder="200"
+                    placeholder="Area"
                     value={formData.area}
                     onChange={(e) => handleInputChange("area", e.target.value)}
                     className="w-24 border-black"
@@ -495,12 +496,21 @@ export default function RequestFreeDesignPage() {
               <h2 className="text-xl font-semibold mb-6 border-b-2 border-primary pb-2 inline-block">
                 {requestDesignFormData.budget.title}
               </h2>
-              <Input
-                placeholder={requestDesignFormData.budget.placeholder}
-                value={formData.budget}
-                onChange={(e) => handleInputChange("budget", e.target.value)}
-                className="border-black max-w-md"
-              />
+              <Select 
+                value={formData.budget} 
+                onValueChange={(value) => handleInputChange("budget", value)}
+              >
+                <SelectTrigger className="border-black max-w-md">
+                  <SelectValue placeholder={requestDesignFormData.budget.placeholder} />
+                </SelectTrigger>
+                <SelectContent>
+                  {requestDesignFormData.budget.options.map((option) => (
+                    <SelectItem key={option} value={option}>
+                      {option}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
 
             {/* Additional Information */}

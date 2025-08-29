@@ -113,10 +113,10 @@ export default function Footer() {
         </div>
 
         {/* Contact Information */}
-        <div className="border-t border-white/20 mt-6 sm:mt-8 md:mt-10 pt-6 sm:pt-8 md:pt-10">
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-3 sm:space-y-0">
+        <div className="mt-6 sm:mt-8 md:mt-10 pt-6 sm:pt-8 md:pt-10">
+          <div className="flex flex-col sm:flex-row justify-between items-center">
             {/* Email - Left side */}
-            <div className="flex items-center space-x-2 sm:space-x-3">
+            <div className="flex items-center space-x-2 sm:space-x-3 mb-4 sm:mb-0">
               <svg
                 className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6"
                 fill="none"
@@ -136,6 +136,11 @@ export default function Footer() {
               >
                 {footerData.contact.email}
               </a>
+            </div>
+            
+            {/* Separator Line - Hidden on mobile, visible on desktop */}
+            <div className="hidden sm:block flex-1 mx-8">
+              <div className="w-full h-px bg-white/20"></div>
             </div>
             
             {/* Phone - Right side */}
@@ -164,7 +169,7 @@ export default function Footer() {
         </div>
 
         {/* Copyright */}
-        <div className="border-t border-white/20 mt-4 sm:mt-6 md:mt-8 pt-4 sm:pt-6 md:pt-8 text-center">
+        <div className="mt-4 sm:mt-6 md:mt-8 pt-4 sm:pt-6 md:pt-8 text-center">
           <p className="text-gray-300 text-sm sm:text-base md:text-lg">
             Copyright © {currentYear} Chronicle Exhibition Organizing LLC. All rights reserved.
           </p>

@@ -155,7 +155,7 @@ export default function RequestQuoteModal({ isOpen, onClose, type = "quote" }: R
                 <Input
                   value={formData.fullName}
                   onChange={(e) => handleInputChange('fullName', e.target.value)}
-                  className="h-11 border-black"
+                  className="h-10 border-black"
                   required
                 />
               </div>
@@ -167,7 +167,7 @@ export default function RequestQuoteModal({ isOpen, onClose, type = "quote" }: R
                   type="email"
                   value={formData.email}
                   onChange={(e) => handleInputChange('email', e.target.value)}
-                  className="h-11 border-black"
+                  className="h-10 border-black"
                   required
                 />
               </div>
@@ -182,7 +182,7 @@ export default function RequestQuoteModal({ isOpen, onClose, type = "quote" }: R
                 <Input
                   value={formData.companyName}
                   onChange={(e) => handleInputChange('companyName', e.target.value)}
-                  className="h-11 border-black"
+                  className="h-10 border-black"
                   required
                 />
               </div>
@@ -193,7 +193,7 @@ export default function RequestQuoteModal({ isOpen, onClose, type = "quote" }: R
                 <Input
                   value={formData.exhibitionName}
                   onChange={(e) => handleInputChange('exhibitionName', e.target.value)}
-                  className="h-11 border-black"
+                  className="h-10 border-black"
                   required
                 />
               </div>
@@ -210,7 +210,7 @@ export default function RequestQuoteModal({ isOpen, onClose, type = "quote" }: R
                   <button
                     type="button"
                     onClick={() => setIsCountryDropdownOpen(!isCountryDropdownOpen)}
-                    className="w-full h-11 border border-black rounded-md px-3 py-2 text-left bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#A5CD39] focus:border-[#A5CD39] transition-colors"
+                    className="w-full h-10 border border-black rounded-md px-3 py-2 text-left bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#A5CD39] focus:border-[#A5CD39] transition-colors"
                   >
                     <span className="block truncate text-sm font-medium">
                       {formData.countryCode}
@@ -269,7 +269,7 @@ export default function RequestQuoteModal({ isOpen, onClose, type = "quote" }: R
                   placeholder="Enter phone number"
                   value={formData.phoneNumber}
                   onChange={(e) => handleInputChange('phoneNumber', e.target.value)}
-                  className="flex-1 h-11 border-black"
+                  className="flex-1 h-10 border-black"
                   required
                 />
               </div>
@@ -284,7 +284,7 @@ export default function RequestQuoteModal({ isOpen, onClose, type = "quote" }: R
                 value={formData.budget} 
                 onValueChange={(value) => handleInputChange('budget', value)}
               >
-                <SelectTrigger className="h-11 border-black">
+                <SelectTrigger className="h-10 border-black">
                   <SelectValue placeholder="Select budget range" />
                 </SelectTrigger>
                 <SelectContent>

@@ -70,6 +70,7 @@ export interface RequestDesignFormData {
   budget: {
     title: string;
     placeholder: string;
+    options: string[];
   };
   additionalInformation: {
     title: string;
@@ -176,7 +177,14 @@ export const requestDesignFormData: RequestDesignFormData = {
   },
   budget: {
     title: "BUDGET",
-    placeholder: "Your Approx Budget"
+    placeholder: "Select budget range",
+    options: [
+      "Under €5000",
+      "€5000 - €10000",
+      "€10000 - €20000",
+      "€20000 - €50000",
+      "€50000+"
+    ]
   },
   additionalInformation: {
     title: "ADDITIONAL INFORMATION",

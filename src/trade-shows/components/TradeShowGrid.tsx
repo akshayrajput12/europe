@@ -6,7 +6,7 @@ import TradeShowCard from "./TradeShowCard"
 import TradeShowSearch from "./TradeShowSearch"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import Link from "next/link"
+import { useQuoteModal } from "@/contexts/QuoteModalContext"
 
 const ITEMS_PER_PAGE = 6
 
@@ -14,6 +14,7 @@ export default function TradeShowGrid() {
   const allShows = getTradeShows()
   const [filteredShows, setFilteredShows] = useState(allShows)
   const [currentPage, setCurrentPage] = useState(1)
+  const { openQuoteModal } = useQuoteModal()
 
   const handleSearch = useCallback((searchTerm: string) => {
     if (!searchTerm.trim()) {
@@ -181,14 +182,13 @@ export default function TradeShowGrid() {
                 </p>
                 
                 {/* View Other Trade Shows Button */}
-                <Link href="/trade-shows">
-                  <Button 
-                    size="lg"
-                    className="bg-[#A5CD39] hover:bg-[#8fb32e] text-white px-8"
-                  >
-                    View Other Trade Shows
-                  </Button>
-                </Link>
+                <Button 
+                  size="lg"
+                  onClick={openQuoteModal}
+                  className="bg-[#A5CD39] hover:bg-[#8fb32e] text-white px-8"
+                >
+                  View Other Trade Shows
+                </Button>
               </div>
             </div>
           )}
