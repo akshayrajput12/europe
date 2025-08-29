@@ -31,12 +31,12 @@ export default function ServicesSection() {
           {servicesData.services.map((service) => (
             <div key={service.id} className="bg-white p-6 rounded shadow-sm">
               <div className="flex justify-center mb-4">
-                <div className="w-24 h-24 relative">
+                <div className="w-24 h-24 relative group">
                   <Image
                     src={getServiceIcon(service.id)}
                     alt={service.title}
                     fill
-                    className="object-contain"
+                    className="object-contain group-hover:scale-110 transition-transform duration-500"
                   />
                 </div>
               </div>

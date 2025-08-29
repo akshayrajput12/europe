@@ -19,13 +19,13 @@ export function ExhibitionSection() {
 
       <div className="grid lg:grid-cols-2 gap-12 items-start">
         {/* Left Column - Trade Show Booth Image */}
-        <div className="relative">
+        <div className="relative group">
           <Image
             src={homeData.exhibitionData.europe.boothImage || "/placeholder.svg"}
             alt={homeData.exhibitionData.europe.title}
             width={600}
             height={384}
-            className="w-full h-80 md:h-96 object-cover rounded-lg shadow-lg"
+            className="w-full h-80 md:h-96 object-cover rounded-lg shadow-lg group-hover:scale-110 transition-transform duration-500"
           />
         </div>
 

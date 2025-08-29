@@ -17,13 +17,13 @@ export default function BenefitsSection() {
               ))}
             </ul>
           </div>
-          <div className="relative">
+          <div className="relative group">
             <Image
               src={pavilionData.benefits.image || "/placeholder.svg"}
               alt="Exhibition Pavilion Benefits"
               width={600}
               height={400}
-              className="w-full h-auto rounded-lg shadow-lg"
+              className="w-full h-auto rounded-lg shadow-lg group-hover:scale-110 transition-transform duration-500"
             />
           </div>
         </div>

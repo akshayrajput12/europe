@@ -25,13 +25,13 @@ export default function DoubleDeckBenefitsSection() {
           </div>
 
           {/* Image Section */}
-          <div className="order-first lg:order-last">
+          <div className="order-first lg:order-last group">
             <Image
               src={image || "/placeholder.svg"}
               alt="Exhibition Stand Benefits"
               width={500}
               height={300}
-              className="w-full h-auto rounded-lg shadow-lg"
+              className="w-full h-auto rounded-lg shadow-lg group-hover:scale-110 transition-transform duration-500"
             />
           </div>
         </div>

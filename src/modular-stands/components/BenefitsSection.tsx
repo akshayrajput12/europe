@@ -21,10 +21,15 @@ export default function BenefitsSection() {
 
           {/* Image */}
           <div className="relative">
-            <div className="aspect-[4/3] relative overflow-hidden rounded-lg shadow-lg">
+            <div className="aspect-[4/3] relative overflow-hidden rounded-lg shadow-lg group">
               <Image
                 src={modularBenefitsSection.image || "/placeholder.svg"}
                 alt="Modular Exhibition Stand Benefits"
+                fill
+                className="object-cover group-hover:scale-110 transition-transform duration-500"
+              />
+            </div>
+          </div>
                 fill
                 className="object-cover hover:scale-105 transition-transform duration-500"
               />

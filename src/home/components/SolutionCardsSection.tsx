@@ -24,13 +24,13 @@ export default function SolutionCardsSection() {
                 className="border border-gray-200 text-center hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 hover:scale-105"
               >
                 <CardContent className="p-3 sm:p-4 md:p-5 lg:p-4 xl:p-6">
-                  <div className="overflow-hidden mb-3 sm:mb-4 rounded-md">
+                  <div className="overflow-hidden mb-3 sm:mb-4 rounded-md group">
                     <Image
                       src={solution.image || "/placeholder.svg"}
                       alt={solution.title}
                       width={300}
                       height={200}
-                      className="w-full h-32 sm:h-36 md:h-40 lg:h-44 xl:h-48 object-cover group-hover:scale-105 transition-transform duration-300 rounded-md"
+                      className="w-full h-32 sm:h-36 md:h-40 lg:h-44 xl:h-48 object-cover group-hover:scale-110 transition-transform duration-500 rounded-md"
                     />
                   </div>
                   <h3 className="font-bold text-sm sm:text-base md:text-lg lg:text-xl mb-2 sm:mb-3 text-gray-900 leading-tight">

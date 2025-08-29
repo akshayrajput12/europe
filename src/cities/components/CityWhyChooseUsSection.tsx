@@ -12,12 +12,12 @@ export default function CityWhyChooseUsSection({ data }: CityWhyChooseUsSectionP
         <div className="grid lg:grid-cols-2 gap-8 items-start">
           {/* Left side - Image */}
           <div className="lg:pr-8">
-            <div className="relative w-full h-[400px] rounded-sm overflow-hidden">
+            <div className="relative w-full h-[400px] rounded-sm overflow-hidden group">
               <Image
                 src={data.mainImage}
                 alt="Exhibition stand"
                 fill
-                className="object-cover"
+                className="object-cover group-hover:scale-110 transition-transform duration-500"
               />
             </div>
           </div>
