@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { X, Clock } from "lucide-react"
+import { X } from "lucide-react"
 import { sortedCountryCodes } from "@/data/countryCodes"
 
 interface RequestQuoteModalProps {
@@ -33,9 +33,6 @@ export default function RequestQuoteModal({ isOpen, onClose, type = "quote" }: R
 
   const isDesignRequest = type === "design"
   const title = isDesignRequest ? "Request a Free Design" : "Request a Quotation"
-  const subtitle = isDesignRequest 
-    ? "Fill out the form below and our design team will create a custom exhibition stand design for you within 24 hours."
-    : "Fill out the form below and our team will get back to you with a customized quotation within 24 hours."
 
   // Filter countries based on search
   const filteredCountries = sortedCountryCodes.filter(country => 
@@ -140,15 +137,9 @@ export default function RequestQuoteModal({ isOpen, onClose, type = "quote" }: R
 
           {/* Icon and Title */}
           <div className="text-center mb-6">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-[#A5CD39]/10 rounded-full mb-4">
-              <Clock className="h-8 w-8 text-[#A5CD39]" />
-            </div>
             <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">
               {title}
             </h2>
-            <p className="text-gray-600 max-w-md mx-auto leading-relaxed">
-              {subtitle}
-            </p>
           </div>
         </div>
 

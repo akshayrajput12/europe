@@ -9,7 +9,7 @@ import WhyBestSection from "./components/WhyBestSection"
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white overflow-x-hidden">
       <HeroSection />
       <ExhibitionSection />
       <SolutionsHeaderSection />

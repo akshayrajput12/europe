@@ -5,6 +5,8 @@ import { getTradeShows } from "@/data/trade-shows"
 import TradeShowCard from "./TradeShowCard"
 import TradeShowSearch from "./TradeShowSearch"
 import { ChevronLeft, ChevronRight } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import Link from "next/link"
 
 const ITEMS_PER_PAGE = 6
 
@@ -168,8 +170,26 @@ export default function TradeShowGrid() {
 
           {/* No Results Message */}
           {filteredShows.length === 0 && (
-            <div className="text-center py-8 sm:py-12">
-              <p className="text-gray-500 text-base sm:text-lg">No trade shows found matching your search criteria.</p>
+            <div className="text-center py-16 sm:py-20 lg:py-24">
+              <div className="max-w-md mx-auto">
+                {/* OOPS Message */}
+                <p className="text-lg sm:text-xl text-gray-800 mb-4">
+                  <span className="text-[#A5CD39] font-bold">OOPS!</span> The Trade Show you are looking for is unavailable right now.
+                </p>
+                <p className="text-lg sm:text-xl text-gray-800 mb-8">
+                  Kindly come back later.
+                </p>
+                
+                {/* View Other Trade Shows Button */}
+                <Link href="/trade-shows">
+                  <Button 
+                    size="lg"
+                    className="bg-[#A5CD39] hover:bg-[#8fb32e] text-white px-8"
+                  >
+                    View Other Trade Shows
+                  </Button>
+                </Link>
+              </div>
             </div>
           )}
         </div>

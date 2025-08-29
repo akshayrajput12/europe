@@ -8,16 +8,13 @@ export function ExhibitionSection() {
       <div className="text-center mb-16">
         <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">{homeData.exhibitionData.europe.title}</h2>
         <h3 className="text-2xl md:text-3xl font-bold mb-8">
-          IN <span style={{ color: "#A5CD39" }}>EUROPE</span>
+          {homeData.exhibitionData.europe.subtitle}
         </h3>
 
-        <div className="max-w-4xl mx-auto space-y-6 text-gray-700 leading-relaxed">
-          {homeData.exhibitionData.europe.paragraphs.map((paragraph, index) => (
-            <p key={index} className="text-center">
-              {paragraph}
-            </p>
-          ))}
-        </div>
+        <div 
+          className="rich-content max-w-4xl mx-auto space-y-6 text-gray-700 leading-relaxed"
+          dangerouslySetInnerHTML={{ __html: homeData.exhibitionData.europe.htmlContent }}
+        />
       </div>
 
       <div className="grid lg:grid-cols-2 gap-12 items-start">
@@ -36,11 +33,10 @@ export function ExhibitionSection() {
         <div className="space-y-6">
           <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">{homeData.exhibitionData.usa.title}</h3>
 
-          <div className="space-y-4 text-gray-700 leading-relaxed text-sm md:text-base">
-            {homeData.exhibitionData.usa.paragraphs.map((paragraph, index) => (
-              <p key={index}>{paragraph}</p>
-            ))}
-          </div>
+          <div 
+            className="rich-content text-gray-700 leading-relaxed text-sm md:text-base"
+            dangerouslySetInnerHTML={{ __html: homeData.exhibitionData.usa.htmlContent || '' }}
+          />
 
           {/* Request Form Button */}
           <div className="mt-8">

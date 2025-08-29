@@ -69,16 +69,7 @@ export default function BlogDetailPage({ params }: BlogDetailPageProps) {
             {/* Article Content */}
             <div className="lg:col-span-3">
               <article className="bg-white max-w-4xl mx-auto px-6 lg:px-8">
-                {/* Article Meta */}
-                <div className="flex items-center gap-4 mb-8 pb-6 border-b border-gray-200">
-                  <span className="text-gray-500 text-sm">
-                    {new Date(post.publishedDate).toLocaleDateString("en-US", { 
-                      year: 'numeric', 
-                      month: 'long', 
-                      day: 'numeric' 
-                    })}
-                  </span>
-                </div>
+
                 
                 {/* Featured Image */}
                 <div className="relative h-[300px] md:h-[400px] mb-8 rounded-lg overflow-hidden">

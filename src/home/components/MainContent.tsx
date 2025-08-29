@@ -31,9 +31,10 @@ export default function MainContent() {
             ),
           )}
         </h2>
-        <p className="text-gray-600 max-w-4xl mx-auto mb-8 text-base md:text-lg leading-relaxed px-4 md:px-0">
-          {mainSection.description}
-        </p>
+        <div 
+          className="rich-content text-gray-600 max-w-4xl mx-auto mb-8 text-base md:text-lg leading-relaxed px-4 md:px-0"
+          dangerouslySetInnerHTML={{ __html: mainSection.htmlContent }}
+        />
       </div>
 
       {/* Countries Grid - Only Featured Countries */}

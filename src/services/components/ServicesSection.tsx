@@ -3,6 +3,18 @@ import { servicesData } from "@/data/services"
 import { Button } from "@/components/ui/button"
 
 export default function ServicesSection() {
+  // Static icon mapping based on service IDs
+  const getServiceIcon = (serviceId: string) => {
+    const iconMap: { [key: string]: string } = {
+      "graphic-production": "/services icon/Graphic Production.png",
+      "project-management": "/services icon/Project Management.png",
+      "installation": "/services icon/Installaton, Dismantle & Shipping.png",
+      "booth-design": "/services icon/Trade Show Booth Design.png",
+      "booth-construction": "/services icon/Booth Construction & Custom Fabrication.png",
+      "site-supervision": "/services icon/On Site Supervision.png"
+    }
+    return iconMap[serviceId] || "/services icon/Graphic Production.png" // fallback
+  }
   return (
     <section className="py-16 bg-gray-100">
       <div className="container mx-auto px-4">
@@ -19,11 +31,12 @@ export default function ServicesSection() {
           {servicesData.services.map((service) => (
             <div key={service.id} className="bg-white p-6 rounded shadow-sm">
               <div className="flex justify-center mb-4">
-                <div className="w-24 h-24">
-                  <img 
-                    src={service.icon} 
+                <div className="w-24 h-24 relative">
+                  <Image
+                    src={getServiceIcon(service.id)}
                     alt={service.title}
-                    className="w-full h-full"
+                    fill
+                    className="object-contain"
                   />
                 </div>
               </div>

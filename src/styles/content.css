@@ -32,12 +32,13 @@
 }
 
 .rich-content a {
-  color: #A5CD39;
+  color: #143d60;
   text-decoration: none;
   font-weight: 600;
 }
 
 .rich-content a:hover {
+  color: #0f2a46;
   text-decoration: underline;
 }
 

@@ -60,6 +60,13 @@ export const contactData = {
         email: "info@chronicleexhibits.ae",
         website: "chronicleexhibits.com",
       },
+      {
+        name: "Chronicle Exhibits GERMANY",
+        address: "Mühlenkamp 55, 22303 Hamburg, Germany",
+        phone: "+49 40 1234 5678",
+        email: "info@chronicleexhibits.de",
+        website: "chronicleexhibits.com",
+      },
     ],
   },
 

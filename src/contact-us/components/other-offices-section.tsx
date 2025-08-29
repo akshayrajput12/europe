@@ -8,7 +8,7 @@ export default function OtherOfficesSection() {
           {contactData.otherOffices.title}
         </h2>
 
-        <div className="max-w-2xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-6xl mx-auto">
           {contactData.otherOffices.offices.map((office, index) => (
             <div
               key={index}
@@ -42,7 +42,7 @@ export default function OtherOfficesSection() {
                       href={`https://${office.website}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-[#A5CD39] hover:text-[#8fb32e] transition-colors text-sm md:text-base"
+                      className="text-[#143d60] hover:text-[#0f2a46] transition-colors text-sm md:text-base"
                     >
                       {office.website}
                     </a>

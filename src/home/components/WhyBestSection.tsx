@@ -3,7 +3,7 @@
 import { homeData } from "@/data/home";
 
 export default function WhyBestSection() {
-  const { title, subtitle, content } = homeData.whyBest;
+  const { title, subtitle } = homeData.whyBest;
 
   return (
     <section className="py-16 md:py-20 bg-white">
@@ -19,11 +19,10 @@ export default function WhyBestSection() {
 
         {/* Content */}
         <div className="max-w-5xl mx-auto">
-          <div className="text-gray-700 leading-relaxed text-base md:text-lg space-y-6">
-            {content.map((paragraph, index) => (
-              <p key={index}>{paragraph}</p>
-            ))}
-          </div>
+          <div 
+            className="rich-content text-gray-700 leading-relaxed text-base md:text-lg space-y-6"
+            dangerouslySetInnerHTML={{ __html: homeData.whyBest.htmlContent }}
+          />
         </div>
       </div>
     </section>

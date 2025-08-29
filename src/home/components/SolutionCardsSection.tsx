@@ -6,8 +6,8 @@ import { homeData } from "@/data/home"
 
 export default function SolutionCardsSection() {
   return (
-    <section className="pb-8 sm:pb-12 md:pb-16 lg:pb-20 -mx-4 px-4 mb-8 sm:mb-12 md:mb-16">
-      <div className="container mx-auto px-2 sm:px-4">
+    <section className="pb-8 sm:pb-12 md:pb-16 lg:pb-20 mb-8 sm:mb-12 md:mb-16">
+      <div className="container mx-auto px-4">
         {/* Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8 lg:gap-6 xl:gap-8">
           {homeData.solutions.items.map((solution, index) => {

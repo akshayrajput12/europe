@@ -162,7 +162,7 @@ export const requestDesignFormData: RequestDesignFormData = {
   },
   designOptions: {
     sampleDesign: {
-      label: "Sample Design",
+      label: "Refrence Design",
       placeholder: "Choose files"
     },
     floorDesign: {

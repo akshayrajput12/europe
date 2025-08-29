@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
+import "@/styles/content.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import QuoteModalWrapper from "@/components/QuoteModalWrapper";
@@ -48,7 +49,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${poppins.variable} font-sans antialiased`}>
+      <body className={`${poppins.variable} font-sans antialiased overflow-x-hidden`}>
         <QuoteModalWrapper>
           <Header />
           {children}

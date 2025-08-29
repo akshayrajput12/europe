@@ -21,8 +21,9 @@ export default function PortfolioSection() {
         </div>
       </div>
 
-      <div className="px-1">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-1">
+      <div className="px-4">
+        <div className="container mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4">
           {featuredItems.map((item, index) => (
             <div
               key={index}
@@ -30,13 +31,14 @@ export default function PortfolioSection() {
             >
               <Image
                 src={item.image || "/placeholder.svg"}
-                alt={item.title}
+                alt={`Portfolio image ${index + 1}`}
                 fill
                 className="object-cover group-hover:scale-110 transition-transform duration-500"
               />
               <div className="absolute inset-0 bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300" />
             </div>
-          ))}
+          ))}          
+          </div>
         </div>
       </div>
 

@@ -27,14 +27,7 @@ export default function BlogDetailHero({ post }: BlogDetailHeroProps) {
               {post.title}
             </h1>
             
-            {/* Meta Information */}
-            <div className="flex items-center justify-center gap-6 text-white/90">
-              <span>{new Date(post.publishedDate).toLocaleDateString("en-US", { 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric' 
-              })}</span>
-            </div>
+
           </div>
         </div>
       </div>
