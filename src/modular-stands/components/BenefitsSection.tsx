@@ -30,11 +30,6 @@ export default function BenefitsSection() {
               />
             </div>
           </div>
-                fill
-                className="object-cover hover:scale-105 transition-transform duration-500"
-              />
-            </div>
-          </div>
         </div>
       </div>
     </section>
