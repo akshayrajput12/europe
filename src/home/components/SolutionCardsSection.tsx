@@ -2,12 +2,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import Image from "next/image"
 import Link from "next/link"
-
-interface SolutionItem {
-  title: string
-  description: string
-  image: string
-}
+import { SolutionItem } from "@/data/home"
 
 interface Solutions {
   title: string
@@ -16,16 +11,46 @@ interface Solutions {
 }
 
 interface SolutionCardsSectionProps {
-  solutionsData: Solutions
+  solutionsData?: Solutions
 }
 
 export default function SolutionCardsSection({ solutionsData }: SolutionCardsSectionProps) {
+  // If no solutionsData is provided, use default data
+  const defaultSolutionsData: Solutions = {
+    title: "Our Solutions",
+    htmlContent: "Explore our comprehensive range of exhibition stand solutions designed to make your brand stand out.",
+    items: [
+      {
+        title: "Custom Exhibition Stands",
+        description: "Bespoke stand designs tailored to your brand identity and marketing objectives.",
+        image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&h=600&fit=crop&crop=center"
+      },
+      {
+        title: "Modular Exhibition Stands",
+        description: "Flexible, cost-effective solutions that can be reconfigured for multiple events.",
+        image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&h=600&fit=crop&crop=center"
+      },
+      {
+        title: "Double Decker Exhibition Stands",
+        description: "Maximize your exhibition space with our innovative two-level stand designs.",
+        image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&h=600&fit=crop&crop=center"
+      },
+      {
+        title: "Exhibition Pavilion Design",
+        description: "Large-scale pavilion solutions for major trade shows and corporate events.",
+        image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&h=600&fit=crop&crop=center"
+      }
+    ]
+  };
+
+  const data = solutionsData || defaultSolutionsData;
+
   return (
     <section className="pb-8 sm:pb-12 md:pb-16 lg:pb-20 mb-8 sm:mb-12 md:mb-16">
       <div className="container mx-auto px-4">
         {/* Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8 lg:gap-6 xl:gap-8">
-          {solutionsData.items.map((solution, index) => {
+          {data.items.map((solution, index) => {
             const linkMap: { [key: string]: string } = {
               "Custom Exhibition Stands": "/custom-stands",
               "Modular Exhibition Stands": "/modular-stands",

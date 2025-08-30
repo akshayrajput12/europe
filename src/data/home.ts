@@ -119,7 +119,7 @@ export async function getHomeData(): Promise<HomeData> {
 
 
 // Function to get individual section data (from single home page record)
-export async function getHomeSectionData(sectionName: string): Promise<any> {
+export async function getHomeSectionData(sectionName: string): Promise<unknown> {
   try {
     let client
     try {
@@ -187,7 +187,7 @@ export async function getHomeSectionData(sectionName: string): Promise<any> {
 // Function to update section data (for admin use) - works with single row
 export async function updateHomeSectionData(
   sectionName: string,
-  sectionData: any
+  sectionData: Record<string, unknown>
 ): Promise<boolean> {
   try {
     let client
@@ -198,7 +198,7 @@ export async function updateHomeSectionData(
     }
 
     // Use direct table updates instead of RPC functions
-    let updateData: any = {}
+    const updateData: Record<string, unknown> = {}
     
     switch (sectionName) {
       case 'hero':
@@ -264,7 +264,7 @@ export async function updateEntireHomePage(updates: Partial<{
   exhibition_usa_html_content: string
   solutions_title: string
   solutions_html_content: string
-  solutions_items: any
+  solutions_items: unknown
   why_best_title: string
   why_best_subtitle: string
   why_best_html_content: string

@@ -1,8 +1,4 @@
-interface Solutions {
-  title: string
-  htmlContent: string
-  items: any[]
-}
+import { Solutions } from "@/data/home"
 
 interface SolutionsHeaderSectionProps {
   solutionsData: Solutions

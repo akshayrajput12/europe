@@ -6,6 +6,8 @@ import {
 import { notFound } from 'next/navigation'
 import SolutionCardsSection from "@/home/components/SolutionCardsSection"
 import PortfolioSection from "@/components/PortfolioSection"
+import { getHomeSectionData } from "@/data/home"
+import { Solutions } from "@/data/home"
 
 // Import specialized city components
 import CityHeroSection from "../../../../cities/components/CityHeroSection"
@@ -39,12 +41,15 @@ export default async function CityDetailPage({ params }: CityDetailPageProps) {
     notFound()
   }
 
+  // Fetch solutions data dynamically
+  const solutionsData = await getHomeSectionData('solutions') as Solutions;
+
   return (
     <main>
       <CityHeroSection data={cityData.hero} />
       <CityWhyChooseUsSection data={cityData.whyChooseUs} />
       <CityWhatWeDoSection data={cityData.whatWeDo} />
-      <SolutionCardsSection />
+      <SolutionCardsSection solutionsData={solutionsData} />
       <PortfolioSection title={`Our Portfolio in ${cityData.name}`} subtitle="View our exhibition stand projects" />
       <ExhibitingExperienceSection data={cityData.exhibitingExperience} />
       <TradeShowsCarouselSection cityName={cityData.name} />

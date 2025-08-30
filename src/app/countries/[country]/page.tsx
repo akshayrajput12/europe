@@ -14,6 +14,8 @@ import ProcessSection from "@/countries/components/ProcessSection"
 import CitiesSection from "@/countries/components/CitiesSection"
 import ContactSection from "@/components/ContactSection"
 import { notFound } from 'next/navigation'
+import { getHomeSectionData } from "@/data/home"
+import { Solutions } from "@/data/home"
 
 interface CountryPageProps {
   params: Promise<{
@@ -38,12 +40,15 @@ export default async function CountryDetailPage({ params }: CountryPageProps) {
     notFound()
   }
 
+  // Fetch solutions data dynamically
+  const solutionsData = await getHomeSectionData('solutions') as Solutions;
+
   return (
     <main>
       <HeroSection data={countryData.hero} />
       <WhyChooseUsSection data={countryData.whyChooseUs} />
       <WhatWeDoSection data={countryData.whatWeDo} />
-      <SolutionCardsSection />
+      <SolutionCardsSection solutionsData={solutionsData} />
       <PortfolioSection title="OUR PORTFOLIO" subtitle="Explore our extensive portfolio of exhibition stands and discover the quality and creativity we bring to every project." />
       <CompanyInfoSection data={countryData.companyInfo} />
       <BestCompanySection data={countryData.bestCompany} />
