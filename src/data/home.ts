@@ -1,3 +1,6 @@
+import { supabase } from '@/lib/supabase'
+import { createServerClient } from '@/lib/supabase-server'
+
 // Interfaces for strong typing
 export interface Hero {
   backgroundImage: string
@@ -44,84 +47,251 @@ export interface HomeData {
   whyBest: WhyBest
 }
 
-// Actual data
-export const homeData: HomeData = {
-  hero: {
-    backgroundImage:
-      "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
-  },
+// Main function to get home data from database (NO FALLBACK DATA)
+export async function getHomeData(): Promise<HomeData> {
+  try {
+    let client
+    try {
+      client = createServerClient()
+    } catch {
+      client = supabase
+    }
 
-  mainSection: {
-    title: "YOUR EXHIBITION STAND BUILDER",
-    subtitle: "IN EUROPE",
-    htmlContent: `<p>Transform your trade show presence with our <strong>comprehensive exhibition stand solutions</strong> across Europe. We specialize in creating <em>impactful brand experiences</em> that drive results and elevate your market presence.</p>
-`
-  },
-
-  exhibitionData: {
-    europe: {
-      title: "EXHIBITION STAND SERVICES",
-      subtitle: "ACROSS EUROPE",
-      boothImage:
-        "https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
-      htmlContent: `<p>As a <strong>leading exhibition stand builder</strong>, we offer complete exhibition stand design and fabrication services across Europe. From initial concept to final installation, we cover all aspects you need for <em>stress-free exhibition participation</em>.</p>`
-    },
-    usa: {
-      title: "YOUR TRADE SHOW BOOTH BUILDER IN USA",
-      htmlContent: `<p>Welcome to <strong>Chronicle Exhibit LLC</strong>, your prominent partner for custom trade show booth displays and exhibits. With <em>13+ years</em> worth of experience and an excellent team, we have been providing exclusive <a href="/custom-stands">custom trade show booth design services</a> across the United States of America.</p>
-
-<p>As Chronicle Exhibit LLC, we are aware that exhibitions and trade shows serve as a fantastic opportunity for companies like you to display your products and services to potential customers. For this reason, we offer locally attractive custom trade show booth designs that can make your brand stand out from the crowd.</p>
-`
-    },
-  },
-
-  solutions: {
-    title: "EXHIBITION STAND SOLUTIONS",
-    htmlContent: `<p>Discover our comprehensive range of <strong>exhibition stand solutions</strong> designed to meet every business need and budget. From innovative custom designs to flexible modular systems, we create impactful displays that drive engagement and deliver results.</p>
-`,
-    items: [
-      {
-        title: "Custom Exhibition Stands",
-        description:
-          "Custom stand designs are tailored to your brand, accurately representing your company's unique...",
-        image:
-          "https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+    // Fetch data directly from the home_page table
+    const { data, error } = await client
+      .from('home_page')
+      .select('*')
+      .eq('is_active', true)
+      .single()
+    
+    if (error) {
+      console.error('Error fetching home data:', error)
+      throw new Error('Failed to fetch home data from database: ' + error.message)
+    }
+    
+    if (!data) {
+      console.error('No home data found in database')
+      throw new Error('No home data available in database')
+    }
+    
+    // Transform database columns to match TypeScript interfaces
+    const homeData: HomeData = {
+      hero: {
+        backgroundImage: data.hero_background_image || ''
       },
-      {
-        title: "Modular Exhibition Stands",
-        description:
-          "Modular booths are the most user-friendly and can be assembled, disassembled and transported in a fast...",
-        image:
-          "https://images.unsplash.com/photo-1559136555-9303baea8ebd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      mainSection: {
+        title: data.main_title || '',
+        subtitle: data.main_subtitle || '',
+        htmlContent: data.main_html_content || ''
       },
-      {
-        title: "Double Decker Exhibition Stands",
-        description:
-          "Double-decker exhibits are easy to spot on the show floor, and in turn drive traffic and ...",
-        image:
-          "https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80",
+      exhibitionData: {
+        europe: {
+          title: data.exhibition_europe_title || '',
+          subtitle: data.exhibition_europe_subtitle || '',
+          boothImage: data.exhibition_europe_booth_image || '',
+          htmlContent: data.exhibition_europe_html_content || ''
+        },
+        usa: {
+          title: data.exhibition_usa_title || '',
+          htmlContent: data.exhibition_usa_html_content || ''
+        }
       },
-      {
-        title: "Exhibition Pavilion Design",
-        description:
-          "All pavilion booths bring together a group of different brands in one place, or offer the best space...",
-        image:
-          "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2012&q=80",
+      solutions: {
+        title: data.solutions_title || '',
+        htmlContent: data.solutions_html_content || '',
+        items: data.solutions_items || []
       },
-    ],
-  },
-
-  whyBest: {
-    title: "WHY WE ARE ONE OF THE",
-    subtitle: "BEST EXHIBITION STAND DESIGN COMPANIES?",
-    htmlContent: `<p>Like a successful <strong>exhibition stand construction company</strong> in Europe, RADON SP Z O.O. has provided valuable exhibition stand design and build services for the last <em>20+ years</em>. We have accomplished <strong>4000+ projects</strong> by participating in more than 1200 trade shows.</p>
-
-<p>We aim to give you a great trade show booth that attracts your audience and achieves the results you want. Our <a href="/portfolio">top-notch turnkey solution</a> has provided a stress-free exhibiting experience to numerous companies to the present date.</p>
-
-<p>Our comprehensive services include all the essential aspects such as <strong>installation, designing, logistics, and dismantling</strong>. In case you encounter any issues during the trade show, we provide world-class on-site supervision with our team members present throughout the entire event.</p>
-
-<p>You just have to arrive at the venue, showcase your deals, and simply leave after the event gets over. We will manage the rest with our <em>expertise and experience</em>. Our own design studio helps us deliver the best-customized services in the market.</p>
-
-<p>Our skilled team first collaborates with your representative to understand your promotional activity's goals and needs. Then our qualified graphic designer creates a perfect design that meets your business objectives. Contact us if you're looking for the <strong>best exhibition stand designer</strong> with adequate resources to deliver excellence.</p>`
-  },
+      whyBest: {
+        title: data.why_best_title || '',
+        subtitle: data.why_best_subtitle || '',
+        htmlContent: data.why_best_html_content || ''
+      }
+    }
+    
+    return homeData
+  } catch (error) {
+    console.error('Database connection failed:', error)
+    throw error
+  }
 }
+
+// Remove static initialization - components will fetch data directly
+
+
+// Function to get individual section data (from single home page record)
+export async function getHomeSectionData(sectionName: string): Promise<any> {
+  try {
+    let client
+    try {
+      client = createServerClient()
+    } catch {
+      client = supabase
+    }
+
+    const { data, error } = await client
+      .from('home_page')
+      .select('*')
+      .eq('is_active', true)
+      .single()
+    
+    if (error || !data) {
+      console.error(`Error fetching home page data:`, error)
+      throw new Error(`Failed to fetch ${sectionName} data from database`)
+    }
+    
+    // Return specific section data based on sectionName
+    switch (sectionName) {
+      case 'hero':
+        return {
+          backgroundImage: data.hero_background_image
+        }
+      case 'mainSection':
+        return {
+          title: data.main_title,
+          subtitle: data.main_subtitle,
+          htmlContent: data.main_html_content
+        }
+      case 'exhibitionEurope':
+        return {
+          title: data.exhibition_europe_title,
+          subtitle: data.exhibition_europe_subtitle,
+          boothImage: data.exhibition_europe_booth_image,
+          htmlContent: data.exhibition_europe_html_content
+        }
+      case 'exhibitionUsa':
+        return {
+          title: data.exhibition_usa_title,
+          htmlContent: data.exhibition_usa_html_content
+        }
+      case 'solutions':
+        return {
+          title: data.solutions_title,
+          htmlContent: data.solutions_html_content,
+          items: data.solutions_items
+        }
+      case 'whyBest':
+        return {
+          title: data.why_best_title,
+          subtitle: data.why_best_subtitle,
+          htmlContent: data.why_best_html_content
+        }
+      default:
+        throw new Error(`Unknown section: ${sectionName}`)
+    }
+  } catch (error) {
+    console.error(`Unexpected error fetching ${sectionName} data:`, error)
+    throw error
+  }
+}
+
+// Function to update section data (for admin use) - works with single row
+export async function updateHomeSectionData(
+  sectionName: string,
+  sectionData: any
+): Promise<boolean> {
+  try {
+    let client
+    try {
+      client = createServerClient()
+    } catch {
+      client = supabase
+    }
+
+    // Use direct table updates instead of RPC functions
+    let updateData: any = {}
+    
+    switch (sectionName) {
+      case 'hero':
+        updateData.hero_background_image = sectionData.backgroundImage
+        break
+      case 'mainSection':
+        updateData.main_title = sectionData.title
+        updateData.main_subtitle = sectionData.subtitle
+        updateData.main_html_content = sectionData.htmlContent
+        break
+      case 'exhibitionEurope':
+        updateData.exhibition_europe_title = sectionData.title
+        updateData.exhibition_europe_subtitle = sectionData.subtitle
+        updateData.exhibition_europe_booth_image = sectionData.boothImage
+        updateData.exhibition_europe_html_content = sectionData.htmlContent
+        break
+      case 'exhibitionUsa':
+        updateData.exhibition_usa_title = sectionData.title
+        updateData.exhibition_usa_html_content = sectionData.htmlContent
+        break
+      case 'solutions':
+        updateData.solutions_title = sectionData.title
+        updateData.solutions_html_content = sectionData.htmlContent
+        updateData.solutions_items = sectionData.items
+        break
+      case 'whyBest':
+        updateData.why_best_title = sectionData.title
+        updateData.why_best_subtitle = sectionData.subtitle
+        updateData.why_best_html_content = sectionData.htmlContent
+        break
+      default:
+        throw new Error(`Unknown section: ${sectionName}`)
+    }
+    
+    const { error } = await client
+      .from('home_page')
+      .update(updateData)
+      .eq('is_active', true)
+    
+    if (error) {
+      console.error(`Error updating ${sectionName} data:`, error)
+      return false
+    }
+    
+    return true
+  } catch (error) {
+    console.error(`Unexpected error updating ${sectionName} data:`, error)
+    return false
+  }
+}
+
+// Function to update entire home page record (for complete admin updates)
+export async function updateEntireHomePage(updates: Partial<{
+  hero_background_image: string
+  main_title: string
+  main_subtitle: string
+  main_html_content: string
+  exhibition_europe_title: string
+  exhibition_europe_subtitle: string
+  exhibition_europe_booth_image: string
+  exhibition_europe_html_content: string
+  exhibition_usa_title: string
+  exhibition_usa_html_content: string
+  solutions_title: string
+  solutions_html_content: string
+  solutions_items: any
+  why_best_title: string
+  why_best_subtitle: string
+  why_best_html_content: string
+}>): Promise<boolean> {
+  try {
+    let client
+    try {
+      client = createServerClient()
+    } catch {
+      client = supabase
+    }
+
+    const { error } = await client
+      .from('home_page')
+      .update(updates)
+      .eq('is_active', true)
+    
+    if (error) {
+      console.error('Error updating entire home page:', error)
+      return false
+    }
+    
+    return true
+  } catch (error) {
+    console.error('Unexpected error updating entire home page:', error)
+    return false
+  }
+}
+
+

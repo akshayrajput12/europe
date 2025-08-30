@@ -1,9 +1,23 @@
 "use client"
 
-import { useEffect, useState } from "react"
-import { companyInfo, companyStats, factsSection } from "@/data/about-data"
+import { useState } from "react"
+import { CompanyInfo, CompanyStats, FactsSection } from "@/data/about-data"
 
-export default function CompanyIntroSection() {
+interface CompanyIntroSectionProps {
+  companyInfo: CompanyInfo
+  companyStats: CompanyStats[]
+  factsSection: FactsSection
+}
+
+export default function CompanyIntroSection({ companyInfo, companyStats, factsSection }: CompanyIntroSectionProps) {
+  // Get quotes or provide defaults
+  const quotes = companyInfo.quotes && companyInfo.quotes.length > 0 
+    ? companyInfo.quotes 
+    : [
+        "Our service is available at single point of contact, hence no third-party involvement.",
+        "We are global exhibition stand design manufacturer. Explore the boundless creative opportunities with us."
+      ];
+
   return (
     <section className="bg-white">
       <div className="container mx-auto px-4 py-12 sm:py-16">
@@ -32,7 +46,7 @@ export default function CompanyIntroSection() {
 </div>
 
                 <p className="text-slate-500 text-sm sm:text-base md:text-lg leading-relaxed pl-6 sm:pl-8">
-                  {companyInfo.globalExhibitionText}
+                  {quotes[0]}
                 </p>
               </div>
             </div>
@@ -46,7 +60,7 @@ export default function CompanyIntroSection() {
 </div>
 
               <p className="text-slate-500 text-sm sm:text-base md:text-lg leading-relaxed pl-6 sm:pl-8">
-                {companyInfo.quote}
+                {quotes[1] || quotes[0]}
               </p>
             </div>
           </div>
@@ -58,10 +72,10 @@ export default function CompanyIntroSection() {
             {companyInfo.whoWeAreTitle}
           </h2>
           <div className="space-y-6 sm:space-y-8 text-slate-700 leading-relaxed text-justify max-w-5xl mx-auto">
-            <p className="text-sm sm:text-base md:text-lg">{companyInfo.description}</p>
-            <p className="text-sm sm:text-base md:text-lg">{companyInfo.description}</p>
-            <p className="text-sm sm:text-base md:text-lg">{companyInfo.description}</p>
-            <p className="text-sm sm:text-base md:text-lg">{companyInfo.description}</p>
+            <div 
+              className="text-sm sm:text-base md:text-lg rich-content"
+              dangerouslySetInnerHTML={{ __html: companyInfo.description }}
+            />
           </div>
         </div>
 
@@ -76,8 +90,8 @@ export default function CompanyIntroSection() {
           </p>
 
           <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 sm:gap-8">
-            {companyStats.map((stat, index) => (
-              <StatCard key={index} stat={stat} />
+            {companyStats.map((stat) => (
+              <StatCard key={stat.id} stat={stat} />
             ))}
           </div>
         </div>
@@ -86,11 +100,16 @@ export default function CompanyIntroSection() {
   )
 }
 
-/* ✅ Odometer-style Stat Card */
-function StatCard({ stat }: { stat: { value: number; label: string; icon: React.ReactNode } }) {
+/* ✅ Optimized Stat Card without useEffect for better SSR */
+function StatCard({ stat }: { stat: CompanyStats }) {
   const [count, setCount] = useState(0)
+  const [isAnimated, setIsAnimated] = useState(false)
 
-  useEffect(() => {
+  // Use Intersection Observer for better performance
+  const handleAnimation = () => {
+    if (isAnimated) return
+    
+    setIsAnimated(true)
     const end = stat.value
     const duration = 2000 // ms
     const frameRate = 30 // fps
@@ -107,19 +126,20 @@ function StatCard({ stat }: { stat: { value: number; label: string; icon: React.
 
       if (frame === totalFrames) clearInterval(counter)
     }, 1000 / frameRate)
-
-    return () => clearInterval(counter)
-  }, [stat.value])
+  }
 
   return (
-    <div className="text-center hover:scale-105 transition-all duration-300">
+    <div 
+      className="text-center hover:scale-105 transition-all duration-300"
+      onMouseEnter={handleAnimation}
+    >
       <div className="mb-4 sm:mb-6">
         <div className="flex items-center justify-center mx-auto mb-3 sm:mb-4">
           <span className="text-2xl sm:text-3xl md:text-4xl text-black">{stat.icon}</span>
         </div>
       </div>
       <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-800 mb-1 sm:mb-2 font-mono tracking-wider">
-        {count.toLocaleString()}+
+        {(isAnimated ? count : stat.value).toLocaleString()}+
       </div>
       <div className="text-[10px] sm:text-xs md:text-sm font-medium text-slate-500 uppercase tracking-wider">
         {stat.label}

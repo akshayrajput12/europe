@@ -1,6 +1,10 @@
-import { heroData } from "@/data/about-data"
+import { HeroSection as HeroData } from "@/data/about-data"
 
-export default function HeroSection() {
+interface HeroSectionProps {
+  heroData: HeroData
+}
+
+export default function HeroSection({ heroData }: HeroSectionProps) {
   return (
     <section className="relative h-[500px] flex items-center justify-center">
       <div

@@ -1,7 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { portfolioData } from "@/data/portfolio"
+import { portfolioData, heroPortfolioData } from "@/data/portfolio"
 
 export default function PortfolioSection() {
   // Filter only featured items for home page display
@@ -12,11 +12,20 @@ export default function PortfolioSection() {
       <div className="mb-8 sm:mb-10 md:mb-12 lg:mb-16 text-center">
         <div className="container mx-auto px-2 sm:px-4 md:px-6 lg:px-8">
           <h2 className="text-2xl md:text-3xl font-bold mb-3 sm:mb-4 md:mb-6">
-            OUR <span className="text-[#A5CD39]">PORTFOLIO</span>
+            {heroPortfolioData.title.split(" ").map((word, index) =>
+              word === "PORTFOLIO" ? (
+                <span key={index} className="text-[#A5CD39]">
+                  {word}
+                </span>
+              ) : (
+                <span key={index}>
+                  {word}{" "}
+                </span>
+              )
+            )}
           </h2>
           <p className="text-gray-600 max-w-sm sm:max-w-lg md:max-w-2xl lg:max-w-3xl mx-auto text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed px-2 sm:px-4 md:px-0">
-            Explore our extensive portfolio of exhibition stands and discover the quality and creativity we bring to
-            every project.
+            {heroPortfolioData.subtitle}
           </p>
         </div>
       </div>

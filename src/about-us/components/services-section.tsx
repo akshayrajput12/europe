@@ -1,7 +1,11 @@
-import { services } from "@/data/about-data"
+import { Service } from "@/data/about-data"
 import Image from "next/image"
 
-export default function ServicesSection() {
+interface ServicesSectionProps {
+  services: Service[]
+}
+
+export default function ServicesSection({ services }: ServicesSectionProps) {
   return (
     <section className="bg-white">
       <div className="container mx-auto px-4 py-12 md:py-16 space-y-16">

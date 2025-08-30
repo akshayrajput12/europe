@@ -1,13 +1,15 @@
 import Image from "next/image"
-import { homeData } from "@/data/home"
+import { Hero } from "@/data/home"
 
-export default function HeroSection() {
-  const { hero } = homeData
+interface HeroSectionProps {
+  heroData: Hero
+}
 
+export default function HeroSection({ heroData }: HeroSectionProps) {
   return (
     <section className="relative h-[250px] xs:h-[300px] sm:h-[350px] md:h-[450px] lg:h-[550px] xl:h-[650px] 2xl:h-[700px] bg-gray-100 m-0 p-0">
       <Image
-        src={hero.backgroundImage}
+        src={heroData.backgroundImage}
         alt="Chronicles facility aerial view"
         fill
         className="object-cover"

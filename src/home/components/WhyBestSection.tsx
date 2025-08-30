@@ -1,9 +1,15 @@
-"use client";
+interface WhyBest {
+  title: string
+  subtitle: string
+  htmlContent: string
+}
 
-import { homeData } from "@/data/home";
+interface WhyBestSectionProps {
+  whyBestData: WhyBest
+}
 
-export default function WhyBestSection() {
-  const { title, subtitle } = homeData.whyBest;
+export default function WhyBestSection({ whyBestData }: WhyBestSectionProps) {
+  const { title, subtitle } = whyBestData;
 
   return (
     <section className="py-16 md:py-20 bg-white">
@@ -21,7 +27,7 @@ export default function WhyBestSection() {
         <div className="max-w-5xl mx-auto">
           <div 
             className="rich-content text-gray-700 leading-relaxed text-base md:text-lg space-y-6"
-            dangerouslySetInnerHTML={{ __html: homeData.whyBest.htmlContent }}
+            dangerouslySetInnerHTML={{ __html: whyBestData.htmlContent }}
           />
         </div>
       </div>

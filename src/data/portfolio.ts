@@ -10,18 +10,26 @@ export interface PortfolioPageData {
   items: PortfolioItem[];
 }
 
-export interface PortfolioData {
+export interface HeroPortfolioData {
   title: string;
   subtitle: string;
+}
+
+export interface PortfolioData {
+  title: string;
   items: PortfolioItem[];
   ctaText: string;
   ctaLink: string;
 }
 
+// Hero Portfolio Section Data (for home page)
+export const heroPortfolioData: HeroPortfolioData = {
+  title: "OUR PORTFOLIO",
+  subtitle: "Explore our extensive portfolio of exhibition stands and discover the quality and creativity we bring to every project."
+};
+
 export const portfolioData: PortfolioData = {
   title: "OUR PORTFOLIO",
-  subtitle:
-    "We have successfully delivered high-quality exhibition stand designs for global clients across Europe and the USA. Here are some of our featured works.",
   items: [
     {
       image:

@@ -1,13 +1,18 @@
-"use client"
-
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { homeData } from "@/data/home"
 import { getCountryCards } from "@/data/countries"
 
-export default function MainContent() {
-  const { mainSection } = homeData
-  
+interface MainSection {
+  title: string
+  subtitle: string
+  htmlContent: string
+}
+
+interface MainContentProps {
+  mainSectionData: MainSection
+}
+
+export default function MainContent({ mainSectionData }: MainContentProps) {
   // Get country cards for home page display
   const featuredCountries = getCountryCards()
 
@@ -16,10 +21,10 @@ export default function MainContent() {
       {/* Title Section */}
       <div className="text-center mb-12 md:mb-16">
         <h1 className="text-2xl md:text-3xl font-bold mb-4 text-slate-800">
-          {mainSection.title}
+          {mainSectionData.title}
         </h1>
         <h2 className="text-2xl md:text-3xl font-bold mb-6">
-          {mainSection.subtitle.split(" ").map((word, index) =>
+          {mainSectionData.subtitle.split(" ").map((word, index) =>
             word === "EUROPE" ? (
               <span key={index} className="text-[#A5CD39]">
                 {word}
@@ -33,7 +38,7 @@ export default function MainContent() {
         </h2>
         <div 
           className="rich-content text-gray-600 max-w-4xl mx-auto mb-8 text-base md:text-lg leading-relaxed px-4 md:px-0"
-          dangerouslySetInnerHTML={{ __html: mainSection.htmlContent }}
+          dangerouslySetInnerHTML={{ __html: mainSectionData.htmlContent }}
         />
       </div>
 
@@ -65,5 +70,5 @@ export default function MainContent() {
         </div>
       </div>
     </main>
-  )
+  ) 
 }
