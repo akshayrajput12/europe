@@ -65,8 +65,17 @@
   list-style-type: disc;
 }
 
+.rich-content ul li::marker {
+  color: #A5CD39; /* Green color for discs only */
+  font-size: 1.1em; /* Slightly larger disc size */
+}
+
 .rich-content ol li {
   list-style-type: decimal;
+}
+
+.rich-content ol li::marker {
+  font-size: 1.1em; /* Slightly larger number size */
 }
 
 .rich-content blockquote {

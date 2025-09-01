@@ -1,4 +1,4 @@
-
+import { CustomStandsData } from "@/data/custom-stands"
 import ContactSection from "@/components/ContactSection"
 import HeroSection from "./components/HeroSection"
 import MainSection from "./components/MainSection"
@@ -10,19 +10,23 @@ import FreshDesignSection from "./components/FreshDesignSection"
 import CostSection from "./components/CostSection"
 import PortfolioSection from "@/components/PortfolioSection"
 
-export default function CustomStandsPage() {
+interface CustomStandsPageProps {
+  data: CustomStandsData
+}
+
+export default function CustomStandsPage({ data }: CustomStandsPageProps) {
   return (
     <div className="min-h-screen">
       <main>
-        <HeroSection />
-        <BenefitsSection />
-        <MainSection />
-        <StandProjectTextSection />
+        <HeroSection heroData={data.hero} />
+        <BenefitsSection benefitsData={data.benefits} />
+        <MainSection pointsTableData={data.pointsTable} />
+        <StandProjectTextSection standProjectTextData={data.StandProjectText} />
         <PortfolioSection />
-        <ExhibitionBenefitsSection />
-        <BespokeSection />
-        <FreshDesignSection />
-        <CostSection />
+        <ExhibitionBenefitsSection exhibitionBenefitsData={data.exhibitionBenefits} />
+        <BespokeSection bespokeData={data.bespoke} />
+        <FreshDesignSection freshDesignData={data.freshDesign} />
+        <CostSection costSectionData={data.costSection} />
         <ContactSection />
       </main>
     </div>

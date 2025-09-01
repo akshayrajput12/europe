@@ -5,7 +5,6 @@ export const navigationData = {
   },
   menuItems: [
     { label: "HOME", href: "/" },
-    { label: "COMPANY", href: "#" },
     { label: "SERVICES", href: "/services" },
     { label: "PORTFOLIO", href: "/portfolio" },
     { label: "TESTIMONIALS", href: "/review" },

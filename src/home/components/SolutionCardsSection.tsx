@@ -56,7 +56,15 @@ export default function SolutionCardsSection({ solutionsData }: SolutionCardsSec
               "Modular Exhibition Stands": "/modular-stands",
               "Double Decker Exhibition Stands": "/double-decker-stands",
               "Exhibition Pavilion Design": "/pavilion-design",
+              // Handle potential singular forms
+              "Custom Exhibition Stand": "/custom-stands",
+              "Modular Exhibition Stand": "/modular-stands",
+              "Double Decker Exhibition Stand": "/double-decker-stands"
             }
+
+            // Use .trim() on solution titles to handle potential whitespace issues
+            const trimmedTitle = solution.title.trim();
+            const route = linkMap[trimmedTitle] || "/";
 
             return (
               <Card
@@ -79,7 +87,7 @@ export default function SolutionCardsSection({ solutionsData }: SolutionCardsSec
                   <p className="text-gray-600 text-xs sm:text-sm md:text-base mb-3 sm:mb-4 leading-relaxed">
                     {solution.description}
                   </p>
-                  <Link href={linkMap[solution.title] || "#"}>
+                  <Link href={route}>
                     <Button
                       size="lg"
                       className="bg-[#A5CD39] hover:bg-[#8fb32e] text-white px-8"
