@@ -1,39 +1,23 @@
 "use client";
 
-import { modularPointsTable } from "@/data/modular-stands";
+import { getModularStandsData } from "@/data/modular-stands";
+import type { ModularPointsTable } from "@/data/modular-stands";
 
-export default function MainSection() {
-  const { title, items, descriptions } = modularPointsTable;
+interface MainSectionProps {
+  pointsTableData: ModularPointsTable;
+}
 
+export default function MainSection({ pointsTableData }: MainSectionProps) {
   return (
     <section className="py-16 px-4 max-w-4xl mx-auto">
       <div>
         <h2 className="text-2xl md:text-3xl text-justify font-bold text-gray-900 mb-8">
-          {title}
+          {pointsTableData.title}
         </h2>
-
-        <div className="space-y-6 mb-8">
-          {items.map((point, index) => (
-            <div key={index} className="flex items-start gap-4">
-              <div
-                className="w-3 h-3 rounded-full mt-2 flex-shrink-0"
-                style={{ backgroundColor: "#A5CD39" }}
-              />
-              <p className="text-gray-700 leading-relaxed">{point}</p>
-            </div>
-          ))}
-        </div>
-
-        <div className="space-y-4">
-          {descriptions.map((paragraph, index) => (
-            <p
-              key={index}
-              className="text-gray-700 leading-relaxed text-justify text-lg font-medium"
-            >
-              {paragraph}
-            </p>
-          ))}
-        </div>
+        <div 
+          className="rich-content"
+          dangerouslySetInnerHTML={{ __html: pointsTableData.content }}
+        />
       </div>
     </section>
   );

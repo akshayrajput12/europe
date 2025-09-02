@@ -1,7 +1,13 @@
-import Image from "next/image"
-import { exhibitionBenefits } from "@/data/modular-stands"
+"use client"
 
-export default function ExhibitionBenefitsSection() {
+import Image from "next/image"
+import type { ExhibitionBenefits } from "@/data/modular-stands"
+
+interface ExhibitionBenefitsProps {
+  exhibitionBenefitsData: ExhibitionBenefits
+}
+
+export default function ExhibitionBenefitsSection({ exhibitionBenefitsData }: ExhibitionBenefitsProps) {
   return (
     <section className="py-12 md:py-16 bg-gray-50">
       <div className="container mx-auto px-4">
@@ -9,25 +15,21 @@ export default function ExhibitionBenefitsSection() {
           {/* Text Section */}
           <div>
             <h2 className="text-2xl md:text-3xl font-bold mb-4 text-slate-800">
-              {exhibitionBenefits.title}
+              {exhibitionBenefitsData.title}
             </h2>
             <p className="text-gray-600 mb-6">
-              {exhibitionBenefits.subtitle}
+              {exhibitionBenefitsData.subtitle}
             </p>
-            <ul className="space-y-4">
-              {exhibitionBenefits.items.map((benefit, index) => (
-                <li key={index} className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-[#A5CD39] rounded-full mt-2 flex-shrink-0"></div>
-                  <p className="text-gray-700 leading-relaxed">{benefit}</p>
-                </li>
-              ))}
-            </ul>
+            <div 
+              className="rich-content"
+              dangerouslySetInnerHTML={{ __html: exhibitionBenefitsData.content }}
+            />
           </div>
 
           {/* Image Section */}
           <div className="order-first lg:order-last group">
             <Image
-              src={exhibitionBenefits.image || "/placeholder.svg"}
+              src={exhibitionBenefitsData.image || "/placeholder.svg"}
               alt="Exhibition Stand Benefits"
               width={500}
               height={300}
