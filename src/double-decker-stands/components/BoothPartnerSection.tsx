@@ -5,7 +5,7 @@ interface BoothPartnerSectionProps {
 }
 
 export default function BoothPartnerSection({ boothPartnerData }: BoothPartnerSectionProps) {
-  const { title, subtitle, description } = boothPartnerData
+  const { title, description } = boothPartnerData
 
   return (
     <section className="py-16 px-4 bg-white">

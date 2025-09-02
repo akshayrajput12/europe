@@ -1,6 +1,5 @@
 "use client"
 
-import { getModularStandsData } from "@/data/modular-stands"
 import type { ExpertsSection } from "@/data/modular-stands"
 
 interface ExpertsSectionProps {
