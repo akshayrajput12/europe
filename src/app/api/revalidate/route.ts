@@ -2,55 +2,15 @@ import { revalidatePath } from 'next/cache'
 import { NextRequest, NextResponse } from 'next/server'
 
 /**
- * API endpoint for revalidating Next.js ISR pages
+ * Simplified API endpoint for revalidating Next.js ISR pages
  * Called by the admin panel when content is updated
+ * No authentication required for easier implementation
  */
 export async function POST(request: NextRequest) {
   try {
     // Parse the request body
     const body = await request.json()
-    const { path, paths, token } = body
-
-    // Determine if we're in production mode
-    const isProduction = process.env.NODE_ENV === 'production'
-    
-    // Log for debugging
-    console.log(`Revalidation request - Production mode: ${isProduction}`)
-    console.log(`Token provided: ${token !== undefined}`)
-    
-    // Authentication logic
-    if (isProduction) {
-      // In production, a token is required
-      if (token === undefined || token === null) {
-        console.log('Token missing in production - returning 401')
-        return NextResponse.json(
-          { message: 'Token is required in production' },
-          { status: 401 }
-        )
-      }
-      
-      // Token must match our secret
-      if (token !== process.env.REVALIDATION_TOKEN) {
-        console.log('Invalid token provided - returning 401')
-        return NextResponse.json(
-          { message: 'Unauthorized' },
-          { status: 401 }
-        )
-      }
-    } else {
-      // In development, if a token is provided, validate it
-      // But if no token is provided, allow the request (for easier testing)
-      if (token !== undefined && token !== null) {
-        if (token !== process.env.REVALIDATION_TOKEN) {
-          console.log('Invalid token provided in development - returning 401')
-          return NextResponse.json(
-            { message: 'Unauthorized' },
-            { status: 401 }
-          )
-        }
-      }
-      console.log('No token provided in development - allowing request')
-    }
+    const { path, paths } = body
 
     // Handle single path revalidation
     if (path) {
@@ -76,7 +36,7 @@ export async function POST(request: NextRequest) {
         if (typeof p !== 'string') {
           return NextResponse.json(
             { message: 'All paths must be strings' },
-            { status: 400 }
+          { status: 400 }
           )
         }
       }
