@@ -8,8 +8,32 @@ import { NextRequest, NextResponse } from 'next/server'
  */
 export async function POST(request: NextRequest) {
   try {
+    // Log the incoming request
+    console.log('Revalidation request received')
+    
     // Parse the request body
-    const body = await request.json()
+    let body
+    try {
+      body = await request.json()
+      console.log('Request body:', body)
+    } catch (parseErr) {
+      console.error('Error parsing request body:', parseErr)
+      return NextResponse.json(
+        { 
+          message: 'Error parsing request body',
+          error: parseErr instanceof Error ? parseErr.message : 'Unknown error'
+        },
+        { 
+          status: 400,
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'POST',
+            'Access-Control-Allow-Headers': 'Content-Type',
+          }
+        }
+      )
+    }
+    
     const { path, paths } = body
 
     // Handle single path revalidation
@@ -29,9 +53,43 @@ export async function POST(request: NextRequest) {
         )
       }
 
+      // Validate that path starts with a slash
+      if (!path.startsWith('/')) {
+        return NextResponse.json(
+          { message: 'Path must start with a forward slash' },
+          { 
+            status: 400,
+            headers: {
+              'Access-Control-Allow-Origin': '*',
+              'Access-Control-Allow-Methods': 'POST',
+              'Access-Control-Allow-Headers': 'Content-Type',
+            }
+          }
+        )
+      }
+
       // Revalidate the specified path
       console.log(`Revalidating path: ${path}`)
-      revalidatePath(path)
+      try {
+        revalidatePath(path)
+      } catch (revalidateErr) {
+        console.error(`Error revalidating path ${path}:`, revalidateErr)
+        return NextResponse.json(
+          { 
+            message: 'Error revalidating path',
+            error: revalidateErr instanceof Error ? revalidateErr.message : 'Unknown error',
+            path
+          },
+          { 
+            status: 500,
+            headers: {
+              'Access-Control-Allow-Origin': '*',
+              'Access-Control-Allow-Methods': 'POST',
+              'Access-Control-Allow-Headers': 'Content-Type',
+            }
+          }
+        )
+      }
       
       return NextResponse.json(
         { revalidated: true, path },
@@ -62,6 +120,21 @@ export async function POST(request: NextRequest) {
             }
           )
         }
+        
+        // Validate that each path starts with a slash
+        if (!p.startsWith('/')) {
+          return NextResponse.json(
+            { message: `Path "${p}" must start with a forward slash` },
+            { 
+              status: 400,
+              headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'POST',
+                'Access-Control-Allow-Headers': 'Content-Type',
+              }
+            }
+          )
+        }
       }
 
       // Revalidate all specified paths
@@ -72,7 +145,12 @@ export async function POST(request: NextRequest) {
           revalidatePath(p)
           results.push({ path: p, success: true })
         } catch (err) {
-          results.push({ path: p, success: false, error: (err as Error).message })
+          console.error(`Error revalidating path ${p}:`, err)
+          results.push({ 
+            path: p, 
+            success: false, 
+            error: err instanceof Error ? err.message : 'Unknown error' 
+          })
         }
       }
       
@@ -101,10 +179,13 @@ export async function POST(request: NextRequest) {
       }
     )
   } catch (err) {
-    // If there was an error, return a 500 status
-    console.error('Error revalidating:', err)
+    // If there was an error parsing the request, return a 500 status
+    console.error('Unexpected error in revalidation API:', err)
     return NextResponse.json(
-      { message: 'Error revalidating' },
+      { 
+        message: 'Unexpected error processing revalidation request',
+        error: err instanceof Error ? err.message : 'Unknown error'
+      },
       { 
         status: 500,
         headers: {
