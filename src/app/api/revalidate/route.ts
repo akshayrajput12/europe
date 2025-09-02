@@ -18,7 +18,14 @@ export async function POST(request: NextRequest) {
       if (typeof path !== 'string') {
         return NextResponse.json(
           { message: 'Path must be a string' },
-          { status: 400 }
+          { 
+            status: 400,
+            headers: {
+              'Access-Control-Allow-Origin': '*',
+              'Access-Control-Allow-Methods': 'POST',
+              'Access-Control-Allow-Headers': 'Content-Type',
+            }
+          }
         )
       }
 
@@ -26,7 +33,16 @@ export async function POST(request: NextRequest) {
       console.log(`Revalidating path: ${path}`)
       revalidatePath(path)
       
-      return NextResponse.json({ revalidated: true, path })
+      return NextResponse.json(
+        { revalidated: true, path },
+        {
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'POST',
+            'Access-Control-Allow-Headers': 'Content-Type',
+          }
+        }
+      )
     }
 
     // Handle multiple paths revalidation
@@ -36,7 +52,14 @@ export async function POST(request: NextRequest) {
         if (typeof p !== 'string') {
           return NextResponse.json(
             { message: 'All paths must be strings' },
-          { status: 400 }
+            { 
+              status: 400,
+              headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'POST',
+                'Access-Control-Allow-Headers': 'Content-Type',
+              }
+            }
           )
         }
       }
@@ -53,28 +76,69 @@ export async function POST(request: NextRequest) {
         }
       }
       
-      return NextResponse.json({ revalidated: true, results })
+      return NextResponse.json(
+        { revalidated: true, results },
+        {
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'POST',
+            'Access-Control-Allow-Headers': 'Content-Type',
+          }
+        }
+      )
     }
 
     // If neither path nor paths provided
     return NextResponse.json(
       { message: 'Either path (string) or paths (array) is required' },
-      { status: 400 }
+      { 
+        status: 400,
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'POST',
+          'Access-Control-Allow-Headers': 'Content-Type',
+        }
+      }
     )
   } catch (err) {
     // If there was an error, return a 500 status
     console.error('Error revalidating:', err)
     return NextResponse.json(
       { message: 'Error revalidating' },
-      { status: 500 }
+      { 
+        status: 500,
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'POST',
+          'Access-Control-Allow-Headers': 'Content-Type',
+        }
+      }
     )
   }
+}
+
+// Handle OPTIONS request for CORS preflight
+export async function OPTIONS() {
+  return new Response(null, {
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST',
+      'Access-Control-Allow-Headers': 'Content-Type',
+    }
+  })
 }
 
 // Only allow POST requests
 export async function GET() {
   return NextResponse.json(
     { message: 'Method Not Allowed' },
-    { status: 405 }
+    { 
+      status: 405,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'POST',
+        'Access-Control-Allow-Headers': 'Content-Type',
+      }
+    }
   )
 }
