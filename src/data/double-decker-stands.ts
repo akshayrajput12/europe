@@ -1,30 +1,32 @@
-// Interfaces for strong typing & backend integration
+import { supabase } from '@/lib/supabase'
+import { createServerClient } from '@/lib/supabase-server'
 
-export interface HeroData {
-  title: string;
-  subtitle: string;
-  backgroundImage: string;
+// Interfaces for strong typing
+export interface HeroSection {
+  title: string
+  subtitle?: string
+  backgroundImage: string
 }
 
-export interface BenefitsData {
-  title: string;
-  benefits: string[];
-  image: string;
+export interface BenefitsSection {
+  title: string
+  image?: string
+  content: string // Single HTML content instead of items array
 }
 
-export interface PortfolioData {
-  title: string;
-  description: string;
-  
+export interface PointsTableData {
+  title: string
+  // Combined content as single HTML string
+  content: string
 }
 
-export interface PartnerData {
-  title: string;
-  subtitle: string;
-  description: string;
+export interface BoothPartnerData {
+  title: string
+  subtitle: string
+  description: string
 }
 
-export interface StatementData {
+export interface BoldStatementData {
   title: string
   subtitle: string
   description: string
@@ -32,98 +34,109 @@ export interface StatementData {
 
 export interface StandProjectText {
   title: string
-  highlight?: string
-  description: string
+  highlight?: string // for green part of heading
+  description: string // Will be rendered as HTML content
 }
 
 export interface ExhibitionBenefits {
   title: string
   subtitle: string
-  items: string[]
+  content: string // Single HTML content instead of items array
   image: string
 }
 
-export interface PointsTableData {
-  title: string;
-  items: string[];
-  descriptions: string[];
+export interface MetaData {
+  title: string
+  description: string
 }
 
-// ✅ Typed Data Exports
-
-export const doubleDeckHeroData: HeroData = {
-  title: "DOUBLE DECKER EXHIBITION STANDS",
-  subtitle: "DESIGN & BUILD",
-  backgroundImage: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1200&h=600&fit=crop",
-};
-
-export const doubleDeckBenefitsData: BenefitsData = {
-  title: "BENEFITS OF THE DOUBLE-DECKER EXHIBITION STAND:",
-  benefits: [
-    "Double-decker exhibits are easy to spot on the show floor, and it can drive traffic to the stall.",
-    "These booths allow users to expand the usable space upwards. It provides a lot of branding, interactivity, and product displays as exhibitors have separate spaces for meetings and social gatherings.",
-    "Double-decker booths offer maximum customer engagement in a private atmosphere.",
-    "Double-decker stands offer great flexibility to use some creative ideas with captivating graphics and add value to the business.",
-  ],
-  image:
-    "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=500&h=400&fit=crop",
-};
-
-export const doubleDeckPartnerData: PartnerData = {
-  title: "CHRONICLES",
-  subtitle: "YOUR IDEAL DOUBLE DECK BOOTH PARTNER",
-  description:
-    "Double Decker Trade Show Booths can be difficult to design and build, but nothing is difficult for Chronicles. We are one of the most trusted double-decker exhibition stand builders in Europe. We have been in the double-decker exhibition stand designing industry for the last 20+ years.",
-};
-
-export const doubleDeckStatementData: StatementData = {
-  title: "MAKE A BOLD STATEMENT",
-  subtitle: "DOUBLE DECKER EXHIBITION STAND",
-  description:
-    "The double-decker booths designed by Chronicles not only increase the exhibiting space but also make a solid impression amidst the competition.",
-};
-
-export const doubleDeckStandProjectText: StandProjectText = {
-  title: "SOME OF OUR",
-  highlight: "DOUBLE DECKER EXHIBITION STANDS",
-  description:
-    "Check some of the designs aesthetically created and delivered in the best quality by our professional double decker exhibition stand builders. The below pictures demonstrate our specially tailored exhibition stands to meet the client's objectives and maximise the expo's success.",
-};
-
-export const doubleDeckPointsTable: PointsTableData = {
-  title: "WHY CHOOSE DOUBLE-DECKER STANDS?",
-  items: [
-    "Maximize your floor space without increasing costs.",
-    "Create private meeting areas on the upper deck.",
-    "Gain better visibility on the crowded show floor.",
-    "Showcase products with stunning two-level designs.",
-  ],
-  descriptions: [
-    "At Chronicles, we design double-decker booths that not only expand the exhibiting space but also ensure your brand stands tall amidst the competition.",
-    "Our innovative booth designs help clients achieve maximum impact with functional, creative, and visually striking two-story exhibition stands.",
-  ],
-};
-
-export const exhibitionBenefitsData: ExhibitionBenefits = {
-  title: "Why Choose Our Exhibition Stands?",
-  subtitle: "Discover the advantages that make our stands unique and effective.",
-  items: [
-    "Tailor-made designs to match your brand identity.",
-    "High-quality materials ensuring durability and elegance.",
-    "Eco-friendly and sustainable production methods.",
-    "On-time delivery and hassle-free installation.",
-    "Cost-effective solutions without compromising on quality.",
-  ],
-  image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=500&h=300&fit=crop", // update path if needed
+// ✅ Added `exhibitionBenefits` here
+export interface DoubleDeckerStandsData {
+  meta: MetaData
+  hero: HeroSection
+  benefits: BenefitsSection
+  pointsTable: PointsTableData  // Moved to be just after benefits
+  StandProjectText: StandProjectText
+  exhibitionBenefits: ExhibitionBenefits
+  boothPartner: BoothPartnerData
+  boldStatement: BoldStatementData
 }
 
-// Consolidated data export
-export const doubleDeckStandsData = {
-  hero: doubleDeckHeroData,
-  benefits: doubleDeckBenefitsData,
-  StandProjectText: doubleDeckStandProjectText,
-  exhibitionBenefits: exhibitionBenefitsData,
-  partner: doubleDeckPartnerData,
-  statement: doubleDeckStatementData,
-  pointsTable: doubleDeckPointsTable,
-};
+// Main function to get double decker stands data from database (NO FALLBACK DATA)
+export async function getDoubleDeckerStandsData(): Promise<DoubleDeckerStandsData> {
+  try {
+    let client
+    try {
+      client = createServerClient()
+    } catch {
+      client = supabase
+    }
+
+    // Fetch data directly from the double_decker_stands_page table
+    const { data, error } = await client
+      .from('double_decker_stands_page')
+      .select('*')
+      .eq('is_active', true)
+      .single()
+    
+    if (error) {
+      console.error('Error fetching double decker stands data:', error)
+      throw new Error('Failed to fetch double decker stands data from database: ' + error.message)
+    }
+    
+    if (!data) {
+      console.error('No double decker stands data found in database')
+      throw new Error('No double decker stands data available in database')
+    }
+    
+    // Transform database columns to match TypeScript interfaces
+    const doubleDeckerStandsData: DoubleDeckerStandsData = {
+      meta: {
+        title: data.meta_title || '',
+        description: data.meta_description || ''
+      },
+      hero: {
+        title: data.hero_title || '',
+        subtitle: data.hero_subtitle || '',
+        backgroundImage: data.hero_background_image || ''
+      },
+      benefits: {
+        title: data.benefits_title || '',
+        image: data.benefits_image || '',
+        content: data.benefits_content || ''
+      },
+      pointsTable: {  // Moved to be just after benefits
+        title: data.points_table_title || '',
+        content: data.points_table_content || ''
+      },
+      StandProjectText: {
+        title: data.stand_project_title || '',
+        highlight: data.stand_project_highlight || '',
+        description: data.stand_project_description || ''
+      },
+      exhibitionBenefits: {
+        title: data.exhibition_benefits_title || '',
+        subtitle: data.exhibition_benefits_subtitle || '',
+        content: data.exhibition_benefits_content || '',
+        image: data.exhibition_benefits_image || ''
+      },
+      boothPartner: {
+        title: data.booth_partner_title || '',
+        subtitle: data.booth_partner_subtitle || '',
+        description: data.booth_partner_description || ''
+      },
+      boldStatement: {
+        title: data.bold_statement_title || '',
+        subtitle: data.bold_statement_subtitle || '',
+        description: data.bold_statement_description || ''
+      }
+    }
+    
+    return doubleDeckerStandsData
+  } catch (error) {
+    console.error('Database connection failed:', error)
+    throw error
+  }
+}
+
+// Remove static initialization - components will fetch data directly

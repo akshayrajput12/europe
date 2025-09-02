@@ -1,9 +1,13 @@
 "use client";
 
-import { doubleDeckPointsTable } from "@/data/double-decker-stands";
+import type { PointsTableData } from "@/data/double-decker-stands";
 
-export default function MainSection() {
-  const { title, items, descriptions } = doubleDeckPointsTable;
+interface MainSectionProps {
+  pointsTableData: PointsTableData;
+}
+
+export default function MainSection({ pointsTableData }: MainSectionProps) {
+  const { title, content } = pointsTableData;
 
   return (
     <section className="py-16 px-4 max-w-4xl mx-auto">
@@ -12,28 +16,10 @@ export default function MainSection() {
           {title}
         </h2>
 
-        <div className="space-y-6 mb-8">
-          {items.map((point, index) => (
-            <div key={index} className="flex items-start gap-4">
-              <div
-                className="w-3 h-3 rounded-full mt-2 flex-shrink-0"
-                style={{ backgroundColor: "#A5CD39" }}
-              />
-              <p className="text-gray-700 leading-relaxed">{point}</p>
-            </div>
-          ))}
-        </div>
-
-        <div className="space-y-4">
-          {descriptions.map((paragraph, index) => (
-            <p
-              key={index}
-              className="text-gray-700 leading-relaxed text-justfiy"
-            >
-              {paragraph}
-            </p>
-          ))}
-        </div>
+        <div 
+          className="rich-content"
+          dangerouslySetInnerHTML={{ __html: content }}
+        />
       </div>
     </section>
   );
