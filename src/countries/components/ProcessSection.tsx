@@ -18,6 +18,7 @@ export default function ProcessSection({ data }: ProcessSectionProps) {
     }
     return iconMap[emojiIcon] || Lightbulb
   }
+  
   return (
     <section className="bg-gray-50 py-12 md:py-16">
       <div className="container mx-auto px-4">
@@ -33,7 +34,7 @@ export default function ProcessSection({ data }: ProcessSectionProps) {
           {data.steps.map((step, index) => {
             const IconComponent = getIcon(step.icon)
             return (
-              <div key={index} className="text-center">
+              <div key={step.id || index} className="text-center">
                 {/* Icon */}
                 <div className="w-16 h-16 mx-auto mb-4 bg-[#A5CD39] rounded-full flex items-center justify-center">
                   <IconComponent className="w-8 h-8 text-white" />

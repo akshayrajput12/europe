@@ -1,0 +1,26 @@
+-- Since we've updated the main migration file (008) to use JSON for process steps instead of HTML,
+-- this migration file now serves as a placeholder for any future updates to the process steps structure.
+-- The change has already been implemented in the main schema.
+
+-- If you need to update existing data that was stored in the old HTML format, you can use a query like this:
+-- UPDATE countries 
+-- SET process_section_steps = (
+--   SELECT jsonb_agg(
+--     jsonb_build_object(
+--       'id', gen_random_uuid()::text,
+--       'icon', '💡',
+--       'title', COALESCE(step_title, ''),
+--       'description', COALESCE(step_description, '')
+--     )
+--   )
+--   FROM (
+--     SELECT 
+--       (regexp_matches(process_section_steps_html, '<h4>([^<]+)</h4>', 'g'))[1] as step_title,
+--       (regexp_matches(process_section_steps_html, '<p>([^<]+)</p>', 'g'))[1] as step_description
+--   ) as steps
+-- )
+-- WHERE process_section_steps_html IS NOT NULL;
+
+-- Then remove the old HTML column:
+-- ALTER TABLE countries 
+-- DROP COLUMN IF EXISTS process_section_steps_html;

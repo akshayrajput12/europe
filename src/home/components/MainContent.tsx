@@ -12,9 +12,9 @@ interface MainContentProps {
   mainSectionData: MainSection
 }
 
-export default function MainContent({ mainSectionData }: MainContentProps) {
+export default async function MainContent({ mainSectionData }: MainContentProps) {
   // Get country cards for home page display
-  const featuredCountries = getCountryCards()
+  const featuredCountries = await getCountryCards()
 
   return (
     <main className="container mx-auto px-4 py-8 md:py-16">

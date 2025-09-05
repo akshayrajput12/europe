@@ -1,8 +1,8 @@
-import { getCountries } from "@/data/countries"
+import { getCountryCards } from "@/data/countries"
 import CountryCard from "./CountryCard"
 
-export default function CountryGrid() {
-  const countries = getCountries()
+export default async function CountryGrid() {
+  const countries = await getCountryCards()
 
   return (
     <section className="bg-white py-12 md:py-16">

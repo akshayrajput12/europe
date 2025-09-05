@@ -14,9 +14,10 @@ export default function WhatWeDoSection({ data }: WhatWeDoSectionProps) {
             <span className="text-[#A5CD39]">WE </span>
             <span className="text-slate-800">DO?</span>
           </h2>
-          <p className="text-gray-600 max-w-xl md:max-w-2xl lg:max-w-3xl mx-auto text-sm md:text-base lg:text-lg leading-relaxed px-2 sm:px-4 md:px-0">
-            {data.description}
-          </p>
+          <div 
+            className="rich-content text-gray-600 max-w-xl md:max-w-2xl lg:max-w-3xl mx-auto text-sm md:text-base lg:text-lg leading-relaxed px-2 sm:px-4 md:px-0"
+            dangerouslySetInnerHTML={{ __html: data.description }}
+          />
         </div>
       </div>
     </section>

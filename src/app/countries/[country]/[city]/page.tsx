@@ -1,8 +1,3 @@
-import { 
-  getCityByCountryAndSlug, 
-  getAvailableCities, 
-  isCityAvailable 
-} from "@/data/cities"
 import { notFound } from 'next/navigation'
 import SolutionCardsSection from "@/home/components/SolutionCardsSection"
 import PortfolioSection from "@/components/PortfolioSection"
@@ -16,11 +11,26 @@ import CityWhatWeDoSection from "../../../../cities/components/CityWhatWeDoSecti
 import TradeShowsCarouselSection from "../../../../cities/components/TradeShowsCarouselSection"
 import ExhibitingExperienceSection from "../../../../cities/components/ExhibitingExperienceSection"
 
+// Import new database functions
+import { getCityByCountryAndSlugFromDB as getCityByCountryAndSlug, getAvailableCitiesFromDB as getAvailableCities, isCityAvailableFromDB as isCityAvailable, generateCityMetadata } from '@/data/cities'
+import { Metadata } from 'next'
+
 interface CityDetailPageProps {
   params: Promise<{
     country: string
     city: string
   }>
+}
+
+// Generate metadata for SEO with full SSR
+export async function generateMetadata({ params }: { params: Promise<{ country: string; city: string }> }): Promise<Metadata> {
+  const { country, city } = await params
+  const countrySlug = country.toLowerCase()
+  const citySlug = city.toLowerCase()
+  
+  // Generate complete SEO metadata
+  const metadata = await generateCityMetadata(countrySlug, citySlug)
+  return metadata
 }
 
 export default async function CityDetailPage({ params }: CityDetailPageProps) {
@@ -29,12 +39,13 @@ export default async function CityDetailPage({ params }: CityDetailPageProps) {
   const citySlug = city.toLowerCase()
   
   // Check if city is available in the specified country
-  if (!isCityAvailable(countrySlug, citySlug)) {
+  const cityIsAvailable = await isCityAvailable(countrySlug, citySlug)
+  if (!cityIsAvailable) {
     notFound()
   }
 
-  // Get city-specific data
-  const cityData = getCityByCountryAndSlug(countrySlug, citySlug)
+  // Get city-specific data from database
+  const cityData = await getCityByCountryAndSlug(countrySlug, citySlug)
   
   // This should not happen since we checked availability above, but for TypeScript safety
   if (!cityData) {
@@ -57,11 +68,14 @@ export default async function CityDetailPage({ params }: CityDetailPageProps) {
   )
 }
 
-// Generate static params for available cities
+// Generate static params for available cities - for ISR
 export async function generateStaticParams() {
-  const availableCities = getAvailableCities()
+  const availableCities = await getAvailableCities()
   return availableCities.map((city) => ({
     country: city.countrySlug,
     city: city.citySlug,
   }))
 }
+
+// ISR Configuration - Revalidate every 30 days
+export const revalidate = 2592000; // 30 days in seconds

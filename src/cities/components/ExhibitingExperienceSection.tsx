@@ -24,7 +24,10 @@ export default function ExhibitingExperienceSection({ data }: ExhibitingExperien
             {data.benefits.map((benefit, index) => (
               <div key={index} className="flex items-start gap-3">
                 <div className="text-[#A5CD39] mt-1 flex-shrink-0">○</div>
-                <p className="text-slate-700 text-sm md:text-base">{benefit}</p>
+                <div 
+                  className="rich-content text-slate-700 text-sm md:text-base"
+                  dangerouslySetInnerHTML={{ __html: benefit }}
+                />
               </div>
             ))}
           </div>
@@ -41,7 +44,10 @@ export default function ExhibitingExperienceSection({ data }: ExhibitingExperien
             {data.excellence.points.map((point, index) => (
               <div key={index} className="flex items-start gap-3">
                 <div className="text-[#A5CD39] mt-1 flex-shrink-0">○</div>
-                <p className="text-slate-700 text-sm md:text-base">{point}</p>
+                <div 
+                  className="rich-content text-slate-700 text-sm md:text-base"
+                  dangerouslySetInnerHTML={{ __html: point }}
+                />
               </div>
             ))}
           </div>

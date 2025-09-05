@@ -40,52 +40,6 @@ export async function insertData<T>(table: string, data: Partial<T>): Promise<T 
   }
 }
 
-// Generic function to update data in any table
-export async function updateData<T>(
-  table: string, 
-  id: string | number, 
-  updates: Partial<T>
-): Promise<T | null> {
-  try {
-    const { data, error } = await supabase
-      .from(table)
-      .update(updates)
-      .eq('id', id)
-      .select()
-      .single()
-    
-    if (error) {
-      console.error(`Error updating data in ${table}:`, error)
-      return null
-    }
-    
-    return data as T
-  } catch (error) {
-    console.error(`Unexpected error updating data in ${table}:`, error)
-    return null
-  }
-}
-
-// Generic function to delete data from any table
-export async function deleteData(table: string, id: string | number): Promise<boolean> {
-  try {
-    const { error } = await supabase
-      .from(table)
-      .delete()
-      .eq('id', id)
-    
-    if (error) {
-      console.error(`Error deleting data from ${table}:`, error)
-      return false
-    }
-    
-    return true
-  } catch (error) {
-    console.error(`Unexpected error deleting data from ${table}:`, error)
-    return false
-  }
-}
-
 // Example: Contact form specific functions
 export interface ContactForm {
   id?: string

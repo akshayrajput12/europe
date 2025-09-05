@@ -1,5 +1,8 @@
 // src/data/countries.ts
 
+// Import Supabase client
+import { supabase } from '@/lib/supabase';
+
 // Interfaces for strong typing
 export interface CountryHero {
   title: string
@@ -7,25 +10,32 @@ export interface CountryHero {
   backgroundImage: string
 }
 
-export interface BenefitItem {
-  icon: string
-  title: string
-  description: string
-}
-
 export interface WhyChooseUs {
   title: string
   subtitle: string
-  benefits: BenefitItem[]
+  benefits: string
   mainImage: string
 }
 
 export interface CompanyInfo {
   title: string
-  content: string[]
+  content: string
+}
+
+export interface BestCompany {
+  title: string
+  subtitle: string
+  content: string
+}
+
+export interface WhatWeDo {
+  title: string
+  subtitle: string
+  description: string
 }
 
 export interface ProcessStep {
+  id: string
   icon: string
   title: string
   description: string
@@ -46,34 +56,24 @@ export interface CitiesSection {
   subtitle: string
 }
 
-export interface BestCompany {
-  title: string
-  subtitle: string
-  content: string[]
-}
-
-export interface WhatWeDo {
-  title: string
-  subtitle: string
-  description: string
-}
-
 // Simple interface for country cards (like cities grid)
 export interface CountryCard {
   slug: string
   name: string
 }
 
+// Interface for database city records
+export interface DatabaseCity {
+  id: number;
+  name: string;
+  country_slug: string;
+  city_slug: string;
+}
+
 // Interface for countries page header
 export interface CountriesData {
   title: string
   subtitle: string
-}
-
-// Countries page header data
-export const countriesData: CountriesData = {
-  title: "EXHIBITION STAND SERVICES",
-  subtitle: "IN EUROPE"
 }
 
 // Interface for country detail pages
@@ -93,276 +93,309 @@ export interface CountryDetailsData {
   countries: CountryDetail[]
 }
 
-// Simple country cards data (derived from detail data)
-export const getCountryCards = (): CountryCard[] => {
-  return countryDetailsData.countries.map(country => ({
-    slug: country.slug,
-    name: country.hero.subtitle
-  }))
+// Countries page header data
+export const countriesData: CountriesData = {
+  title: "EXHIBITION STAND SERVICES",
+  subtitle: "IN EUROPE"
 }
 
-// Country detail pages data
-export const countryDetailsData: CountryDetailsData = {
-  countries: [
-    {
-      id: "1",
-      slug: "france",
-      hero: {
-        title: "EXHIBITION STAND DESIGN AND BUILD IN",
-        subtitle: "FRANCE",
-        backgroundImage: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=500&h=400&fit=crop"
-      },
-      whyChooseUs: {
-        title: "Why Choose Us for Exhibition Stands in",
-        subtitle: "France?",
-        mainImage: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=500&h=400&fit=crop",
-        benefits: [
-          {
-            icon: "🎯",
-            title: "We are more than just exhibition stand builders in France",
-            description: "we are your gateway to success"
-          },
-          {
-            icon: "⚡",
-            title: "In-house production and storage facilities in Europe",
-            description: ""
-          },
-          {
-            icon: "🛡️",
-            title: "Experienced project managers with multilingual capabilities",
-            description: ""
-          },
-          {
-            icon: "💰",
-            title: "Competitive pricing with no compromise on quality",
-            description: ""
-          },
-          {
-            icon: "⏰",
-            title: "One-stop shop for complete exhibition participation",
-            description: ""
-          }
-        ]
-      },
-      whatWeDo: {
-        title: "WHAT WE DO?",
-        subtitle: "WE DO?",
-        description: "We offer our clients a wide range of trade show booth designs in France from custom and modular exhibition booths to country pavilion and double-decker exhibition booths."
-      },
-      companyInfo: {
-        title: "DISTINGUISHED EXHIBITION STAND BUILDER IN FRANCE",
-        content: [
-          "At RADON SP Z O.O., we work with a client-centric approach to offer incredible exhibition stand construction and experience services in France. Our team of highly experienced exhibition stand designers in France are equipped with in-depth knowledge of local regulations, venue requirements, and cultural nuances to ensure that your exhibition stand not only meets but exceeds expectations.",
-          "We understand that most exhibitors face discomfort from various terminologies and need guidance and are limited by budgets, construction and venue limitations and are time constrained - that's it! We have expertise at all levels to deliver significant optimization, efficiency and delivery activities with an unparalleled combination of value, expertise and commitment.",
-          "Our future and team are ready for further iterations of your organization and what you construct we add experience comprehensive information where we get for re-connections that help enhance our team service delivery such a record service throughout your entire exhibition journey.",
-          "We offer high-quality materials and rely on the latest tools and machinery to boost construction in France and deliver to best construction we are thingshex. etc. bench here",
-          "As exhibitors in France, the record we have now covers combining technology with extensive such as innovation and throughout experience - that's it! From making to service your information to product today."
-        ]
-      },
-      bestCompany: {
-        title: "BEST EXHIBITION STAND DESIGN COMPANY IN FRANCE FOR",
-        subtitle: "EXCEPTIONAL EXPERIENCE",
-        content: [
-          "We are dedicated to designing a unique brand experience that fully showcases your brand essence and enhances your presence. As we have been delivering quality construction services for 20+ years, we have now become an exhibition stand contractor that delivers exceptional results.",
-          "Our team has successfully delivered quality services to 1000+ clients and completed 4000+ projects across 50+ exhibition events globally. Our professional team is here to provide customized exhibition services to help you convey your brand message effectively. We have a state-of-the-art manufacturing unit that allows us to deliver booth building projects with quick turnaround time.",
-          "Our team puts the latest of their skills and experience to work on creative solutions to meet your exhibition floor. Get in touch with the most trusted exhibition stand design company in France to deliver a distinct and unparalleled experience at your next trade show in France."
-        ]
-      },
-      processSection: {
-        title: "The Art And Science Behind Our Exhibition Stand Design & Build Process",
-        steps: [
-          {
-            icon: "💡",
-            title: "Brief",
-            description: "Understanding your specific requirements and exhibition goals through detailed briefing sessions."
-          },
-          {
-            icon: "✏️",
-            title: "3D Visuals",
-            description: "Creating realistic 3D visualizations to help you envision your exhibition stand before construction."
-          },
-          {
-            icon: "🏭",
-            title: "Production",
-            description: "Professional manufacturing in our state-of-the-art facilities with quality control at every step."
-          },
-          {
-            icon: "🚚",
-            title: "Logistics",
-            description: "Seamless transportation and delivery to ensure your stand arrives on time and in perfect condition."
-          },
-          {
-            icon: "🔧",
-            title: "Installation",
-            description: "Expert installation team ensures proper setup and functionality of all stand components."
-          },
-          {
-            icon: "🎯",
-            title: "Show Support",
-            description: "Round-the-clock support throughout your exhibition to address any issues immediately."
-          }
-        ]
-      },
-      citiesSection: {
-        title: "EXHIBITION STANDS IN",
-        subtitle: "FRANCE"
-      }
-    },
-    {
-      id: "2",
-      slug: "germany",
-      hero: {
-        title: "EXHIBITION STAND DESIGN AND BUILD IN",
-        subtitle: "GERMANY",
-        backgroundImage: "https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=500&h=400&fit=crop"
-      },
-      whyChooseUs: {
-        title: "Why Choose Us for Exhibition Stands in",
-        subtitle: "Germany?",
-        mainImage: "https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=500&h=400&fit=crop",
-        benefits: [
-          {
-            icon: "🎯",
-            title: "Leading exhibition stand builders in Germany",
-            description: "Your trusted partner for success in German trade shows"
-          },
-          {
-            icon: "⚡",
-            title: "Local expertise with European manufacturing",
-            description: "Understanding German market requirements and regulations"
-          },
-          {
-            icon: "🛡️",
-            title: "German-speaking project managers",
-            description: "Seamless communication throughout your project"
-          },
-          {
-            icon: "💰",
-            title: "Competitive German market pricing",
-            description: "Best value for money without compromising quality"
-          },
-          {
-            icon: "⏰",
-            title: "Complete exhibition services in Germany",
-            description: "From design to dismantling - we handle everything"
-          }
-        ]
-      },
-      whatWeDo: {
-        title: "WHAT WE DO?",
-        subtitle: "WE DO?",
-        description: "We offer our clients a wide range of trade show booth designs in Germany from custom and modular exhibition booths to country pavilion and double-decker exhibition booths."
-      },
-      companyInfo: {
-        title: "PREMIER EXHIBITION STAND BUILDER IN GERMANY",
-        content: [
-          "At RADON SP Z O.O., we specialize in delivering exceptional exhibition stand construction services in Germany. Our team combines deep understanding of German trade show culture with cutting-edge design and construction expertise to create stands that make lasting impressions.",
-          "Germany hosts some of Europe's most prestigious trade shows, and we understand the unique requirements of German exhibition venues. Our experienced team navigates local regulations, venue specifications, and cultural preferences to ensure your exhibition stand performs exceptionally.",
-          "We pride ourselves on German precision and efficiency, delivering projects that meet the highest standards of quality and punctuality. Our comprehensive approach covers every aspect of your exhibition participation in Germany.",
-          "With state-of-the-art manufacturing facilities and a dedicated German market team, we provide cost-effective solutions that maximize your exhibition ROI in Germany's competitive trade show environment.",
-          "From concept to completion, we ensure your brand message resonates with German audiences through innovative design and flawless execution."
-        ]
-      },
-      bestCompany: {
-        title: "BEST EXHIBITION STAND DESIGN COMPANY IN GERMANY FOR",
-        subtitle: "OUTSTANDING RESULTS",
-        content: [
-          "We are committed to creating exceptional brand experiences that capture the attention of German trade show visitors. With over 18 years of experience in the German exhibition market, we have established ourselves as a premier exhibition stand contractor.",
-          "Our portfolio includes successful projects for 800+ clients across 3500+ projects in Germany's leading exhibition venues. Our German-focused team delivers customized exhibition solutions that effectively communicate your brand message to German audiences.",
-          "With our advanced manufacturing capabilities and deep understanding of German exhibition standards, we deliver projects with remarkable efficiency and quality. Partner with Germany's most trusted exhibition stand design company."
-        ]
-      },
-      processSection: {
-        title: "Our Proven Exhibition Stand Design & Build Process in Germany",
-        steps: [
-          {
-            icon: "💡",
-            title: "Briefing",
-            description: "Comprehensive briefing sessions tailored to German exhibition standards and audience preferences."
-          },
-          {
-            icon: "✏️",
-            title: "3D Design",
-            description: "Detailed 3D renderings that meet German exhibition venue specifications and regulations."
-          },
-          {
-            icon: "🏭",
-            title: "Manufacturing",
-            description: "High-quality manufacturing with German-level precision and attention to detail."
-          },
-          {
-            icon: "🚚",
-            title: "Logistics",
-            description: "Specialized transportation solutions for major German exhibition centers."
-          },
-          {
-            icon: "🔧",
-            title: "Installation",
-            description: "Expert installation team familiar with German venue requirements and safety standards."
-          },
-          {
-            icon: "🎯",
-            title: "Show Support",
-            description: "24/7 German-language support throughout your exhibition period."
-          }
-        ]
-      },
-      citiesSection: {
-        title: "EXHIBITION STANDS IN",
-        subtitle: "GERMANY"
-      }
+// Database functions for country details
+export const getCountryBySlugFromDB = async (slug: string): Promise<CountryDetail | null> => {
+  // This function will fetch country data from the database
+  try {
+    const { data, error } = await supabase
+      .from('countries')
+      .select('*')
+      .eq('slug', slug.toLowerCase())
+      .eq('is_active', true)
+      .single();
+
+    if (error) {
+      console.error('Error fetching country data:', error);
+      return null;
     }
-  ]
-}
+
+    if (!data) {
+      return null;
+    }
+
+    // Transform database data to match our TypeScript interfaces
+    const countryData: CountryDetail = {
+      id: data.id,
+      slug: data.slug,
+      hero: {
+        title: data.hero_title || '',
+        subtitle: data.hero_subtitle || '',
+        backgroundImage: data.hero_background_image_url || ''
+      },
+      whyChooseUs: {
+        title: data.why_choose_us_title || '',
+        subtitle: data.why_choose_us_subtitle || '',
+        benefits: data.why_choose_us_benefits_html || '',
+        mainImage: data.why_choose_us_main_image_url || ''
+      },
+      whatWeDo: {
+        title: data.what_we_do_title || '',
+        subtitle: data.what_we_do_subtitle || '',
+        description: data.what_we_do_description_html || ''
+      },
+      companyInfo: {
+        title: data.company_info_title || '',
+        content: data.company_info_content_html || ''
+      },
+      bestCompany: {
+        title: data.best_company_title || '',
+        subtitle: data.best_company_subtitle || '',
+        content: data.best_company_content_html || ''
+      },
+      processSection: {
+        title: data.process_section_title || '',
+        steps: data.process_section_steps && Array.isArray(data.process_section_steps) 
+          ? data.process_section_steps.map((step: { id?: string; icon?: string; title?: string; description?: string }, index: number) => ({
+              id: step.id || `${index + 1}`,
+              icon: step.icon || ['💡', '✏️', '🏭', '🚚', '🔧', '🎯'][index] || '💡',
+              title: step.title || '',
+              description: step.description || ''
+            }))
+          : []
+      },
+      citiesSection: {
+        title: data.cities_section_title || '',
+        subtitle: data.cities_section_subtitle || ''
+      }
+    };
+
+    return countryData;
+  } catch (error) {
+    console.error('Error fetching country data:', error);
+    return null;
+  }
+};
+
+export const getAvailableCountriesFromDB = async (): Promise<string[]> => {
+  // This function will fetch all available countries from the database
+  try {
+    const { data, error } = await supabase
+      .from('countries')
+      .select('slug')
+      .eq('is_active', true);
+
+    if (error) {
+      console.error('Error fetching available countries:', error);
+      return [];
+    }
+
+    return data.map(country => country.slug);
+  } catch (error) {
+    console.error('Error fetching available countries:', error);
+    return [];
+  }
+};
+
+export const isCountryAvailableFromDB = async (countryKey: string): Promise<boolean> => {
+  // This function will check if a country is available in the database
+  try {
+    const { count, error } = await supabase
+      .from('countries')
+      .select('*', { count: 'exact', head: true })
+      .eq('slug', countryKey.toLowerCase())
+      .eq('is_active', true);
+
+    if (error) {
+      console.error('Error checking country availability:', error);
+      return false;
+    }
+
+    return count !== null && count > 0;
+  } catch (error) {
+    console.error('Error checking country availability:', error);
+    return false;
+  }
+};
+
+// Function to get all cities for a specific country from database
+export const getCitiesByCountryFromDB = async (countrySlug: string): Promise<DatabaseCity[]> => {
+  try {
+    const { data, error } = await supabase
+      .from('cities')
+      .select('*')
+      .eq('country_slug', countrySlug.toLowerCase());
+
+    if (error) {
+      console.error('Error fetching cities for country:', error);
+      return [];
+    }
+
+    return data || [];
+  } catch (error) {
+    console.error('Error in getCitiesByCountryFromDB:', error);
+    return [];
+  }
+};
+
+// Function to get all available cities for selection
+export const getAllCitiesFromDB = async (): Promise<DatabaseCity[]> => {
+  try {
+    const { data, error } = await supabase
+      .from('cities')
+      .select('*');
+
+    if (error) {
+      console.error('Error fetching all cities:', error);
+      return [];
+    }
+
+    return data || [];
+  } catch (error) {
+    console.error('Error in getAllCitiesFromDB:', error);
+    return [];
+  }
+};
+
+// Function to get selected cities for a country
+export const getSelectedCitiesForCountry = async (countrySlug: string): Promise<string[]> => {
+  try {
+    const { data, error } = await supabase
+      .from('countries')
+      .select('selected_cities')
+      .eq('slug', countrySlug.toLowerCase())
+      .single();
+
+    if (error) {
+      console.error('Error fetching selected cities:', error);
+      return [];
+    }
+
+    if (data && data.selected_cities && Array.isArray(data.selected_cities)) {
+      return data.selected_cities;
+    }
+
+    return [];
+  } catch (error) {
+    console.error('Error in getSelectedCitiesForCountry:', error);
+    return [];
+  }
+};
+
+// Simple country cards data (derived from detail data)
+export const getCountryCards = async (): Promise<CountryCard[]> => {
+  // This function will fetch country cards from the database
+  try {
+    const { data, error } = await supabase
+      .from('countries')
+      .select('slug, name')
+      .eq('is_active', true)
+      .order('name');
+
+    if (error) {
+      console.error('Error fetching country cards:', error);
+      return [];
+    }
+
+    // Transform database data to match our TypeScript interface
+    return data.map(country => ({
+      slug: country.slug,
+      name: country.name
+    }));
+  } catch (error) {
+    console.error('Error in getCountryCards:', error);
+    return [];
+  }
+};
 
 // Helper functions for countries
-export const getCountries = (): CountryCard[] => {
-  return getCountryCards()
+export const getCountries = async (): Promise<CountryCard[]> => {
+  return await getCountryCards()
 }
 
-export const getCountryBySlug = (slug: string): CountryCard | null => {
-  return getCountryCards().find(country => country.slug.toLowerCase() === slug.toLowerCase()) || null
+export const getCountryBySlug = (): CountryCard | null => {
+  // This will now only work with database data
+  return null;
 }
 
 // Helper functions for country details
 export const getCountryDetails = (): CountryDetail[] => {
-  return countryDetailsData.countries
+  // This will now only work with database data
+  return [];
 }
 
-export const getCountryDetailBySlug = (slug: string): CountryDetail | null => {
-  return countryDetailsData.countries.find(country => country.slug.toLowerCase() === slug.toLowerCase()) || null
+export const getCountryDetailBySlug = (): CountryDetail | null => {
+  // This will now only work with database data
+  return null;
 }
 
 // Function to get complete country data (listing + detail merged)
-export const getCompleteCountryData = (slug: string) => {
-  const cardData = getCountryBySlug(slug)
-  const detailData = getCountryDetailBySlug(slug)
-  
-  if (!cardData || !detailData) return null
-  
-  return {
-    ...cardData,
-    ...detailData
-  }
-}
-
-// Legacy compatibility functions
-export const getCountryDataByKey = (countryKey: string): CountryDetail | null => {
-  const key = countryKey.toLowerCase()
-  return getCountryDetailBySlug(key)
+export const getCompleteCountryData = async (slug: string) => {
+  const countryData = await getCountryBySlugFromDB(slug);
+  return countryData;
 }
 
 // Function to get all available countries
-export const getAvailableCountries = (): string[] => {
-  return countryDetailsData.countries.map(country => country.slug)
+export const getAvailableCountries = async (): Promise<string[]> => {
+  const availableCountries = await getAvailableCountriesFromDB();
+  return availableCountries;
 }
 
 // Function to check if a country is available
-export const isCountryAvailable = (countryKey: string): boolean => {
-  return getAvailableCountries().includes(countryKey.toLowerCase())
+export const isCountryAvailable = async (countryKey: string) => {
+  const countryIsAvailable = await isCountryAvailableFromDB(countryKey);
+  return countryIsAvailable;
 }
 
-// Function to get featured countries (simple cards)
-export const getFeaturedCountries = (): CountryCard[] => {
-  return getCountryCards() // All countries are "featured" in simple version
+// Function to generate metadata for a country page with full SEO support
+export async function generateCountryMetadata(countrySlug: string) {
+  try {
+    // Get SEO data directly from database
+    const { data, error } = await supabase
+      .from('countries')
+      .select('seo_title, seo_description, seo_keywords, name')
+      .eq('slug', countrySlug.toLowerCase())
+      .eq('is_active', true)
+      .single();
+      
+    if (error || !data) {
+      // Fallback to basic SEO data when database record is not found
+      return {
+        title: 'Country Not Found',
+        description: 'The requested country page could not be found.',
+      };
+    }
+    
+    // Use database SEO data, with fallbacks to generated content if database fields are null
+    const countryName = data.name || `${countrySlug.charAt(0).toUpperCase() + countrySlug.slice(1)}`;
+    
+    return {
+      title: data.seo_title || `${countryName} Exhibition Stand Design & Build Solutions`,
+      description: data.seo_description || `Discover our professional exhibition stand design and build solutions in ${countryName}. Custom trade show booths and displays.`,
+      keywords: data.seo_keywords || `exhibition stands, trade shows, ${countryName}, booth design, event marketing`,
+      openGraph: {
+        title: data.seo_title || `${countryName} Exhibition Stand Design & Build Solutions`,
+        description: data.seo_description || `Discover our professional exhibition stand design and build solutions in ${countryName}. Custom trade show booths and displays.`,
+        type: 'website',
+      },
+      twitter: {
+        card: 'summary_large_image',
+        title: data.seo_title || `${countryName} Exhibition Stand Design & Build Solutions`,
+        description: data.seo_description || `Discover our professional exhibition stand design and build solutions in ${countryName}. Custom trade show booths and displays.`,
+      },
+    };
+  } catch (error) {
+    console.error('Error generating country metadata:', error);
+    // Fallback to basic SEO data in case of database error
+    return {
+      title: 'Exhibition Stand Design & Build Solutions',
+      description: 'Professional exhibition stand design and construction services for trade shows and events.',
+      keywords: 'exhibition stands, trade shows, booth design, event marketing',
+      openGraph: {
+        title: 'Exhibition Stand Design & Build Solutions',
+        description: 'Professional exhibition stand design and construction services for trade shows and events.',
+        type: 'website',
+      },
+      twitter: {
+        card: 'summary_large_image',
+        title: 'Exhibition Stand Design & Build Solutions',
+        description: 'Professional exhibition stand design and construction services for trade shows and events.',
+      },
+    };
+  }
 }

@@ -9,10 +9,10 @@ export default function CityWhyChooseUsSection({ data }: CityWhyChooseUsSectionP
   return (
     <section className="bg-white py-12 md:py-16">
       <div className="container mx-auto px-4">
-        <div className="grid lg:grid-cols-2 gap-8 items-start">
+        <div className="grid md:grid-cols-1 lg:grid-cols-2 gap-8 items-start">
           {/* Left side - Image */}
           <div className="lg:pr-8">
-            <div className="relative w-full h-[400px] rounded-sm overflow-hidden group">
+            <div className="relative w-full h-[200px] sm:h-[300px] md:h-[400px] rounded-sm overflow-hidden group">
               <Image
                 src={data.mainImage}
                 alt="Exhibition stand"
@@ -30,10 +30,11 @@ export default function CityWhyChooseUsSection({ data }: CityWhyChooseUsSectionP
             <h3 className="text-2xl md:text-3xl font-bold text-[#A5CD39] mb-8">
               {data.subtitle}
             </h3>
-            <div className="space-y-4">
-              <p className="text-slate-700 leading-relaxed">
-                {data.benefits[0]?.text}
-              </p>
+            <div className="rich-content space-y-4">
+              <div 
+                className="text-slate-700 leading-relaxed"
+                dangerouslySetInnerHTML={{ __html: data.benefits[0]?.text }}
+              />
             </div>
           </div>
         </div>

@@ -11,12 +11,12 @@ export interface CityHero {
 export interface WhatWeDo {
   title: string;
   subtitle: string;
-  description: string;
+  description: string; // HTML content
 }
 
 // Benefit Item Interface
 export interface BenefitItem {
-  text: string;
+  text: string; // HTML content
 }
 
 // Why Choose Us Interface
@@ -31,17 +31,13 @@ export interface WhyChooseUs {
 export interface ExhibitingExperience {
   title: string;
   subtitle: string;
-  benefits: string[];
+  benefits: string[]; // HTML content
   excellence: {
     title: string;
     subtitle: string;
-    points: string[];
+    points: string[]; // HTML content
   };
 }
-
-
-
-
 
 // City Detail Interface
 export interface CityDetail {
@@ -55,149 +51,210 @@ export interface CityDetail {
   exhibitingExperience: ExhibitingExperience;
 }
 
-// Cities Data Interface
-export interface CitiesData {
-  cities: CityDetail[];
+// Import Supabase client
+import { supabase } from '@/lib/supabase';
+
+// Define the database city type that matches our SQL schema
+export interface DBCity {
+  id: string;
+  country_slug: string;
+  city_slug: string;
+  name: string;
+  seo_title: string | null;
+  seo_description: string | null;
+  seo_keywords: string | null;
+  hero_title: string | null;
+  hero_subtitle: string | null;
+  hero_background_image_url: string | null;
+  why_choose_us_title: string | null;
+  why_choose_us_subtitle: string | null;
+  why_choose_us_main_image_url: string | null;
+  why_choose_us_benefits_html: string | null;
+  what_we_do_title: string | null;
+  what_we_do_subtitle: string | null;
+  what_we_do_description_html: string | null;
+  portfolio_title_template: string | null;
+  exhibiting_experience_title: string | null;
+  exhibiting_experience_subtitle: string | null;
+  exhibiting_experience_benefits_html: string | null;
+  exhibiting_experience_excellence_title: string | null;
+  exhibiting_experience_excellence_subtitle: string | null;
+  exhibiting_experience_excellence_points_html: string | null;
 }
 
-// Cities data
-export const citiesData: CitiesData = {
-  cities: [
-    // Paris, France
-    {
-      id: "1",
-      countrySlug: "france",
-      slug: "paris",
-      name: "PARIS",
-      hero: {
-        title: "EXHIBITION STAND DESIGN & BUILD SOLUTIONS IN",
-        subtitle: "PARIS",
-        backgroundImage: "https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=1920&h=800&fit=crop&crop=center"
-      },
-      whyChooseUs: {
-        title: "Why Choose Us for Exhibition Stands in",
-        subtitle: "Paris?",
-        mainImage: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=500&h=400&fit=crop",
-        benefits: [
-          {
-            text: "With 15+ years worth of experience we are confident from our displays and exhibits. With 15+ years worth of experience we are confident from our displays and exhibits as our experience team can handle their own designing, building, and delivering process well within the deadline. All of the exhibitions are well-organized and thoroughly inspected for safety. At Chronicles CORP LTD, we are aware that exhibitions and trade shows have now a fantastic opportunity for companies to display their products and services to potential customers. For this reason, we offer booth attendance custom-made show ideas that make your business stand out from the rest. As exhibition trade show booth builders, we have accomplished 1000+ trade show booth displays design and building projects successfully. Our team of experienced professionals will handle all your display with efficiency and satisfaction."
-          }
-        ]
-      },
-      whatWeDo: {
-        title: "WHAT WE DO?",
-        subtitle: "WE DO?",
-        description: "We specialize in creating exceptional exhibition stands for trade shows in Paris. From concept to completion, we deliver custom, modular, and double-decker stands that showcase your brand effectively in this global business hub."
-      },
-      exhibitingExperience: {
-        title: "DISCOVER THE EXTRAORDINARY EXHIBITING EXPERIENCE",
-        subtitle: "WITH US",
-        benefits: [
-          "Emphasis on strong collaboration and clear communication to understand objectives clearly.",
-          "Utilization of interactive technologies like touch screens, augmented reality, virtual reality, and merged digital displays for effective trade show booths.",
-          "High-quality finishing is achieved through machine-level production in our own manufacturing facility.",
-          "Comprehensive end-to-end services include logistics, installation, designing, and dismantling for a stress-free exhibiting experience.",
-          "Commitment to environmental ethics and sustainable practices with an expert team.",
-          "Skilled team members were present throughout the event to promptly resolve technical faults.",
-          "Cost-effective solutions as a single-source service provider, eliminating middlemen commissions."
-        ],
-        excellence: {
-          title: "FROM CONCEPT TO SHOWCASE: WE DELIVER",
-          subtitle: "EXCELLENCE!",
-          points: [
-            "Refined skills with over 1,000 satisfied clients for maximum client satisfaction.",
-            "Leading exhibition stand contractor in Paris, with over 4,500 successful global projects embracing the latest trends.",
-            "Global manufacturer offering comprehensive services at local pricing.",
-            "Expertise and experience to build impactful, large-size exhibition stands."
-          ]
-        }
-      }
-    },
-    // Reims, France
-    {
-      id: "2",
-      countrySlug: "france",
-      slug: "reims",
-      name: "REIMS",
-      hero: {
-        title: "EXHIBITION STAND DESIGN & BUILD SOLUTIONS IN",
-        subtitle: "REIMS",
-        backgroundImage: "https://images.unsplash.com/photo-1595568672959-606e76bc841e?w=1920&h=800&fit=crop&crop=center"
-      },
-      whyChooseUs: {
-        title: "Why Choose Us for Exhibition Stands in",
-        subtitle: "Reims?",
-        mainImage: "https://images.unsplash.com/photo-1578322956407-eec75ad3ba41?w=500&h=400&fit=crop",
-        benefits: [
-          {
-            text: "With 15+ years worth of experience we are confident from our displays and exhibits. With 15+ years worth of experience we are confident from our displays and exhibits as our experience team can handle their own designing, building, and delivering process well within the deadline. All of the exhibitions are well-organized and thoroughly inspected for safety. At Chronicles CORP LTD, we are aware that exhibitions and trade shows have now a fantastic opportunity for companies to display their products and services to potential customers. For this reason, we offer booth attendance custom-made show ideas that make your business stand out from the rest. As exhibition trade show booth builders, we have accomplished 1000+ trade show booth displays design and building projects successfully. Our team of experienced professionals will handle all your display with efficiency and satisfaction."
-          }
-        ]
-      },
-      whatWeDo: {
-        title: "WHAT WE DO?",
-        subtitle: "WE DO?",
-        description: "We deliver exceptional exhibition stands for trade shows and events in Reims. Our comprehensive services include custom-designed stands, modular solutions, and complete exhibition support tailored to the unique characteristics of Reims venues."
-      },
-      exhibitingExperience: {
-        title: "DISCOVER THE EXTRAORDINARY EXHIBITING EXPERIENCE",
-        subtitle: "WITH US",
-        benefits: [
-          "Emphasis on strong collaboration and clear communication to understand objectives clearly.",
-          "Utilization of interactive technologies like touch screens, augmented reality, virtual reality, and merged digital displays for effective trade show booths.",
-          "High-quality finishing is achieved through machine-level production in our own manufacturing facility.",
-          "Comprehensive end-to-end services include logistics, installation, designing, and dismantling for a stress-free exhibiting experience.",
-          "Commitment to environmental ethics and sustainable practices with an expert team.",
-          "Skilled team members were present throughout the event to promptly resolve technical faults.",
-          "Cost-effective solutions as a single-source service provider, eliminating middlemen commissions."
-        ],
-        excellence: {
-          title: "FROM CONCEPT TO SHOWCASE: WE DELIVER",
-          subtitle: "EXCELLENCE!",
-          points: [
-            "Refined skills with over 1,000 satisfied clients for maximum client satisfaction.",
-            "Leading exhibition stand contractor in Reims, with over 4,500 successful global projects embracing the latest trends.",
-            "Global manufacturer offering comprehensive services at local pricing.",
-            "Expertise and experience to build impactful, large-size exhibition stands."
-          ]
-        }
-      }
+// Function to get city data by country and city slug
+export async function getCityByCountryAndSlugFromDB(countrySlug: string, citySlug: string): Promise<CityDetail | null> {
+  try {
+    const { data, error } = await supabase
+      .from('cities')
+      .select('*')
+      .eq('country_slug', countrySlug.toLowerCase())
+      .eq('city_slug', citySlug.toLowerCase())
+      .single();
+
+    if (error) {
+      console.error('Error fetching city data:', error);
+      return null;
     }
-  ]
-};
 
-// Helper functions for cities
-export const getCities = (): CityDetail[] => {
-  return citiesData.cities;
-};
+    if (!data) {
+      return null;
+    }
 
-export const getCitiesByCountry = (countrySlug: string): CityDetail[] => {
-  return citiesData.cities.filter(city => city.countrySlug.toLowerCase() === countrySlug.toLowerCase());
-};
+    // Transform database data to match our TypeScript interfaces
+    const cityData: CityDetail = {
+      id: data.id,
+      countrySlug: data.country_slug,
+      slug: data.city_slug,
+      name: data.name,
+      hero: {
+        title: data.hero_title || '',
+        subtitle: data.hero_subtitle || '',
+        backgroundImage: data.hero_background_image_url || ''
+      },
+      whyChooseUs: {
+        title: data.why_choose_us_title || '',
+        subtitle: data.why_choose_us_subtitle || '',
+        mainImage: data.why_choose_us_main_image_url || '',
+        benefits: data.why_choose_us_benefits_html ? 
+          [{ text: data.why_choose_us_benefits_html }] : 
+          [{ text: '' }]
+      },
+      whatWeDo: {
+        title: data.what_we_do_title || '',
+        subtitle: data.what_we_do_subtitle || '',
+        description: data.what_we_do_description_html || ''
+      },
+      exhibitingExperience: {
+        title: data.exhibiting_experience_title || '',
+        subtitle: data.exhibiting_experience_subtitle || '',
+        benefits: data.exhibiting_experience_benefits_html ? 
+          data.exhibiting_experience_benefits_html.split('</p><p>').map((b: string, i: number, arr: string[]) => {
+            // Add back the <p> tags that were removed by split
+            if (i === 0) return `<p>${b}`;
+            if (i === arr.length - 1) return `${b}</p>`;
+            return `<p>${b}</p>`;
+          }).filter((b: string) => b.length > 7) : // Filter out empty or malformed entries
+          [],
+        excellence: {
+          title: data.exhibiting_experience_excellence_title || '',
+          subtitle: data.exhibiting_experience_excellence_subtitle || '',
+          points: data.exhibiting_experience_excellence_points_html ? 
+            data.exhibiting_experience_excellence_points_html.split('</p><p>').map((p: string, i: number, arr: string[]) => {
+              // Add back the <p> tags that were removed by split
+              if (i === 0) return `<p>${p}`;
+              if (i === arr.length - 1) return `${p}</p>`;
+              return `<p>${p}</p>`;
+            }).filter((p: string) => p.length > 7) : // Filter out empty or malformed entries
+            []
+        }
+      }
+    };
 
-export const getCityBySlug = (slug: string): CityDetail | null => {
-  return citiesData.cities.find(city => city.slug.toLowerCase() === slug.toLowerCase()) || null;
-};
+    return cityData;
+  } catch (error) {
+    console.error('Error in getCityByCountryAndSlugFromDB:', error);
+    return null;
+  }
+}
 
-export const getCityByCountryAndSlug = (countrySlug: string, citySlug: string): CityDetail | null => {
-  return citiesData.cities.find(
-    city => city.countrySlug.toLowerCase() === countrySlug.toLowerCase() && 
-            city.slug.toLowerCase() === citySlug.toLowerCase()
-  ) || null;
-};
+// Function to get all available cities for static generation
+export async function getAvailableCitiesFromDB(): Promise<{countrySlug: string, citySlug: string}[]> {
+  try {
+    const { data, error } = await supabase
+      .from('cities')
+      .select('country_slug, city_slug');
 
-// Function to get all available cities
-export const getAvailableCities = (): {countrySlug: string, citySlug: string}[] => {
-  return citiesData.cities.map(city => ({
-    countrySlug: city.countrySlug,
-    citySlug: city.slug
-  }));
-};
+    if (error) {
+      console.error('Error fetching available cities:', error);
+      return [];
+    }
+
+    return data.map(city => ({
+      countrySlug: city.country_slug,
+      citySlug: city.city_slug
+    }));
+  } catch (error) {
+    console.error('Error in getAvailableCitiesFromDB:', error);
+    return [];
+  }
+}
 
 // Function to check if a city is available
-export const isCityAvailable = (countrySlug: string, citySlug: string): boolean => {
-  return citiesData.cities.some(
-    city => city.countrySlug.toLowerCase() === countrySlug.toLowerCase() && 
-            city.slug.toLowerCase() === citySlug.toLowerCase()
-  );
-};
+export async function isCityAvailableFromDB(countrySlug: string, citySlug: string): Promise<boolean> {
+  try {
+    const { count, error } = await supabase
+      .from('cities')
+      .select('*', { count: 'exact', head: true })
+      .eq('country_slug', countrySlug.toLowerCase())
+      .eq('city_slug', citySlug.toLowerCase());
+
+    if (error) {
+      console.error('Error checking city availability:', error);
+      return false;
+    }
+
+    return count !== null && count > 0;
+  } catch (error) {
+    console.error('Error in isCityAvailableFromDB:', error);
+    return false;
+  }
+}
+
+// Function to generate metadata for a city page with full SEO support
+export async function generateCityMetadata(countrySlug: string, citySlug: string) {
+  try {
+    // Get SEO data directly from database
+    const { data, error } = await supabase
+      .from('cities')
+      .select('seo_title, seo_description, seo_keywords, name')
+      .eq('country_slug', countrySlug.toLowerCase())
+      .eq('city_slug', citySlug.toLowerCase())
+      .single();
+      
+    if (error || !data) {
+      // Fallback to basic SEO data when database record is not found
+      return {
+        title: 'City Not Found',
+        description: 'The requested city page could not be found.',
+      };
+    }
+    
+    // Use database SEO data, with fallbacks to generated content if database fields are null
+    const cityName = data.name || `${citySlug.charAt(0).toUpperCase() + citySlug.slice(1)}`;
+    
+    return {
+      title: data.seo_title || `${cityName} Exhibition Stand Design & Build Solutions`,
+      description: data.seo_description || `Discover our professional exhibition stand design and build solutions in ${cityName}. Custom trade show booths and displays.`,
+      keywords: data.seo_keywords || `exhibition stands, trade shows, ${cityName}, booth design, event marketing`,
+      openGraph: {
+        title: data.seo_title || `${cityName} Exhibition Stand Design & Build Solutions`,
+        description: data.seo_description || `Discover our professional exhibition stand design and build solutions in ${cityName}. Custom trade show booths and displays.`,
+        type: 'website',
+      },
+      twitter: {
+        card: 'summary_large_image',
+        title: data.seo_title || `${cityName} Exhibition Stand Design & Build Solutions`,
+        description: data.seo_description || `Discover our professional exhibition stand design and build solutions in ${cityName}. Custom trade show booths and displays.`,
+      },
+    };
+  } catch (error) {
+    console.error('Error generating city metadata:', error);
+    // Fallback to basic SEO data in case of database error
+    return {
+      title: 'Exhibition Stand Design & Build Solutions',
+      description: 'Professional exhibition stand design and construction services for trade shows and events.',
+      keywords: 'exhibition stands, trade shows, booth design, event marketing',
+      openGraph: {
+        title: 'Exhibition Stand Design & Build Solutions',
+        description: 'Professional exhibition stand design and construction services for trade shows and events.',
+        type: 'website',
+      },
+      twitter: {
+        card: 'summary_large_image',
+        title: 'Exhibition Stand Design & Build Solutions',
+        description: 'Professional exhibition stand design and construction services for trade shows and events.',
+      },
+    };
+  }
+}

@@ -20,13 +20,10 @@ export default function BestCompanySection({ data }: BestCompanySectionProps) {
 
         {/* Content */}
         <div className="max-w-6xl mx-auto">
-          <div className="space-y-6 text-slate-700 leading-relaxed text-justify mb-12">
-            {data.content.map((paragraph, index) => (
-              <p key={index} className="text-sm md:text-base">
-                {paragraph}
-              </p>
-            ))}
-          </div>
+          <div 
+            className="rich-content space-y-6 text-slate-700 leading-relaxed text-justify mb-12"
+            dangerouslySetInnerHTML={{ __html: data.content }}
+          />
         </div>
       </div>
     </section>

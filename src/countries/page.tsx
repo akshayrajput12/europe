@@ -5,7 +5,7 @@ import PortfolioShowcaseSection from "./components/PortfolioShowcaseSection"
 import BuildExhibitionSection from "./components/BuildExhibitionSection"
 import { exhibitionStandTypes } from "@/data/maincountries"
 
-export default function CountriesPage() {
+export default async function CountriesPage() {
   return (
     <main className="min-h-screen">
       {/* Hero Section */}

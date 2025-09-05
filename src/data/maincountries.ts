@@ -13,7 +13,7 @@ export interface MainCountriesData {
   subtitle: string;
   description: string;
   heroBackground: string;
-  countries: CountryLink[];
+  countries?: CountryLink[]; // Make countries optional since we're not using the getter
 }
 
 // Exhibition Stand Types
@@ -26,19 +26,12 @@ export interface ExhibitionStandType {
 }
 
 // Main Data Structure
-export const mainCountriesData: MainCountriesData = {
+export const mainCountriesData: Omit<MainCountriesData, 'countries'> = {
   title: "EXHIBITION",
   subtitle: "STANDS",
   description: "Expanding your business across Europe? We design and build world-class exhibition stands in all major European trade show destinations. Partner with us to create impactful brand experiences that drive results and elevate your market presence.",
-  heroBackground: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1920&h=800&fit=crop&crop=center",
-  // Dynamically get countries from the existing system and map them to match our format
-  get countries() {
-    const countries = getCountries();
-    return countries.map(country => ({
-      name: country.name.toUpperCase(),
-      slug: country.slug.toLowerCase()
-    }));
-  }
+  heroBackground: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1920&h=800&fit=crop&crop=center"
+  // Removed the countries getter since it's not being used and was causing build issues
 };
 
 // Exhibition Stand Types

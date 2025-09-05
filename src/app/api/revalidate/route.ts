@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from 'next/server'
 
 /**
  * Simplified API endpoint for revalidating Next.js ISR pages
- * Called by the admin panel when content is updated
+ * Called by external systems when content is updated
  * No authentication required for easier implementation
  */
 export async function POST(request: NextRequest) {

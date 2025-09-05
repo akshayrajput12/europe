@@ -19,11 +19,11 @@ const socialIcons: Record<string, React.ReactNode> = {
   youtube: <Youtube className="w-4 h-4 sm:w-5 sm:h-5" />,
 };
 
-export default function Footer() {
+export default async function Footer() {
   const currentYear = new Date().getFullYear();
   
-  // Get only countries that have been created (exist in countries.ts)
-  const availableCountries = getCountryCards();
+  // Get only countries that have been created (exist in database)
+  const availableCountries = await getCountryCards();
 
   return (
     <footer className="bg-secondary text-white">

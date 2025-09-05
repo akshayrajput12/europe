@@ -1,7 +1,9 @@
 import { 
-  getCountryDetailBySlug, 
-  getAvailableCountries, 
-  isCountryAvailable 
+  getCountryBySlugFromDB,
+  getAvailableCountriesFromDB,
+  isCountryAvailableFromDB,
+  CountryDetail,
+  generateCountryMetadata
 } from "@/data/countries"
 import HeroSection from "@/countries/components/HeroSection"
 import WhyChooseUsSection from "@/countries/components/WhyChooseUsSection"
@@ -16,6 +18,7 @@ import ContactSection from "@/components/ContactSection"
 import { notFound } from 'next/navigation'
 import { getHomeSectionData } from "@/data/home"
 import { Solutions } from "@/data/home"
+import { Metadata } from 'next'
 
 interface CountryPageProps {
   params: Promise<{
@@ -23,17 +26,29 @@ interface CountryPageProps {
   }>
 }
 
+// Generate metadata for SEO with full SSR
+export async function generateMetadata({ params }: { params: Promise<{ country: string }> }): Promise<Metadata> {
+  const { country } = await params
+  const countryKey = country.toLowerCase()
+  
+  // Generate complete SEO metadata
+  const metadata = await generateCountryMetadata(countryKey)
+  return metadata
+}
+
 export default async function CountryDetailPage({ params }: CountryPageProps) {
   const { country } = await params
   const countryKey = country.toLowerCase()
   
-  // Check if country is available using the new system
-  if (!isCountryAvailable(countryKey)) {
+  // Check if country is available using the database
+  const countryIsAvailable = await isCountryAvailableFromDB(countryKey);
+  
+  if (!countryIsAvailable) {
     notFound()
   }
 
-  // Get country-specific data using the new dynamic system
-  const countryData = getCountryDetailBySlug(countryKey)
+  // Get country-specific data from the database
+  const countryData: CountryDetail | null = await getCountryBySlugFromDB(countryKey);
   
   // This should not happen since we checked availability above, but for TypeScript safety
   if (!countryData) {
@@ -59,10 +74,13 @@ export default async function CountryDetailPage({ params }: CountryPageProps) {
   )
 }
 
-// Generate static params for available countries using the dynamic system
+// Generate static params for available countries using the database
 export async function generateStaticParams() {
-  const availableCountries = getAvailableCountries()
+  const availableCountries = await getAvailableCountriesFromDB()
   return availableCountries.map((country) => ({
     country: country,
   }))
 }
+
+// ISR Configuration - Revalidate every 30 days
+export const revalidate = 2592000; // 30 days in seconds
