@@ -1,35 +1,32 @@
 "use client"
 
-import { useState, useCallback } from "react"
-import { getTradeShows } from "@/data/trade-shows"
+import { useState } from "react"
 import TradeShowCard from "./TradeShowCard"
 import TradeShowSearch from "./TradeShowSearch"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useQuoteModal } from "@/contexts/QuoteModalContext"
+import { TradeShow, TradeShowData } from "@/data/trade-shows"
 
 const ITEMS_PER_PAGE = 6
 
-export default function TradeShowGrid() {
-  const allShows = getTradeShows()
-  const [filteredShows, setFilteredShows] = useState(allShows)
+export default function TradeShowGrid({ tradeShowData }: { tradeShowData: TradeShowData }) {
+  const [searchTerm, setSearchTerm] = useState("")
   const [currentPage, setCurrentPage] = useState(1)
   const { openQuoteModal } = useQuoteModal()
 
-  const handleSearch = useCallback((searchTerm: string) => {
-    if (!searchTerm.trim()) {
-      setFilteredShows(allShows)
-    } else {
-      const filtered = allShows.filter(show => 
-        show.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        show.location.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        show.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        show.excerpt.toLowerCase().includes(searchTerm.toLowerCase())
-      )
-      setFilteredShows(filtered)
-    }
+  // Filter shows based on search term
+  const filteredShows = tradeShowData.shows.filter(show => 
+    show.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    show.location.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    show.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    show.excerpt.toLowerCase().includes(searchTerm.toLowerCase())
+  )
+
+  const handleSearch = (searchTerm: string) => {
+    setSearchTerm(searchTerm)
     setCurrentPage(1) // Reset to first page when searching
-  }, [allShows])
+  }
 
   // Calculate pagination
   const totalPages = Math.ceil(filteredShows.length / ITEMS_PER_PAGE)
@@ -40,7 +37,9 @@ export default function TradeShowGrid() {
   const goToPage = (page: number) => {
     setCurrentPage(page)
     // Scroll to top of grid
-    window.scrollTo({ top: 0, behavior: 'smooth' })
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
   }
 
   const goToPrevious = () => {

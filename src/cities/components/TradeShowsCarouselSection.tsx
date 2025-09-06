@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { tradeShowData, TradeShow } from "@/data/trade-shows";
+import { TradeShow, getTradeShows } from "@/data/trade-shows";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -13,15 +13,31 @@ interface TradeShowsCarouselSectionProps {
 export default function TradeShowsCarouselSection({ cityName }: TradeShowsCarouselSectionProps) {
   const [current, setCurrent] = useState(0);
   const [visibleCards, setVisibleCards] = useState(3); // Default to 3 for desktop
+  const [shows, setShows] = useState<TradeShow[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   
-  // Filter shows to only include those from the city
-  const cityShows = tradeShowData.shows.filter(show => 
-    show.city.toLowerCase() === cityName.toLowerCase()
-  );
-  
-  // Only use city-specific shows, don't fall back to generic shows
-  const shows = cityShows;
-  const length = shows.length;
+  // Fetch trade shows data
+  useEffect(() => {
+    const fetchTradeShows = async () => {
+      try {
+        setLoading(true);
+        const allShows = await getTradeShows();
+        // Filter shows to only include those from the city
+        const cityShows = allShows.filter(show => 
+          show.city.toLowerCase() === cityName.toLowerCase()
+        );
+        setShows(cityShows);
+      } catch (err) {
+        console.error('Error fetching trade shows:', err);
+        setError('Failed to load trade shows data');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTradeShows();
+  }, [cityName]);
 
   // Update visible cards based on screen size
   useEffect(() => {
@@ -41,6 +57,15 @@ export default function TradeShowsCarouselSection({ cityName }: TradeShowsCarous
   }, []);
 
   // If no shows for this city, don't render the section
+  if (loading) {
+    return <div className="py-12 text-center">Loading trade shows...</div>;
+  }
+  
+  if (error) {
+    return <div className="py-12 text-center text-red-500">Error: {error}</div>;
+  }
+  
+  const length = shows.length;
   if (length === 0) {
     return null;
   }
@@ -73,7 +98,7 @@ export default function TradeShowsCarouselSection({ cityName }: TradeShowsCarous
           >
             {shows.map((show: TradeShow, index) => (
               <div
-                key={index}
+                key={show.id} // Use show.id instead of index for better React key
                 className="w-full sm:w-1/2 lg:w-1/3 flex-shrink-0 px-2"
               >
                 <div className="flex flex-col h-full">

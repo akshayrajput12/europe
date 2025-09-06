@@ -20,7 +20,7 @@ export default function BenefitsSection({ benefitsData }: BenefitsSectionProps) 
           <div className="order-first lg:order-last">
             <Image
               src={benefitsData.image || "/placeholder.svg"}
-              alt="Custom Exhibition Stand Benefits"
+              alt={benefitsData.imageAlt || "Custom Exhibition Stand Benefits"}
               width={500}
               height={300}
               className="w-full h-auto rounded-lg shadow-lg"

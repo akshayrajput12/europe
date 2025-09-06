@@ -17,6 +17,7 @@ export interface TeamMember {
   name: string
   position: string
   image: string
+  imageAlt?: string
   created_at?: string
   updated_at?: string
 }
@@ -26,6 +27,7 @@ export interface Service {
   title: string
   description: string
   image: string
+  imageAlt?: string
   isReversed?: boolean
   order: number
   created_at?: string
@@ -36,6 +38,7 @@ export interface HeroSection {
   id: string
   title: string
   backgroundImage: string
+  backgroundImageAlt?: string
   created_at?: string
   updated_at?: string
 }
@@ -64,6 +67,7 @@ export interface TeamInfo {
   title: string
   description: string
   teamImage: string
+  teamImageAlt?: string
   created_at?: string
   updated_at?: string
 }

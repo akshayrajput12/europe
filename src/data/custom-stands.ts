@@ -6,11 +6,13 @@ export interface HeroSection {
   title: string
   subtitle?: string
   backgroundImage: string
+  backgroundImageAlt?: string
 }
 
 export interface BenefitsSection {
   title: string
   image?: string
+  imageAlt?: string
   content: string // Single HTML content instead of items array
 }
 
@@ -25,6 +27,7 @@ export interface ExhibitionBenefits {
   subtitle: string
   content: string // Single HTML content instead of items array
   image: string
+  imageAlt?: string
 }
 
 export interface BespokeSection {
@@ -105,11 +108,13 @@ export async function getCustomStandsData(): Promise<CustomStandsData> {
       hero: {
         title: data.hero_title || '',
         subtitle: data.hero_subtitle || '',
-        backgroundImage: data.hero_background_image || ''
+        backgroundImage: data.hero_background_image || '',
+        backgroundImageAlt: data.hero_background_image_alt || ''
       },
       benefits: {
         title: data.benefits_title || '',
         image: data.benefits_image || '',
+        imageAlt: data.benefits_image_alt || '',
         content: data.benefits_content || ''
       },
       StandProjectText: {
@@ -121,7 +126,8 @@ export async function getCustomStandsData(): Promise<CustomStandsData> {
         title: data.exhibition_benefits_title || '',
         subtitle: data.exhibition_benefits_subtitle || '',
         content: data.exhibition_benefits_content || '',
-        image: data.exhibition_benefits_image || ''
+        image: data.exhibition_benefits_image || '',
+        imageAlt: data.exhibition_benefits_image_alt || ''
       },
       bespoke: {
         title: data.bespoke_title || '',

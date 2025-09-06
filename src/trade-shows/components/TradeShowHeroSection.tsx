@@ -1,12 +1,12 @@
-import { tradeShowData } from "@/data/trade-shows"
+import { TradeShowData } from "@/data/trade-shows"
 
-export default function TradeShowHeroSection() {
+export default function TradeShowHeroSection({ tradeShowData }: { tradeShowData: TradeShowData }) {
   return (
     <section className="relative h-[400px] flex items-center justify-center m-0 p-0">
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: `url('https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1920&h=800&fit=crop&crop=center')`,
+          backgroundImage: `url('${tradeShowData.heroImage}')`,
         }}
       >
         <div className="absolute inset-0 bg-black/80"></div>

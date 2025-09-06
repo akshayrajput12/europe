@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import Image from "next/image"
-import { TradeShow, TRADE_SHOW_HERO_IMAGE } from "@/data/trade-shows"
+import { TradeShow } from "@/data/trade-shows"
 
 interface TradeShowDetailHeroProps {
   show: TradeShow
@@ -45,8 +45,8 @@ export default function TradeShowDetailHero({ show }: TradeShowDetailHeroProps) 
       <div className="relative h-[300px] sm:h-[350px] md:h-[400px] lg:h-[450px] xl:h-[500px]">
         <div className="absolute inset-0">
           <Image
-            src={TRADE_SHOW_HERO_IMAGE}
-            alt={show.title}
+            src={show.logo}
+            alt={show.logoAlt || show.title}
             fill
             className="object-cover"
             priority

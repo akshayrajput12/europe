@@ -4,6 +4,7 @@ import { createServerClient } from '@/lib/supabase-server'
 // Interfaces for strong typing
 export interface Hero {
   backgroundImage: string
+  backgroundImageAlt?: string
 }
 
 export interface MainSection {
@@ -16,6 +17,7 @@ export interface Exhibition {
   title: string
   subtitle?: string
   boothImage?: string
+  boothImageAlt?: string
   htmlContent: string // Unified to HTML content only
 }
 
@@ -23,12 +25,14 @@ export interface SolutionItem {
   title: string
   description: string
   image: string
+  alt?: string
 }
 
 export interface Solutions {
   title: string
   htmlContent: string // Changed from subtitle to htmlContent
   items: SolutionItem[]
+  itemsAlt?: string[]
 }
 
 export interface WhyBest {
@@ -77,7 +81,8 @@ export async function getHomeData(): Promise<HomeData> {
     // Transform database columns to match TypeScript interfaces
     const homeData: HomeData = {
       hero: {
-        backgroundImage: data.hero_background_image || ''
+        backgroundImage: data.hero_background_image || '',
+        backgroundImageAlt: data.hero_background_image_alt || ''
       },
       mainSection: {
         title: data.main_title || '',
@@ -89,6 +94,7 @@ export async function getHomeData(): Promise<HomeData> {
           title: data.exhibition_europe_title || '',
           subtitle: data.exhibition_europe_subtitle || '',
           boothImage: data.exhibition_europe_booth_image || '',
+          boothImageAlt: data.exhibition_europe_booth_image_alt || '',
           htmlContent: data.exhibition_europe_html_content || ''
         },
         usa: {
@@ -99,7 +105,8 @@ export async function getHomeData(): Promise<HomeData> {
       solutions: {
         title: data.solutions_title || '',
         htmlContent: data.solutions_html_content || '',
-        items: data.solutions_items || []
+        items: data.solutions_items || [],
+        itemsAlt: data.solutions_items_alt || []
       },
       whyBest: {
         title: data.why_best_title || '',
@@ -142,7 +149,8 @@ export async function getHomeSectionData(sectionName: string): Promise<unknown> 
     switch (sectionName) {
       case 'hero':
         return {
-          backgroundImage: data.hero_background_image
+          backgroundImage: data.hero_background_image,
+          backgroundImageAlt: data.hero_background_image_alt
         }
       case 'mainSection':
         return {
@@ -155,6 +163,7 @@ export async function getHomeSectionData(sectionName: string): Promise<unknown> 
           title: data.exhibition_europe_title,
           subtitle: data.exhibition_europe_subtitle,
           boothImage: data.exhibition_europe_booth_image,
+          boothImageAlt: data.exhibition_europe_booth_image_alt,
           htmlContent: data.exhibition_europe_html_content
         }
       case 'exhibitionUsa':
@@ -166,7 +175,8 @@ export async function getHomeSectionData(sectionName: string): Promise<unknown> 
         return {
           title: data.solutions_title,
           htmlContent: data.solutions_html_content,
-          items: data.solutions_items
+          items: data.solutions_items,
+          itemsAlt: data.solutions_items_alt
         }
       case 'whyBest':
         return {

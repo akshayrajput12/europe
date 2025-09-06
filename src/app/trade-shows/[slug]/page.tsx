@@ -13,7 +13,7 @@ interface TradeShowDetailPageProps {
 
 export default async function TradeShowDetailPage({ params }: TradeShowDetailPageProps) {
   const { slug } = await params
-  const show = getTradeShowBySlug(slug)
+  const show = await getTradeShowBySlug(slug)
 
   if (!show) {
     notFound()
@@ -40,7 +40,7 @@ export default async function TradeShowDetailPage({ params }: TradeShowDetailPag
 
 // Generate static params for available trade shows
 export async function generateStaticParams() {
-  const shows = getTradeShows()
+  const shows = await getTradeShows()
   return shows.map((show) => ({
     slug: show.slug,
   }))

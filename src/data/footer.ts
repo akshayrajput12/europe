@@ -3,7 +3,7 @@ export const footerData = {
     name: "CHRONICLES SP Z.O.O.",
     links: [
       { label: "Home", href: "/" },
-      { label: "About Us", href: "/about-us" },
+      { label: "About Us", href: "/about" },
       { label: "Testimonials", href: "/review" },
       { label: "Portfolio", href: "/portfolio" },
       { label: "Upcoming Tradeshow", href: "/trade-shows" },

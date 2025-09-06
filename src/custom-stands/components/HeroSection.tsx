@@ -21,6 +21,12 @@ export default function HeroSection({ heroData }: HeroSectionProps) {
         backgroundRepeat: "no-repeat",
       }}
     >
+      {/* Hidden image for accessibility */}
+      <img 
+        src={heroData.backgroundImage} 
+        alt={heroData.backgroundImageAlt || heroData.title} 
+        className="hidden"
+      />
       <div className="container mx-auto px-4 text-center">
         <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-4">{heroData.title}</h1>
         <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold mb-6 text-primary">

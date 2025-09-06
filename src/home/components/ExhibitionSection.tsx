@@ -6,6 +6,7 @@ interface ExhibitionData {
     title: string
     subtitle?: string
     boothImage?: string
+    boothImageAlt?: string
     htmlContent: string
   }
 }
@@ -34,7 +35,7 @@ export function ExhibitionSection({ exhibitionData }: ExhibitionSectionProps) {
         <div className="relative group">
           <Image
             src={exhibitionData.europe.boothImage || "/placeholder.svg"}
-            alt={exhibitionData.europe.title}
+            alt={exhibitionData.europe.boothImageAlt || exhibitionData.europe.title}
             width={600}
             height={384}
             className="w-full h-80 md:h-96 object-cover rounded-lg shadow-lg group-hover:scale-110 transition-transform duration-500"

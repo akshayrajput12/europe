@@ -26,7 +26,7 @@ export default function ExhibitionBenefitsSection({ exhibitionBenefitsData }: Ex
           <div className="order-first lg:order-last group">
             <Image
               src={exhibitionBenefitsData.image || "/placeholder.svg"}
-              alt="Exhibition Stand Benefits"
+              alt={exhibitionBenefitsData.imageAlt || "Exhibition Stand Benefits"}
               width={500}
               height={300}
               className="w-full h-auto rounded-lg shadow-lg group-hover:scale-110 transition-transform duration-500"

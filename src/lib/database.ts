@@ -81,3 +81,177 @@ export async function submitQuoteRequest(formData: Omit<QuoteRequest, 'id' | 'cr
 export async function getQuoteRequests() {
   return fetchData<QuoteRequest>('quote_requests')
 }
+
+// Trade Shows interfaces
+export interface TradeShow {
+  id: string;
+  slug: string;
+  title: string;
+  excerpt: string;
+  content: string;
+  start_date: string;
+  end_date: string;
+  location: string;
+  country: string;
+  city: string;
+  category: string;
+  logo: string;
+  logo_alt: string;
+  organizer?: string;
+  website?: string;
+  venue?: string;
+  meta_title?: string;
+  meta_description?: string;
+  meta_keywords?: string;
+  sort_order?: number;
+  is_active: boolean;
+  created_at?: string;
+  updated_at?: string;
+}
+
+export interface TradeShowPage {
+  id: string;
+  meta_title: string;
+  meta_description: string;
+  meta_keywords: string;
+  hero_title: string;
+  hero_subtitle: string;
+  hero_background_image: string;
+  hero_background_image_alt: string;
+  description: string;
+  is_active: boolean;
+  created_at?: string;
+  updated_at?: string;
+}
+
+// Trade Shows functions
+export async function getTradeShowsPageData(): Promise<TradeShowPage | null> {
+  try {
+    const { data, error } = await supabase
+      .from('trade_shows_page')
+      .select('*')
+      .eq('is_active', true)
+      .single();
+    
+    if (error) {
+      console.error('Error fetching trade shows page data:', error);
+      return null;
+    }
+    
+    return data as TradeShowPage;
+  } catch (error) {
+    console.error('Unexpected error fetching trade shows page data:', error);
+    return null;
+  }
+}
+
+export async function getAllActiveTradeShows(): Promise<TradeShow[] | null> {
+  try {
+    const { data, error } = await supabase
+      .from('trade_shows')
+      .select('*')
+      .eq('is_active', true)
+      .order('sort_order');
+    
+    if (error) {
+      console.error('Error fetching trade shows:', error);
+      return null;
+    }
+    
+    return data as TradeShow[];
+  } catch (error) {
+    console.error('Unexpected error fetching trade shows:', error);
+    return null;
+  }
+}
+
+export async function getTradeShowBySlug(slug: string): Promise<TradeShow | null> {
+  try {
+    const { data, error } = await supabase
+      .from('trade_shows')
+      .select('*')
+      .eq('slug', slug)
+      .eq('is_active', true)
+      .single();
+    
+    if (error) {
+      console.error(`Error fetching trade show with slug ${slug}:`, error);
+      return null;
+    }
+    
+    return data as TradeShow;
+  } catch (error) {
+    console.error(`Unexpected error fetching trade show with slug ${slug}:`, error);
+    return null;
+  }
+}
+
+export async function getRelatedTradeShows(currentSlug: string, limit: number = 2): Promise<TradeShow[] | null> {
+  try {
+    const { data, error } = await supabase
+      .from('trade_shows')
+      .select('*')
+      .neq('slug', currentSlug)
+      .eq('is_active', true)
+      .order('sort_order')
+      .limit(limit);
+    
+    if (error) {
+      console.error('Error fetching related trade shows:', error);
+      return null;
+    }
+    
+    return data as TradeShow[];
+  } catch (error) {
+    console.error('Unexpected error fetching related trade shows:', error);
+    return null;
+  }
+}
+
+export async function getTradeShowsByCategory(category: string): Promise<TradeShow[] | null> {
+  try {
+    const { data, error } = await supabase
+      .from('trade_shows')
+      .select('*')
+      .eq('category', category)
+      .eq('is_active', true)
+      .order('sort_order');
+    
+    if (error) {
+      console.error(`Error fetching trade shows by category ${category}:`, error);
+      return null;
+    }
+    
+    return data as TradeShow[];
+  } catch (error) {
+    console.error(`Unexpected error fetching trade shows by category ${category}:`, error);
+    return null;
+  }
+}
+
+export async function getUpcomingTradeShows(limit?: number): Promise<TradeShow[] | null> {
+  try {
+    let query = supabase
+      .from('trade_shows')
+      .select('*')
+      .eq('is_active', true)
+      .gt('start_date', new Date().toISOString().split('T')[0])
+      .order('start_date');
+    
+    if (limit) {
+      query = query.limit(limit);
+    }
+    
+    const { data, error } = await query;
+    
+    if (error) {
+      console.error('Error fetching upcoming trade shows:', error);
+      return null;
+    }
+    
+    return data as TradeShow[];
+  } catch (error) {
+    console.error('Unexpected error fetching upcoming trade shows:', error);
+    return null;
+  }
+}

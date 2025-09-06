@@ -10,7 +10,7 @@ export default function HeroSection({ heroData }: HeroSectionProps) {
     <section className="relative h-[250px] xs:h-[300px] sm:h-[350px] md:h-[450px] lg:h-[550px] xl:h-[650px] 2xl:h-[700px] bg-gray-100 m-0 p-0">
       <Image
         src={heroData.backgroundImage}
-        alt="Chronicles facility aerial view"
+        alt={heroData.backgroundImageAlt || "Chronicles facility aerial view"}
         fill
         className="object-cover"
         priority

@@ -2,13 +2,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import Image from "next/image"
 import Link from "next/link"
-import { SolutionItem } from "@/data/home"
-
-interface Solutions {
-  title: string
-  htmlContent: string
-  items: SolutionItem[]
-}
+import { SolutionItem, Solutions } from "@/data/home"
 
 interface SolutionCardsSectionProps {
   solutionsData?: Solutions
@@ -23,22 +17,26 @@ export default function SolutionCardsSection({ solutionsData }: SolutionCardsSec
       {
         title: "Custom Exhibition Stands",
         description: "Bespoke stand designs tailored to your brand identity and marketing objectives.",
-        image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&h=600&fit=crop&crop=center"
+        image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&h=600&fit=crop&crop=center",
+        alt: "Custom Exhibition Stands"
       },
       {
         title: "Modular Exhibition Stands",
         description: "Flexible, cost-effective solutions that can be reconfigured for multiple events.",
-        image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&h=600&fit=crop&crop=center"
+        image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&h=600&fit=crop&crop=center",
+        alt: "Modular Exhibition Stands"
       },
       {
         title: "Double Decker Exhibition Stands",
         description: "Maximize your exhibition space with our innovative two-level stand designs.",
-        image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&h=600&fit=crop&crop=center"
+        image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&h=600&fit=crop&crop=center",
+        alt: "Double Decker Exhibition Stands"
       },
       {
         title: "Exhibition Pavilion Design",
         description: "Large-scale pavilion solutions for major trade shows and corporate events.",
-        image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&h=600&fit=crop&crop=center"
+        image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&h=600&fit=crop&crop=center",
+        alt: "Exhibition Pavilion Design"
       }
     ]
   };
@@ -75,7 +73,7 @@ export default function SolutionCardsSection({ solutionsData }: SolutionCardsSec
                   <div className="overflow-hidden mb-3 sm:mb-4 rounded-md group">
                     <Image
                       src={solution.image || "/placeholder.svg"}
-                      alt={solution.title}
+                      alt={solution.alt || solution.title}
                       width={300}
                       height={200}
                       className="w-full h-32 sm:h-36 md:h-40 lg:h-44 xl:h-48 object-cover group-hover:scale-110 transition-transform duration-500 rounded-md"
