@@ -537,7 +537,7 @@ INSERT INTO trade_shows (
         <ul>
           <li>Home to leading medical technology companies and research institutions</li>
           <li>Gateway to Scandinavian and Baltic healthcare markets</li>
-          <li>Strong emphasis on evidence-based medicine and clinical research</li>
+        <li>Strong emphasis on evidence-based medicine and clinical research</li>
           <li>Excellent infrastructure and international accessibility</li>
         </ul>
         

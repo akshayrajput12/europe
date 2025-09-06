@@ -19,7 +19,10 @@ export default function BoothPartnerSection({ boothPartnerData }: BoothPartnerSe
             DOUBLE DECK BOOTH PARTNER
           </span>
         </h3>
-        <p className="text-gray-700 leading-relaxed text-lg">{description}</p>
+        <div 
+          className="rich-content text-gray-700 leading-relaxed text-lg"
+          dangerouslySetInnerHTML={{ __html: description }}
+        />
       </div>
     </section>
   )

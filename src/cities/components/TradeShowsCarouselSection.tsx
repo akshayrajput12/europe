@@ -143,7 +143,7 @@ export default function TradeShowsCarouselSection({ cityName }: TradeShowsCarous
                     </p>
                     
                     <Link 
-                      href={`/trade-shows/${show.slug}`}
+                      href={`/top-trade-shows-in-europe/${show.slug}`}
                       className="inline-block bg-[#A5CD39] hover:bg-[#8fb32e] text-white font-medium py-2 px-6 rounded text-sm transition-colors"
                     >
                       See More
@@ -193,7 +193,7 @@ export default function TradeShowsCarouselSection({ cityName }: TradeShowsCarous
         {/* View All Button */}
         <div className="text-center mt-10">
           <Link
-            href="/trade-shows"
+            href="/top-trade-shows-in-europe"
             className="inline-block bg-[#A5CD39] hover:bg-[#8fb32e] text-white font-medium py-2 px-8 rounded transition-colors"
           >
             View All Trade Shows

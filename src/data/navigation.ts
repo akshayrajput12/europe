@@ -8,7 +8,7 @@ export const navigationData = {
     { label: "SERVICES", href: "/services" },
     { label: "PORTFOLIO", href: "/portfolio" },
     { label: "TESTIMONIALS", href: "/review" },
-    { label: "TRADE SHOWS", href: "/trade-shows" },
+    { label: "TRADE SHOWS", href: "/top-trade-shows-in-europe" },
     { label: "CONTACT US", href: "/contact-us" },
   ],
   ctaButtons: [

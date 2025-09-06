@@ -96,7 +96,7 @@ export default async function Footer() {
               {availableCountries.map((country, index) => (
                 <Link
                   key={index}
-                  href={`/countries/${country.slug}`}
+                  href={`/${country.slug}`}
                   className="text-gray-300 hover:text-white transition-colors text-sm sm:text-base md:text-lg"
                 >
                   {country.name}
@@ -104,7 +104,7 @@ export default async function Footer() {
               ))}
             </div>
             <Link
-              href="/countries"
+              href="/"
               className="inline-block mt-3 sm:mt-4 md:mt-6 text-primary hover:text-primary/80 transition-colors font-medium text-sm sm:text-base md:text-lg"
             >
               {footerData.locations.viewMore}

@@ -1,6 +1,10 @@
 import { supabase } from '@/lib/supabase'
 import { createServerClient } from '@/lib/supabase-server'
 
+// Constant for About Us hero background image
+export const ABOUT_HERO_BACKGROUND_IMAGE = 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1920&h=800&fit=crop&crop=center'
+export const ABOUT_HERO_BACKGROUND_IMAGE_ALT = 'Modern office interior with people working together'
+
 export interface CompanyStats {
   id: string
   value: number
@@ -107,7 +111,17 @@ export async function getAboutPageData(): Promise<AboutPageData> {
       throw new Error('Failed to fetch about page data from database')
     }
     
-    return data as AboutPageData
+    // Override the backgroundImage with our constant
+    const updatedData: AboutPageData = {
+      ...(data as AboutPageData),
+      hero: {
+        ...(data as AboutPageData).hero,
+        backgroundImage: ABOUT_HERO_BACKGROUND_IMAGE,
+        backgroundImageAlt: ABOUT_HERO_BACKGROUND_IMAGE_ALT
+      }
+    }
+    
+    return updatedData
   } catch (error) {
     console.error('Error fetching about page data:', error)
     throw error

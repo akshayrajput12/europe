@@ -15,6 +15,12 @@ export default function HeroSection({ heroData }: HeroSectionProps) {
       >
         <div className="absolute inset-0 bg-black/80"></div>
       </div>
+      {/* Hidden image for accessibility */}
+      <img 
+        src={heroData.backgroundImage} 
+        alt={heroData.backgroundImageAlt || "About Us Hero Background"} 
+        className="absolute inset-0 w-full h-full object-cover opacity-0"
+      />
       <div className="relative z-10 text-center">
         <h1 className="text-4xl md:text-5xl font-bold text-white tracking-[0.2em]">{heroData.title}</h1>
       </div>

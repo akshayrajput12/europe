@@ -25,7 +25,7 @@ export default async function CountryButtonsGrid() {
             {countries.map((country, index) => (
               <Link
                 key={index}
-                href={`/countries/${country.slug.toLowerCase()}`}
+                href={`/${country.slug.toLowerCase()}`}
                 className="bg-gray-50 hover:bg-white p-3 md:p-4 text-center rounded-md transition-all duration-300 hover:shadow-md cursor-pointer group border border-gray-100"
               >
                 <h3 className="font-medium text-sm md:text-base text-gray-800 group-hover:text-[#A5CD39] transition-colors duration-300 truncate">

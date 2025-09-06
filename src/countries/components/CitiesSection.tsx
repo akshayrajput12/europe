@@ -52,7 +52,7 @@ export default async function CitiesSection({ data, countrySlug }: CitiesSection
             {availableCities.map((city: City) => (
               <Link
                 key={city.id}
-                href={`/countries/${city.country_slug}/${city.city_slug}`}
+                href={`/${city.city_slug}`}
                 className="bg-white text-center p-4 hover:bg-gray-50 rounded-sm transition-colors group"
               >
                 <div className="text-slate-700 font-medium text-sm group-hover:text-[#A5CD39] transition-colors truncate">

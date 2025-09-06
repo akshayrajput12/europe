@@ -1,5 +1,5 @@
 import { Metadata } from 'next'
-import { getAboutPageData, getAboutPageMeta } from '@/data/about-data'
+import { getAboutPageData, getAboutPageMeta, ABOUT_HERO_BACKGROUND_IMAGE } from '@/data/about-data'
 import AboutUsPage from "@/about-us/page"
 
 // ISR Configuration - Revalidate every month (30 days)
@@ -38,5 +38,14 @@ export default async function Page() {
   // Fetch all about page data on the server with ISR
   const aboutData = await getAboutPageData()
   
-  return <AboutUsPage data={aboutData} />
+  // Override hero background image with our constant
+  const aboutDataWithConstantImage = {
+    ...aboutData,
+    hero: {
+      ...aboutData.hero,
+      backgroundImage: ABOUT_HERO_BACKGROUND_IMAGE
+    }
+  }
+  
+  return <AboutUsPage data={aboutDataWithConstantImage} />
 }
