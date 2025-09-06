@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button"
 import { useQuoteModal } from "@/contexts/QuoteModalContext"
 import type { HeroSection } from "@/data/modular-stands"
+import { MODULAR_STANDS_HERO_BG_IMAGE } from "@/data/modular-stands"
 
 interface HeroSectionProps {
   heroData: HeroSection
@@ -15,7 +16,7 @@ export default function HeroSection({ heroData }: HeroSectionProps) {
     <section
       className="relative min-h-[70vh] flex items-center justify-center text-white"
       style={{
-        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${heroData.backgroundImage})`,
+        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${MODULAR_STANDS_HERO_BG_IMAGE})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",

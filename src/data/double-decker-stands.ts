@@ -1,11 +1,14 @@
 import { supabase } from '@/lib/supabase'
 import { createServerClient } from '@/lib/supabase-server'
 
+// Constants for hero section background image
+export const DOUBLE_DECKER_STANDS_HERO_BG_IMAGE = "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1200&h=600&fit=crop";
+
 // Interfaces for strong typing
 export interface HeroSection {
   title: string
   subtitle?: string
-  backgroundImage: string
+  backgroundImage?: string // Made optional since we'll use constant
 }
 
 export interface BenefitsSection {
@@ -98,7 +101,7 @@ export async function getDoubleDeckerStandsData(): Promise<DoubleDeckerStandsDat
       hero: {
         title: data.hero_title || '',
         subtitle: data.hero_subtitle || '',
-        backgroundImage: data.hero_background_image || ''
+        backgroundImage: DOUBLE_DECKER_STANDS_HERO_BG_IMAGE, // Use constant instead of database value
       },
       benefits: {
         title: data.benefits_title || '',

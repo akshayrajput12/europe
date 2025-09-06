@@ -1,5 +1,5 @@
 import { Metadata } from 'next'
-import { getPavilionData } from '@/data/pavilionData'
+import { getPavilionData, PAVILION_HERO_BG_IMAGE } from '@/data/pavilionData'
 import PavilionPage from "@/exhibition-pavilion/page"
 
 // ISR Configuration - Revalidate every month (30 days)
@@ -19,7 +19,7 @@ export async function generateMetadata(): Promise<Metadata> {
         description: pavilionData.meta.description,
         type: 'website',
         images: [{
-          url: pavilionData.hero.backgroundImage,
+          url: PAVILION_HERO_BG_IMAGE, // Use constant instead of database value
           width: 1200,
           height: 630,
           alt: 'Exhibition Pavilion Design',

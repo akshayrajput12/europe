@@ -1,5 +1,5 @@
 import { Metadata } from 'next'
-import { getCustomStandsData } from '@/data/custom-stands'
+import { getCustomStandsData, CUSTOM_STANDS_HERO_BG_IMAGE } from '@/data/custom-stands'
 import CustomStandsPage from "@/custom-stands/page"
 
 // ISR Configuration - Revalidate every month (30 days)
@@ -19,7 +19,7 @@ export async function generateMetadata(): Promise<Metadata> {
         description: customStandsData.meta.description,
         type: 'website',
         images: [{
-          url: customStandsData.hero.backgroundImage,
+          url: CUSTOM_STANDS_HERO_BG_IMAGE, // Use constant instead of database value
           width: 1200,
           height: 630,
           alt: 'Custom Exhibition Stands',

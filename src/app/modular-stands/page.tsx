@@ -1,5 +1,5 @@
 import { Metadata } from 'next'
-import { getModularStandsData } from '@/data/modular-stands'
+import { getModularStandsData, MODULAR_STANDS_HERO_BG_IMAGE } from '@/data/modular-stands'
 import ModularStandsPage from "@/modular-stands/page"
 
 // ISR Configuration - Revalidate every month (30 days)
@@ -19,7 +19,7 @@ export async function generateMetadata(): Promise<Metadata> {
         description: modularStandsData.meta.description,
         type: 'website',
         images: [{
-          url: modularStandsData.hero.backgroundImage,
+          url: MODULAR_STANDS_HERO_BG_IMAGE, // Use constant instead of database value
           width: 1200,
           height: 630,
           alt: 'Modular Exhibition Stands',

@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button"
 import { useQuoteModal } from "@/contexts/QuoteModalContext"
 import type { HeroSection } from "@/data/custom-stands"
+import { CUSTOM_STANDS_HERO_BG_IMAGE, CUSTOM_STANDS_HERO_BG_IMAGE_ALT } from "@/data/custom-stands"
 
 interface HeroSectionProps {
   heroData: HeroSection
@@ -15,7 +16,7 @@ export default function HeroSection({ heroData }: HeroSectionProps) {
     <section
       className="relative min-h-[70vh] flex items-center justify-center text-white"
       style={{
-        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${heroData.backgroundImage})`,
+        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${CUSTOM_STANDS_HERO_BG_IMAGE})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
@@ -23,8 +24,8 @@ export default function HeroSection({ heroData }: HeroSectionProps) {
     >
       {/* Hidden image for accessibility */}
       <img 
-        src={heroData.backgroundImage} 
-        alt={heroData.backgroundImageAlt || heroData.title} 
+        src={CUSTOM_STANDS_HERO_BG_IMAGE} 
+        alt={heroData.backgroundImageAlt || CUSTOM_STANDS_HERO_BG_IMAGE_ALT || heroData.title} 
         className="hidden"
       />
       <div className="container mx-auto px-4 text-center">

@@ -1,5 +1,5 @@
 import { Metadata } from 'next'
-import { getDoubleDeckerStandsData } from '@/data/double-decker-stands'
+import { getDoubleDeckerStandsData, DOUBLE_DECKER_STANDS_HERO_BG_IMAGE } from '@/data/double-decker-stands'
 import DoubleDeckPage from "@/double-decker-stands/page"
 
 // ISR Configuration - Revalidate every month (30 days)
@@ -19,7 +19,7 @@ export async function generateMetadata(): Promise<Metadata> {
         description: doubleDeckerStandsData.meta.description,
         type: 'website',
         images: [{
-          url: doubleDeckerStandsData.hero.backgroundImage,
+          url: DOUBLE_DECKER_STANDS_HERO_BG_IMAGE, // Use constant instead of database value
           width: 1200,
           height: 630,
           alt: 'Double Decker Exhibition Stands',

@@ -1,13 +1,16 @@
 import { supabase } from '@/lib/supabase'
 import { createServerClient } from '@/lib/supabase-server'
 
+// Constants for hero section background image
+export const PAVILION_HERO_BG_IMAGE = "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1200&h=600&fit=crop";
+
 // Interfaces organized in the same sequence as data sections appear on the pavilion page
 
 // Hero Section (first on page)
 export interface HeroData {
   title: string
   subtitle?: string
-  backgroundImage: string
+  backgroundImage?: string // Made optional since we'll use constant
 }
 
 // Why Choose Section (second on page)
@@ -100,7 +103,7 @@ export async function getPavilionData(): Promise<PavilionPageData> {
       hero: {
         title: data.hero_title || '',
         subtitle: data.hero_subtitle || '',
-        backgroundImage: data.hero_background_image || ''
+        backgroundImage: PAVILION_HERO_BG_IMAGE, // Use constant instead of database value
       },
       whyChoose: {
         title: data.why_choose_title || '',
