@@ -1,3 +1,6 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import type { Testimonial } from "@/data/testimonials";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
@@ -8,13 +11,51 @@ interface TestimonialsSectionProps {
 
 // TestimonialsSection component that receives data as props for better performance
 export default function TestimonialsSection({ testimonials }: TestimonialsSectionProps) {
+  const [current, setCurrent] = useState(0);
+  const [visibleCards, setVisibleCards] = useState(3); // Default to 3 for desktop
+  const length = testimonials.length;
+
+  // Update visible cards based on screen size
+  useEffect(() => {
+    const updateVisibleCards = () => {
+      if (window.innerWidth < 640) {
+        setVisibleCards(1); // Mobile: 1 card
+      } else if (window.innerWidth < 768) {
+        setVisibleCards(2); // Tablet: 2 cards
+      } else {
+        setVisibleCards(3); // Desktop: 3 cards
+      }
+    };
+
+    updateVisibleCards();
+    window.addEventListener("resize", updateVisibleCards);
+    return () => window.removeEventListener("resize", updateVisibleCards);
+  }, []);
+
+  // Auto-slide every 5 seconds (move 1 card)
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrent((prev) => (prev >= length - visibleCards ? 0 : prev + 1));
+    }, 5000);
+    return () => clearInterval(timer);
+  }, [length, visibleCards]);
+
+  // Don't show section if no testimonials
   if (!testimonials || testimonials.length === 0) {
-    return null; // Don't show section if no testimonials
+    return null;
   }
 
-  // For the slider, we'll show 3 cards by default
-  const visibleCards = 3;
-  
+  const nextSlide = () => {
+    setCurrent((prev) => (prev >= length - visibleCards ? 0 : prev + 1));
+  };
+
+  const prevSlide = () => {
+    setCurrent((prev) => (prev === 0 ? length - visibleCards : prev - 1));
+  };
+
+  // Calculate the width of each card based on the number of visible cards
+  const cardWidth = 100 / visibleCards;
+
   return (
     <section className="py-8 sm:py-12 md:py-16 bg-gray-50 relative">
       <div className="container mx-auto px-2 sm:px-4 text-center">
@@ -26,9 +67,14 @@ export default function TestimonialsSection({ testimonials }: TestimonialsSectio
         </h2>
 
         <div className="relative overflow-hidden">
-          {/* Slides Wrapper */}
-          <div className="flex transition-transform duration-700 ease-in-out">
-            {testimonials.slice(0, Math.min(visibleCards, testimonials.length)).map((testimonial: Testimonial) => (
+          {/* Slides Wrapper */ }
+          <div
+            className="flex transition-transform duration-700 ease-in-out"
+            style={{
+              transform: `translateX(-${current * cardWidth}%)`, // Shift by one card's width
+            }}
+          >
+            {testimonials.map((testimonial: Testimonial) => (
               <div
                 key={testimonial.id}
                 className="w-full sm:w-1/2 md:w-1/3 flex-shrink-0 px-1 sm:px-2"
@@ -79,33 +125,33 @@ export default function TestimonialsSection({ testimonials }: TestimonialsSectio
             ))}
           </div>
 
-          {/* Navigation buttons - only show if we have more testimonials than visible cards */}
-          {testimonials.length > visibleCards && (
-            <>
-              <button
-                className="absolute top-1/2 left-1 sm:left-2 -translate-y-1/2 bg-white rounded-full shadow p-1 sm:p-2 hover:bg-gray-100 transition sm:flex hidden"
-              >
-                <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5 text-gray-700" />
-              </button>
-              <button
-                className="absolute top-1/2 right-1 sm:right-2 -translate-y-1/2 bg-white rounded-full shadow p-1 sm:p-2 hover:bg-gray-100 transition sm:flex hidden"
-              >
-                <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 text-gray-700" />
-              </button>
-            </>
-          )}
+          {/* Prev Button */}
+          <button
+            onClick={prevSlide}
+            className="absolute top-1/2 left-1 sm:left-2 -translate-y-1/2 bg-white rounded-full shadow p-1 sm:p-2 hover:bg-gray-100 transition sm:flex hidden"
+          >
+            <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5 text-gray-700" />
+          </button>
+
+          {/* Next Button */}
+          <button
+            onClick={nextSlide}
+            className="absolute top-1/2 right-1 sm:right-2 -translate-y-1/2 bg-white rounded-full shadow p-1 sm:p-2 hover:bg-gray-100 transition sm:flex hidden"
+          >
+            <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 text-gray-700" />
+          </button>
         </div>
 
-        {/* Dots Navigation - only show if we have more testimonials than visible cards */}
-        {testimonials.length > visibleCards && (
+        {/* Dots Navigation */}
+        {length > visibleCards && (
           <div className="flex justify-center mt-3 sm:mt-4 space-x-1 sm:space-x-2">
-            <button
-              className="w-2 h-2 sm:w-3 sm:h-3 rounded-full transition bg-[#A5CD39]"
-            />
-            {Array.from({ length: Math.min(4, testimonials.length - visibleCards) }).map((_, index) => (
+            {Array.from({ length: length - visibleCards + 1 }).map((_, index) => (
               <button
                 key={index}
-                className="w-2 h-2 sm:w-3 sm:h-3 rounded-full transition bg-gray-300"
+                onClick={() => setCurrent(index)}
+                className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full transition ${
+                  current === index ? "bg-[#A5CD39]" : "bg-gray-300"
+                }`}
               />
             ))}
           </div>

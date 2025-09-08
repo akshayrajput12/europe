@@ -5,7 +5,8 @@ import type { Metadata } from 'next'
 
 // Export for ISR
 export const dynamic = 'force-dynamic'
-export const revalidate = 3600 // Revalidate every hour
+// Update to 30 days revalidation as per project specifications
+export const revalidate = 2592000 // Revalidate every 30 days
 
 // Metadata generation for SEO
 export async function generateMetadata(): Promise<Metadata> {

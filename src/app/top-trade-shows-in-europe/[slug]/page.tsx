@@ -11,6 +11,11 @@ interface TradeShowDetailPageProps {
   }>
 }
 
+// Export for ISR
+export const dynamic = 'force-dynamic'
+// Update to 30 days revalidation as per project specifications
+export const revalidate = 2592000 // Revalidate every 30 days
+
 // Generate metadata for SEO
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params

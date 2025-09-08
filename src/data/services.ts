@@ -1,5 +1,9 @@
 // src/data/services.ts
 
+// Constants for static images
+export const SERVICES_HERO_BACKGROUND_IMAGE = "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1200&h=600&fit=crop";
+export const SERVICES_HERO_BACKGROUND_IMAGE_ALT = "Services header image";
+
 // 1. Interfaces for strong typing
 export interface HeroSection {
   title: string
@@ -11,7 +15,6 @@ export interface Service {
   id: string
   title: string
   description: string
-  // Static icon path - no longer dynamic from TS file
 }
 
 export interface ServicesData {
@@ -25,8 +28,7 @@ export const servicesData: ServicesData = {
   hero: {
     title: "OUR SERVICES",
     subtitle: "PROFESSIONAL EXHIBITION SOLUTIONS",
-    backgroundImage:
-      "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1200&h=600&fit=crop",
+    backgroundImage: SERVICES_HERO_BACKGROUND_IMAGE,
   },
   
   introText: "Our vast range of capabilities and allegiance to innovation allow us to tailor and execute custom booths suited to specific business goals.",

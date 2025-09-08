@@ -1,4 +1,4 @@
-import { getBlogPostBySlug, getRelatedPosts } from "@/data/blog"
+import { getBlogPostBySlug, getRelatedPosts, getBlogData } from "@/data/blog"
 import { notFound } from "next/navigation"
 import BlogDetailHero from "@/blog/components/BlogDetailHero"
 import RelatedPosts from "@/blog/components/RelatedPosts"
@@ -9,7 +9,8 @@ import type { Metadata } from 'next'
 
 // Export for ISR
 export const dynamic = 'force-dynamic'
-export const revalidate = 3600 // Revalidate every hour
+// Update to 30 days revalidation as per project specifications
+export const revalidate = 2592000 // Revalidate every 30 days
 
 // Define the props interface correctly for Next.js 13+ app directory
 interface PageProps {
@@ -49,13 +50,16 @@ export default async function BlogDetailPage({ params }: PageProps) {
     notFound()
   }
 
+  // Fetch blog data for the hero image
+  const blogData = await getBlogData()
+
   // Fetch related posts
   const relatedPosts = await getRelatedPosts(slug)
 
   return (
     <main>
       {/* Hero Section */}
-      <BlogDetailHero post={post} />
+      <BlogDetailHero post={post} blogData={blogData || undefined} />
       
       {/* Main Content */}
       <section className="py-12 md:py-16 bg-white">
