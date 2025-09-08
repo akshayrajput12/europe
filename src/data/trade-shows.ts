@@ -22,6 +22,8 @@ export interface TradeShow {
   category: string;
   logo: string;
   logoAlt?: string;
+  heroImage?: string;
+  heroImageAlt?: string;
   organizer?: string;
   website?: string;
   venue?: string;
@@ -74,6 +76,8 @@ export async function getTradeShowData(): Promise<TradeShowData | null> {
       category: show.category,
       logo: show.logo,
       logoAlt: show.logo_alt,
+      heroImage: pageData.hero_background_image,
+      heroImageAlt: pageData.hero_background_image_alt,
       organizer: show.organizer,
       website: show.website,
       venue: show.venue,
@@ -104,6 +108,9 @@ export async function getTradeShows(): Promise<TradeShow[]> {
     const showsData = await getAllActiveTradeShows();
     if (!showsData) return [];
 
+    // Fetch the page data to get the hero image
+    const pageData = await getTradeShowsPageData();
+
     return showsData.map(show => ({
       id: show.id,
       slug: show.slug,
@@ -118,6 +125,8 @@ export async function getTradeShows(): Promise<TradeShow[]> {
       category: show.category,
       logo: show.logo,
       logoAlt: show.logo_alt,
+      heroImage: pageData?.hero_background_image,
+      heroImageAlt: pageData?.hero_background_image_alt,
       organizer: show.organizer,
       website: show.website,
       venue: show.venue,
@@ -136,6 +145,9 @@ export async function getTradeShowBySlug(slug: string): Promise<TradeShow | null
     const show = await dbGetTradeShowBySlug(slug);
     if (!show) return null;
 
+    // Fetch the page data to get the hero image
+    const pageData = await getTradeShowsPageData();
+
     return {
       id: show.id,
       slug: show.slug,
@@ -150,6 +162,8 @@ export async function getTradeShowBySlug(slug: string): Promise<TradeShow | null
       category: show.category,
       logo: show.logo,
       logoAlt: show.logo_alt,
+      heroImage: pageData?.hero_background_image,
+      heroImageAlt: pageData?.hero_background_image_alt,
       organizer: show.organizer,
       website: show.website,
       venue: show.venue,
@@ -168,6 +182,9 @@ export async function getRelatedTradeShows(currentSlug: string, limit: number = 
     const showsData = await dbGetRelatedTradeShows(currentSlug, limit);
     if (!showsData) return [];
 
+    // Fetch the page data to get the hero image
+    const pageData = await getTradeShowsPageData();
+
     return showsData.map(show => ({
       id: show.id,
       slug: show.slug,
@@ -182,6 +199,8 @@ export async function getRelatedTradeShows(currentSlug: string, limit: number = 
       category: show.category,
       logo: show.logo,
       logoAlt: show.logo_alt,
+      heroImage: pageData?.hero_background_image,
+      heroImageAlt: pageData?.hero_background_image_alt,
       organizer: show.organizer,
       website: show.website,
       venue: show.venue,
@@ -200,6 +219,9 @@ export async function getTradeShowsByCategory(category: string): Promise<TradeSh
     const showsData = await dbGetTradeShowsByCategory(category);
     if (!showsData) return [];
 
+    // Fetch the page data to get the hero image
+    const pageData = await getTradeShowsPageData();
+
     return showsData.map(show => ({
       id: show.id,
       slug: show.slug,
@@ -214,6 +236,8 @@ export async function getTradeShowsByCategory(category: string): Promise<TradeSh
       category: show.category,
       logo: show.logo,
       logoAlt: show.logo_alt,
+      heroImage: pageData?.hero_background_image,
+      heroImageAlt: pageData?.hero_background_image_alt,
       organizer: show.organizer,
       website: show.website,
       venue: show.venue,
@@ -232,6 +256,9 @@ export async function getUpcomingTradeShows(limit?: number): Promise<TradeShow[]
     const showsData = await dbGetUpcomingTradeShows(limit);
     if (!showsData) return [];
 
+    // Fetch the page data to get the hero image
+    const pageData = await getTradeShowsPageData();
+
     return showsData.map(show => ({
       id: show.id,
       slug: show.slug,
@@ -246,6 +273,8 @@ export async function getUpcomingTradeShows(limit?: number): Promise<TradeShow[]
       category: show.category,
       logo: show.logo,
       logoAlt: show.logo_alt,
+      heroImage: pageData?.hero_background_image,
+      heroImageAlt: pageData?.hero_background_image_alt,
       organizer: show.organizer,
       website: show.website,
       venue: show.venue,

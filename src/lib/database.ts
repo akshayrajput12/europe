@@ -1,9 +1,17 @@
 import { supabase } from './supabase'
+import { createServerClient } from './supabase-server'
 
 // Generic function to fetch data from any table
 export async function fetchData<T>(table: string, select = '*'): Promise<T[] | null> {
   try {
-    const { data, error } = await supabase
+    let client
+    try {
+      client = createServerClient()
+    } catch {
+      client = supabase
+    }
+
+    const { data, error } = await client
       .from(table)
       .select(select)
     
@@ -22,7 +30,14 @@ export async function fetchData<T>(table: string, select = '*'): Promise<T[] | n
 // Generic function to insert data into any table
 export async function insertData<T>(table: string, data: Partial<T>): Promise<T | null> {
   try {
-    const { data: result, error } = await supabase
+    let client
+    try {
+      client = createServerClient()
+    } catch {
+      client = supabase
+    }
+
+    const { data: result, error } = await client
       .from(table)
       .insert([data])
       .select()
@@ -127,7 +142,14 @@ export interface TradeShowPage {
 // Trade Shows functions
 export async function getTradeShowsPageData(): Promise<TradeShowPage | null> {
   try {
-    const { data, error } = await supabase
+    let client
+    try {
+      client = createServerClient()
+    } catch {
+      client = supabase
+    }
+
+    const { data, error } = await client
       .from('trade_shows_page')
       .select('*')
       .eq('is_active', true)
@@ -147,7 +169,14 @@ export async function getTradeShowsPageData(): Promise<TradeShowPage | null> {
 
 export async function getAllActiveTradeShows(): Promise<TradeShow[] | null> {
   try {
-    const { data, error } = await supabase
+    let client
+    try {
+      client = createServerClient()
+    } catch {
+      client = supabase
+    }
+
+    const { data, error } = await client
       .from('trade_shows')
       .select('*')
       .eq('is_active', true)
@@ -167,7 +196,14 @@ export async function getAllActiveTradeShows(): Promise<TradeShow[] | null> {
 
 export async function getTradeShowBySlug(slug: string): Promise<TradeShow | null> {
   try {
-    const { data, error } = await supabase
+    let client
+    try {
+      client = createServerClient()
+    } catch {
+      client = supabase
+    }
+
+    const { data, error } = await client
       .from('trade_shows')
       .select('*')
       .eq('slug', slug)
@@ -188,7 +224,14 @@ export async function getTradeShowBySlug(slug: string): Promise<TradeShow | null
 
 export async function getRelatedTradeShows(currentSlug: string, limit: number = 2): Promise<TradeShow[] | null> {
   try {
-    const { data, error } = await supabase
+    let client
+    try {
+      client = createServerClient()
+    } catch {
+      client = supabase
+    }
+
+    const { data, error } = await client
       .from('trade_shows')
       .select('*')
       .neq('slug', currentSlug)
@@ -210,7 +253,14 @@ export async function getRelatedTradeShows(currentSlug: string, limit: number = 
 
 export async function getTradeShowsByCategory(category: string): Promise<TradeShow[] | null> {
   try {
-    const { data, error } = await supabase
+    let client
+    try {
+      client = createServerClient()
+    } catch {
+      client = supabase
+    }
+
+    const { data, error } = await client
       .from('trade_shows')
       .select('*')
       .eq('category', category)
@@ -231,7 +281,14 @@ export async function getTradeShowsByCategory(category: string): Promise<TradeSh
 
 export async function getUpcomingTradeShows(limit?: number): Promise<TradeShow[] | null> {
   try {
-    let query = supabase
+    let client
+    try {
+      client = createServerClient()
+    } catch {
+      client = supabase
+    }
+
+    let query = client
       .from('trade_shows')
       .select('*')
       .eq('is_active', true)
@@ -252,6 +309,185 @@ export async function getUpcomingTradeShows(limit?: number): Promise<TradeShow[]
     return data as TradeShow[];
   } catch (error) {
     console.error('Unexpected error fetching upcoming trade shows:', error);
+    return null;
+  }
+}
+
+// Blog interfaces
+export interface BlogPage {
+  id: string;
+  meta_title: string;
+  meta_description: string;
+  meta_keywords: string;
+  hero_title: string;
+  hero_subtitle: string;
+  hero_background_image: string;
+  hero_background_image_alt: string;
+  hero_image: string;
+  description: string;
+  is_active: boolean;
+  created_at?: string;
+  updated_at?: string;
+}
+
+export interface BlogPostDB {
+  id: string;
+  slug: string;
+  title: string;
+  excerpt: string;
+  content: string;
+  published_date: string;
+  featured_image: string;
+  featured_image_alt: string;
+  category: string;
+  author: string;
+  read_time: string;
+  tags: string[];
+  meta_title: string;
+  meta_description: string;
+  meta_keywords: string;
+  sort_order: number;
+  is_active: boolean;
+  created_at?: string;
+  updated_at?: string;
+}
+
+// Blog functions
+export async function getBlogPageData(): Promise<BlogPage | null> {
+  try {
+    let client
+    try {
+      client = createServerClient()
+    } catch {
+      client = supabase
+    }
+
+    const { data, error } = await client
+      .from('blog_page')
+      .select('*')
+      .eq('is_active', true)
+      .single();
+    
+    if (error) {
+      console.error('Error fetching blog page data:', error);
+      return null;
+    }
+    
+    return data as BlogPage;
+  } catch (error) {
+    console.error('Unexpected error fetching blog page data:', error);
+    return null;
+  }
+}
+
+export async function getAllActiveBlogPosts(): Promise<BlogPostDB[] | null> {
+  try {
+    let client
+    try {
+      client = createServerClient()
+    } catch {
+      client = supabase
+    }
+
+    const { data, error } = await client
+      .from('blog_posts')
+      .select('*')
+      .eq('is_active', true)
+      .order('sort_order');
+    
+    if (error) {
+      console.error('Error fetching blog posts:', error);
+      return null;
+    }
+    
+    return data as BlogPostDB[];
+  } catch (error) {
+    console.error('Unexpected error fetching blog posts:', error);
+    return null;
+  }
+}
+
+export async function getBlogPostBySlug(slug: string): Promise<BlogPostDB | null> {
+  try {
+    let client
+    try {
+      client = createServerClient()
+    } catch {
+      client = supabase
+    }
+
+    const { data, error } = await client
+      .from('blog_posts')
+      .select('*')
+      .eq('slug', slug)
+      .eq('is_active', true)
+      .single();
+    
+    if (error) {
+      console.error(`Error fetching blog post with slug ${slug}:`, error);
+      return null;
+    }
+    
+    return data as BlogPostDB;
+  } catch (error) {
+    console.error(`Unexpected error fetching blog post with slug ${slug}:`, error);
+    return null;
+  }
+}
+
+export async function getRelatedBlogPosts(currentSlug: string, limit: number = 3): Promise<BlogPostDB[] | null> {
+  try {
+    let client
+    try {
+      client = createServerClient()
+    } catch {
+      client = supabase
+    }
+
+    const { data, error } = await client
+      .from('blog_posts')
+      .select('*')
+      .neq('slug', currentSlug)
+      .eq('is_active', true)
+      .order('sort_order')
+      .limit(limit);
+    
+    if (error) {
+      console.error('Error fetching related blog posts:', error);
+      return null;
+    }
+    
+    return data as BlogPostDB[];
+  } catch (error) {
+    console.error('Unexpected error fetching related blog posts:', error);
+    return null;
+  }
+}
+
+export async function getBlogPostsByCategory(category: string): Promise<BlogPostDB[] | null> {
+  try {
+    let client
+    try {
+      client = createServerClient()
+    } catch {
+      client = supabase
+    }
+
+    const { data, error } = await client
+      .from('blog_posts')
+      .select('*')
+      .eq('category', category)
+      .eq('is_active', true)
+      .order('sort_order');
+    
+    if (error) {
+      console.error(`Error fetching blog posts by category ${category}:`, error);
+      return null;
+    }
+    
+    return data as BlogPostDB[];
+  } catch (error) {
+    console.error(`Unexpected error fetching blog posts by category ${category}:`, error);
     return null;
   }
 }

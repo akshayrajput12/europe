@@ -1,8 +1,8 @@
 import { getBlogPosts } from "@/data/blog"
 import BlogCard from "./BlogCard"
 
-export default function BlogGrid() {
-  const posts = getBlogPosts()
+export default async function BlogGrid() {
+  const posts = await getBlogPosts()
 
   return (
     <section className="bg-white py-12 md:py-16">

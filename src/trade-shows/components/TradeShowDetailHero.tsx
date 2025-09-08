@@ -1,7 +1,6 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import Image from "next/image"
 import { TradeShow } from "@/data/trade-shows"
 
 interface TradeShowDetailHeroProps {
@@ -40,17 +39,18 @@ export default function TradeShowDetailHero({ show }: TradeShowDetailHeroProps) 
     return () => clearInterval(timer)
   }, [show.startDate])
 
+  // Fallback to logo if heroImage is not available
+  const backgroundImage = show.heroImage || show.logo;
+
   return (
     <section className="relative overflow-hidden">
       <div className="relative h-[300px] sm:h-[350px] md:h-[400px] lg:h-[450px] xl:h-[500px]">
-        <div className="absolute inset-0">
-          <Image
-            src={show.logo}
-            alt={show.logoAlt || show.title}
-            fill
-            className="object-cover"
-            priority
-          />
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: `url('${backgroundImage}')`,
+          }}
+        >
           <div className="absolute inset-0 bg-black/60"></div>
         </div>
         
