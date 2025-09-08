@@ -6,7 +6,7 @@ import TradeShowSearch from "./TradeShowSearch"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useQuoteModal } from "@/contexts/QuoteModalContext"
-import { TradeShow, TradeShowData } from "@/data/trade-shows"
+import { TradeShowData } from "@/data/trade-shows"
 
 const ITEMS_PER_PAGE = 6
 

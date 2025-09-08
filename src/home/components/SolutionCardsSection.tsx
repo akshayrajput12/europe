@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import Image from "next/image"
 import Link from "next/link"
-import { SolutionItem, Solutions } from "@/data/home"
+import { Solutions } from "@/data/home"
 
 interface SolutionCardsSectionProps {
   solutionsData?: Solutions
@@ -48,7 +48,7 @@ export default function SolutionCardsSection({ solutionsData }: SolutionCardsSec
       <div className="container mx-auto px-4">
         {/* Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8 lg:gap-6 xl:gap-8">
-          {data.items.map((solution, index) => {
+          {data.items.map((solution) => {
             const linkMap: { [key: string]: string } = {
               "Custom Exhibition Stands": "/custom-stands",
               "Modular Exhibition Stands": "/modular-stands",
@@ -66,7 +66,7 @@ export default function SolutionCardsSection({ solutionsData }: SolutionCardsSec
 
             return (
               <Card
-                key={index}
+                key={solution.title}
                 className="border border-gray-200 text-center hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 hover:scale-105"
               >
                 <CardContent className="p-3 sm:p-4 md:p-5 lg:p-4 xl:p-6">

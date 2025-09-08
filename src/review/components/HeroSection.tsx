@@ -1,9 +1,15 @@
-import { heroData } from "@/data/testimonials"
+"use client";
 
-export default function HeroSection() {
+import type { HeroData } from "@/data/testimonials"
+
+interface HeroSectionProps {
+  heroData: HeroData
+}
+
+export default function HeroSection({ heroData }: HeroSectionProps) {
   return (
     <section
-      className="relative  text-white px-4 flex items-center justify-center"
+      className="relative text-white px-4 flex items-center justify-center"
       style={{
         height: "70vh",
         backgroundImage: `url(${heroData.image})`,

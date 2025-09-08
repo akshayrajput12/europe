@@ -96,7 +96,7 @@ export default function TradeShowsCarouselSection({ cityName }: TradeShowsCarous
               transform: `translateX(-${current * cardWidth}%)`,
             }}
           >
-            {shows.map((show: TradeShow, index) => (
+            {shows.map((show: TradeShow) => (
               <div
                 key={show.id} // Use show.id instead of index for better React key
                 className="w-full sm:w-1/2 lg:w-1/3 flex-shrink-0 px-2"

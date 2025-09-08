@@ -6,7 +6,6 @@ export default async function BlogHeroSection() {
   
   // Use the hero image from blogData, with a fallback
   const heroImage = blogData?.heroImage || 'https://images.unsplash.com/photo-1495020689067-958852a7765e?w=1920&h=800&fit=crop&crop=center'
-  const heroImageAlt = blogData?.heroImageAlt || 'Blog header image'
   
   return (
     <section className="relative h-[400px] flex items-center justify-center">

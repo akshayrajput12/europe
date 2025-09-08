@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button"
 import { useQuoteModal } from "@/contexts/QuoteModalContext"
 import type { HeroSection } from "@/data/custom-stands"
 import { CUSTOM_STANDS_HERO_BG_IMAGE, CUSTOM_STANDS_HERO_BG_IMAGE_ALT } from "@/data/custom-stands"
+import Image from "next/image"
 
 interface HeroSectionProps {
   heroData: HeroSection
@@ -23,10 +24,12 @@ export default function HeroSection({ heroData }: HeroSectionProps) {
       }}
     >
       {/* Hidden image for accessibility */}
-      <img 
+      <Image 
         src={CUSTOM_STANDS_HERO_BG_IMAGE} 
         alt={heroData.backgroundImageAlt || CUSTOM_STANDS_HERO_BG_IMAGE_ALT || heroData.title} 
         className="hidden"
+        width={1920}
+        height={1080}
       />
       <div className="container mx-auto px-4 text-center">
         <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-4">{heroData.title}</h1>

@@ -491,3 +491,123 @@ export async function getBlogPostsByCategory(category: string): Promise<BlogPost
     return null;
   }
 }
+
+// Testimonials interfaces
+export interface TestimonialsPage {
+  id: string;
+  meta_title: string;
+  meta_description: string;
+  meta_keywords: string;
+  hero_title: string;
+  hero_background_image: string;
+  intro_title: string;
+  intro_subtitle: string;
+  intro_description: string;
+  is_active: boolean;
+  created_at?: string;
+  updated_at?: string;
+}
+
+export interface TestimonialDB {
+  id: string;
+  page_id: string;
+  client_name: string;
+  company_name: string;
+  company_logo_url: string;
+  rating: number;
+  testimonial_text: string;
+  is_featured: boolean;
+  display_order: number;
+  is_active: boolean;
+  created_at?: string;
+  updated_at?: string;
+}
+
+// Testimonials functions
+export async function getTestimonialsPageData(): Promise<TestimonialsPage | null> {
+  try {
+    let client
+    try {
+      client = createServerClient()
+    } catch {
+      client = supabase
+    }
+
+    const { data, error } = await client
+      .from('testimonials_page')
+      .select('*')
+      .eq('is_active', true)
+      .single();
+    
+    if (error) {
+      console.error('Error fetching testimonials page data:', error);
+      return null;
+    }
+    
+    return data as TestimonialsPage;
+  } catch (error) {
+    console.error('Unexpected error fetching testimonials page data:', error);
+    return null;
+  }
+}
+
+export async function getAllActiveTestimonials(): Promise<TestimonialDB[] | null> {
+  try {
+    let client
+    try {
+      client = createServerClient()
+    } catch {
+      client = supabase
+    }
+
+    const { data, error } = await client
+      .from('testimonials')
+      .select('*')
+      .eq('is_active', true)
+      .order('display_order');
+    
+    if (error) {
+      console.error('Error fetching testimonials:', error);
+      return null;
+    }
+    
+    return data as TestimonialDB[];
+  } catch (error) {
+    console.error('Unexpected error fetching testimonials:', error);
+    return null;
+  }
+}
+
+export async function getFeaturedTestimonials(limit?: number): Promise<TestimonialDB[] | null> {
+  try {
+    let client
+    try {
+      client = createServerClient()
+    } catch {
+      client = supabase
+    }
+
+    let query = client
+      .from('testimonials')
+      .select('*')
+      .eq('is_active', true)
+      .eq('is_featured', true)
+      .order('display_order');
+    
+    if (limit) {
+      query = query.limit(limit);
+    }
+    
+    const { data, error } = await query;
+    
+    if (error) {
+      console.error('Error fetching featured testimonials:', error);
+      return null;
+    }
+    
+    return data as TestimonialDB[];
+  } catch (error) {
+    console.error('Unexpected error fetching featured testimonials:', error);
+    return null;
+  }
+}

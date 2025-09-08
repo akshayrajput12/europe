@@ -18,6 +18,10 @@ export default function ReviewCard({ review }: ReviewCardProps) {
               width={80}
               height={80}
               className="max-w-full max-h-full object-contain"
+              onError={(e) => {
+                const target = e.target as HTMLImageElement;
+                target.src = "/placeholder.svg";
+              }}
             />
           </div>
         </div>
@@ -31,6 +35,8 @@ export default function ReviewCard({ review }: ReviewCardProps) {
           <div className="mb-4">
             {/* Client Name */}
             <h3 className="text-lg md:text-xl font-bold text-slate-800 mb-1">{review.name}</h3>
+            {/* Company Name */}
+            <p className="text-slate-600 text-sm mb-2">{review.company}</p>
             {/* Star Rating */}
             <div className="flex gap-1 mb-3">
               {[...Array(5)].map((_, i) => (

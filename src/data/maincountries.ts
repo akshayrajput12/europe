@@ -1,5 +1,5 @@
 // Main Countries Data File
-import { getCountries, getAvailableCountries, isCountryAvailable } from "./countries";
+import { getAvailableCountries, isCountryAvailable } from "./countries";
 
 // Interface for country links
 export interface CountryLink {

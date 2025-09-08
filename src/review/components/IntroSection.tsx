@@ -1,6 +1,12 @@
-import { introData } from "@/data/testimonials"
+"use client";
 
-export default function IntroSection() {
+import type { IntroData } from "@/data/testimonials"
+
+interface IntroSectionProps {
+  introData: IntroData
+}
+
+export default function IntroSection({ introData }: IntroSectionProps) {
   return (
     <section className="bg-white py-12 md:py-16 px-4">
       <div className="container mx-auto text-center">

@@ -7,6 +7,7 @@ import SolutionCardsSection from "./components/SolutionCardsSection"
 import PortfolioSection from "./components/PortfolioSection"
 import TestimonialsSection from "../components/TestimonialsSection"
 import WhyBestSection from "./components/WhyBestSection"
+import { testimonialsData } from "@/data/testimonials"
 
 interface HomePageProps {
   data: HomeData
@@ -22,7 +23,7 @@ export default function HomePage({ data }: HomePageProps) {
       <PortfolioSection />
       <MainContent mainSectionData={data.mainSection} />
       <WhyBestSection whyBestData={data.whyBest} />
-      <TestimonialsSection />
+      <TestimonialsSection testimonials={testimonialsData} />
     </div>
   )
 }
