@@ -1,38 +1,68 @@
 "use client"
 
 import Image from "next/image"
-import { portfolioPageData } from "@/data/portfolio"
 import { useEffect, useState } from "react"
 import { X, ChevronLeft, ChevronRight } from "lucide-react"
+import { getPortfolioPageData } from "@/data/portfolio"
+import { getPortfolioPageDataFromDB } from "@/lib/database"
+import { PortfolioItem } from "@/data/portfolio"
 
 export default function PortfolioGallery() {
+  const [portfolioItems, setPortfolioItems] = useState<PortfolioItem[]>([])
+  const [loading, setLoading] = useState(true)
+  
   // Modal state
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   
+  useEffect(() => {
+    const fetchPortfolioItems = async () => {
+      try {
+        // Try to get data from database first
+        const dbData = await getPortfolioPageDataFromDB();
+        if (dbData && dbData.portfolio_items) {
+          setPortfolioItems(dbData.portfolio_items);
+        } else {
+          // Fallback to static data
+          const staticData = await getPortfolioPageData();
+          setPortfolioItems(staticData.items);
+        }
+      } catch (error) {
+        console.error("Error fetching portfolio items:", error);
+        // Final fallback to static data
+        const staticData = await getPortfolioPageData();
+        setPortfolioItems(staticData.items);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPortfolioItems();
+  }, [])
+  
   // Handle keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (!isModalOpen) return
+      if (!isModalOpen || portfolioItems.length === 0) return
       
       if (e.key === 'Escape') {
         setIsModalOpen(false)
       } else if (e.key === 'ArrowLeft') {
         e.preventDefault()
         setCurrentImageIndex(prev => 
-          prev === 0 ? portfolioPageData.items.length - 1 : prev - 1
+          prev === 0 ? portfolioItems.length - 1 : prev - 1
         )
       } else if (e.key === 'ArrowRight') {
         e.preventDefault()
         setCurrentImageIndex(prev => 
-          prev === portfolioPageData.items.length - 1 ? 0 : prev + 1
+          prev === portfolioItems.length - 1 ? 0 : prev + 1
         )
       }
     }
     
     document.addEventListener('keydown', handleKeyDown)
     return () => document.removeEventListener('keydown', handleKeyDown)
-  }, [isModalOpen])
+  }, [isModalOpen, portfolioItems])
   
   // Prevent body scroll when modal is open
   useEffect(() => {
@@ -58,25 +88,37 @@ export default function PortfolioGallery() {
   
   const goToNext = () => {
     setCurrentImageIndex((prev) => {
-      const newIndex = prev === portfolioPageData.items.length - 1 ? 0 : prev + 1
+      const newIndex = prev === portfolioItems.length - 1 ? 0 : prev + 1
       return newIndex
     })
   }
   
   const goToPrevious = () => {
     setCurrentImageIndex((prev) => {
-      const newIndex = prev === 0 ? portfolioPageData.items.length - 1 : prev - 1
+      const newIndex = prev === 0 ? portfolioItems.length - 1 : prev - 1
       return newIndex
     })
   }
   
-  const currentItem = portfolioPageData.items[currentImageIndex]
+  const currentItem = portfolioItems[currentImageIndex]
+  
+  if (loading) {
+    return (
+      <section className="py-16 md:py-20">
+        <div className="columns-1 md:columns-2 lg:columns-3 gap-2 space-y-2 px-4">
+          {[...Array(6)].map((_, index) => (
+            <div key={index} className="group overflow-hidden relative shadow-md hover:shadow-xl transition-all duration-300 break-inside-avoid cursor-pointer mb-2 bg-gray-200 animate-pulse h-64" />
+          ))}
+        </div>
+      </section>
+    )
+  }
   
   return (
     <>
       <section className="py-16 md:py-20">
         <div className="columns-1 md:columns-2 lg:columns-3 gap-2 space-y-2 px-4">
-          {portfolioPageData.items.map((item, index) => (
+          {portfolioItems.map((item, index) => (
             <div
               key={index}
               className="group overflow-hidden relative shadow-md hover:shadow-xl transition-all duration-300 break-inside-avoid cursor-pointer mb-2"
@@ -96,7 +138,7 @@ export default function PortfolioGallery() {
       </section>
       
       {/* Image Modal */}
-      {isModalOpen && (
+      {isModalOpen && currentItem && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-90">
           {/* Close button */}
           <button
@@ -153,7 +195,7 @@ export default function PortfolioGallery() {
           {/* Image info */}
           <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-center text-white bg-black bg-opacity-50 rounded-lg px-6 py-3 z-[50]">
             <p className="text-xs opacity-60 mt-2">
-              {currentImageIndex + 1} of {portfolioPageData.items.length}
+              {currentImageIndex + 1} of {portfolioItems.length}
             </p>
           </div>
           

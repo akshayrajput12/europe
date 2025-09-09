@@ -1,9 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import { portfolioData } from "@/data/portfolio";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { getPortfolioData } from "@/data/portfolio";
 
 type PortfolioSectionProps = {
   title?: string;
@@ -11,10 +12,43 @@ type PortfolioSectionProps = {
 };
 
 export default function PortfolioSection({ title, subtitle }: PortfolioSectionProps) {
-  const { items, ctaText, ctaLink } = portfolioData;
+  const [portfolioData, setPortfolioData] = useState<Awaited<ReturnType<typeof getPortfolioData>> | null>(null);
+  const [loading, setLoading] = useState(true);
 
-  // Filter only featured items for display
-  const featuredItems = items.filter(item => item.featured);
+  useEffect(() => {
+    const fetchPortfolioData = async () => {
+      try {
+        const data = await getPortfolioData();
+        setPortfolioData(data);
+      } catch (error) {
+        console.error("Error fetching portfolio data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPortfolioData();
+  }, []);
+
+  if (loading) {
+    return (
+      <section className="py-16 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[...Array(3)].map((_, index) => (
+              <div key={index} className="relative aspect-[4/3] bg-gray-200 animate-pulse rounded" />
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (!portfolioData) {
+    return null;
+  }
+
+  const { items, ctaText, ctaLink } = portfolioData;
 
   // ✅ If no props are passed, section header is hidden
   const showTitle = title ?? null;
@@ -42,7 +76,7 @@ export default function PortfolioSection({ title, subtitle }: PortfolioSectionPr
 
         {/* Portfolio Grid - Only Featured Items */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {featuredItems.map((item, index) => (
+          {items.map((item, index) => (
             <div
               key={index}
               className="relative aspect-[4/3] bg-gray-200 overflow-hidden group shadow-md hover:shadow-xl transition-all duration-300"

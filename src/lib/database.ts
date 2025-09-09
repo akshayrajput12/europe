@@ -611,3 +611,66 @@ export async function getFeaturedTestimonials(limit?: number): Promise<Testimoni
     return null;
   }
 }
+
+// Portfolio interfaces
+export interface PortfolioPageDB {
+  id: string;
+  hero_title: string;
+  hero_background_image: string;
+  portfolio_title: string;
+  portfolio_subtitle: string;
+  portfolio_items: PortfolioItemDB[];
+  seo_title: string;
+  seo_description: string;
+  seo_keywords: string;
+  is_active: boolean;
+  created_at?: string;
+  updated_at?: string;
+}
+
+export interface PortfolioItemDB {
+  image: string;
+  featured?: boolean;
+}
+
+// Portfolio functions
+export async function getPortfolioPageDataFromDB(): Promise<PortfolioPageDB | null> {
+  try {
+    let client
+    try {
+      client = createServerClient()
+    } catch {
+      client = supabase
+    }
+
+    const { data, error } = await client
+      .from('portfolio_page')
+      .select('*')
+      .eq('is_active', true)
+      .single();
+    
+    if (error) {
+      console.error('Error fetching portfolio page data:', error);
+      return null;
+    }
+    
+    return data as PortfolioPageDB;
+  } catch (error) {
+    console.error('Unexpected error fetching portfolio page data:', error);
+    return null;
+  }
+}
+
+export async function getAllPortfolioItems(): Promise<PortfolioItemDB[] | null> {
+  try {
+    const portfolioData = await getPortfolioPageDataFromDB();
+    if (!portfolioData) {
+      return null;
+    }
+    
+    return portfolioData.portfolio_items || [];
+  } catch (error) {
+    console.error('Error fetching portfolio items:', error);
+    return null;
+  }
+}

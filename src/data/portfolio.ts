@@ -1,4 +1,5 @@
 // src/data/portfolio.ts
+import { getPortfolioPageDataFromDB, getAllPortfolioItems } from '@/lib/database';
 
 export interface PortfolioItem {
   image: string;
@@ -22,137 +23,71 @@ export interface PortfolioData {
   ctaLink: string;
 }
 
-// Hero Portfolio Section Data (for home page)
-export const heroPortfolioData: HeroPortfolioData = {
-  title: "OUR PORTFOLIO",
-  subtitle: "Explore our extensive portfolio of exhibition stands and discover the quality and creativity we bring to every project."
-};
-
-export const portfolioData: PortfolioData = {
-  title: "OUR PORTFOLIO",
-  items: [
-    {
-      image:
-        "https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
-      featured: true
-    },
-    {
-      image:
-        "https://images.unsplash.com/photo-1559136555-9303baea8ebd?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
-      featured: true
-    },
-    {
-      image:
-        "https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2069&q=80",
-      featured: true
-    },
-    {
-      image:
-        "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?ixlib=rb-4.0.3&auto=format&fit=crop&w=2012&q=80",
-      featured: true
-    },
-    {
-      image:
-        "https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
-      featured: true
-    },
-    {
-      image:
-        "https://images.unsplash.com/photo-1511578314322-379afb476865?ixlib=rb-4.0.3&auto=format&fit=crop&w=2069&q=80",
-      featured: true
-    },
-  ],
-  ctaText: "View All Projects",
-  ctaLink: "/portfolio",
-};
-
-// Portfolio Page Data with extensive portfolio items
-export const portfolioPageData: PortfolioPageData = {
-  title: "PORTFOLIO",
-  items: [
-    {
-      image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&h=700&fit=crop"
-    },
-    {
-      image: "https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=800&h=550&fit=crop"
-    },
-    {
-      image: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=800&fit=crop"
-    },
-    {
-      image: "https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=800&h=650&fit=crop"
-    },
-    {
-      image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&h=600&fit=crop"
-    },
-    {
-      image: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=800&h=750&fit=crop"
-    },
-    {
-      image: "https://images.unsplash.com/photo-1560472355-536de3962603?w=800&h=580&fit=crop"
-    },
-    {
-      image: "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=800&h=720&fit=crop"
-    },
-    {
-      image: "https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?w=800&h=900&fit=crop"
-    },
-    {
-      image: "https://images.unsplash.com/photo-1582653291997-079a1c04e5a1?w=800&h=620&fit=crop"
-    },
-    {
-      image: "https://images.unsplash.com/photo-1571721795195-a2ca2d3370a9?w=800&h=680&fit=crop"
-    },
-    {
-      image: "https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?w=800&h=780&fit=crop"
-    },
-    {
-      image: "https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=800&h=520&fit=crop"
-    },
-    {
-      image: "https://images.unsplash.com/photo-1511578314322-379afb476865?w=800&h=660&fit=crop"
-    },
-    {
-      image: "https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=800&h=820&fit=crop"
-    },
-    {
-      image: "https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?w=800&h=590&fit=crop"
-    },
-    {
-      image: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=800&h=740&fit=crop"
-    },
-    {
-      image: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=800&h=560&fit=crop"
-    },
-    {
-      image: "https://images.unsplash.com/photo-1515169067868-5387ec356754?w=800&h=760&fit=crop"
-    },
-    {
-      image: "https://images.unsplash.com/photo-1548092372-0d1bd40894a3?w=800&h=640&fit=crop"
-    },
-    {
-      image: "https://images.unsplash.com/photo-1572021335469-31706a17aaef?w=800&h=700&fit=crop"
-    },
-    {
-      image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800&h=600&fit=crop"
-    },
-    {
-      image: "https://images.unsplash.com/photo-1532618500676-2e0cbf7ba8b8?w=800&h=850&fit=crop"
-    },
-    {
-      image: "https://images.unsplash.com/photo-1554469384-e58fac16e23a?w=800&h=580&fit=crop"
-    },
-    {
-      image: "https://images.unsplash.com/photo-1497215728101-856f4ea42174?w=800&h=720&fit=crop"
-    },
-    {
-      image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&h=670&fit=crop"
-    },
-    {
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=630&fit=crop"
-    },
-    {
-      image: "https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=800&h=810&fit=crop"
+// Hero Portfolio Section Data (for home page) - now fetched from database
+export const getHeroPortfolioData = async (): Promise<HeroPortfolioData> => {
+  try {
+    const portfolioData = await getPortfolioPageDataFromDB();
+    if (portfolioData) {
+      return {
+        title: portfolioData.portfolio_title || "OUR PORTFOLIO",
+        subtitle: portfolioData.portfolio_subtitle || "Explore our extensive portfolio of exhibition stands and discover the quality and creativity we bring to every project."
+      };
     }
-  ]
+  } catch (error) {
+    console.error('Error fetching hero portfolio data:', error);
+  }
+  
+  // Fallback data (minimal)
+  return {
+    title: "OUR PORTFOLIO",
+    subtitle: "Explore our extensive portfolio of exhibition stands and discover the quality and creativity we bring to every project."
+  };
+};
+
+export const getPortfolioData = async (): Promise<PortfolioData> => {
+  try {
+    const portfolioData = await getPortfolioPageDataFromDB();
+    if (portfolioData) {
+      // Filter only featured items for display
+      const featuredItems = portfolioData.portfolio_items.filter((item: PortfolioItem) => item.featured);
+      
+      return {
+        title: portfolioData.hero_title || "OUR PORTFOLIO",
+        items: featuredItems.length > 0 ? featuredItems : portfolioData.portfolio_items.slice(0, 6),
+        ctaText: "View All Projects",
+        ctaLink: "/portfolio",
+      };
+    }
+  } catch (error) {
+    console.error('Error fetching portfolio data:', error);
+  }
+  
+  // Minimal fallback data
+  return {
+    title: "OUR PORTFOLIO",
+    items: [],
+    ctaText: "View All Projects",
+    ctaLink: "/portfolio",
+  };
+};
+
+// Portfolio Page Data with extensive portfolio items - now fetched from database
+export const getPortfolioPageData = async (): Promise<PortfolioPageData> => {
+  try {
+    const portfolioItems = await getAllPortfolioItems();
+    if (portfolioItems) {
+      return {
+        title: "PORTFOLIO",
+        items: portfolioItems
+      };
+    }
+  } catch (error) {
+    console.error('Error fetching portfolio page data:', error);
+  }
+  
+  // Minimal fallback data
+  return {
+    title: "PORTFOLIO",
+    items: []
+  };
 };

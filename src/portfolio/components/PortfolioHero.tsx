@@ -1,6 +1,23 @@
-import { portfolioPageData } from "@/data/portfolio"
+import { getPortfolioPageData } from "@/data/portfolio";
+import { getPortfolioPageDataFromDB } from "@/lib/database";
 
-export default function PortfolioHero() {
+export default async function PortfolioHero() {
+  // Try to get data from database first, fallback to static data
+  let portfolioData;
+  try {
+    const dbData = await getPortfolioPageDataFromDB();
+    if (dbData) {
+      portfolioData = {
+        title: dbData.hero_title || "PORTFOLIO"
+      };
+    } else {
+      portfolioData = await getPortfolioPageData();
+    }
+  } catch (error) {
+    console.error("Error fetching portfolio data:", error);
+    portfolioData = await getPortfolioPageData();
+  }
+
   // Using a high-quality background image from Unsplash
   const backgroundImage = "https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
 
@@ -15,7 +32,7 @@ export default function PortfolioHero() {
       }}
     >
       <div className="container mx-auto px-4 text-center">
-        <h1 className="text-4xl md:text-5xl font-bold mb-6 text-white">{portfolioPageData.title}</h1>
+        <h1 className="text-4xl md:text-5xl font-bold mb-6 text-white">{portfolioData.title}</h1>
       </div>
     </section>
   )
