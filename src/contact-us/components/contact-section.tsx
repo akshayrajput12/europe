@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { contactData } from "@/data/contact-data"
+import { submitFormData } from "@/lib/form-submission" // Added import
 
 export default function ContactSection() {
   const router = useRouter()
@@ -17,15 +18,30 @@ export default function ContactSection() {
     country: "",
     additionalInfo: "",
   })
+  const [isSubmitting, setIsSubmitting] = useState(false) // Added state for submission
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => { // Made function async
     e.preventDefault()
-    console.log("Form submitted:", formData)
-
-    // 👉 simulate form submit success
-    setTimeout(() => {
-      router.push("/thank-you")
-    }, 500) // optional delay for UX
+    
+    setIsSubmitting(true)
+    
+    try {
+      // Submit form data with page URL as form type
+      const result = await submitFormData("/contact-us", formData)
+      
+      if (result) {
+        console.log("Form submitted successfully:", result)
+        // Redirect to thank you page
+        router.push("/thank-you")
+      } else {
+        alert("There was an error submitting your message. Please try again.")
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error)
+      alert("There was an error submitting your message. Please try again.")
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -138,8 +154,9 @@ export default function ContactSection() {
                 <Button
                   type="submit"
                   className="bg-[#A5CD39] text-white px-8 py-3 h-12 rounded-full hover:bg-[#8fb32e] hover:scale-105 transition-all duration-300 font-semibold"
+                  disabled={isSubmitting}
                 >
-                  SEND MESSAGE
+                  {isSubmitting ? "Sending..." : "SEND MESSAGE"}
                 </Button>
               </form>
             </div>

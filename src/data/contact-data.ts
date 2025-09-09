@@ -1,7 +1,11 @@
+import { supabase } from '@/lib/supabase'
+import { createServerClient } from '@/lib/supabase-server'
+
+// Define interfaces that match the component expectations
 export interface ContactInfo {
+  title: string
   address: string
-  city: string
-  country: string
+  fullAddress: string
   phone: string[]
   email: string
 }
@@ -27,7 +31,148 @@ export interface OfficeLocation {
   website: string
 }
 
-export const contactData = {
+// Contact page interfaces
+interface ContactPageData {
+  meta: {
+    title: string;
+    description: string;
+    keywords: string;
+  };
+  hero: {
+    title: string;
+    backgroundImage: string;
+  };
+  contactInfo: {
+    title: string;
+    address: string;
+    fullAddress: string;
+    phone: string[];
+    email: string;
+  };
+  formFields: FormField[];
+  otherOffices: {
+    title: string;
+    offices: OfficeLocation[];
+  };
+  support: {
+    title: string;
+    description: string;
+    items: SupportItem[];
+  };
+  map: {
+    embedUrl: string;
+  };
+}
+
+// Contact page functions - moved from database.ts
+async function getContactPageData(): Promise<ContactPageData | null> {
+  try {
+    let client;
+    try {
+      client = createServerClient();
+    } catch {
+      client = supabase;
+    }
+
+    // Call the PostgreSQL function directly
+    const { data, error } = await client.rpc('get_contact_page_data');
+    
+    if (error) {
+      console.error('Error fetching contact page data:', error);
+      return null;
+    }
+    
+    if (!data) {
+      console.error('No contact page data found');
+      return null;
+    }
+    
+    // Transform the data to match our TypeScript interface
+    return {
+      meta: {
+        title: data.meta.title,
+        description: data.meta.description,
+        keywords: data.meta.keywords
+      },
+      hero: {
+        title: data.hero.title,
+        backgroundImage: data.hero.backgroundImage
+      },
+      contactInfo: {
+        title: data.contactInfo.title,
+        address: data.contactInfo.address,
+        fullAddress: data.contactInfo.fullAddress,
+        phone: data.contactInfo.phone.filter((phone: string) => phone), // Filter out empty phones
+        email: data.contactInfo.email
+      },
+      formFields: data.formFields,
+      otherOffices: {
+        title: data.otherOffices.title,
+        offices: data.otherOffices.offices
+      },
+      support: {
+        title: data.support.title,
+        description: data.support.description,
+        items: data.support.items
+      },
+      map: {
+        embedUrl: data.map.embedUrl
+      }
+    } as ContactPageData;
+  } catch (error) {
+    console.error('Unexpected error fetching contact page data:', error);
+    return null;
+  }
+}
+
+// Store for the dynamic data
+let dynamicContactData: {
+  hero: {
+    title: string
+    backgroundImage: string
+  }
+  contactInfo: ContactInfo
+  formFields: FormField[]
+  otherOffices: {
+    title: string
+    offices: OfficeLocation[]
+  }
+  support: {
+    title: string
+    description: string
+    items: SupportItem[]
+  }
+  map: {
+    embedUrl: string
+  }
+} | null = null
+
+// Function to initialize the dynamic data
+export async function initializeContactData() {
+  try {
+    const dbData = await getContactPageData()
+    
+    if (dbData) {
+      dynamicContactData = {
+        hero: {
+          title: dbData.hero.title,
+          backgroundImage: dbData.hero.backgroundImage,
+        },
+        contactInfo: dbData.contactInfo,
+        formFields: dbData.formFields,
+        otherOffices: dbData.otherOffices,
+        support: dbData.support,
+        map: dbData.map
+      }
+    }
+  } catch (error) {
+    console.error('Error initializing contact data:', error)
+    // Keep dynamicContactData as null, will fall back to static data
+  }
+}
+
+// Define the static data structure
+const staticContactData = {
   hero: {
     title: "Contact Us",
     backgroundImage:
@@ -97,7 +242,21 @@ export const contactData = {
   },
 
   map: {
-    backgroundImage:
-      "https://images.unsplash.com/photo-1524661135-423995f22d0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2074&q=80",
-  },
+    embedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2432.5!2d15.2!3d52.4!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTLCsDI0JzAwLjAiTiAxNcKwMTInMDAuMCJF!5e0!3m2!1sen!2spl!4v1234567890"
+  }
 }
+
+type StaticContactData = typeof staticContactData;
+
+// Export the contactData that components will use
+export const contactData = new Proxy(staticContactData, {
+  get(target, prop) {
+    // If we have dynamic data, use it
+    if (dynamicContactData && prop in dynamicContactData) {
+      return (dynamicContactData as unknown as StaticContactData)[prop as keyof StaticContactData]
+    }
+    
+    // Otherwise, fall back to static data
+    return (target as unknown as StaticContactData)[prop as keyof StaticContactData]
+  }
+})

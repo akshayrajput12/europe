@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { submitFormData } from "@/lib/form-submission" // Added import
 
 export default function RequestFreeDesignPage() {
   const router = useRouter()
@@ -32,6 +33,7 @@ export default function RequestFreeDesignPage() {
     floorDesign: [] as File[],
     graphicLogo: [] as File[]
   })
+  const [isSubmitting, setIsSubmitting] = useState(false) // Added state for submission
 
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }))
@@ -85,18 +87,39 @@ export default function RequestFreeDesignPage() {
     return true
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => { // Made function async
     e.preventDefault()
     
     if (!validateForm()) {
       return
     }
     
-    console.log("Form submitted:", formData)
-    // Handle form submission here (e.g., send to API)
+    setIsSubmitting(true)
     
-    // Redirect to thank you page
-    router.push("/thank-you")
+    try {
+      // Prepare files object for submission
+      const files = {
+        sampleDesign: formData.sampleDesign,
+        floorDesign: formData.floorDesign,
+        graphicLogo: formData.graphicLogo
+      }
+      
+      // Submit form data with page URL as form type
+      const result = await submitFormData("/request-free-design", formData, files)
+      
+      if (result) {
+        console.log("Form submitted successfully:", result)
+        // Redirect to thank you page
+        router.push("/thank-you")
+      } else {
+        alert("There was an error submitting your request. Please try again.")
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error)
+      alert("There was an error submitting your request. Please try again.")
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -139,6 +162,7 @@ export default function RequestFreeDesignPage() {
                   value={formData.yourName}
                   onChange={(e) => handleInputChange("yourName", e.target.value)}
                   className="border-black"
+                  required
                 />
                 <Input
                   placeholder={requestDesignFormData.contactDetails.fields.email}
@@ -146,6 +170,7 @@ export default function RequestFreeDesignPage() {
                   value={formData.email}
                   onChange={(e) => handleInputChange("email", e.target.value)}
                   className="border-black"
+                  required
                 />
                 <Input
                   placeholder={requestDesignFormData.contactDetails.fields.phoneNumber}
@@ -158,6 +183,7 @@ export default function RequestFreeDesignPage() {
                   value={formData.companyName}
                   onChange={(e) => handleInputChange("companyName", e.target.value)}
                   className="border-black"
+                  required
                 />
                 <Input
                   placeholder={requestDesignFormData.contactDetails.fields.website}
@@ -185,12 +211,14 @@ export default function RequestFreeDesignPage() {
                   value={formData.eventName}
                   onChange={(e) => handleInputChange("eventName", e.target.value)}
                   className="border-black"
+                  required
                 />
                 <Input
                   placeholder={requestDesignFormData.eventDetail.fields.eventCity}
                   value={formData.eventCity}
                   onChange={(e) => handleInputChange("eventCity", e.target.value)}
                   className="border-black"
+                  required
                 />
               </div>
             </div>
@@ -532,8 +560,9 @@ export default function RequestFreeDesignPage() {
               <Button
                 type="submit"
                 className="bg-[#A5CD39] hover:bg-[#8fb32e] text-white px-8 py-3 rounded font-semibold"
+                disabled={isSubmitting}
               >
-                {requestDesignFormData.submitButton}
+                {isSubmitting ? "Submitting..." : requestDesignFormData.submitButton}
               </Button>
             </div>
 

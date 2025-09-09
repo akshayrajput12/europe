@@ -8,6 +8,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { X } from "lucide-react"
 import { sortedCountryCodes } from "@/data/countryCodes"
+import { submitFormData } from "@/lib/form-submission" // Added import
 
 interface RequestQuoteModalProps {
   isOpen: boolean
@@ -27,9 +28,9 @@ export default function RequestQuoteModal({ isOpen, onClose, type = "quote" }: R
     budget: "",
     message: "",
   })
-  
   const [countrySearch, setCountrySearch] = useState("")
   const [isCountryDropdownOpen, setIsCountryDropdownOpen] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false) // Added state for submission
 
   const isDesignRequest = type === "design"
   const title = isDesignRequest ? "Request a Free Design" : "Request a Quotation"
@@ -65,15 +66,34 @@ export default function RequestQuoteModal({ isOpen, onClose, type = "quote" }: R
     }
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => { // Made function async
     e.preventDefault()
-    console.log("Form submitted:", { ...formData, type })
     
-    // Close modal and redirect to thank you page
-    onClose()
-    setTimeout(() => {
-      router.push("/thank-you")
-    }, 300)
+    setIsSubmitting(true)
+    
+    try {
+      // Determine form type based on modal type
+      const formType = isDesignRequest ? "/request-free-design-modal" : "/request-quotation-modal"
+      
+      // Submit form data
+      const result = await submitFormData(formType, formData)
+      
+      if (result) {
+        console.log("Form submitted successfully:", result)
+        // Close modal and redirect to thank you page
+        onClose()
+        setTimeout(() => {
+          router.push("/thank-you")
+        }, 300)
+      } else {
+        alert("There was an error submitting your request. Please try again.")
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error)
+      alert("There was an error submitting your request. Please try again.")
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const handleInputChange = (field: string, value: string) => {
@@ -325,8 +345,9 @@ export default function RequestQuoteModal({ isOpen, onClose, type = "quote" }: R
             <Button
               type="submit"
               className="bg-[#A5CD39] hover:bg-[#8fb32e] text-white px-8"
+              disabled={isSubmitting}
             >
-              Send Request
+              {isSubmitting ? "Sending..." : "Send Request"}
             </Button>
           </div>
         </form>

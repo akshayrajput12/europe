@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Calendar, Clock } from "lucide-react"
+import { submitFormData } from "@/lib/form-submission" // Added import
 
 function SaveCallDetailContent() {
   const router = useRouter()
@@ -18,6 +19,7 @@ function SaveCallDetailContent() {
     country: "",
     additionalInfo: ""
   })
+  const [isSubmitting, setIsSubmitting] = useState(false) // Added state for submission
 
   // Get date and time from URL parameters
   const selectedDate = searchParams.get('date') || getPhoneCallFormData.saveCallDetail.scheduledInfo.dateLabel
@@ -60,21 +62,39 @@ function SaveCallDetailContent() {
     return true
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => { // Made function async
     e.preventDefault()
     
     if (!validateForm()) {
       return
     }
     
-    console.log("Call detail submitted:", {
-      date: selectedDate,
-      time: selectedTime,
-      ...formData
-    })
+    setIsSubmitting(true)
     
-    // Redirect to thank you page
-    router.push("/thank-you")
+    try {
+      // Include date and time in the form data
+      const fullFormData = {
+        ...formData,
+        selectedDate,
+        selectedTime
+      }
+      
+      // Submit form data with page URL as form type
+      const result = await submitFormData("/save-call-detail", fullFormData)
+      
+      if (result) {
+        console.log("Form submitted successfully:", result)
+        // Redirect to thank you page
+        router.push("/thank-you")
+      } else {
+        alert("There was an error submitting your request. Please try again.")
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error)
+      alert("There was an error submitting your request. Please try again.")
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -125,6 +145,7 @@ function SaveCallDetailContent() {
                   value={formData.fullName}
                   onChange={(e) => handleInputChange("fullName", e.target.value)}
                   className="border-gray-300 bg-white rounded-none h-12"
+                  required
                 />
                 <Input
                   placeholder={getPhoneCallFormData.saveCallDetail.form.fields.emailId}
@@ -132,6 +153,7 @@ function SaveCallDetailContent() {
                   value={formData.emailId}
                   onChange={(e) => handleInputChange("emailId", e.target.value)}
                   className="border-gray-300 bg-white rounded-none h-12"
+                  required
                 />
               </div>
               
@@ -141,12 +163,14 @@ function SaveCallDetailContent() {
                   value={formData.phoneNumber}
                   onChange={(e) => handleInputChange("phoneNumber", e.target.value)}
                   className="border-gray-300 bg-white rounded-none h-12"
+                  required
                 />
                 <Input
                   placeholder={getPhoneCallFormData.saveCallDetail.form.fields.country}
                   value={formData.country}
                   onChange={(e) => handleInputChange("country", e.target.value)}
                   className="border-gray-300 bg-white rounded-none h-12"
+                  required
                 />
               </div>
               
@@ -156,6 +180,7 @@ function SaveCallDetailContent() {
                 onChange={(e) => handleInputChange("additionalInfo", e.target.value)}
                 className="border-gray-300 bg-white rounded-none min-h-32"
                 rows={6}
+                required
               />
 
               {/* Submit Button */}
@@ -163,8 +188,9 @@ function SaveCallDetailContent() {
                 <Button
                   type="submit"
                   className="bg-[#A5CD39] hover:bg-[#8fb32e] text-white px-12 py-4 rounded-full font-semibold text-lg"
+                  disabled={isSubmitting}
                 >
-                  {getPhoneCallFormData.saveCallDetail.submitButton}
+                  {isSubmitting ? "Submitting..." : getPhoneCallFormData.saveCallDetail.submitButton}
                 </Button>
               </div>
             </form>

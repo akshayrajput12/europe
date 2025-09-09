@@ -6,6 +6,7 @@ import { requestQuotationFormData } from "@/data/request-quotation-form"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
+import { submitFormData } from "@/lib/form-submission"
 
 export default function RequestQuotationPage() {
   const router = useRouter()
@@ -20,6 +21,8 @@ export default function RequestQuotationPage() {
     country: "",
     additionalInfo: ""
   })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitError, setSubmitError] = useState<string | null>(null)
 
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }))
@@ -27,59 +30,107 @@ export default function RequestQuotationPage() {
 
   const handleFileChange = (files: FileList | null) => {
     if (files) {
+      console.log('Files selected:', Array.from(files).map(f => ({
+        name: f.name,
+        size: f.size,
+        type: f.type
+      })))
       setFormData(prev => ({ ...prev, uploadFiles: Array.from(files) }))
     }
   }
 
   const validateForm = () => {
+    // Reset previous errors
+    setSubmitError(null)
+    
     // Required fields validation
     if (!formData.eventName.trim()) {
-      alert("Please enter the event name")
+      setSubmitError("Please enter the event name")
       return false
     }
     if (!formData.eventCity.trim()) {
-      alert("Please enter the event city")
+      setSubmitError("Please enter the event city")
       return false
     }
     if (!formData.boothSize.trim()) {
-      alert("Please enter the booth size")
+      setSubmitError("Please enter the booth size")
       return false
     }
     if (!formData.fullName.trim()) {
-      alert("Please enter your full name")
+      setSubmitError("Please enter your full name")
       return false
     }
     if (!formData.emailId.trim()) {
-      alert("Please enter your email ID")
+      setSubmitError("Please enter your email ID")
       return false
     }
     if (!formData.country.trim()) {
-      alert("Please enter your country")
+      setSubmitError("Please enter your country")
       return false
     }
     
     // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     if (!emailRegex.test(formData.emailId)) {
-      alert("Please enter a valid email address")
+      setSubmitError("Please enter a valid email address")
       return false
+    }
+    
+    // File size validation (50MB limit per file)
+    for (const file of formData.uploadFiles) {
+      if (file.size > 52428800) { // 50MB in bytes
+        setSubmitError(`File ${file.name} exceeds 50MB limit. Please select a smaller file.`)
+        return false
+      }
     }
     
     return true
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     
+    console.log('=== Form Submission Started ===')
+    console.log('Current form data:', formData)
+    
     if (!validateForm()) {
+      console.log('Form validation failed:', submitError)
       return
     }
     
-    console.log("Form submitted:", formData)
-    // Handle form submission here (e.g., send to API)
+    setIsSubmitting(true)
+    setSubmitError(null)
     
-    // Redirect to thank you page
-    router.push("/thank-you")
+    try {
+      console.log('Preparing form data for submission')
+      
+      // Prepare files object for submission
+      const files = formData.uploadFiles.length > 0 ? {
+        uploadFiles: formData.uploadFiles
+      } : undefined
+      
+      console.log('Files to upload:', formData.uploadFiles.length)
+      
+      // Submit form data with page URL as form type
+      console.log('Submitting form data...')
+      const result = await submitFormData("/request-quotation", formData, files)
+      
+      if (result) {
+        console.log("Form submitted successfully:", result)
+        // Redirect to thank you page
+        router.push("/thank-you")
+      } else {
+        const errorMessage = "There was an error submitting your request. Please check the console for more details."
+        console.error(errorMessage)
+        setSubmitError(errorMessage)
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error)
+      const errorMessage = "There was an unexpected error submitting your request. Please check the console for more details."
+      setSubmitError(errorMessage)
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -106,6 +157,17 @@ export default function RequestQuotationPage() {
         <div className="max-w-4xl mx-auto">
           <form onSubmit={handleSubmit} className="space-y-8">
             
+            {/* Error Message */}
+            {submitError && (
+              <div className="bg-red-50 border border-red-200 rounded-lg p-4 text-red-700">
+                <div className="font-bold">Error submitting form:</div>
+                <div>{submitError}</div>
+                <div className="mt-2 text-sm">
+                  Please check the browser console (F12) for detailed error information.
+                </div>
+              </div>
+            )}
+            
             {/* Contact Details */}
             <div className="bg-gray-50 p-6 rounded-lg">
               <h2 className="text-lg font-semibold mb-6 text-primary">
@@ -118,6 +180,7 @@ export default function RequestQuotationPage() {
                     value={formData.fullName}
                     onChange={(e) => handleInputChange("fullName", e.target.value)}
                     className="border-gray-300 bg-white"
+                    required
                   />
                   <Input
                     placeholder={requestQuotationFormData.contactDetails.fields.emailId}
@@ -125,6 +188,7 @@ export default function RequestQuotationPage() {
                     value={formData.emailId}
                     onChange={(e) => handleInputChange("emailId", e.target.value)}
                     className="border-gray-300 bg-white"
+                    required
                   />
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -139,6 +203,7 @@ export default function RequestQuotationPage() {
                     value={formData.country}
                     onChange={(e) => handleInputChange("country", e.target.value)}
                     className="border-gray-300 bg-white"
+                    required
                   />
                 </div>
                 <Textarea
@@ -147,6 +212,7 @@ export default function RequestQuotationPage() {
                   onChange={(e) => handleInputChange("additionalInfo", e.target.value)}
                   className="border-gray-300 bg-white min-h-32"
                   rows={4}
+                  required
                 />
               </div>
             </div>
@@ -162,6 +228,7 @@ export default function RequestQuotationPage() {
                   value={formData.boothSize}
                   onChange={(e) => handleInputChange("boothSize", e.target.value)}
                   className="border-gray-300 bg-white"
+                  required
                 />
                 <div>
                   <input
@@ -175,7 +242,7 @@ export default function RequestQuotationPage() {
                       Selected files:
                       <ul className="list-disc list-inside">
                         {formData.uploadFiles.map((file, index) => (
-                          <li key={index}>{file.name}</li>
+                          <li key={index}>{file.name} ({(file.size / 1024).toFixed(1)} KB)</li>
                         ))}
                       </ul>
                     </div>
@@ -195,19 +262,25 @@ export default function RequestQuotationPage() {
                   value={formData.eventName}
                   onChange={(e) => handleInputChange("eventName", e.target.value)}
                   className="border-gray-300 bg-white"
+                  required
                 />
                 <Input
                   placeholder={requestQuotationFormData.eventDetails.fields.eventCity}
                   value={formData.eventCity}
                   onChange={(e) => handleInputChange("eventCity", e.target.value)}
                   className="border-gray-300 bg-white"
+                  required
                 />
               </div>
             </div>
 
             <div className="text-center">
-              <Button type="submit" className="bg-primary hover:bg-primary/90 text-white px-8 py-3 text-lg font-semibold">
-                {requestQuotationFormData.submitButton}
+              <Button 
+                type="submit" 
+                className="bg-primary hover:bg-primary/90 text-white px-8 py-3 text-lg font-semibold"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? "Submitting..." : requestQuotationFormData.submitButton}
               </Button>
             </div>
           </form>

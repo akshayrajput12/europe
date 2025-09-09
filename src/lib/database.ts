@@ -674,3 +674,187 @@ export async function getAllPortfolioItems(): Promise<PortfolioItemDB[] | null> 
     return null;
   }
 }
+
+// Define interfaces for the JSONB fields
+interface FormFieldData {
+  name: string;
+  type: string;
+  placeholder: string;
+  required: boolean;
+}
+
+interface OfficeLocationData {
+  name: string;
+  address: string;
+  phone: string;
+  email: string;
+  website: string;
+}
+
+interface SupportItemData {
+  icon: string;
+  title: string;
+  description: string;
+}
+
+// Contact page interfaces
+interface ContactPageData {
+  meta: {
+    title: string;
+    description: string;
+    keywords: string;
+  };
+  hero: {
+    title: string;
+    backgroundImage: string;
+  };
+  contactInfo: {
+    title: string;
+    address: string;
+    fullAddress: string;
+    phone: string[];
+    email: string;
+  };
+  formFields: FormFieldData[];
+  otherOffices: {
+    title: string;
+    offices: OfficeLocationData[];
+  };
+  support: {
+    title: string;
+    description: string;
+    items: SupportItemData[];
+  };
+  map: {
+    embedUrl: string;
+  };
+}
+
+// Contact page functions
+export async function getContactPageData(): Promise<ContactPageData | null> {
+  try {
+    let client;
+    try {
+      client = createServerClient();
+    } catch {
+      client = supabase;
+    }
+
+    // Call the PostgreSQL function directly
+    const { data, error } = await client.rpc('get_contact_page_data');
+    
+    if (error) {
+      console.error('Error fetching contact page data:', error);
+      return null;
+    }
+    
+    if (!data) {
+      console.error('No contact page data found');
+      return null;
+    }
+    
+    // Transform the data to match our TypeScript interface
+    return {
+      meta: {
+        title: data.meta.title,
+        description: data.meta.description,
+        keywords: data.meta.keywords
+      },
+      hero: {
+        title: data.hero.title,
+        backgroundImage: data.hero.backgroundImage
+      },
+      contactInfo: {
+        title: data.contactInfo.title,
+        address: data.contactInfo.address,
+        fullAddress: data.contactInfo.fullAddress,
+        phone: data.contactInfo.phone.filter((phone: string) => phone), // Filter out empty phones
+        email: data.contactInfo.email
+      },
+      formFields: data.formFields,
+      otherOffices: {
+        title: data.otherOffices.title,
+        offices: data.otherOffices.offices
+      },
+      support: {
+        title: data.support.title,
+        description: data.support.description,
+        items: data.support.items
+      },
+      map: {
+        embedUrl: data.map.embedUrl
+      }
+    } as ContactPageData;
+  } catch (error) {
+    console.error('Unexpected error fetching contact page data:', error);
+    return null;
+  }
+}
+
+// Add the form submission interface and functions at the end of the file
+export interface FormSubmission {
+  id?: string
+  form_type: string
+  submission_data: Record<string, unknown>
+  documents?: Array<{
+    field_name: string
+    file_name: string
+    file_size: number
+    file_type: string
+  }>
+  created_at?: string
+  updated_at?: string
+}
+
+export async function getAllFormSubmissions(): Promise<FormSubmission[] | null> {
+  try {
+    let client
+    try {
+      client = createServerClient()
+    } catch {
+      client = supabase
+    }
+
+    const { data, error } = await client
+      .from('form_submissions')
+      .select('*')
+      .order('created_at', { ascending: false })
+    
+    if (error) {
+      console.error('Error fetching form submissions:', error)
+      return null
+    }
+    
+    return data as FormSubmission[]
+  } catch (error) {
+    console.error('Unexpected error fetching form submissions:', error)
+    return null
+  }
+}
+
+export async function getFormSubmissionsByType(formType: string): Promise<FormSubmission[] | null> {
+  try {
+    let client
+    try {
+      client = createServerClient()
+    } catch {
+      client = supabase
+    }
+
+    const { data, error } = await client
+      .from('form_submissions')
+      .select('*')
+      .eq('form_type', formType)
+      .order('created_at', { ascending: false })
+    
+    if (error) {
+      console.error(`Error fetching ${formType} submissions:`, error)
+      return null
+    }
+    
+    return data as FormSubmission[]
+  } catch (error) {
+    console.error(`Unexpected error fetching ${formType} submissions:`, error)
+    return null
+  }
+}
