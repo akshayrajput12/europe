@@ -12,21 +12,17 @@ export interface TradeShow {
   id: string;
   slug: string;
   title: string;
-  excerpt: string;
   content: string;
   startDate: string;
   endDate: string;
   location: string;
   country: string;
   city: string;
-  category: string;
   logo: string;
   logoAlt?: string;
   heroImage?: string;
   heroImageAlt?: string;
-  organizer?: string;
   website?: string;
-  venue?: string;
   metaTitle?: string;
   metaDescription?: string;
   metaKeywords?: string;
@@ -66,21 +62,17 @@ export async function getTradeShowData(): Promise<TradeShowData | null> {
       id: show.id,
       slug: show.slug,
       title: show.title,
-      excerpt: show.excerpt,
       content: show.content,
       startDate: show.start_date,
       endDate: show.end_date,
       location: show.location,
       country: show.country,
       city: show.city,
-      category: show.category,
       logo: show.logo,
       logoAlt: show.logo_alt,
       heroImage: pageData.hero_background_image,
       heroImageAlt: pageData.hero_background_image_alt,
-      organizer: show.organizer,
       website: show.website,
-      venue: show.venue,
       metaTitle: show.meta_title,
       metaDescription: show.meta_description,
       metaKeywords: show.meta_keywords
@@ -115,21 +107,17 @@ export async function getTradeShows(): Promise<TradeShow[]> {
       id: show.id,
       slug: show.slug,
       title: show.title,
-      excerpt: show.excerpt,
       content: show.content,
       startDate: show.start_date,
       endDate: show.end_date,
       location: show.location,
       country: show.country,
       city: show.city,
-      category: show.category,
       logo: show.logo,
       logoAlt: show.logo_alt,
       heroImage: pageData?.hero_background_image,
       heroImageAlt: pageData?.hero_background_image_alt,
-      organizer: show.organizer,
       website: show.website,
-      venue: show.venue,
       metaTitle: show.meta_title,
       metaDescription: show.meta_description,
       metaKeywords: show.meta_keywords
@@ -152,21 +140,17 @@ export async function getTradeShowBySlug(slug: string): Promise<TradeShow | null
       id: show.id,
       slug: show.slug,
       title: show.title,
-      excerpt: show.excerpt,
       content: show.content,
       startDate: show.start_date,
       endDate: show.end_date,
       location: show.location,
       country: show.country,
       city: show.city,
-      category: show.category,
       logo: show.logo,
       logoAlt: show.logo_alt,
       heroImage: pageData?.hero_background_image,
       heroImageAlt: pageData?.hero_background_image_alt,
-      organizer: show.organizer,
       website: show.website,
-      venue: show.venue,
       metaTitle: show.meta_title,
       metaDescription: show.meta_description,
       metaKeywords: show.meta_keywords
@@ -189,21 +173,17 @@ export async function getRelatedTradeShows(currentSlug: string, limit: number = 
       id: show.id,
       slug: show.slug,
       title: show.title,
-      excerpt: show.excerpt,
       content: show.content,
       startDate: show.start_date,
       endDate: show.end_date,
       location: show.location,
       country: show.country,
       city: show.city,
-      category: show.category,
       logo: show.logo,
       logoAlt: show.logo_alt,
       heroImage: pageData?.hero_background_image,
       heroImageAlt: pageData?.hero_background_image_alt,
-      organizer: show.organizer,
       website: show.website,
-      venue: show.venue,
       metaTitle: show.meta_title,
       metaDescription: show.meta_description,
       metaKeywords: show.meta_keywords
@@ -226,21 +206,17 @@ export async function getTradeShowsByCategory(category: string): Promise<TradeSh
       id: show.id,
       slug: show.slug,
       title: show.title,
-      excerpt: show.excerpt,
       content: show.content,
       startDate: show.start_date,
       endDate: show.end_date,
       location: show.location,
       country: show.country,
       city: show.city,
-      category: show.category,
       logo: show.logo,
       logoAlt: show.logo_alt,
       heroImage: pageData?.hero_background_image,
       heroImageAlt: pageData?.hero_background_image_alt,
-      organizer: show.organizer,
       website: show.website,
-      venue: show.venue,
       metaTitle: show.meta_title,
       metaDescription: show.meta_description,
       metaKeywords: show.meta_keywords
@@ -263,21 +239,17 @@ export async function getUpcomingTradeShows(limit?: number): Promise<TradeShow[]
       id: show.id,
       slug: show.slug,
       title: show.title,
-      excerpt: show.excerpt,
       content: show.content,
       startDate: show.start_date,
       endDate: show.end_date,
       location: show.location,
       country: show.country,
       city: show.city,
-      category: show.category,
       logo: show.logo,
       logoAlt: show.logo_alt,
       heroImage: pageData?.hero_background_image,
       heroImageAlt: pageData?.hero_background_image_alt,
-      organizer: show.organizer,
       website: show.website,
-      venue: show.venue,
       metaTitle: show.meta_title,
       metaDescription: show.meta_description,
       metaKeywords: show.meta_keywords

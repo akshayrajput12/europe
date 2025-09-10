@@ -59,7 +59,7 @@ export default async function MainContent({ mainSectionData }: MainContentProps)
         </div>
 
         <div className="text-center">
-          <Link href="/">
+          <Link href="/major-exhibiting-country">
             <Button 
               size="lg"
               className="bg-[#A5CD39] hover:bg-[#8fb32e] text-white px-8"

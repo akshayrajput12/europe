@@ -18,9 +18,7 @@ export default function TradeShowGrid({ tradeShowData }: { tradeShowData: TradeS
   // Filter shows based on search term
   const filteredShows = tradeShowData.shows.filter(show => 
     show.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    show.location.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    show.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    show.excerpt.toLowerCase().includes(searchTerm.toLowerCase())
+    show.location.toLowerCase().includes(searchTerm.toLowerCase())
   )
 
   const handleSearch = (searchTerm: string) => {

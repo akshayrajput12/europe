@@ -38,8 +38,6 @@ export default function TradeShowContent({ show }: TradeShowContentProps) {
             </h2>
             
             <div className="space-y-4 sm:space-y-6 text-gray-700 leading-relaxed">
-              <p className="text-base sm:text-lg">{show.excerpt}</p>
-              
               <div 
                 className="rich-content text-sm sm:text-base"
                 dangerouslySetInnerHTML={{ __html: show.content }}

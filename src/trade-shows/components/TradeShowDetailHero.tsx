@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { TradeShow } from "@/data/trade-shows"
+import { useQuoteModal } from "@/contexts/QuoteModalContext"
 
 interface TradeShowDetailHeroProps {
   show: TradeShow
@@ -16,6 +17,7 @@ interface TimeLeft {
 
 export default function TradeShowDetailHero({ show }: TradeShowDetailHeroProps) {
   const [timeLeft, setTimeLeft] = useState<TimeLeft>({ days: 0, hours: 0, minutes: 0, seconds: 0 })
+  const { openQuoteModal } = useQuoteModal()
 
   useEffect(() => {
     const calculateTimeLeft = () => {
@@ -114,7 +116,10 @@ export default function TradeShowDetailHero({ show }: TradeShowDetailHeroProps) 
             </div>
 
             {/* Join Button Section - Orange */}
-            <div className="flex-1 bg-[rgb(255,144,0)] hover:bg-gray-500 transition-colors duration-300 py-5 sm:py-6 md:py-7 lg:py-8 xl:py-9 cursor-pointer">
+            <div 
+              className="flex-1 bg-[rgb(255,144,0)] hover:bg-gray-500 transition-colors duration-300 py-5 sm:py-6 md:py-7 lg:py-8 xl:py-9 cursor-pointer"
+              onClick={openQuoteModal}
+            >
               <div className="h-full flex items-center justify-center px-3 sm:px-5 md:px-7 lg:px-9">
                 <div className="group flex items-center gap-4 sm:gap-5 md:gap-6 lg:gap-7 text-white">
                   <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-bold">+</div>

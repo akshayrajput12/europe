@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
   return {
     title: show.metaTitle || `${show.title} - Trade Show Details`,
-    description: show.metaDescription || show.excerpt,
+    description: show.metaDescription || show.title,
     keywords: show.metaKeywords ? show.metaKeywords.split(',') : [],
   }
 }

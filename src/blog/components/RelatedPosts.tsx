@@ -27,13 +27,6 @@ export default function RelatedPosts({ posts }: RelatedPostsProps) {
               
               {/* Content */}
               <div>
-                {/* Category */}
-                <div className="mb-2">
-                  <span className="text-[#A5CD39] text-xs font-medium uppercase tracking-wide">
-                    {post.category}
-                  </span>
-                </div>
-                
                 {/* Title */}
                 <h4 className="text-sm font-semibold text-slate-800 group-hover:text-[#A5CD39] transition-colors duration-300 line-clamp-2 leading-tight mb-2">
                   {post.title}

@@ -93,7 +93,7 @@ export default async function Footer() {
               {footerData.locations.title}
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-1 sm:gap-2 md:gap-3">
-              {availableCountries.map((country, index) => (
+              {availableCountries.slice(0, 4).map((country, index) => (
                 <Link
                   key={index}
                   href={`/${country.slug}`}
@@ -104,7 +104,7 @@ export default async function Footer() {
               ))}
             </div>
             <Link
-              href="/"
+              href="/major-exhibiting-country"
               className="inline-block mt-3 sm:mt-4 md:mt-6 text-primary hover:text-primary/80 transition-colors font-medium text-sm sm:text-base md:text-lg"
             >
               {footerData.locations.viewMore}

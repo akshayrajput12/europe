@@ -6,15 +6,10 @@ export interface BlogPost {
   id: string
   slug: string
   title: string
-  excerpt: string
   content: string
   publishedDate: string
   featuredImage: string
   featuredImageAlt?: string
-  category: string
-  author?: string
-  readTime?: string
-  tags?: string[]
   metaTitle?: string
   metaDescription?: string
   metaKeywords?: string
@@ -53,15 +48,10 @@ interface BlogPostDB {
   id: string
   slug: string
   title: string
-  excerpt: string
   content: string
   published_date: string
   featured_image: string
   featured_image_alt: string
-  category: string
-  author: string
-  read_time: string
-  tags: string[]
   meta_title: string
   meta_description: string
   meta_keywords: string
@@ -163,20 +153,23 @@ export async function getRelatedBlogPostsFromDB(currentSlug: string, limit: numb
       client = supabase
     }
 
-    const { data, error } = await client
+    // First, get all active posts except the current one
+    const { data: allPosts, error: allPostsError } = await client
       .from('blog_posts')
       .select('*')
       .neq('slug', currentSlug)
       .eq('is_active', true)
-      .order('sort_order')
-      .limit(limit)
     
-    if (error) {
-      console.error('Error fetching related blog posts:', error)
+    if (allPostsError) {
+      console.error('Error fetching all blog posts:', allPostsError)
       return null
     }
     
-    return data as BlogPostDB[]
+    // Shuffle the posts array to get random posts
+    const shuffledPosts = allPosts.sort(() => 0.5 - Math.random())
+    
+    // Return only the requested limit
+    return shuffledPosts.slice(0, limit)
   } catch (error) {
     console.error('Unexpected error fetching related blog posts:', error)
     return null
@@ -233,15 +226,10 @@ export async function getBlogData(): Promise<BlogData | null> {
       id: post.id,
       slug: post.slug,
       title: post.title,
-      excerpt: post.excerpt,
       content: post.content,
       publishedDate: post.published_date,
       featuredImage: post.featured_image,
       featuredImageAlt: post.featured_image_alt,
-      category: post.category,
-      author: post.author,
-      readTime: post.read_time,
-      tags: post.tags,
       metaTitle: post.meta_title,
       metaDescription: post.meta_description,
       metaKeywords: post.meta_keywords
@@ -273,15 +261,10 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
       id: post.id,
       slug: post.slug,
       title: post.title,
-      excerpt: post.excerpt,
       content: post.content,
       publishedDate: post.published_date,
       featuredImage: post.featured_image,
       featuredImageAlt: post.featured_image_alt,
-      category: post.category,
-      author: post.author,
-      readTime: post.read_time,
-      tags: post.tags,
       metaTitle: post.meta_title,
       metaDescription: post.meta_description,
       metaKeywords: post.meta_keywords
@@ -301,15 +284,10 @@ export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> 
       id: post.id,
       slug: post.slug,
       title: post.title,
-      excerpt: post.excerpt,
       content: post.content,
       publishedDate: post.published_date,
       featuredImage: post.featured_image,
       featuredImageAlt: post.featured_image_alt,
-      category: post.category,
-      author: post.author,
-      readTime: post.read_time,
-      tags: post.tags,
       metaTitle: post.meta_title,
       metaDescription: post.meta_description,
       metaKeywords: post.meta_keywords
@@ -329,15 +307,10 @@ export async function getRelatedPosts(currentSlug: string, limit: number = 3): P
       id: post.id,
       slug: post.slug,
       title: post.title,
-      excerpt: post.excerpt,
       content: post.content,
       publishedDate: post.published_date,
       featuredImage: post.featured_image,
       featuredImageAlt: post.featured_image_alt,
-      category: post.category,
-      author: post.author,
-      readTime: post.read_time,
-      tags: post.tags,
       metaTitle: post.meta_title,
       metaDescription: post.meta_description,
       metaKeywords: post.meta_keywords
@@ -357,15 +330,10 @@ export async function getBlogPostsByCategory(category: string): Promise<BlogPost
       id: post.id,
       slug: post.slug,
       title: post.title,
-      excerpt: post.excerpt,
       content: post.content,
       publishedDate: post.published_date,
       featuredImage: post.featured_image,
       featuredImageAlt: post.featured_image_alt,
-      category: post.category,
-      author: post.author,
-      readTime: post.read_time,
-      tags: post.tags,
       metaTitle: post.meta_title,
       metaDescription: post.meta_description,
       metaKeywords: post.meta_keywords

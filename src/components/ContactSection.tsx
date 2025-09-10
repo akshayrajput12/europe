@@ -8,14 +8,45 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { contactData } from "@/data/contact"
+import { submitFormData } from "@/lib/form-submission" // Import form submission function
 
 export default function ContactSection() {
-  const [formData] = useState({})
+  const [formData, setFormData] = useState({}) // Add state for form data
   const router = useRouter() // ✅ initialize router
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // Handle input changes
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }))
+  }
+
+  // Handle select changes
+  const handleSelectChange = (name: string, value: string) => {
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }))
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => { // Make async for form submission
     e.preventDefault()
     console.log("Form submitted:", formData)
+
+    try {
+      // Submit form data with page URL as form type
+      const result = await submitFormData("/contact-section", formData)
+      
+      if (result) {
+        console.log("Form submitted successfully:", result)
+      } else {
+        console.error("Error submitting form")
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error)
+    }
 
     // ✅ redirect after submit
     router.push("/thank-you")
@@ -34,7 +65,7 @@ export default function ContactSection() {
               <div key={field.name}>
                 <label className="block text-sm font-medium mb-2">{field.label}</label>
                 {field.type === "select" ? (
-                  <Select>
+                  <Select onValueChange={(value) => handleSelectChange(field.name, value)}>
                     <SelectTrigger className="border-black">
                       <SelectValue placeholder="Choose Budget Range" />
                     </SelectTrigger>
@@ -49,8 +80,10 @@ export default function ContactSection() {
                 ) : (
                   <Input
                     type={field.type}
+                    name={field.name} // Add name attribute
                     required={field.required}
                     className="w-full border-black"
+                    onChange={handleInputChange} // Add onChange handler
                   />
                 )}
               </div>
@@ -60,9 +93,11 @@ export default function ContactSection() {
           <div className="mb-6">
             <label className="block text-sm font-medium mb-2">Additional Information</label>
             <Textarea
+              name="additionalInfo" // Add name attribute
               rows={4}
               className="border-black w-full"
               placeholder="Enter your message here..."
+              onChange={handleInputChange} // Add onChange handler
             />
           </div>
 
