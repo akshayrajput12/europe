@@ -36,7 +36,7 @@ export async function POST(request: NextRequest) {
       )
     }
     
-    const { path, paths, revalidateAllLocations, revalidateType } = body
+    const { path, paths, revalidateAllLocations, revalidateType, countrySlug } = body
 
     // Handle revalidation of all location pages (countries and cities)
     if (revalidateAllLocations) {
@@ -133,6 +133,43 @@ export async function POST(request: NextRequest) {
               revalidatedPaths.push(`/${countrySlug}`)
               console.log(`Revalidated: /${countrySlug}`)
             }
+            
+            // Also revalidate components that display country data:
+            // 1. Home page (shows featured countries)
+            revalidatePath('/')
+            revalidatedPaths.push('/')
+            console.log('Revalidated: /')
+            
+            // 2. Layout (contains footer and header that show country data)
+            revalidatePath('/layout')
+            revalidatedPaths.push('/layout')
+            console.log('Revalidated: /layout')
+            break;
+            
+          case 'country':
+            // Handle specific country update
+            if (countrySlug) {
+              // Revalidate the specific country page
+              revalidatePath(`/${countrySlug}`)
+              revalidatedPaths.push(`/${countrySlug}`)
+              console.log(`Revalidated: /${countrySlug}`)
+              
+              // Also revalidate components that display country data:
+              // 1. Home page (shows featured countries)
+              revalidatePath('/')
+              revalidatedPaths.push('/')
+              console.log('Revalidated: /')
+              
+              // 2. Layout (contains footer and header that show country data)
+              revalidatePath('/layout')
+              revalidatedPaths.push('/layout')
+              console.log('Revalidated: /layout')
+              
+              // 3. Main countries page
+              revalidatePath('/major-exhibiting-country')
+              revalidatedPaths.push('/major-exhibiting-country')
+              console.log('Revalidated: /major-exhibiting-country')
+            }
             break;
             
           case 'cities':
@@ -166,7 +203,7 @@ export async function POST(request: NextRequest) {
             
           default:
             return NextResponse.json(
-              { message: `Invalid revalidateType: ${revalidateType}. Valid types are: countries, cities, trade-shows, home` },
+              { message: `Invalid revalidateType: ${revalidateType}. Valid types are: countries, country, cities, trade-shows, home` },
               { 
                 status: 400,
                 headers: {

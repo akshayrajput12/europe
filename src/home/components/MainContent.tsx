@@ -12,9 +12,15 @@ interface MainContentProps {
   mainSectionData: MainSection
 }
 
+// Export for ISR - Revalidate every 30 days (same as other pages)
+export const revalidate = 2592000; // 30 days in seconds
+
 export default async function MainContent({ mainSectionData }: MainContentProps) {
   // Get country cards for home page display
   const featuredCountries = await getCountryCards()
+
+  // Limit to only 6 country cards for display on home page
+  const limitedCountries = featuredCountries.slice(0, 6)
 
   return (
     <main className="container mx-auto px-4 py-8 md:py-16">
@@ -42,10 +48,10 @@ export default async function MainContent({ mainSectionData }: MainContentProps)
         />
       </div>
 
-      {/* Countries Grid - Only Featured Countries */}
+      {/* Countries Grid - Only Featured Countries (Limited to 6) */}
       <div className="max-w-6xl mx-auto mb-16 md:mb-20">
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 mb-8">
-          {featuredCountries.map((country) => (
+          {limitedCountries.map((country) => (
             <Link
               key={country.slug}
               href={`/${country.slug}`}

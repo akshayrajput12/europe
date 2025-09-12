@@ -78,7 +78,7 @@ export default async function SlugDetailPage({ params }: SlugPageProps) {
     const solutionsData = await getHomeSectionData('solutions') as Solutions;
 
     return (
-      <main>
+      <main className="overflow-x-hidden">
         <CityHeroSection data={cityData.hero} />
         <CityWhyChooseUsSection data={cityData.whyChooseUs} />
         <CityWhatWeDoSection data={cityData.whatWeDo} />
@@ -109,7 +109,7 @@ export default async function SlugDetailPage({ params }: SlugPageProps) {
   const solutionsData = await getHomeSectionData('solutions') as Solutions;
 
   return (
-    <main>
+    <main className="overflow-x-hidden">
       <HeroSection data={countryData.hero} />
       <WhyChooseUsSection data={countryData.whyChooseUs} />
       <WhatWeDoSection data={countryData.whatWeDo} />
