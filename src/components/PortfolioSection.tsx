@@ -74,9 +74,9 @@ export default function PortfolioSection({ title, subtitle }: PortfolioSectionPr
           </div>
         )}
 
-        {/* Portfolio Grid - Only Featured Items */}
+        {/* Portfolio Grid - Show first 6 items */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {items.map((item, index) => (
+          {items.slice(0, 6).map((item, index) => (
             <div
               key={index}
               className="relative aspect-[4/3] bg-gray-200 overflow-hidden group shadow-md hover:shadow-xl transition-all duration-300"

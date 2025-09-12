@@ -3,7 +3,7 @@ import { getPortfolioPageDataFromDB, getAllPortfolioItems } from '@/lib/database
 
 export interface PortfolioItem {
   image: string;
-  featured?: boolean;
+  // Removed featured property as it's no longer used
 }
 
 export interface PortfolioPageData {
@@ -48,12 +48,12 @@ export const getPortfolioData = async (): Promise<PortfolioData> => {
   try {
     const portfolioData = await getPortfolioPageDataFromDB();
     if (portfolioData) {
-      // Filter only featured items for display
-      const featuredItems = portfolioData.portfolio_items.filter((item: PortfolioItem) => item.featured);
+      // Show the first 6 items instead of filtering by featured
+      const firstSixItems = portfolioData.portfolio_items.slice(0, 6);
       
       return {
         title: portfolioData.hero_title || "OUR PORTFOLIO",
-        items: featuredItems.length > 0 ? featuredItems : portfolioData.portfolio_items.slice(0, 6),
+        items: firstSixItems,
         ctaText: "View All Projects",
         ctaLink: "/portfolio",
       };

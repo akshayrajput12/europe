@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { sortedCountryCodes } from "@/data/countryCodes"
+import { submitFormData } from "@/lib/form-submission"
 
 export default function InlineQuoteForm() {
   const router = useRouter()
@@ -23,6 +24,9 @@ export default function InlineQuoteForm() {
   
   const [countrySearch, setCountrySearch] = useState("")
   const [isCountryDropdownOpen, setIsCountryDropdownOpen] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitSuccess, setSubmitSuccess] = useState(false)
+  const [submitError, setSubmitError] = useState("")
 
   // Filter countries based on search
   const filteredCountries = sortedCountryCodes.filter(country => 
@@ -55,12 +59,56 @@ export default function InlineQuoteForm() {
     }
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    console.log("Form submitted:", formData)
     
-    // Redirect to thank you page
-    router.push("/thank-you")
+    // Reset previous messages
+    setSubmitError("")
+    setSubmitSuccess(false)
+    setIsSubmitting(true)
+    
+    try {
+      // Prepare form data for submission
+      const formDataForSubmission = {
+        fullName: formData.fullName,
+        email: formData.email,
+        companyName: formData.companyName,
+        exhibitionName: formData.exhibitionName,
+        phoneNumber: `${formData.countryCode} ${formData.phoneNumber}`,
+        budget: formData.budget,
+        message: formData.message,
+        formType: "blog-quote-form"
+      }
+      
+      // Submit form data using the centralized form submission system
+      const result = await submitFormData("blog-quote-form", formDataForSubmission)
+      
+      if (result) {
+        setSubmitSuccess(true)
+        // Reset form
+        setFormData({
+          fullName: "",
+          email: "",
+          companyName: "",
+          exhibitionName: "",
+          phoneNumber: "",
+          countryCode: "+971",
+          budget: "",
+          message: "",
+        })
+        // Redirect to thank you page after a short delay
+        setTimeout(() => {
+          router.push("/thank-you")
+        }, 1000)
+      } else {
+        setSubmitError("Failed to submit form. Please try again.")
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error)
+      setSubmitError("An unexpected error occurred. Please try again.")
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const handleInputChange = (field: string, value: string) => {
@@ -96,6 +144,18 @@ export default function InlineQuoteForm() {
           Fill out the form and our team will get back to you within 24 hours.
         </p>
       </div>
+      
+      {submitSuccess && (
+        <div className="mb-4 p-3 bg-green-100 text-green-700 rounded-md text-sm">
+          Form submitted successfully! Redirecting...
+        </div>
+      )}
+      
+      {submitError && (
+        <div className="mb-4 p-3 bg-red-100 text-red-700 rounded-md text-sm">
+          {submitError}
+        </div>
+      )}
       
       <form onSubmit={handleSubmit} className="space-y-4">
         {/* Full Name */}
@@ -267,9 +327,10 @@ export default function InlineQuoteForm() {
         {/* Submit Button */}
         <Button
           type="submit"
+          disabled={isSubmitting}
           className="w-full bg-[#A5CD39] hover:bg-[#94b832] text-white font-semibold py-2 text-sm"
         >
-          Send Request
+          {isSubmitting ? "Sending..." : "Send Request"}
         </Button>
       </form>
     </div>
