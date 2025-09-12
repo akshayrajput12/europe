@@ -1,5 +1,7 @@
 import { revalidatePath } from 'next/cache'
 import { NextRequest, NextResponse } from 'next/server'
+import { getAvailableCountriesFromDB } from '@/data/countries'
+import { getAvailableCitiesFromDB } from '@/data/cities'
 
 /**
  * Simplified API endpoint for revalidating Next.js ISR pages
@@ -34,7 +36,180 @@ export async function POST(request: NextRequest) {
       )
     }
     
-    const { path, paths } = body
+    const { path, paths, revalidateAllLocations, revalidateType } = body
+
+    // Handle revalidation of all location pages (countries and cities)
+    if (revalidateAllLocations) {
+      try {
+        console.log('Revalidating all location pages')
+        const revalidatedPaths: string[] = [];
+        
+        // Revalidate the main countries page
+        revalidatePath('/major-exhibiting-country')
+        revalidatedPaths.push('/major-exhibiting-country')
+        console.log('Revalidated: /major-exhibiting-country')
+        
+        // Get all available countries and revalidate their pages
+        const availableCountries = await getAvailableCountriesFromDB()
+        for (const countrySlug of availableCountries) {
+          revalidatePath(`/${countrySlug}`)
+          revalidatedPaths.push(`/${countrySlug}`)
+          console.log(`Revalidated: /${countrySlug}`)
+        }
+        
+        // Get all available cities and revalidate their pages
+        const availableCities = await getAvailableCitiesFromDB()
+        for (const city of availableCities) {
+          revalidatePath(`/${city.citySlug}`)
+          revalidatedPaths.push(`/${city.citySlug}`)
+          console.log(`Revalidated: /${city.citySlug}`)
+        }
+        
+        // Also revalidate the home page since it shows featured countries
+        revalidatePath('/')
+        revalidatedPaths.push('/')
+        console.log('Revalidated: /')
+        
+        // Revalidate the footer by revalidating the main layout
+        revalidatePath('/layout')
+        revalidatedPaths.push('/layout')
+        console.log('Revalidated: /layout')
+        
+        // Revalidate trade shows page
+        revalidatePath('/top-trade-shows-in-europe')
+        revalidatedPaths.push('/top-trade-shows-in-europe')
+        console.log('Revalidated: /top-trade-shows-in-europe')
+        
+        return NextResponse.json(
+          { 
+            revalidated: true, 
+            message: 'All location pages revalidated successfully',
+            revalidatedPaths
+          },
+          {
+            headers: {
+              'Access-Control-Allow-Origin': '*',
+              'Access-Control-Allow-Methods': 'POST',
+              'Access-Control-Allow-Headers': 'Content-Type',
+            }
+          }
+        )
+      } catch (err) {
+        console.error('Error revalidating all location pages:', err)
+        return NextResponse.json(
+          { 
+            message: 'Error revalidating all location pages',
+            error: err instanceof Error ? err.message : 'Unknown error'
+          },
+          { 
+            status: 500,
+            headers: {
+              'Access-Control-Allow-Origin': '*',
+              'Access-Control-Allow-Methods': 'POST',
+              'Access-Control-Allow-Headers': 'Content-Type',
+            }
+          }
+        )
+      }
+    }
+
+    // Handle specific type revalidation
+    if (revalidateType) {
+      try {
+        console.log(`Revalidating by type: ${revalidateType}`)
+        const revalidatedPaths: string[] = [];
+        
+        switch (revalidateType) {
+          case 'countries':
+            // Revalidate the main countries page
+            revalidatePath('/major-exhibiting-country')
+            revalidatedPaths.push('/major-exhibiting-country')
+            console.log('Revalidated: /major-exhibiting-country')
+            
+            // Get all available countries and revalidate their pages
+            const availableCountries = await getAvailableCountriesFromDB()
+            for (const countrySlug of availableCountries) {
+              revalidatePath(`/${countrySlug}`)
+              revalidatedPaths.push(`/${countrySlug}`)
+              console.log(`Revalidated: /${countrySlug}`)
+            }
+            break;
+            
+          case 'cities':
+            // Get all available cities and revalidate their pages
+            const availableCities = await getAvailableCitiesFromDB()
+            for (const city of availableCities) {
+              revalidatePath(`/${city.citySlug}`)
+              revalidatedPaths.push(`/${city.citySlug}`)
+              console.log(`Revalidated: /${city.citySlug}`)
+            }
+            break;
+            
+          case 'trade-shows':
+            // Revalidate trade shows page
+            revalidatePath('/top-trade-shows-in-europe')
+            revalidatedPaths.push('/top-trade-shows-in-europe')
+            console.log('Revalidated: /top-trade-shows-in-europe')
+            break;
+            
+          case 'home':
+            // Revalidate home page and related sections
+            revalidatePath('/')
+            revalidatedPaths.push('/')
+            console.log('Revalidated: /')
+            
+            // Revalidate the footer by revalidating the main layout
+            revalidatePath('/layout')
+            revalidatedPaths.push('/layout')
+            console.log('Revalidated: /layout')
+            break;
+            
+          default:
+            return NextResponse.json(
+              { message: `Invalid revalidateType: ${revalidateType}. Valid types are: countries, cities, trade-shows, home` },
+              { 
+                status: 400,
+                headers: {
+                  'Access-Control-Allow-Origin': '*',
+                  'Access-Control-Allow-Methods': 'POST',
+                  'Access-Control-Allow-Headers': 'Content-Type',
+                }
+              }
+            )
+        }
+        
+        return NextResponse.json(
+          { 
+            revalidated: true, 
+            message: `${revalidateType} pages revalidated successfully`,
+            revalidatedPaths
+          },
+          {
+            headers: {
+              'Access-Control-Allow-Origin': '*',
+              'Access-Control-Allow-Methods': 'POST',
+              'Access-Control-Allow-Headers': 'Content-Type',
+            }
+          }
+        )
+      } catch (err) {
+        console.error(`Error revalidating ${revalidateType} pages:`, err)
+        return NextResponse.json(
+          { 
+            message: `Error revalidating ${revalidateType} pages`,
+            error: err instanceof Error ? err.message : 'Unknown error'
+          },
+          { 
+            status: 500,
+            headers: {
+              'Access-Control-Allow-Origin': '*',
+              'Access-Control-Allow-Methods': 'POST',
+              'Access-Control-Allow-Headers': 'Content-Type',
+            }
+          }
+        )
+      }
+    }
 
     // Handle single path revalidation
     if (path) {
@@ -168,7 +343,7 @@ export async function POST(request: NextRequest) {
 
     // If neither path nor paths provided
     return NextResponse.json(
-      { message: 'Either path (string) or paths (array) is required' },
+      { message: 'Either path (string), paths (array), revalidateAllLocations (boolean), or revalidateType (string) is required' },
       { 
         status: 400,
         headers: {

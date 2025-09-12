@@ -5,6 +5,9 @@ import PortfolioShowcaseSection from "./components/PortfolioShowcaseSection"
 import BuildExhibitionSection from "./components/BuildExhibitionSection"
 import { exhibitionStandTypes } from "@/data/maincountries"
 
+// Export for ISR - Revalidate every 30 days (same as other pages)
+export const revalidate = 2592000; // 30 days in seconds
+
 export default async function CountriesPage() {
   return (
     <main className="min-h-screen">

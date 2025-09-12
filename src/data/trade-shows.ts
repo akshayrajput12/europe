@@ -40,6 +40,15 @@ export interface TradeShowData {
   shows: TradeShow[];
 }
 
+// Helper function to check if a trade show is expired
+export function isTradeShowExpired(endDate: string): boolean {
+  const today = new Date();
+  const end = new Date(endDate);
+  // Set time to end of day for comparison
+  end.setHours(23, 59, 59, 999);
+  return end < today;
+}
+
 // Dynamic data fetching functions
 export async function getTradeShowData(): Promise<TradeShowData | null> {
   try {
@@ -57,26 +66,28 @@ export async function getTradeShowData(): Promise<TradeShowData | null> {
       return null;
     }
 
-    // Transform database data to match the interface
-    const shows: TradeShow[] = showsData.map(show => ({
-      id: show.id,
-      slug: show.slug,
-      title: show.title,
-      content: show.content,
-      startDate: show.start_date,
-      endDate: show.end_date,
-      location: show.location,
-      country: show.country,
-      city: show.city,
-      logo: show.logo,
-      logoAlt: show.logo_alt,
-      heroImage: pageData.hero_background_image,
-      heroImageAlt: pageData.hero_background_image_alt,
-      website: show.website,
-      metaTitle: show.meta_title,
-      metaDescription: show.meta_description,
-      metaKeywords: show.meta_keywords
-    }));
+    // Transform database data to match the interface and filter out expired shows
+    const shows: TradeShow[] = showsData
+      .filter(show => !isTradeShowExpired(show.end_date)) // Filter out expired trade shows
+      .map(show => ({
+        id: show.id,
+        slug: show.slug,
+        title: show.title,
+        content: show.content,
+        startDate: show.start_date,
+        endDate: show.end_date,
+        location: show.location,
+        country: show.country,
+        city: show.city,
+        logo: show.logo,
+        logoAlt: show.logo_alt,
+        heroImage: pageData.hero_background_image,
+        heroImageAlt: pageData.hero_background_image_alt,
+        website: show.website,
+        metaTitle: show.meta_title,
+        metaDescription: show.meta_description,
+        metaKeywords: show.meta_keywords
+      }));
 
     return {
       title: pageData.hero_title,
@@ -103,25 +114,28 @@ export async function getTradeShows(): Promise<TradeShow[]> {
     // Fetch the page data to get the hero image
     const pageData = await getTradeShowsPageData();
 
-    return showsData.map(show => ({
-      id: show.id,
-      slug: show.slug,
-      title: show.title,
-      content: show.content,
-      startDate: show.start_date,
-      endDate: show.end_date,
-      location: show.location,
-      country: show.country,
-      city: show.city,
-      logo: show.logo,
-      logoAlt: show.logo_alt,
-      heroImage: pageData?.hero_background_image,
-      heroImageAlt: pageData?.hero_background_image_alt,
-      website: show.website,
-      metaTitle: show.meta_title,
-      metaDescription: show.meta_description,
-      metaKeywords: show.meta_keywords
-    }));
+    // Filter out expired trade shows
+    return showsData
+      .filter(show => !isTradeShowExpired(show.end_date)) // Filter out expired trade shows
+      .map(show => ({
+        id: show.id,
+        slug: show.slug,
+        title: show.title,
+        content: show.content,
+        startDate: show.start_date,
+        endDate: show.end_date,
+        location: show.location,
+        country: show.country,
+        city: show.city,
+        logo: show.logo,
+        logoAlt: show.logo_alt,
+        heroImage: pageData?.hero_background_image,
+        heroImageAlt: pageData?.hero_background_image_alt,
+        website: show.website,
+        metaTitle: show.meta_title,
+        metaDescription: show.meta_description,
+        metaKeywords: show.meta_keywords
+      }));
   } catch (error) {
     console.error('Error fetching trade shows:', error);
     return [];
@@ -132,6 +146,12 @@ export async function getTradeShowBySlug(slug: string): Promise<TradeShow | null
   try {
     const show = await dbGetTradeShowBySlug(slug);
     if (!show) return null;
+
+    // Check if the trade show is expired
+    if (isTradeShowExpired(show.end_date)) {
+      console.log(`Trade show with slug ${slug} is expired`);
+      return null;
+    }
 
     // Fetch the page data to get the hero image
     const pageData = await getTradeShowsPageData();
@@ -169,25 +189,28 @@ export async function getRelatedTradeShows(currentSlug: string, limit: number = 
     // Fetch the page data to get the hero image
     const pageData = await getTradeShowsPageData();
 
-    return showsData.map(show => ({
-      id: show.id,
-      slug: show.slug,
-      title: show.title,
-      content: show.content,
-      startDate: show.start_date,
-      endDate: show.end_date,
-      location: show.location,
-      country: show.country,
-      city: show.city,
-      logo: show.logo,
-      logoAlt: show.logo_alt,
-      heroImage: pageData?.hero_background_image,
-      heroImageAlt: pageData?.hero_background_image_alt,
-      website: show.website,
-      metaTitle: show.meta_title,
-      metaDescription: show.meta_description,
-      metaKeywords: show.meta_keywords
-    }));
+    // Filter out expired trade shows
+    return showsData
+      .filter(show => !isTradeShowExpired(show.end_date)) // Filter out expired trade shows
+      .map(show => ({
+        id: show.id,
+        slug: show.slug,
+        title: show.title,
+        content: show.content,
+        startDate: show.start_date,
+        endDate: show.end_date,
+        location: show.location,
+        country: show.country,
+        city: show.city,
+        logo: show.logo,
+        logoAlt: show.logo_alt,
+        heroImage: pageData?.hero_background_image,
+        heroImageAlt: pageData?.hero_background_image_alt,
+        website: show.website,
+        metaTitle: show.meta_title,
+        metaDescription: show.meta_description,
+        metaKeywords: show.meta_keywords
+      }));
   } catch (error) {
     console.error('Error fetching related trade shows:', error);
     return [];
@@ -202,25 +225,28 @@ export async function getTradeShowsByCategory(category: string): Promise<TradeSh
     // Fetch the page data to get the hero image
     const pageData = await getTradeShowsPageData();
 
-    return showsData.map(show => ({
-      id: show.id,
-      slug: show.slug,
-      title: show.title,
-      content: show.content,
-      startDate: show.start_date,
-      endDate: show.end_date,
-      location: show.location,
-      country: show.country,
-      city: show.city,
-      logo: show.logo,
-      logoAlt: show.logo_alt,
-      heroImage: pageData?.hero_background_image,
-      heroImageAlt: pageData?.hero_background_image_alt,
-      website: show.website,
-      metaTitle: show.meta_title,
-      metaDescription: show.meta_description,
-      metaKeywords: show.meta_keywords
-    }));
+    // Filter out expired trade shows
+    return showsData
+      .filter(show => !isTradeShowExpired(show.end_date)) // Filter out expired trade shows
+      .map(show => ({
+        id: show.id,
+        slug: show.slug,
+        title: show.title,
+        content: show.content,
+        startDate: show.start_date,
+        endDate: show.end_date,
+        location: show.location,
+        country: show.country,
+        city: show.city,
+        logo: show.logo,
+        logoAlt: show.logo_alt,
+        heroImage: pageData?.hero_background_image,
+        heroImageAlt: pageData?.hero_background_image_alt,
+        website: show.website,
+        metaTitle: show.meta_title,
+        metaDescription: show.meta_description,
+        metaKeywords: show.meta_keywords
+      }));
   } catch (error) {
     console.error(`Error fetching trade shows by category ${category}:`, error);
     return [];
@@ -235,25 +261,28 @@ export async function getUpcomingTradeShows(limit?: number): Promise<TradeShow[]
     // Fetch the page data to get the hero image
     const pageData = await getTradeShowsPageData();
 
-    return showsData.map(show => ({
-      id: show.id,
-      slug: show.slug,
-      title: show.title,
-      content: show.content,
-      startDate: show.start_date,
-      endDate: show.end_date,
-      location: show.location,
-      country: show.country,
-      city: show.city,
-      logo: show.logo,
-      logoAlt: show.logo_alt,
-      heroImage: pageData?.hero_background_image,
-      heroImageAlt: pageData?.hero_background_image_alt,
-      website: show.website,
-      metaTitle: show.meta_title,
-      metaDescription: show.meta_description,
-      metaKeywords: show.meta_keywords
-    }));
+    // Filter out expired trade shows (shouldn't be needed for upcoming shows, but added for safety)
+    return showsData
+      .filter(show => !isTradeShowExpired(show.end_date))
+      .map(show => ({
+        id: show.id,
+        slug: show.slug,
+        title: show.title,
+        content: show.content,
+        startDate: show.start_date,
+        endDate: show.end_date,
+        location: show.location,
+        country: show.country,
+        city: show.city,
+        logo: show.logo,
+        logoAlt: show.logo_alt,
+        heroImage: pageData?.hero_background_image,
+        heroImageAlt: pageData?.hero_background_image_alt,
+        website: show.website,
+        metaTitle: show.meta_title,
+        metaDescription: show.meta_description,
+        metaKeywords: show.meta_keywords
+      }));
   } catch (error) {
     console.error('Error fetching upcoming trade shows:', error);
     return [];

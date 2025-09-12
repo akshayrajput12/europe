@@ -10,16 +10,29 @@ import { TradeShowData } from "@/data/trade-shows"
 
 const ITEMS_PER_PAGE = 6
 
+// Helper function to check if a trade show is expired
+function isTradeShowExpired(endDate: string): boolean {
+  const today = new Date();
+  const end = new Date(endDate);
+  // Set time to end of day for comparison
+  end.setHours(23, 59, 59, 999);
+  return end < today;
+}
+
 export default function TradeShowGrid({ tradeShowData }: { tradeShowData: TradeShowData }) {
   const [searchTerm, setSearchTerm] = useState("")
   const [currentPage, setCurrentPage] = useState(1)
   const { openQuoteModal } = useQuoteModal()
 
-  // Filter shows based on search term
-  const filteredShows = tradeShowData.shows.filter(show => 
-    show.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    show.location.toLowerCase().includes(searchTerm.toLowerCase())
-  )
+  // Filter shows based on search term and expiration
+  const filteredShows = tradeShowData.shows
+    .filter(show => !isTradeShowExpired(show.endDate)) // Additional filter for expired shows
+    .filter(show => 
+      show.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      show.location.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      show.country.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      show.city.toLowerCase().includes(searchTerm.toLowerCase())
+    )
 
   const handleSearch = (searchTerm: string) => {
     setSearchTerm(searchTerm)
