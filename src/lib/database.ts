@@ -194,6 +194,53 @@ export async function getAllActiveTradeShows(): Promise<TradeShow[] | null> {
   }
 }
 
+// Add a new function to get paginated trade shows
+export async function getPaginatedTradeShows(page: number = 1, limit: number = 6): Promise<{ shows: TradeShow[]; total: number } | null> {
+  try {
+    let client
+    try {
+      client = createServerClient()
+    } catch {
+      client = supabase
+    }
+
+    // Calculate offset
+    const offset = (page - 1) * limit
+
+    // Get total count first
+    const { count, error: countError } = await client
+      .from('trade_shows')
+      .select('*', { count: 'exact', head: true })
+      .eq('is_active', true)
+    
+    if (countError) {
+      console.error('Error fetching trade shows count:', countError)
+      return null
+    }
+
+    // Get paginated shows
+    const { data, error } = await client
+      .from('trade_shows')
+      .select('*')
+      .eq('is_active', true)
+      .order('sort_order')
+      .range(offset, offset + limit - 1)
+    
+    if (error) {
+      console.error('Error fetching paginated trade shows:', error)
+      return null
+    }
+
+    return {
+      shows: data as TradeShow[],
+      total: count || 0
+    }
+  } catch (error) {
+    console.error('Unexpected error fetching paginated trade shows:', error)
+    return null
+  }
+}
+
 export async function getTradeShowBySlug(slug: string): Promise<TradeShow | null> {
   try {
     let client

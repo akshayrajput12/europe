@@ -344,6 +344,67 @@ export async function getBlogPostsByCategory(category: string): Promise<BlogPost
   }
 }
 
+// Add a new function to get paginated blog posts
+export async function getPaginatedBlogPosts(page: number = 1, limit: number = 6): Promise<{ posts: BlogPost[]; total: number } | null> {
+  try {
+    let client
+    try {
+      client = createServerClient()
+    } catch {
+      client = supabase
+    }
+
+    // Calculate offset
+    const offset = (page - 1) * limit
+
+    // Get total count first
+    const { count, error: countError } = await client
+      .from('blog_posts')
+      .select('*', { count: 'exact', head: true })
+      .eq('is_active', true)
+    
+    if (countError) {
+      console.error('Error fetching blog posts count:', countError)
+      return null
+    }
+
+    // Get paginated posts
+    const { data, error } = await client
+      .from('blog_posts')
+      .select('*')
+      .eq('is_active', true)
+      .order('sort_order')
+      .range(offset, offset + limit - 1)
+    
+    if (error) {
+      console.error('Error fetching paginated blog posts:', error)
+      return null
+    }
+
+    // Transform database data to match the interface
+    const posts: BlogPost[] = data.map(post => ({
+      id: post.id,
+      slug: post.slug,
+      title: post.title,
+      content: post.content,
+      publishedDate: post.published_date,
+      featuredImage: post.featured_image,
+      featuredImageAlt: post.featured_image_alt,
+      metaTitle: post.meta_title,
+      metaDescription: post.meta_description,
+      metaKeywords: post.meta_keywords
+    }))
+
+    return {
+      posts,
+      total: count || 0
+    }
+  } catch (error) {
+    console.error('Unexpected error fetching paginated blog posts:', error)
+    return null
+  }
+}
+
 // Export the hero image from the database
 export async function getBlogHeroImage(): Promise<{ url: string; alt: string } | null> {
   try {

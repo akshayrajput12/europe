@@ -5,7 +5,8 @@ import {
   getTradeShowBySlug as dbGetTradeShowBySlug,
   getRelatedTradeShows as dbGetRelatedTradeShows,
   getTradeShowsByCategory as dbGetTradeShowsByCategory,
-  getUpcomingTradeShows as dbGetUpcomingTradeShows
+  getUpcomingTradeShows as dbGetUpcomingTradeShows,
+  getPaginatedTradeShows as dbGetPaginatedTradeShows
 } from "@/lib/database";
 
 export interface TradeShow {
@@ -301,6 +302,48 @@ export async function getTradeShowHeroImage(): Promise<{ url: string; alt: strin
     };
   } catch (error) {
     console.error('Error fetching trade show hero image:', error);
+    return null;
+  }
+}
+
+// Add a new function to get paginated trade shows
+export async function getPaginatedTradeShows(page: number = 1, limit: number = 6): Promise<{ shows: TradeShow[]; total: number } | null> {
+  try {
+    const data = await dbGetPaginatedTradeShows(page, limit);
+    if (!data) return null;
+
+    // Fetch the page data to get the hero image
+    const pageData = await getTradeShowsPageData();
+
+    // Transform database data to match the interface and filter out expired shows
+    const shows: TradeShow[] = data.shows
+      .filter(show => !isTradeShowExpired(show.end_date)) // Filter out expired trade shows
+      .map(show => ({
+        id: show.id,
+        slug: show.slug,
+        title: show.title,
+        content: show.content,
+        startDate: show.start_date,
+        endDate: show.end_date,
+        location: show.location,
+        country: show.country,
+        city: show.city,
+        logo: show.logo,
+        logoAlt: show.logo_alt,
+        heroImage: pageData?.hero_background_image,
+        heroImageAlt: pageData?.hero_background_image_alt,
+        website: show.website,
+        metaTitle: show.meta_title,
+        metaDescription: show.meta_description,
+        metaKeywords: show.meta_keywords
+      }));
+
+    return {
+      shows,
+      total: data.total
+    };
+  } catch (error) {
+    console.error('Unexpected error fetching paginated trade shows:', error);
     return null;
   }
 }

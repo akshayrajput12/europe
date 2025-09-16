@@ -5,9 +5,10 @@ import { useQuoteModal } from "@/contexts/QuoteModalContext"
 
 interface CityHeroSectionProps {
   data: CityHero
+  cityName: string
 }
 
-export default function CityHeroSection({ data }: CityHeroSectionProps) {
+export default function CityHeroSection({ data, cityName }: CityHeroSectionProps) {
   const { openQuoteModal } = useQuoteModal()
 
   return (
@@ -25,14 +26,14 @@ export default function CityHeroSection({ data }: CityHeroSectionProps) {
           {data.title}
         </h1>
         <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold text-[#A5CD39]">
-          {data.subtitle}
+          {cityName}
         </h2>
         <div className="mt-6 sm:mt-8">
           <button 
             onClick={openQuoteModal}
             className="bg-[#A5CD39] hover:bg-[#8fb52f] text-black font-semibold px-6 py-2 sm:px-8 sm:py-3 rounded-sm transition-colors text-sm sm:text-base"
           >
-            REQUEST FOR QUOTATION
+            {data.subtitle}
           </button>
         </div>
       </div>

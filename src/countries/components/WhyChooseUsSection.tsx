@@ -3,9 +3,10 @@ import Image from "next/image"
 
 interface WhyChooseUsSectionProps {
   data: WhyChooseUsType
+  countryName?: string
 }
 
-export default function WhyChooseUsSection({ data }: WhyChooseUsSectionProps) {
+export default function WhyChooseUsSection({ data, countryName }: WhyChooseUsSectionProps) {
   return (
     <section className="bg-white py-12 md:py-16">
       <div className="container mx-auto px-4">
@@ -28,11 +29,11 @@ export default function WhyChooseUsSection({ data }: WhyChooseUsSectionProps) {
               {data.title}
             </h2>
             <h3 className="text-2xl md:text-3xl font-bold text-[#A5CD39] mb-8">
-              {data.subtitle}
+              {countryName || data.subtitle}
             </h3>
             
             <p className="text-slate-600 mb-8 leading-relaxed">
-              We are more than just exhibition stand builders in {data.subtitle.toLowerCase()}, we are your gateway to success
+              We are more than just exhibition stand builders in {countryName?.toLowerCase() || data.subtitle.toLowerCase()}, we are your gateway to success
             </p>
 
             <div 

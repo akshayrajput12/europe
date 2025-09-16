@@ -9,9 +9,16 @@ import { getPortfolioData } from "@/data/portfolio";
 type PortfolioSectionProps = {
   title?: string;
   subtitle?: string;
+  ctaText?: string;
+  ctaLink?: string;
 };
 
-export default function PortfolioSection({ title, subtitle }: PortfolioSectionProps) {
+export default function PortfolioSection({ 
+  title: propTitle, 
+  subtitle: propSubtitle,
+  ctaText: propCtaText,
+  ctaLink: propCtaLink
+}: PortfolioSectionProps) {
   const [portfolioData, setPortfolioData] = useState<Awaited<ReturnType<typeof getPortfolioData>> | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -48,11 +55,17 @@ export default function PortfolioSection({ title, subtitle }: PortfolioSectionPr
     return null;
   }
 
-  const { items, ctaText, ctaLink } = portfolioData;
+  // Use props if provided, otherwise use data from database
+  const title = propTitle ?? portfolioData.title;
+  const subtitle = propSubtitle ?? portfolioData.subtitle;
+  const ctaText = propCtaText ?? portfolioData.ctaText;
+  const ctaLink = propCtaLink ?? portfolioData.ctaLink;
+
+  const items = portfolioData.items;
 
   // ✅ If no props are passed, section header is hidden
   const showTitle = title ?? null;
-  const showSubtitle = subtitle ?? null;
+  const showSubtitle = subtitle || null; // Show subtitle if it has content
 
   return (
     <section className="py-16 bg-gray-50">

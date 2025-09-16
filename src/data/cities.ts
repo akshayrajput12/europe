@@ -27,6 +27,14 @@ export interface WhyChooseUs {
   mainImage: string;
 }
 
+// Portfolio section interface
+export interface PortfolioSection {
+  title: string;
+  subtitle: string;
+  ctaText: string;
+  ctaLink: string;
+}
+
 // Exhibiting Experience Interface
 export interface ExhibitingExperience {
   title: string;
@@ -48,6 +56,7 @@ export interface CityDetail {
   hero: CityHero;
   whyChooseUs: WhyChooseUs;
   whatWeDo: WhatWeDo;
+  portfolioSection: PortfolioSection;
   exhibitingExperience: ExhibitingExperience;
 }
 
@@ -74,6 +83,10 @@ export interface DBCity {
   what_we_do_subtitle: string | null;
   what_we_do_description_html: string | null;
   portfolio_title_template: string | null;
+  portfolio_section_title: string | null;
+  portfolio_section_subtitle: string | null;
+  portfolio_section_cta_text: string | null;
+  portfolio_section_cta_link: string | null;
   exhibiting_experience_title: string | null;
   exhibiting_experience_subtitle: string | null;
   exhibiting_experience_benefits_html: string | null;
@@ -124,6 +137,12 @@ export async function getCityByCountryAndSlugFromDB(countrySlug: string, citySlu
         title: data.what_we_do_title || '',
         subtitle: data.what_we_do_subtitle || '',
         description: data.what_we_do_description_html || ''
+      },
+      portfolioSection: {
+        title: data.portfolio_section_title || 'OUR PORTFOLIO',
+        subtitle: data.portfolio_section_subtitle || 'Explore our extensive portfolio of exhibition stands and discover the quality and creativity we bring to every project.',
+        ctaText: data.portfolio_section_cta_text || 'View All Projects',
+        ctaLink: data.portfolio_section_cta_link || '/portfolio'
       },
       exhibitingExperience: {
         title: data.exhibiting_experience_title || '',
@@ -199,6 +218,12 @@ export async function getCityBySlugFromDB(citySlug: string): Promise<CityDetail 
         title: data.what_we_do_title || '',
         subtitle: data.what_we_do_subtitle || '',
         description: data.what_we_do_description_html || ''
+      },
+      portfolioSection: {
+        title: data.portfolio_section_title || 'OUR PORTFOLIO',
+        subtitle: data.portfolio_section_subtitle || 'Explore our extensive portfolio of exhibition stands and discover the quality and creativity we bring to every project.',
+        ctaText: data.portfolio_section_cta_text || 'View All Projects',
+        ctaLink: data.portfolio_section_cta_link || '/portfolio'
       },
       exhibitingExperience: {
         title: data.exhibiting_experience_title || '',

@@ -1,5 +1,9 @@
 import TradeShowPage from "@/trade-shows/page"
 
-export default function Page() {
-  return <TradeShowPage />
+interface PageProps {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}
+
+export default function Page({ searchParams }: PageProps) {
+  return <TradeShowPage searchParams={searchParams} />
 }

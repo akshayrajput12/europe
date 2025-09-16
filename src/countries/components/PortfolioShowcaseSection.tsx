@@ -1,11 +1,31 @@
 import PortfolioSection from "@/components/PortfolioSection";
 import { portfolioShowcase } from "@/data/maincountries";
 
-export default function PortfolioShowcaseSection() {
+interface PortfolioShowcaseSectionProps {
+  title?: string;
+  subtitle?: string;
+  ctaText?: string;
+  ctaLink?: string;
+}
+
+export default function PortfolioShowcaseSection({ 
+  title, 
+  subtitle, 
+  ctaText, 
+  ctaLink 
+}: PortfolioShowcaseSectionProps) {
+  // Use provided props or fall back to default data
+  const sectionTitle = title ?? portfolioShowcase.title;
+  const sectionSubtitle = subtitle ?? portfolioShowcase.description;
+  const sectionCtaText = ctaText ?? portfolioShowcase.ctaText;
+  const sectionCtaLink = ctaLink ?? portfolioShowcase.ctaLink;
+
   return (
     <PortfolioSection
-      title={portfolioShowcase.title}
-      subtitle={portfolioShowcase.description}
+      title={sectionTitle}
+      subtitle={sectionSubtitle}
+      ctaText={sectionCtaText}
+      ctaLink={sectionCtaLink}
     />
   );
 }

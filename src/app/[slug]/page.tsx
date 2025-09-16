@@ -79,11 +79,16 @@ export default async function SlugDetailPage({ params }: SlugPageProps) {
 
     return (
       <main className="overflow-x-hidden">
-        <CityHeroSection data={cityData.hero} />
-        <CityWhyChooseUsSection data={cityData.whyChooseUs} />
+        <CityHeroSection data={cityData.hero} cityName={cityData.name} />
+        <CityWhyChooseUsSection data={cityData.whyChooseUs} cityName={cityData.name} />
         <CityWhatWeDoSection data={cityData.whatWeDo} />
         <SolutionCardsSection solutionsData={solutionsData} />
-        <PortfolioSection title={`Our Portfolio in ${cityData.name}`} subtitle="View our exhibition stand projects" />
+        <PortfolioSection 
+          title={cityData.portfolioSection.title}
+          subtitle={cityData.portfolioSection.subtitle}
+          ctaText={cityData.portfolioSection.ctaText}
+          ctaLink={cityData.portfolioSection.ctaLink}
+        />
         <ExhibitingExperienceSection data={cityData.exhibitingExperience} />
         <TradeShowsCarouselSection cityName={cityData.name} />
       </main>
@@ -110,11 +115,16 @@ export default async function SlugDetailPage({ params }: SlugPageProps) {
 
   return (
     <main className="overflow-x-hidden">
-      <HeroSection data={countryData.hero} />
-      <WhyChooseUsSection data={countryData.whyChooseUs} />
+      <HeroSection data={countryData.hero} countryName={countryData.name} />
+      <WhyChooseUsSection data={countryData.whyChooseUs} countryName={countryData.name} />
       <WhatWeDoSection data={countryData.whatWeDo} />
       <SolutionCardsSection solutionsData={solutionsData} />
-      <PortfolioSection title="OUR PORTFOLIO" subtitle="Explore our extensive portfolio of exhibition stands and discover the quality and creativity we bring to every project." />
+      <PortfolioSection 
+        title={countryData.portfolioSection.title}
+        subtitle={countryData.portfolioSection.subtitle}
+        ctaText={countryData.portfolioSection.ctaText}
+        ctaLink={countryData.portfolioSection.ctaLink}
+      />
       <CompanyInfoSection data={countryData.companyInfo} />
       <BestCompanySection data={countryData.bestCompany} />
       <ProcessSection data={countryData.processSection} />

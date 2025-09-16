@@ -1,5 +1,9 @@
 import BlogPage from "@/blog/page"
 
-export default function Page() {
-  return <BlogPage />
+interface PageProps {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}
+
+export default function Page({ searchParams }: PageProps) {
+  return <BlogPage searchParams={searchParams} />
 }

@@ -18,6 +18,7 @@ export interface HeroPortfolioData {
 
 export interface PortfolioData {
   title: string;
+  subtitle: string;
   items: PortfolioItem[];
   ctaText: string;
   ctaLink: string;
@@ -53,6 +54,7 @@ export const getPortfolioData = async (): Promise<PortfolioData> => {
       
       return {
         title: portfolioData.hero_title || "OUR PORTFOLIO",
+        subtitle: portfolioData.portfolio_subtitle || "Explore our extensive portfolio of exhibition stands and discover the quality and creativity we bring to every project.",
         items: firstSixItems,
         ctaText: "View All Projects",
         ctaLink: "/portfolio",
@@ -65,6 +67,7 @@ export const getPortfolioData = async (): Promise<PortfolioData> => {
   // Minimal fallback data
   return {
     title: "OUR PORTFOLIO",
+    subtitle: "Explore our extensive portfolio of exhibition stands and discover the quality and creativity we bring to every project.",
     items: [],
     ctaText: "View All Projects",
     ctaLink: "/portfolio",

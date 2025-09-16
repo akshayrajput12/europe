@@ -1,6 +1,6 @@
 import BlogHeroSection from "./components/BlogHeroSection"
 import BlogGrid from "./components/BlogGrid"
-import { getBlogData } from "@/data/blog"
+import { getBlogData, getPaginatedBlogPosts } from "@/data/blog"
 import type { Metadata } from 'next'
 
 // Export for ISR
@@ -26,17 +26,28 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 }
 
-export default async function BlogPage() {
+interface BlogPageProps {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}
+
+export default async function BlogPage({ searchParams }: BlogPageProps) {
   const blogData = await getBlogData()
+  const resolvedSearchParams = await searchParams
+  const page = resolvedSearchParams.page ? parseInt(resolvedSearchParams.page as string) : 1
+  const paginatedData = await getPaginatedBlogPosts(page, 6)
   
   if (!blogData) {
     return <div>Error loading blog data</div>
   }
 
+  if (!paginatedData) {
+    return <div>Error loading blog posts</div>
+  }
+
   return (
     <main>
       <BlogHeroSection />
-      <BlogGrid />
+      <BlogGrid initialPosts={paginatedData.posts} totalPosts={paginatedData.total} />
     </main>
   )
 }

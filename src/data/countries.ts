@@ -56,6 +56,14 @@ export interface CitiesSection {
   subtitle: string
 }
 
+// Portfolio section interface
+export interface PortfolioSection {
+  title: string
+  subtitle: string
+  ctaText: string
+  ctaLink: string
+}
+
 // Simple interface for country cards (like cities grid)
 export interface CountryCard {
   slug: string
@@ -80,6 +88,7 @@ export interface CountriesData {
 export interface CountryDetail {
   id: string
   slug: string
+  name: string
   hero: CountryHero
   whyChooseUs: WhyChooseUs
   whatWeDo: WhatWeDo
@@ -87,6 +96,7 @@ export interface CountryDetail {
   bestCompany: BestCompany
   processSection: ProcessSection
   citiesSection: CitiesSection
+  portfolioSection: PortfolioSection
 }
 
 export interface CountryDetailsData {
@@ -123,6 +133,7 @@ export const getCountryBySlugFromDB = async (slug: string): Promise<CountryDetai
     const countryData: CountryDetail = {
       id: data.id,
       slug: data.slug,
+      name: data.name,
       hero: {
         title: data.hero_title || '',
         subtitle: data.hero_subtitle || '',
@@ -162,6 +173,12 @@ export const getCountryBySlugFromDB = async (slug: string): Promise<CountryDetai
       citiesSection: {
         title: data.cities_section_title || '',
         subtitle: data.cities_section_subtitle || ''
+      },
+      portfolioSection: {
+        title: data.portfolio_section_title || 'OUR PORTFOLIO',
+        subtitle: data.portfolio_section_subtitle || 'Explore our extensive portfolio of exhibition stands and discover the quality and creativity we bring to every project.',
+        ctaText: data.portfolio_section_cta_text || 'View All Projects',
+        ctaLink: data.portfolio_section_cta_link || '/portfolio'
       }
     };
 

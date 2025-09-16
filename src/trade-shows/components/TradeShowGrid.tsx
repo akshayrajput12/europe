@@ -1,12 +1,13 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import TradeShowCard from "./TradeShowCard"
 import TradeShowSearch from "./TradeShowSearch"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useQuoteModal } from "@/contexts/QuoteModalContext"
-import { TradeShowData } from "@/data/trade-shows"
+import { TradeShow } from "@/data/trade-shows"
 
 const ITEMS_PER_PAGE = 6
 
@@ -19,13 +20,27 @@ function isTradeShowExpired(endDate: string): boolean {
   return end < today;
 }
 
-export default function TradeShowGrid({ tradeShowData }: { tradeShowData: TradeShowData }) {
+interface TradeShowGridProps {
+  initialShows: TradeShow[]
+  totalShows: number
+}
+
+export default function TradeShowGrid({ initialShows, totalShows }: TradeShowGridProps) {
+  const router = useRouter()
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
+  
+  const [shows, setShows] = useState(initialShows)
+  const [total, setTotal] = useState(totalShows)
   const [searchTerm, setSearchTerm] = useState("")
-  const [currentPage, setCurrentPage] = useState(1)
+  const [loading, setLoading] = useState(false)
   const { openQuoteModal } = useQuoteModal()
+  
+  const currentPage = parseInt(searchParams.get('page') || '1')
+  const totalPages = Math.ceil(total / ITEMS_PER_PAGE)
 
   // Filter shows based on search term and expiration
-  const filteredShows = tradeShowData.shows
+  const filteredShows = shows
     .filter(show => !isTradeShowExpired(show.endDate)) // Additional filter for expired shows
     .filter(show => 
       show.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -36,21 +51,15 @@ export default function TradeShowGrid({ tradeShowData }: { tradeShowData: TradeS
 
   const handleSearch = (searchTerm: string) => {
     setSearchTerm(searchTerm)
-    setCurrentPage(1) // Reset to first page when searching
+    goToPage(1) // Reset to first page when searching
   }
 
-  // Calculate pagination
-  const totalPages = Math.ceil(filteredShows.length / ITEMS_PER_PAGE)
-  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE
-  const endIndex = startIndex + ITEMS_PER_PAGE
-  const currentShows = filteredShows.slice(startIndex, endIndex)
-
   const goToPage = (page: number) => {
-    setCurrentPage(page)
-    // Scroll to top of grid
-    if (typeof window !== 'undefined') {
-      window.scrollTo({ top: 0, behavior: 'smooth' })
-    }
+    if (page < 1 || page > totalPages || page === currentPage) return
+    
+    const params = new URLSearchParams(searchParams.toString())
+    params.set('page', page.toString())
+    router.push(`${pathname}?${params.toString()}`)
   }
 
   const goToPrevious = () => {
@@ -105,6 +114,11 @@ export default function TradeShowGrid({ tradeShowData }: { tradeShowData: TradeS
       goToPage(currentPage + 1)
     }
   }
+
+  // Calculate pagination
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE
+  const endIndex = startIndex + ITEMS_PER_PAGE
+  const currentShows = filteredShows.slice(startIndex, endIndex)
 
   return (
     <>
