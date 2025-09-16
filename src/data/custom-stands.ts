@@ -11,6 +11,7 @@ export interface HeroSection {
   subtitle?: string
   backgroundImage?: string // Made optional since we'll use constant
   backgroundImageAlt?: string
+  buttonTitle?: string // Add button title field
 }
 
 export interface BenefitsSection {
@@ -58,6 +59,14 @@ export interface PointsTable {
   content: string
 }
 
+// Add PortfolioSection interface
+export interface PortfolioSection {
+  title: string
+  subtitle: string
+  ctaText: string
+  ctaLink: string
+}
+
 export interface MetaData {
   title: string
   description: string
@@ -74,6 +83,8 @@ export interface CustomStandsData {
   freshDesign: FreshDesignSection
   costSection: CostSection
   pointsTable: PointsTable
+  // Add portfolio section
+  portfolio: PortfolioSection
 }
 
 // Main function to get custom stands data from database (NO FALLBACK DATA)
@@ -113,7 +124,8 @@ export async function getCustomStandsData(): Promise<CustomStandsData> {
         title: data.hero_title || '',
         subtitle: data.hero_subtitle || '',
         backgroundImage: CUSTOM_STANDS_HERO_BG_IMAGE, // Use constant instead of database value
-        backgroundImageAlt: data.hero_background_image_alt || CUSTOM_STANDS_HERO_BG_IMAGE_ALT
+        backgroundImageAlt: data.hero_background_image_alt || CUSTOM_STANDS_HERO_BG_IMAGE_ALT,
+        buttonTitle: data.hero_button_title || 'REQUEST FOR QUOTATION' // Add button title with fallback
       },
       benefits: {
         title: data.benefits_title || '',
@@ -151,6 +163,13 @@ export async function getCustomStandsData(): Promise<CustomStandsData> {
       pointsTable: {
         title: data.points_table_title || '',
         content: data.points_table_content || ''
+      },
+      // Add portfolio section data
+      portfolio: {
+        title: data.portfolio_section_title || 'OUR PORTFOLIO',
+        subtitle: data.portfolio_section_subtitle || 'Explore our extensive portfolio of exhibition stands and discover the quality and creativity we bring to every project.',
+        ctaText: data.portfolio_section_cta_text || 'View All Projects',
+        ctaLink: data.portfolio_section_cta_link || '/portfolio'
       }
     }
     

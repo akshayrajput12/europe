@@ -11,6 +11,7 @@ export interface HeroData {
   title: string
   subtitle?: string
   backgroundImage?: string // Made optional since we'll use constant
+  buttonTitle?: string // Add button title field
 }
 
 // Why Choose Section (second on page)
@@ -52,6 +53,14 @@ export interface CompanyInfoData {
   content: string // Single HTML content instead of points array
 }
 
+// Add PortfolioSection interface
+export interface PortfolioSection {
+  title: string
+  subtitle: string
+  ctaText: string
+  ctaLink: string
+}
+
 // Combined data interface for the entire pavilion page
 export interface PavilionPageData {
   meta: {
@@ -65,6 +74,8 @@ export interface PavilionPageData {
   advantages: AdvantagesData
   ourExpertise: OurExpertiseData
   companyInfo: CompanyInfoData
+  // Add portfolio section
+  portfolio: PortfolioSection
 }
 
 // Main function to get pavilion data from database (NO FALLBACK DATA)
@@ -104,6 +115,7 @@ export async function getPavilionData(): Promise<PavilionPageData> {
         title: data.hero_title || '',
         subtitle: data.hero_subtitle || '',
         backgroundImage: PAVILION_HERO_BG_IMAGE, // Use constant instead of database value
+        buttonTitle: data.hero_button_title || 'REQUEST FOR QUOTATION' // Add button title with fallback
       },
       whyChoose: {
         title: data.why_choose_title || '',
@@ -131,6 +143,13 @@ export async function getPavilionData(): Promise<PavilionPageData> {
       companyInfo: {
         title: data.company_info_title || '',
         content: data.company_info_content || ''
+      },
+      // Add portfolio section data
+      portfolio: {
+        title: data.portfolio_section_title || 'OUR PORTFOLIO',
+        subtitle: data.portfolio_section_subtitle || 'Explore our extensive portfolio of exhibition stands and discover the quality and creativity we bring to every project.',
+        ctaText: data.portfolio_section_cta_text || 'View All Projects',
+        ctaLink: data.portfolio_section_cta_link || '/portfolio'
       }
     }
     

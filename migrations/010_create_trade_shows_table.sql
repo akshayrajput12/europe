@@ -168,7 +168,7 @@ INSERT INTO trade_shows (
         </ul>
         
         <h2>Exhibition Opportunities for Healthcare Companies</h2>
-        <p>The ESC Congress offers <strong>unparalleled exhibition opportunities</strong> for companies in the cardiovascular healthcare sector. Our <a href="/custom-stands">custom exhibition stands</a> showcase medical devices, pharmaceutical products, and healthcare technologies effectively.</p>
+        <p>The ESC Congress offers <strong>unparalleled exhibition opportunities</strong> for companies in the cardiovascular healthcare sector. Our <a href="/custom-booth-design-and-build">custom exhibition stands</a> showcase medical devices, pharmaceutical products, and healthcare technologies effectively.</p>
         
         <h3>Exhibition Benefits</h3>
         <ol>

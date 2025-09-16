@@ -177,7 +177,7 @@ INSERT INTO blog_posts (
         </blockquote>
         
         <h2>Premium Exhibition Stand Solutions for Technology Companies</h2>
-        <p>For exhibition stand builders and technology companies, these prestigious trade shows present <strong>exceptional opportunities</strong> to create cutting-edge booth designs that embody innovation, technological sophistication, and future-forward thinking. Our <a href="/custom-stands">custom exhibition stands</a> are specifically engineered for the technology sector.</p>
+        <p>For exhibition stand builders and technology companies, these prestigious trade shows present <strong>exceptional opportunities</strong> to create cutting-edge booth designs that embody innovation, technological sophistication, and future-forward thinking. Our <a href="/custom-booth-design-and-build">custom exhibition stands</a> are specifically engineered for the technology sector.</p>
         
         <h3>Essential Design Elements for Technology Stands</h3>
         <ol>

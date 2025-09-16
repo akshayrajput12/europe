@@ -84,7 +84,7 @@ INSERT INTO home_page (
   
   -- Exhibition USA Section
   'YOUR TRADE SHOW BOOTH BUILDER IN USA',
-  '<p>Welcome to <strong>Chronicle Exhibit LLC</strong>, your prominent partner for custom trade show booth displays and exhibits. With <em>13+ years</em> worth of experience and an excellent team, we have been providing exclusive <a href="/custom-stands">custom trade show booth design services</a> across the United States of America.</p>
+  '<p>Welcome to <strong>Chronicle Exhibit LLC</strong>, your prominent partner for custom trade show booth displays and exhibits. With <em>13+ years</em> worth of experience and an excellent team, we have been providing exclusive <a href="/custom-booth-design-and-build">custom trade show booth design services</a> across the United States of America.</p>
 
 <p>As Chronicle Exhibit LLC, we are aware that exhibitions and trade shows serve as a fantastic opportunity for companies like you to display your products and services to potential customers. For this reason, we offer locally attractive custom trade show booth designs that can make your brand stand out from the crowd.</p>',
   

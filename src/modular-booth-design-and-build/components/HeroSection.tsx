@@ -33,7 +33,7 @@ export default function HeroSection({ heroData }: HeroSectionProps) {
             onClick={openQuoteModal}
             className="bg-[#A5CD39] hover:bg-[#8fb32e] text-white px-8"
           >
-            REQUEST FOR QUOTATION
+            {heroData.buttonTitle || 'REQUEST FOR QUOTATION'}
           </Button>
         </div>
       </div>

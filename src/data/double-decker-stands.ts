@@ -9,6 +9,7 @@ export interface HeroSection {
   title: string
   subtitle?: string
   backgroundImage?: string // Made optional since we'll use constant
+  buttonTitle?: string // Add button title field
 }
 
 export interface BenefitsSection {
@@ -53,6 +54,14 @@ export interface MetaData {
   description: string
 }
 
+// Add PortfolioSection interface
+export interface PortfolioSection {
+  title: string
+  subtitle: string
+  ctaText: string
+  ctaLink: string
+}
+
 // ✅ Added `exhibitionBenefits` here
 export interface DoubleDeckerStandsData {
   meta: MetaData
@@ -63,6 +72,8 @@ export interface DoubleDeckerStandsData {
   exhibitionBenefits: ExhibitionBenefits
   boothPartner: BoothPartnerData
   boldStatement: BoldStatementData
+  // Add portfolio section
+  portfolio: PortfolioSection
 }
 
 // Main function to get double decker stands data from database (NO FALLBACK DATA)
@@ -102,6 +113,7 @@ export async function getDoubleDeckerStandsData(): Promise<DoubleDeckerStandsDat
         title: data.hero_title || '',
         subtitle: data.hero_subtitle || '',
         backgroundImage: DOUBLE_DECKER_STANDS_HERO_BG_IMAGE, // Use constant instead of database value
+        buttonTitle: data.hero_button_title || 'REQUEST FOR QUOTATION' // Add button title with fallback
       },
       benefits: {
         title: data.benefits_title || '',
@@ -132,6 +144,13 @@ export async function getDoubleDeckerStandsData(): Promise<DoubleDeckerStandsDat
         title: data.bold_statement_title || '',
         subtitle: data.bold_statement_subtitle || '',
         description: data.bold_statement_description || ''
+      },
+      // Add portfolio section data
+      portfolio: {
+        title: data.portfolio_section_title || 'OUR PORTFOLIO',
+        subtitle: data.portfolio_section_subtitle || 'Explore our extensive portfolio of exhibition stands and discover the quality and creativity we bring to every project.',
+        ctaText: data.portfolio_section_cta_text || 'View All Projects',
+        ctaLink: data.portfolio_section_cta_link || '/portfolio'
       }
     }
     

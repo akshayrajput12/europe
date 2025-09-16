@@ -14,12 +14,12 @@ export const footerData = {
   services: {
     title: "Exhibition Stand",
     links: [
-      { label: "Custom Booth Design And Build", href: "/custom-stands" },
-      { label: "Modular Booth Design And Build", href: "/modular-stands" },
-      { label: "Pavilion Design & Build", href: "/pavilion-design" },
+      { label: "Custom Booth Design And Build", href: "/custom-booth-design-and-build" },
+      { label: "Modular Booth Design And Build", href: "/modular-booth-design-and-build" },
+      { label: "Pavilion Design & Build", href: "/pavilion-design-build" },
       {
         label: "Double Decker Exhibition Stands",
-        href: "/double-decker-stands",
+        href: "/double-decker-exhibition-stands",
       },
     ],
   },

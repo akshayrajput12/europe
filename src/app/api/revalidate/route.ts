@@ -189,6 +189,22 @@ export async function POST(request: NextRequest) {
             console.log('Revalidated: /top-trade-shows-in-europe')
             break;
             
+          case 'stand-pages':
+            // Revalidate all stand pages
+            const standPages = [
+              '/custom-booth-design-and-build',
+              '/modular-booth-design-and-build',
+              '/pavilion-design-build',
+              '/double-decker-exhibition-stands'
+            ];
+            
+            for (const page of standPages) {
+              revalidatePath(page)
+              revalidatedPaths.push(page)
+              console.log(`Revalidated: ${page}`)
+            }
+            break;
+            
           case 'home':
             // Revalidate home page and related sections
             revalidatePath('/')
@@ -203,7 +219,7 @@ export async function POST(request: NextRequest) {
             
           default:
             return NextResponse.json(
-              { message: `Invalid revalidateType: ${revalidateType}. Valid types are: countries, country, cities, trade-shows, home` },
+              { message: `Invalid revalidateType: ${revalidateType}. Valid types are: countries, country, cities, trade-shows, home, stand-pages` },
               { 
                 status: 400,
                 headers: {

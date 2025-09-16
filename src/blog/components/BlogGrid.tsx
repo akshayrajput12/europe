@@ -5,11 +5,12 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import BlogCard from "./BlogCard"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import { getPaginatedBlogPosts } from "@/data/blog"
+import { BlogPost } from "@/data/blog"
 
 const ITEMS_PER_PAGE = 6
 
 interface BlogGridProps {
-  initialPosts: any[]
+  initialPosts: BlogPost[]
   totalPosts: number
 }
 
@@ -122,7 +123,7 @@ export default function BlogGrid({ initialPosts, totalPosts }: BlogGridProps) {
 
         {/* Blog Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {posts.map((post: any) => (
+          {posts.map((post) => (
             <BlogCard key={post.id} post={post} />
           ))}
         </div>

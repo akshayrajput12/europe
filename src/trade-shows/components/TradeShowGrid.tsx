@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import TradeShowCard from "./TradeShowCard"
 import TradeShowSearch from "./TradeShowSearch"
@@ -33,7 +33,6 @@ export default function TradeShowGrid({ initialShows, totalShows }: TradeShowGri
   const [shows, setShows] = useState(initialShows)
   const [total, setTotal] = useState(totalShows)
   const [searchTerm, setSearchTerm] = useState("")
-  const [loading, setLoading] = useState(false)
   const { openQuoteModal } = useQuoteModal()
   
   const currentPage = parseInt(searchParams.get('page') || '1')
@@ -41,8 +40,8 @@ export default function TradeShowGrid({ initialShows, totalShows }: TradeShowGri
 
   // Filter shows based on search term and expiration
   const filteredShows = shows
-    .filter(show => !isTradeShowExpired(show.endDate)) // Additional filter for expired shows
-    .filter(show => 
+    .filter((show: TradeShow) => !isTradeShowExpired(show.endDate)) // Additional filter for expired shows
+    .filter((show: TradeShow) => 
       show.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       show.location.toLowerCase().includes(searchTerm.toLowerCase()) ||
       show.country.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -131,7 +130,7 @@ export default function TradeShowGrid({ initialShows, totalShows }: TradeShowGri
           {/* First card needs extra top padding for logo */}
           <div className="pt-8 sm:pt-10">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10">
-              {currentShows.map((show) => (
+              {currentShows.map((show: TradeShow) => (
                 <TradeShowCard key={show.id} show={show} />
               ))}
             </div>

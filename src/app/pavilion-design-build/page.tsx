@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
 import { getPavilionData, PAVILION_HERO_BG_IMAGE } from '@/data/pavilionData'
-import PavilionPage from "@/exhibition-pavilion/page"
+import PavilionPage from "@/pavilion-design-build/page"
 
 // ISR Configuration - Revalidate every month (30 days)
 export const revalidate = 2592000; // 30 days in seconds

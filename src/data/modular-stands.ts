@@ -13,6 +13,7 @@ export interface HeroSection {
   title: string
   subtitle?: string
   backgroundImage?: string // Made optional since we'll use constant
+  buttonTitle?: string // Add button title field
 }
 
 // Interface for benefits section with image
@@ -70,6 +71,14 @@ export interface MetaData {
   description: string
 }
 
+// Add PortfolioSection interface
+export interface PortfolioSection {
+  title: string
+  subtitle: string
+  ctaText: string
+  ctaLink: string
+}
+
 // Main interface combining all sections
 export interface ModularStandsData {
   meta: MetaData
@@ -81,6 +90,8 @@ export interface ModularStandsData {
   modularDiversity: ModularDiversitySection
   fastestConstruction: FastestConstructionSection
   experts: ExpertsSection
+  // Add portfolio section
+  portfolio: PortfolioSection
 }
 
 // Main function to get modular stands data from database (NO FALLBACK DATA)
@@ -120,6 +131,7 @@ export async function getModularStandsData(): Promise<ModularStandsData> {
         title: data.hero_title || '',
         subtitle: data.hero_subtitle || '',
         backgroundImage: MODULAR_STANDS_HERO_BG_IMAGE, // Use constant instead of database value
+        buttonTitle: data.hero_button_title || 'REQUEST FOR QUOTATION' // Add button title with fallback
       },
       benefits: {
         title: data.benefits_title || '',
@@ -155,6 +167,13 @@ export async function getModularStandsData(): Promise<ModularStandsData> {
         title: data.experts_title || '',
         subtitle: data.experts_subtitle || '',
         description: data.experts_description || ''
+      },
+      // Add portfolio section data
+      portfolio: {
+        title: data.portfolio_section_title || 'OUR PORTFOLIO',
+        subtitle: data.portfolio_section_subtitle || 'Explore our extensive portfolio of exhibition stands and discover the quality and creativity we bring to every project.',
+        ctaText: data.portfolio_section_cta_text || 'View All Projects',
+        ctaLink: data.portfolio_section_cta_link || '/portfolio'
       }
     }
     

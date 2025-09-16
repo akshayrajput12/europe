@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
 import { getModularStandsData, MODULAR_STANDS_HERO_BG_IMAGE } from '@/data/modular-stands'
-import ModularStandsPage from "@/modular-stands/page"
+import ModularStandsPage from "@/modular-booth-design-and-build/page"
 
 // ISR Configuration - Revalidate every month (30 days)
 export const revalidate = 2592000; // 30 days in seconds

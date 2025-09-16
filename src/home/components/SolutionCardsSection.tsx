@@ -50,14 +50,14 @@ export default function SolutionCardsSection({ solutionsData }: SolutionCardsSec
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8 lg:gap-6 xl:gap-8">
           {data.items.map((solution) => {
             const linkMap: { [key: string]: string } = {
-              "Custom Exhibition Stands": "/custom-stands",
-              "Modular Exhibition Stands": "/modular-stands",
-              "Double Decker Exhibition Stands": "/double-decker-stands",
-              "Exhibition Pavilion Design": "/pavilion-design",
+              "Custom Exhibition Stands": "/custom-booth-design-and-build",
+              "Modular Exhibition Stands": "/modular-booth-design-and-build",
+              "Double Decker Exhibition Stands": "/double-decker-exhibition-stands",
+              "Exhibition Pavilion Design": "/pavilion-design-build",
               // Handle potential singular forms
-              "Custom Exhibition Stand": "/custom-stands",
-              "Modular Exhibition Stand": "/modular-stands",
-              "Double Decker Exhibition Stand": "/double-decker-stands"
+              "Custom Exhibition Stand": "/custom-booth-design-and-build",
+              "Modular Exhibition Stand": "/modular-booth-design-and-build",
+              "Double Decker Exhibition Stand": "/double-decker-exhibition-stands"
             }
 
             // Use .trim() on solution titles to handle potential whitespace issues

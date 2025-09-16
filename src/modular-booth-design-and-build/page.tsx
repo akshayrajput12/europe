@@ -22,7 +22,12 @@ export default function ModularStandsPage({ data }: ModularStandsPageProps) {
         <BenefitsSection benefitsData={data.benefits} />
         <MainSection pointsTableData={data.pointsTable} />
         <StandProjectText standProjectTextData={data.StandProjectText} />
-        <PortfolioSection />
+        <PortfolioSection 
+          title={data.portfolio.title}
+          subtitle={data.portfolio.subtitle}
+          ctaText={data.portfolio.ctaText}
+          ctaLink={data.portfolio.ctaLink}
+        />
         <ExhibitionBenefitsSection exhibitionBenefitsData={data.exhibitionBenefits} />
         <ModularDiversitySection modularDiversityData={data.modularDiversity} />
         <FastestConstructionSection fastestConstructionData={data.fastestConstruction} />

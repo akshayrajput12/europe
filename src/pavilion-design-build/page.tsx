@@ -16,10 +16,15 @@ export default function PavilionPage({ data }: PavilionPageProps) {
   return (
     <div className="min-h-screen bg-white">
       <HeroSection heroData={data.hero} />
-      <WhyChooseSection whyChooseData={data.whyChoose} />
       <BenefitsSection benefitsData={data.benefits} />
+      <WhyChooseSection whyChooseData={data.whyChoose} />
       <StandProjectTextSection standProjectTextData={data.StandProjectText} />
-      <PortfolioSection />
+      <PortfolioSection 
+        title={data.portfolio.title}
+        subtitle={data.portfolio.subtitle}
+        ctaText={data.portfolio.ctaText}
+        ctaLink={data.portfolio.ctaLink}
+      />
       <AdvantagesSection advantagesData={data.advantages} />
       <OurExpertiseSection ourExpertiseData={data.ourExpertise} />
       <CompanyInfoSection companyInfoData={data.companyInfo} />

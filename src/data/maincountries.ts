@@ -45,7 +45,7 @@ export const exhibitionStandTypes: ExhibitionStandType[] = [
       "https://images.unsplash.com/photo-1566737236500-c8ac43014a67?q=80&w=1000&auto=format&fit=crop"
     ],
     ctaText: "EXPLORE CUSTOM SOLUTIONS",
-    ctaLink: "/custom-stands"
+    ctaLink: "/custom-booth-design-and-build"
   },
   {
     title: "MODULAR EXHIBITION STANDS",
@@ -56,7 +56,7 @@ export const exhibitionStandTypes: ExhibitionStandType[] = [
       "https://images.unsplash.com/photo-1588421357574-87938a86fa28?q=80&w=1000&auto=format&fit=crop"
     ],
     ctaText: "DISCOVER MODULAR OPTIONS",
-    ctaLink: "/modular-stands"
+    ctaLink: "/modular-booth-design-and-build"
   },
   {
     title: "DOUBLE DECKER EXHIBITION STANDS",
@@ -67,7 +67,7 @@ export const exhibitionStandTypes: ExhibitionStandType[] = [
       "https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=1000&auto=format&fit=crop"
     ],
     ctaText: "VIEW DOUBLE DECKER DESIGNS",
-    ctaLink: "/double-decker-stands"
+    ctaLink: "/double-decker-exhibition-stands"
   },
   {
     title: "PAVILION EXHIBITION STANDS",
@@ -78,7 +78,7 @@ export const exhibitionStandTypes: ExhibitionStandType[] = [
       "https://images.unsplash.com/photo-1603190287605-e6ade32fa852?q=80&w=1000&auto=format&fit=crop"
     ],
     ctaText: "EXPLORE PAVILION SOLUTIONS",
-    ctaLink: "/pavilion-design"
+    ctaLink: "/pavilion-design-build"
   }
 ];
 

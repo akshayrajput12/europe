@@ -22,7 +22,12 @@ export default function CustomStandsPage({ data }: CustomStandsPageProps) {
         <BenefitsSection benefitsData={data.benefits} />
         <MainSection pointsTableData={data.pointsTable} />
         <StandProjectTextSection standProjectTextData={data.StandProjectText} />
-        <PortfolioSection />
+        <PortfolioSection 
+          title={data.portfolio.title}
+          subtitle={data.portfolio.subtitle}
+          ctaText={data.portfolio.ctaText}
+          ctaLink={data.portfolio.ctaLink}
+        />
         <ExhibitionBenefitsSection exhibitionBenefitsData={data.exhibitionBenefits} />
         <BespokeSection bespokeData={data.bespoke} />
         <FreshDesignSection freshDesignData={data.freshDesign} />

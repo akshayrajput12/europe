@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
 import { getDoubleDeckerStandsData, DOUBLE_DECKER_STANDS_HERO_BG_IMAGE } from '@/data/double-decker-stands'
-import DoubleDeckPage from "@/double-decker-stands/page"
+import DoubleDeckPage from "@/double-decker-exhibition-stands/page"
 
 // ISR Configuration - Revalidate every month (30 days)
 export const revalidate = 2592000; // 30 days in seconds
