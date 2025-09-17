@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import Image from "next/image"
 import { TradeShow } from "@/data/trade-shows"
 import { useQuoteModal } from "@/contexts/QuoteModalContext"
 
@@ -124,8 +125,17 @@ export default function TradeShowDetailHero({ show }: TradeShowDetailHeroProps) 
                 <div className="group flex items-center gap-4 sm:gap-5 md:gap-6 lg:gap-7 text-white">
                   <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-bold">+</div>
                   <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-bold uppercase tracking-wider group-hover:scale-105 transition-transform duration-300">
-                    <span className="hidden sm:inline">JOIN THE EVENT</span>
-                    <span className="sm:hidden">JOIN EVENT</span>
+                    {show.organizer ? (
+                      <>
+                        <span className="hidden sm:inline">{show.organizer}</span>
+                        <span className="sm:hidden">{show.organizer.length > 20 ? show.organizer.substring(0, 20) + '...' : show.organizer}</span>
+                      </>
+                    ) : (
+                      <>
+                        <span className="hidden sm:inline">JOIN THE EVENT</span>
+                        <span className="sm:hidden">JOIN EVENT</span>
+                      </>
+                    )}
                   </div>
                 </div>
               </div>

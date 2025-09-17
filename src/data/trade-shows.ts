@@ -13,6 +13,7 @@ export interface TradeShow {
   id: string;
   slug: string;
   title: string;
+  excerpt: string;
   content: string;
   startDate: string;
   endDate: string;
@@ -24,6 +25,7 @@ export interface TradeShow {
   heroImage?: string;
   heroImageAlt?: string;
   website?: string;
+  organizer?: string;  // Add organizer field
   metaTitle?: string;
   metaDescription?: string;
   metaKeywords?: string;
@@ -74,6 +76,7 @@ export async function getTradeShowData(): Promise<TradeShowData | null> {
         id: show.id,
         slug: show.slug,
         title: show.title,
+        excerpt: show.excerpt,
         content: show.content,
         startDate: show.start_date,
         endDate: show.end_date,
@@ -85,6 +88,7 @@ export async function getTradeShowData(): Promise<TradeShowData | null> {
         heroImage: pageData.hero_background_image,
         heroImageAlt: pageData.hero_background_image_alt,
         website: show.website,
+        organizer: show.organizer,  // Add organizer field
         metaTitle: show.meta_title,
         metaDescription: show.meta_description,
         metaKeywords: show.meta_keywords
@@ -122,6 +126,7 @@ export async function getTradeShows(): Promise<TradeShow[]> {
         id: show.id,
         slug: show.slug,
         title: show.title,
+        excerpt: show.excerpt,
         content: show.content,
         startDate: show.start_date,
         endDate: show.end_date,
@@ -133,6 +138,7 @@ export async function getTradeShows(): Promise<TradeShow[]> {
         heroImage: pageData?.hero_background_image,
         heroImageAlt: pageData?.hero_background_image_alt,
         website: show.website,
+        organizer: show.organizer,  // Add organizer field
         metaTitle: show.meta_title,
         metaDescription: show.meta_description,
         metaKeywords: show.meta_keywords
@@ -161,6 +167,7 @@ export async function getTradeShowBySlug(slug: string): Promise<TradeShow | null
       id: show.id,
       slug: show.slug,
       title: show.title,
+      excerpt: show.excerpt,
       content: show.content,
       startDate: show.start_date,
       endDate: show.end_date,
@@ -172,6 +179,7 @@ export async function getTradeShowBySlug(slug: string): Promise<TradeShow | null
       heroImage: pageData?.hero_background_image,
       heroImageAlt: pageData?.hero_background_image_alt,
       website: show.website,
+      organizer: show.organizer,  // Add organizer field
       metaTitle: show.meta_title,
       metaDescription: show.meta_description,
       metaKeywords: show.meta_keywords
@@ -197,6 +205,7 @@ export async function getRelatedTradeShows(currentSlug: string, limit: number = 
         id: show.id,
         slug: show.slug,
         title: show.title,
+        excerpt: show.excerpt,
         content: show.content,
         startDate: show.start_date,
         endDate: show.end_date,
@@ -208,6 +217,7 @@ export async function getRelatedTradeShows(currentSlug: string, limit: number = 
         heroImage: pageData?.hero_background_image,
         heroImageAlt: pageData?.hero_background_image_alt,
         website: show.website,
+        organizer: show.organizer,  // Add organizer field
         metaTitle: show.meta_title,
         metaDescription: show.meta_description,
         metaKeywords: show.meta_keywords
@@ -233,6 +243,7 @@ export async function getTradeShowsByCategory(category: string): Promise<TradeSh
         id: show.id,
         slug: show.slug,
         title: show.title,
+        excerpt: show.excerpt,
         content: show.content,
         startDate: show.start_date,
         endDate: show.end_date,
@@ -244,6 +255,7 @@ export async function getTradeShowsByCategory(category: string): Promise<TradeSh
         heroImage: pageData?.hero_background_image,
         heroImageAlt: pageData?.hero_background_image_alt,
         website: show.website,
+        organizer: show.organizer,  // Add organizer field
         metaTitle: show.meta_title,
         metaDescription: show.meta_description,
         metaKeywords: show.meta_keywords
@@ -269,6 +281,7 @@ export async function getUpcomingTradeShows(limit?: number): Promise<TradeShow[]
         id: show.id,
         slug: show.slug,
         title: show.title,
+        excerpt: show.excerpt,
         content: show.content,
         startDate: show.start_date,
         endDate: show.end_date,
@@ -280,6 +293,7 @@ export async function getUpcomingTradeShows(limit?: number): Promise<TradeShow[]
         heroImage: pageData?.hero_background_image,
         heroImageAlt: pageData?.hero_background_image_alt,
         website: show.website,
+        organizer: show.organizer,  // Add organizer field
         metaTitle: show.meta_title,
         metaDescription: show.meta_description,
         metaKeywords: show.meta_keywords
@@ -322,6 +336,7 @@ export async function getPaginatedTradeShows(page: number = 1, limit: number = 6
         id: show.id,
         slug: show.slug,
         title: show.title,
+        excerpt: show.excerpt,
         content: show.content,
         startDate: show.start_date,
         endDate: show.end_date,
@@ -333,6 +348,7 @@ export async function getPaginatedTradeShows(page: number = 1, limit: number = 6
         heroImage: pageData?.hero_background_image,
         heroImageAlt: pageData?.hero_background_image_alt,
         website: show.website,
+        organizer: show.organizer,  // Add organizer field
         metaTitle: show.meta_title,
         metaDescription: show.meta_description,
         metaKeywords: show.meta_keywords

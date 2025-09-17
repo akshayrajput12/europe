@@ -37,7 +37,7 @@ export default function TradeShowCountdown({ show }: TradeShowCountdownProps) {
 
             {/* Logo */}
             {show.logo && (
-              <div className="flex-shrink-0 mx-2 sm:mx-4">
+              <div className="flex-shrink-0 mx-0">
                 <div className="relative w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center">
                   <div className="absolute inset-0 bg-white rounded-full opacity-20 animate-pulse"></div>
                   <div className="relative bg-white rounded-full p-1 shadow-lg">
