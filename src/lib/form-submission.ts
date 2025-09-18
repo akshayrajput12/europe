@@ -52,6 +52,7 @@ export async function submitFormData(
       return null
     }
     
+    // Return data without sending email (will be handled server-side)
     return data
   } catch (error) {
     console.error(`Unexpected error submitting ${formType} form:`, error)

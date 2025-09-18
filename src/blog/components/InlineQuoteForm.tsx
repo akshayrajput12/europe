@@ -7,7 +7,6 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { sortedCountryCodes } from "@/data/countryCodes"
-import { submitFormData } from "@/lib/form-submission"
 
 export default function InlineQuoteForm() {
   const router = useRouter()
@@ -80,10 +79,21 @@ export default function InlineQuoteForm() {
         formType: "blog-quote-form"
       }
       
-      // Submit form data using the centralized form submission system
-      const result = await submitFormData("blog-quote-form", formDataForSubmission)
+      // Submit form data via API route
+      const response = await fetch('/api/form-submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          formType: "blog-quote-form",
+          formData: formDataForSubmission
+        }),
+      });
       
-      if (result) {
+      const result = await response.json();
+      
+      if (result.success) {
         setSubmitSuccess(true)
         // Reset form
         setFormData({

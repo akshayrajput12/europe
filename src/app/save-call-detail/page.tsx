@@ -1,13 +1,13 @@
 "use client"
 
-import { useState, Suspense } from "react"
+import { useState, Suspense, useEffect } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import { getPhoneCallFormData } from "@/data/get-phone-call-form"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Calendar, Clock } from "lucide-react"
-import { submitFormData } from "@/lib/form-submission" // Added import
+import { sortedCountryCodes } from "@/data/countryCodes"
 
 function SaveCallDetailContent() {
   const router = useRouter()
@@ -16,10 +16,20 @@ function SaveCallDetailContent() {
     fullName: "",
     emailId: "",
     phoneNumber: "",
+    countryCode: "+971",
     country: "",
     additionalInfo: ""
   })
-  const [isSubmitting, setIsSubmitting] = useState(false) // Added state for submission
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [countrySearch, setCountrySearch] = useState("")
+  const [isCountryDropdownOpen, setIsCountryDropdownOpen] = useState(false)
+
+  // Filter countries based on search
+  const filteredCountries = sortedCountryCodes.filter(country => 
+    country.name.toLowerCase().includes(countrySearch.toLowerCase()) ||
+    country.code.includes(countrySearch) ||
+    country.iso2.toLowerCase().includes(countrySearch.toLowerCase())
+  )
 
   // Get date and time from URL parameters
   const selectedDate = searchParams.get('date') || getPhoneCallFormData.saveCallDetail.scheduledInfo.dateLabel
@@ -28,6 +38,28 @@ function SaveCallDetailContent() {
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }))
   }
+
+  const handleCountryCodeChange = (code: string) => {
+    setFormData(prev => ({ ...prev, countryCode: code }))
+    setIsCountryDropdownOpen(false)
+    setCountrySearch('')
+  }
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      const target = e.target as HTMLElement
+      if (!target.closest('[data-country-dropdown]')) {
+        setIsCountryDropdownOpen(false)
+        setCountrySearch('')
+      }
+    }
+    
+    document.addEventListener("mousedown", handleClickOutside)
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside)
+    }
+  }, [])
 
   const validateForm = () => {
     // Required fields validation
@@ -62,7 +94,7 @@ function SaveCallDetailContent() {
     return true
   }
 
-  const handleSubmit = async (e: React.FormEvent) => { // Made function async
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     
     if (!validateForm()) {
@@ -79,11 +111,22 @@ function SaveCallDetailContent() {
         selectedTime
       }
       
-      // Submit form data with page URL as form type
-      const result = await submitFormData("/save-call-detail", fullFormData)
+      // Submit form data via API route
+      const response = await fetch('/api/form-submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          formType: "/save-call-detail",
+          formData: fullFormData
+        }),
+      })
       
-      if (result) {
-        console.log("Form submitted successfully:", result)
+      const result = await response.json()
+      
+      if (result.success) {
+        console.log("Form submitted successfully:", result.data)
         // Redirect to thank you page
         router.push("/thank-you")
       } else {
@@ -158,13 +201,74 @@ function SaveCallDetailContent() {
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <Input
-                  placeholder={getPhoneCallFormData.saveCallDetail.form.fields.phoneNumber}
-                  value={formData.phoneNumber}
-                  onChange={(e) => handleInputChange("phoneNumber", e.target.value)}
-                  className="border-gray-300 bg-white rounded-none h-12"
-                  required
-                />
+                {/* Phone Number with Country Code */}
+                <div>
+                  <label className="block text-sm font-medium mb-2">Phone Number*</label>
+                  <div className="flex gap-2">
+                    {/* Custom Country Code Dropdown */}
+                    <div className="relative w-24" data-country-dropdown>
+                      <button
+                        type="button"
+                        onClick={() => setIsCountryDropdownOpen(!isCountryDropdownOpen)}
+                        className="w-full h-12 border border-gray-300 rounded-md px-2 py-2 text-left bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#A5CD39] focus:border-[#A5CD39] transition-colors"
+                      >
+                        <span className="block truncate text-sm font-medium">
+                          {formData.countryCode}
+                        </span>
+                        <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                          <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={isCountryDropdownOpen ? "M5 15l7-7 7 7" : "M19 9l-7 7-7-7"} />
+                          </svg>
+                        </span>
+                      </button>
+                      
+                      {isCountryDropdownOpen && (
+                        <div className="absolute z-50 mt-1 w-64 bg-white border border-gray-300 rounded-md shadow-lg">
+                          {/* Search Input */}
+                          <div className="p-2 border-b">
+                            <Input
+                              type="text"
+                              placeholder="Search countries..."
+                              value={countrySearch}
+                              onChange={(e) => setCountrySearch(e.target.value)}
+                              className="h-9 text-sm border-gray-300"
+                              autoFocus
+                            />
+                          </div>
+                          
+                          {/* Countries List */}
+                          <div className="max-h-60 overflow-y-auto">
+                            {filteredCountries.length > 0 ? (
+                              filteredCountries.map((country) => (
+                                <button
+                                  key={country.uniqueKey}
+                                  type="button"
+                                  className="w-full text-left px-3 py-2 text-sm hover:bg-gray-100 focus:bg-gray-100 focus:outline-none"
+                                  onClick={() => handleCountryCodeChange(country.code)}
+                                >
+                                  <span className="font-medium">{country.code}</span>
+                                  <span className="ml-2 text-gray-600">{country.name}</span>
+                                </button>
+                              ))
+                            ) : (
+                              <div className="px-3 py-2 text-sm text-gray-500">
+                                No countries found
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                    
+                    <Input
+                      placeholder="Phone Number"
+                      value={formData.phoneNumber}
+                      onChange={(e) => handleInputChange("phoneNumber", e.target.value)}
+                      className="flex-1 border-gray-300 bg-white rounded-none h-12"
+                      required
+                    />
+                  </div>
+                </div>
                 <Input
                   placeholder={getPhoneCallFormData.saveCallDetail.form.fields.country}
                   value={formData.country}

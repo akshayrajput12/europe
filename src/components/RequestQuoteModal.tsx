@@ -8,7 +8,6 @@ import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { X } from "lucide-react"
 import { sortedCountryCodes } from "@/data/countryCodes"
-import { submitFormData } from "@/lib/form-submission" // Added import
 
 interface RequestQuoteModalProps {
   isOpen: boolean
@@ -75,11 +74,22 @@ export default function RequestQuoteModal({ isOpen, onClose, type = "quote" }: R
       // Determine form type based on modal type
       const formType = isDesignRequest ? "/request-free-design-modal" : "/request-quotation-modal"
       
-      // Submit form data
-      const result = await submitFormData(formType, formData)
+      // Submit form data via API route
+      const response = await fetch('/api/form-submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          formType: formType,
+          formData: formData
+        }),
+      });
       
-      if (result) {
-        console.log("Form submitted successfully:", result)
+      const result = await response.json();
+      
+      if (result.success) {
+        console.log("Form submitted successfully:", result.data)
         // Close modal and redirect to thank you page
         onClose()
         setTimeout(() => {

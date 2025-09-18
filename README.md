@@ -19,6 +19,10 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Email Notifications
+
+This project includes an email notification system that sends an email to administrators whenever a user submits any form. For setup instructions, see [EMAIL_SETUP.md](EMAIL_SETUP.md).
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
