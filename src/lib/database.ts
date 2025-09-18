@@ -1021,3 +1021,87 @@ export async function getFormSubmissionsByType(formType: string): Promise<FormSu
     return null
   }
 }
+
+// Privacy page interfaces
+export interface PrivacyPageDB {
+  id: string;
+  title: string;
+  meta_title: string;
+  meta_description: string;
+  meta_keywords: string;
+  content: string;
+  is_active: boolean;
+  created_at?: string;
+  updated_at?: string;
+}
+
+// Privacy page functions
+export async function getPrivacyPageData(): Promise<PrivacyPageDB | null> {
+  try {
+    let client
+    try {
+      client = createServerClient()
+    } catch {
+      client = supabase
+    }
+
+    const { data, error } = await client
+      .from('privacy_page')
+      .select('*')
+      .eq('is_active', true)
+      .single();
+      
+    if (error) {
+      console.error('Error fetching privacy page data:', error);
+      return null;
+    }
+    
+    return data as PrivacyPageDB;
+  } catch (error) {
+    console.error('Error fetching privacy page data:', error);
+    return null;
+  }
+}
+
+// Terms page interfaces
+export interface TermsPageDB {
+  id: string;
+  title: string;
+  meta_title: string;
+  meta_description: string;
+  meta_keywords: string;
+  content: string;
+  is_active: boolean;
+  created_at?: string;
+  updated_at?: string;
+}
+
+// Terms page functions
+export async function getTermsPageData(): Promise<TermsPageDB | null> {
+  try {
+    let client
+    try {
+      client = createServerClient()
+    } catch {
+      client = supabase
+    }
+
+    const { data, error } = await client
+      .from('terms_page')
+      .select('*')
+      .eq('is_active', true)
+      .single();
+      
+    if (error) {
+      console.error('Error fetching terms page data:', error);
+      return null;
+    }
+    
+    return data as TermsPageDB;
+  } catch (error) {
+    console.error('Error fetching terms page data:', error);
+    return null;
+  }
+}
+
+

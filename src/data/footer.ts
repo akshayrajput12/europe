@@ -9,6 +9,8 @@ export const footerData = {
       { label: "Upcoming Tradeshow", href: "/top-trade-shows-in-europe" },
       { label: "Contact Us", href: "/contact-us" },
       { label: "Blog", href: "/blog" },
+      { label: "Privacy Policy", href: "/privacy-policy" },
+      { label: "Terms & Conditions", href: "/terms-conditions" },
     ],
   },
   services: {
