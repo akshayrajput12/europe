@@ -67,6 +67,24 @@ export default function TradeShowDetailHero({ show }: TradeShowDetailHeroProps) 
             </div>
           </div>
           
+          {/* Logo positioned above the date and join button sections */}
+          {show.logo && (
+            <div className="flex justify-center mb-4 sm:mb-6">
+              <div className="relative w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center">
+                <div className="absolute inset-0 bg-white rounded-full opacity-20 animate-pulse"></div>
+                <div className="relative bg-white rounded-full p-1 shadow-lg">
+                  <Image
+                    src={show.logo}
+                    alt={show.logoAlt || `${show.title} logo`}
+                    width={60}
+                    height={60}
+                    className="w-12 h-12 sm:w-16 sm:h-16 object-contain rounded-full"
+                  />
+                </div>
+              </div>
+            </div>
+          )}
+          
           {/* Countdown Timer and Join Button - Positioned at bottom of hero */}
           <div className="flex flex-col sm:flex-row gap-1 sm:gap-2 md:gap-3 lg:gap-4 xl:gap-6 bg-transparent">
             {/* Timer Section - Pink */}

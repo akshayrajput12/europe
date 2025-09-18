@@ -124,6 +124,17 @@ export interface TradeShow {
   updated_at?: string;
 }
 
+// Optimized interface for paginated trade shows (only fields needed for display)
+export interface PaginatedTradeShow {
+  id: string;
+  slug: string;
+  title: string;
+  start_date: string;
+  end_date: string;
+  location: string;
+  logo: string;
+}
+
 export interface TradeShowPage {
   id: string;
   meta_title: string;
@@ -140,8 +151,25 @@ export interface TradeShowPage {
 }
 
 // Trade Shows functions
+
+// Add cache for trade shows page data
+interface PageDataCache {
+  data: TradeShowPage | null;
+  timestamp: number;
+}
+
+let pageDataCache: PageDataCache | null = null;
+const PAGE_DATA_CACHE_TTL = 30 * 60 * 1000; // 30 minutes cache TTL
+
 export async function getTradeShowsPageData(): Promise<TradeShowPage | null> {
   try {
+    const now = Date.now();
+    
+    // Check if we have valid cached data
+    if (pageDataCache && (now - pageDataCache.timestamp) < PAGE_DATA_CACHE_TTL) {
+      return pageDataCache.data;
+    }
+
     let client
     try {
       client = createServerClient()
@@ -160,15 +188,31 @@ export async function getTradeShowsPageData(): Promise<TradeShowPage | null> {
       return null;
     }
     
-    return data as TradeShowPage;
+    const result = data as TradeShowPage;
+    
+    // Cache the result
+    pageDataCache = { data: result, timestamp: now };
+    
+    return result;
   } catch (error) {
     console.error('Unexpected error fetching trade shows page data:', error);
     return null;
   }
 }
 
+// Add cache for all active trade shows
+let allTradeShowsCache: { data: TradeShow[] | null, timestamp: number } | null = null;
+const ALL_TRADE_SHOWS_CACHE_TTL = 30 * 60 * 1000; // 30 minutes cache TTL
+
 export async function getAllActiveTradeShows(): Promise<TradeShow[] | null> {
   try {
+    const now = Date.now();
+    
+    // Check if we have valid cached data
+    if (allTradeShowsCache && (now - allTradeShowsCache.timestamp) < ALL_TRADE_SHOWS_CACHE_TTL) {
+      return allTradeShowsCache.data;
+    }
+
     let client
     try {
       client = createServerClient()
@@ -187,6 +231,9 @@ export async function getAllActiveTradeShows(): Promise<TradeShow[] | null> {
       return null;
     }
     
+    // Cache the result
+    allTradeShowsCache = { data: data as TradeShow[], timestamp: now };
+    
     return data as TradeShow[];
   } catch (error) {
     console.error('Unexpected error fetching trade shows:', error);
@@ -194,9 +241,23 @@ export async function getAllActiveTradeShows(): Promise<TradeShow[] | null> {
   }
 }
 
-// Add a new function to get paginated trade shows
-export async function getPaginatedTradeShows(page: number = 1, limit: number = 6): Promise<{ shows: TradeShow[]; total: number } | null> {
+// Add a simple in-memory cache for paginated results
+const paginationCache = new Map<string, { data: { shows: PaginatedTradeShow[]; total: number }, timestamp: number }>()
+const CACHE_TTL = 5 * 60 * 1000 // 5 minutes cache TTL
+
+// Add a new function to get paginated trade shows with search functionality and caching
+export async function getPaginatedTradeShows(page: number = 1, limit: number = 6, searchTerm: string = ''): Promise<{ shows: PaginatedTradeShow[]; total: number } | null> {
   try {
+    // Create cache key
+    const cacheKey = `${page}-${limit}-${searchTerm}`
+    const now = Date.now()
+    
+    // Check if we have valid cached data
+    const cached = paginationCache.get(cacheKey)
+    if (cached && (now - cached.timestamp) < CACHE_TTL) {
+      return cached.data
+    }
+
     let client
     try {
       client = createServerClient()
@@ -207,22 +268,45 @@ export async function getPaginatedTradeShows(page: number = 1, limit: number = 6
     // Calculate offset
     const offset = (page - 1) * limit
 
+    // Build the query
+    let query = client
+      .from('trade_shows')
+      .select(`
+        id,
+        slug,
+        title,
+        start_date,
+        end_date,
+        location,
+        logo
+      `)
+      .eq('is_active', true)
+
+    // Add search filter if provided
+    if (searchTerm) {
+      query = query.or(`title.ilike.%${searchTerm}%,location.ilike.%${searchTerm}%`)
+    }
+
     // Get total count first
-    const { count, error: countError } = await client
+    const countQuery = client
       .from('trade_shows')
       .select('*', { count: 'exact', head: true })
       .eq('is_active', true)
+    
+    // Add search filter to count query if provided
+    if (searchTerm) {
+      countQuery.or(`title.ilike.%${searchTerm}%,location.ilike.%${searchTerm}%`)
+    }
+    
+    const { count, error: countError } = await countQuery
     
     if (countError) {
       console.error('Error fetching trade shows count:', countError)
       return null
     }
 
-    // Get paginated shows
-    const { data, error } = await client
-      .from('trade_shows')
-      .select('*')
-      .eq('is_active', true)
+    // Get paginated shows with only necessary fields for the card display
+    const { data, error } = await query
       .order('sort_order')
       .range(offset, offset + limit - 1)
     
@@ -231,18 +315,35 @@ export async function getPaginatedTradeShows(page: number = 1, limit: number = 6
       return null
     }
 
-    return {
-      shows: data as TradeShow[],
+    const result = {
+      shows: data as PaginatedTradeShow[],
       total: count || 0
     }
+
+    // Cache the result
+    paginationCache.set(cacheKey, { data: result, timestamp: now })
+    
+    return result
   } catch (error) {
     console.error('Unexpected error fetching paginated trade shows:', error)
     return null
   }
 }
 
+// Add cache for individual trade shows by slug
+const tradeShowBySlugCache = new Map<string, { data: TradeShow | null, timestamp: number }>();
+const TRADE_SHOW_CACHE_TTL = 30 * 60 * 1000; // 30 minutes cache TTL
+
 export async function getTradeShowBySlug(slug: string): Promise<TradeShow | null> {
   try {
+    const now = Date.now();
+    
+    // Check if we have valid cached data
+    const cached = tradeShowBySlugCache.get(slug);
+    if (cached && (now - cached.timestamp) < TRADE_SHOW_CACHE_TTL) {
+      return cached.data;
+    }
+
     let client
     try {
       client = createServerClient()
@@ -259,10 +360,17 @@ export async function getTradeShowBySlug(slug: string): Promise<TradeShow | null
     
     if (error) {
       console.error(`Error fetching trade show with slug ${slug}:`, error);
+      // Cache the null result to avoid repeated failed requests
+      tradeShowBySlugCache.set(slug, { data: null, timestamp: now });
       return null;
     }
     
-    return data as TradeShow;
+    const result = data as TradeShow;
+    
+    // Cache the result
+    tradeShowBySlugCache.set(slug, { data: result, timestamp: now });
+    
+    return result;
   } catch (error) {
     console.error(`Unexpected error fetching trade show with slug ${slug}:`, error);
     return null;
@@ -836,6 +944,14 @@ export async function getContactPageData(): Promise<ContactPageData | null> {
     console.error('Unexpected error fetching contact page data:', error);
     return null;
   }
+}
+
+// Function to clear all caches (useful for revalidation)
+export function clearTradeShowCaches(): void {
+  pageDataCache = null;
+  allTradeShowsCache = null;
+  paginationCache.clear();
+  tradeShowBySlugCache.clear();
 }
 
 // Add the form submission interface and functions at the end of the file

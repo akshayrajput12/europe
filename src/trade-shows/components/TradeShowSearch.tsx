@@ -1,20 +1,14 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 
 interface TradeShowSearchProps {
   onSearch?: (searchTerm: string) => void
+  initialValue?: string
 }
 
-export default function TradeShowSearch({ onSearch }: TradeShowSearchProps) {
-  const [searchTerm, setSearchTerm] = useState("")
-
-  // Real-time search on typing
-  useEffect(() => {
-    if (onSearch) {
-      onSearch(searchTerm)
-    }
-  }, [searchTerm, onSearch])
+export default function TradeShowSearch({ onSearch, initialValue = "" }: TradeShowSearchProps) {
+  const [searchTerm, setSearchTerm] = useState(initialValue)
 
   const handleSearch = () => {
     if (onSearch) {

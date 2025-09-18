@@ -27,15 +27,25 @@ export function createTransporter() {
 // Format form data for email content with better styling to match website
 function formatFormData(formData: Record<string, unknown>): string {
   let formatted = '<table style="width: 100%; border-collapse: collapse; margin: 20px 0; font-family: Arial, sans-serif;">'
-  formatted += '<thead><tr style="background-color: #1E293B; color: white;">'
-  formatted += '<th style="text-align: left; padding: 12px; font-weight: bold;">Field</th>'
-  formatted += '<th style="text-align: left; padding: 12px; font-weight: bold;">Value</th>'
+  formatted += '<thead><tr style="background-color: #A5CD39; color: black; text-align: center; padding: 12px; font-weight: bold;">'
+  formatted += '<th colspan="2" style="text-align: center; padding: 12px; font-weight: bold; font-size: 24px;">Quote Request Details</th>'
   formatted += '</tr></thead><tbody>'
   
+  // Add submitted from information
+  if (formData.submitted_from) {
+    formatted += `<tr style="background-color: white; border-bottom: 1px solid #e2e8f0; text-align: center;">`
+    formatted += `<td colspan="2" style="padding: 8px; font-size: 12px; color: #666;">Submitted from: ${formData.submitted_from}</td>`
+    formatted += `</tr>`
+  }
+  
+  // Add form fields
   for (const [key, value] of Object.entries(formData)) {
-    formatted += `<tr style="border-bottom: 1px solid #e2e8f0;">`
-    formatted += `<td style="padding: 12px; font-weight: bold; text-transform: capitalize; background-color: #f8fafc;">${key.replace(/([A-Z])/g, ' $1')}</td>`
-    formatted += `<td style="padding: 12px; background-color: #ffffff;">${value}</td>`
+    // Skip the submitted_from field as it's already handled above
+    if (key === 'submitted_from') continue;
+    
+    formatted += `<tr style="border-bottom: 1px solid #A5CD39;">`
+    formatted += `<td style="padding: 12px; font-weight: bold; text-transform: capitalize; width: 200px; background-color: white;">${key.replace(/([A-Z])/g, ' $1')}</td>`
+    formatted += `<td style="padding: 12px; background-color: white;">${value}</td>`
     formatted += `</tr>`
   }
   
@@ -98,8 +108,8 @@ export async function sendFormSubmissionEmail(formSubmission: FormSubmission): P
         <title>New Form Submission</title>
       </head>
       <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #334155; max-width: 800px; margin: 0 auto; padding: 20px; background-color: #f8fafc;">
-        <div style="background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%); padding: 30px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
-          <h1 style="color: #A5CD39; margin-top: 0; font-size: 28px;">New Form Submission</h1>
+        <div style="background: linear-gradient(135deg, #A5CD39 0%, #A5CD39 100%); padding: 30px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+          <h1 style="color: black; margin-top: 0; font-size: 28px; text-align: center;">Quote Request Details</h1>
           <div style="background-color: white; padding: 20px; border-radius: 6px; margin-top: 20px;">
             <p style="margin: 10px 0;"><strong style="color: #1E293B;">Form Type:</strong> <span style="color: #475569;">${formSubmission.form_type}</span></p>
             <p style="margin: 10px 0;"><strong style="color: #1E293B;">Submission Time:</strong> <span style="color: #475569;">${formSubmission.created_at || new Date().toISOString()}</span></p>
@@ -107,15 +117,14 @@ export async function sendFormSubmissionEmail(formSubmission: FormSubmission): P
         </div>
         
         <div style="margin: 30px 0; background-color: white; padding: 25px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);">
-          <h2 style="color: #1E293B; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; margin-top: 0;">Form Data</h2>
+          
           ${formDataHtml}
         </div>
         
         ${documentsHtml ? `<div style="margin: 30px 0; background-color: white; padding: 25px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);">${documentsHtml}</div>` : ''}
         
-        <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #e2e8f0; color: #64748b; font-size: 14px; text-align: center;">
-          <p>This is an automated notification from Chronicles Europe website.</p>
-          <p style="margin-top: 10px; font-size: 12px;">© ${new Date().getFullYear()} Chronicles Europe. All rights reserved.</p>
+        <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #e2e8f0; color: #64748b; font-size: 14px; text-align: center; background-color: #A5CD39; padding: 15px; border-radius: 8px;">
+          <p style="margin: 0; color: black;">Copyright © ${new Date().getFullYear()}, Chronicle Exhibits LLC.</p>
         </div>
       </body>
       </html>

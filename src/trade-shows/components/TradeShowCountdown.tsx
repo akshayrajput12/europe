@@ -2,7 +2,6 @@
 
 import { TradeShow } from "@/data/trade-shows"
 import { Calendar, MapPin } from "lucide-react"
-import Image from "next/image"
 
 interface TradeShowCountdownProps {
   show: TradeShow
@@ -34,24 +33,6 @@ export default function TradeShowCountdown({ show }: TradeShowCountdownProps) {
                 </div>
               </div>
             </div>
-
-            {/* Logo */}
-            {show.logo && (
-              <div className="flex-shrink-0 mx-0">
-                <div className="relative w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center">
-                  <div className="absolute inset-0 bg-white rounded-full opacity-20 animate-pulse"></div>
-                  <div className="relative bg-white rounded-full p-1 shadow-lg">
-                    <Image
-                      src={show.logo}
-                      alt={show.logoAlt || `${show.title} logo`}
-                      width={60}
-                      height={60}
-                      className="w-12 h-12 sm:w-16 sm:h-16 object-contain rounded-full"
-                    />
-                  </div>
-                </div>
-              </div>
-            )}
 
             {/* Location */}
             <div className="flex items-center gap-3 sm:gap-4">

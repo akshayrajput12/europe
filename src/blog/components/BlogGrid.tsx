@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback, useMemo } from "react"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import BlogCard from "./BlogCard"
 import { ChevronLeft, ChevronRight } from "lucide-react"
@@ -21,34 +21,13 @@ export default function BlogGrid({ initialPosts, totalPosts }: BlogGridProps) {
   
   const [posts, setPosts] = useState(initialPosts)
   const [total, setTotal] = useState(totalPosts)
-  const [loading, setLoading] = useState(false)
+  const [optimisticPage, setOptimisticPage] = useState<number | null>(null)
   
   const currentPage = parseInt(searchParams.get('page') || '1')
   const totalPages = Math.ceil(total / ITEMS_PER_PAGE)
 
-  // Fetch new posts when page changes
-  useEffect(() => {
-    const fetchPosts = async () => {
-      setLoading(true)
-      try {
-        const page = parseInt(searchParams.get('page') || '1')
-        const data = await getPaginatedBlogPosts(page, ITEMS_PER_PAGE)
-        if (data) {
-          setPosts(data.posts)
-          setTotal(data.total)
-        }
-      } catch (error) {
-        console.error('Error fetching posts:', error)
-      } finally {
-        setLoading(false)
-      }
-    }
-
-    fetchPosts()
-  }, [searchParams])
-
-  // Generate page numbers with ellipsis
-  const generatePageNumbers = () => {
+  // Memoize page numbers generation
+  const pageNumbers = useMemo(() => {
     const pages = []
     const showEllipsis = totalPages > 7
     
@@ -86,14 +65,44 @@ export default function BlogGrid({ initialPosts, totalPosts }: BlogGridProps) {
     }
     
     return pages
-  }
+  }, [totalPages, currentPage])
+
+  // Optimized data fetching with useCallback
+  const fetchPosts = useCallback(async (page: number) => {
+    try {
+      const data = await getPaginatedBlogPosts(page, ITEMS_PER_PAGE)
+      if (data) {
+        setPosts(data.posts)
+        setTotal(data.total)
+      }
+    } catch (error) {
+      console.error('Error fetching posts:', error)
+    } finally {
+      setOptimisticPage(null)
+    }
+  }, [])
+
+  // Fetch new posts when page changes
+  useEffect(() => {
+    // Only fetch if not already on the correct page
+    if (optimisticPage && optimisticPage !== currentPage) {
+      fetchPosts(optimisticPage)
+    } else if (!optimisticPage && currentPage > 1) {
+      // This handles initial load for pages other than 1
+      fetchPosts(currentPage)
+    }
+  }, [currentPage, optimisticPage, fetchPosts])
 
   const goToPage = (page: number) => {
     if (page < 1 || page > totalPages || page === currentPage) return
     
+    // Set optimistic page for immediate UI update
+    setOptimisticPage(page)
+    
+    // Update URL
     const params = new URLSearchParams(searchParams.toString())
     params.set('page', page.toString())
-    router.push(`${pathname}?${params.toString()}`)
+    router.push(`${pathname}?${params.toString()}`, { scroll: false })
   }
 
   const goToPrevious = () => {
@@ -107,6 +116,11 @@ export default function BlogGrid({ initialPosts, totalPosts }: BlogGridProps) {
       goToPage(currentPage + 1)
     }
   }
+
+  // Determine which posts to display (optimistic or actual)
+  const displayPosts = optimisticPage ? 
+    Array(ITEMS_PER_PAGE).fill(null) : // Show skeleton loaders when changing pages
+    posts
 
   return (
     <section className="bg-white py-12 md:py-16">
@@ -123,8 +137,29 @@ export default function BlogGrid({ initialPosts, totalPosts }: BlogGridProps) {
 
         {/* Blog Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {posts.map((post) => (
-            <BlogCard key={post.id} post={post} />
+          {displayPosts.map((post, index) => (
+            <div key={post?.id || `skeleton-${index}`}>
+              {post ? (
+                <BlogCard post={post} />
+              ) : (
+                // Skeleton loader for better perceived performance
+                <div className="bg-white rounded-lg shadow-md overflow-hidden animate-pulse">
+                  <div className="bg-gray-200 h-48 w-full" />
+                  <div className="p-6">
+                    <div className="h-6 bg-gray-200 rounded w-3/4 mb-4"></div>
+                    <div className="h-4 bg-gray-200 rounded w-full mb-2"></div>
+                    <div className="h-4 bg-gray-200 rounded w-2/3"></div>
+                    <div className="mt-4 flex items-center">
+                      <div className="h-10 w-10 rounded-full bg-gray-200"></div>
+                      <div className="ml-3">
+                        <div className="h-4 bg-gray-200 rounded w-20 mb-1"></div>
+                        <div className="h-3 bg-gray-200 rounded w-16"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
           ))}
         </div>
 
@@ -135,28 +170,27 @@ export default function BlogGrid({ initialPosts, totalPosts }: BlogGridProps) {
               {/* Previous Button */}
               <button
                 onClick={goToPrevious}
-                disabled={currentPage === 1 || loading}
+                disabled={currentPage === 1}
                 className={`px-3 py-2 text-gray-500 hover:text-gray-700 transition-colors border-r border-gray-300 ${
-                  currentPage === 1 || loading ? 'cursor-not-allowed opacity-50' : 'hover:bg-gray-50'
+                  currentPage === 1 ? 'cursor-not-allowed opacity-50' : 'hover:bg-gray-50'
                 }`}
               >
                 <ChevronLeft className="w-4 h-4" />
               </button>
 
               {/* Page Numbers */}
-              {generatePageNumbers().map((page, index) => (
+              {pageNumbers.map((page, index) => (
                 <div key={index}>
                   {page === '...' ? (
                     <span className="px-3 py-2 text-gray-500 border-r border-gray-300">...</span>
                   ) : (
                     <button
                       onClick={() => goToPage(page as number)}
-                      disabled={loading}
                       className={`px-3 py-2 text-sm font-medium transition-colors border-r border-gray-300 last:border-r-0 ${
                         currentPage === page
                           ? 'bg-slate-800 text-white'
                           : 'text-gray-700 hover:bg-gray-50'
-                      } ${loading ? 'cursor-not-allowed opacity-50' : ''}`}
+                      }`}
                     >
                       {page}
                     </button>
@@ -167,9 +201,9 @@ export default function BlogGrid({ initialPosts, totalPosts }: BlogGridProps) {
               {/* Next Button */}
               <button
                 onClick={goToNext}
-                disabled={currentPage === totalPages || loading}
+                disabled={currentPage === totalPages}
                 className={`px-3 py-2 text-gray-500 hover:text-gray-700 transition-colors ${
-                  currentPage === totalPages || loading ? 'cursor-not-allowed opacity-50' : 'hover:bg-gray-50'
+                  currentPage === totalPages ? 'cursor-not-allowed opacity-50' : 'hover:bg-gray-50'
                 }`}
               >
                 <ChevronRight className="w-4 h-4" />

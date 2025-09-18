@@ -1,15 +1,10 @@
 "use client"
 
 import { useState } from "react"
-import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import TradeShowCard from "./TradeShowCard"
 import TradeShowSearch from "./TradeShowSearch"
-import { ChevronLeft, ChevronRight } from "lucide-react"
-import { Button } from "@/components/ui/button"
 import { useQuoteModal } from "@/contexts/QuoteModalContext"
 import { TradeShow } from "@/data/trade-shows"
-
-const ITEMS_PER_PAGE = 6
 
 // Helper function to check if a trade show is expired
 function isTradeShowExpired(endDate: string): boolean {
@@ -21,22 +16,16 @@ function isTradeShowExpired(endDate: string): boolean {
 }
 
 interface TradeShowGridProps {
-  initialShows: TradeShow[]
-  totalShows: number
+  shows: TradeShow[]
 }
 
-export default function TradeShowGrid({ initialShows, totalShows }: TradeShowGridProps) {
-  const router = useRouter()
-  const pathname = usePathname()
-  const searchParams = useSearchParams()
-  
-  const [shows, setShows] = useState(initialShows)
-  const [total, setTotal] = useState(totalShows)
+export default function TradeShowGrid({ shows }: TradeShowGridProps) {
   const [searchTerm, setSearchTerm] = useState("")
   const { openQuoteModal } = useQuoteModal()
   
-  const currentPage = parseInt(searchParams.get('page') || '1')
-  const totalPages = Math.ceil(total / ITEMS_PER_PAGE)
+  const handleSearch = (searchTerm: string) => {
+    setSearchTerm(searchTerm)
+  }
 
   // Filter shows based on search term and expiration
   const filteredShows = shows
@@ -47,77 +36,6 @@ export default function TradeShowGrid({ initialShows, totalShows }: TradeShowGri
       show.country.toLowerCase().includes(searchTerm.toLowerCase()) ||
       show.city.toLowerCase().includes(searchTerm.toLowerCase())
     )
-
-  const handleSearch = (searchTerm: string) => {
-    setSearchTerm(searchTerm)
-    goToPage(1) // Reset to first page when searching
-  }
-
-  const goToPage = (page: number) => {
-    if (page < 1 || page > totalPages || page === currentPage) return
-    
-    const params = new URLSearchParams(searchParams.toString())
-    params.set('page', page.toString())
-    router.push(`${pathname}?${params.toString()}`)
-  }
-
-  const goToPrevious = () => {
-    if (currentPage > 1) {
-      goToPage(currentPage - 1)
-    }
-  }
-
-  // Generate page numbers with ellipsis
-  const generatePageNumbers = () => {
-    const pages = []
-    const showEllipsis = totalPages > 7
-    
-    if (!showEllipsis) {
-      // Show all pages if 7 or fewer
-      for (let i = 1; i <= totalPages; i++) {
-        pages.push(i)
-      }
-    } else {
-      // Always show first page
-      pages.push(1)
-      
-      if (currentPage <= 4) {
-        // Show 1, 2, 3, 4, 5, ..., last
-        for (let i = 2; i <= 5; i++) {
-          pages.push(i)
-        }
-        pages.push('...')
-        pages.push(totalPages)
-      } else if (currentPage >= totalPages - 3) {
-        // Show 1, ..., last-4, last-3, last-2, last-1, last
-        pages.push('...')
-        for (let i = totalPages - 4; i <= totalPages; i++) {
-          pages.push(i)
-        }
-      } else {
-        // Show 1, ..., current-1, current, current+1, ..., last
-        pages.push('...')
-        for (let i = currentPage - 1; i <= currentPage + 1; i++) {
-          pages.push(i)
-        }
-        pages.push('...')
-        pages.push(totalPages)
-      }
-    }
-    
-    return pages
-  }
-
-  const goToNext = () => {
-    if (currentPage < totalPages) {
-      goToPage(currentPage + 1)
-    }
-  }
-
-  // Calculate pagination
-  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE
-  const endIndex = startIndex + ITEMS_PER_PAGE
-  const currentShows = filteredShows.slice(startIndex, endIndex)
 
   return (
     <>
@@ -130,67 +48,11 @@ export default function TradeShowGrid({ initialShows, totalShows }: TradeShowGri
           {/* First card needs extra top padding for logo */}
           <div className="pt-8 sm:pt-10">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10">
-              {currentShows.map((show: TradeShow) => (
+              {filteredShows.map((show: TradeShow) => (
                 <TradeShowCard key={show.id} show={show} />
               ))}
             </div>
           </div>
-
-          {/* Pagination Controls */}
-          {totalPages > 1 && (
-            <div className="flex justify-center items-center mt-8 sm:mt-12">
-              <div className="flex items-center border border-gray-300 rounded-lg bg-white shadow-sm">
-                {/* Previous Button */}
-                <button
-                  onClick={goToPrevious}
-                  disabled={currentPage === 1}
-                  className={`px-3 py-2 text-gray-500 hover:text-gray-700 transition-colors border-r border-gray-300 ${
-                    currentPage === 1 ? 'cursor-not-allowed opacity-50' : 'hover:bg-gray-50'
-                  }`}
-                >
-                  <ChevronLeft className="w-4 h-4" />
-                </button>
-
-                {/* Page Numbers */}
-                {generatePageNumbers().map((page, index) => (
-                  <div key={index}>
-                    {page === '...' ? (
-                      <span className="px-3 py-2 text-gray-500 border-r border-gray-300">...</span>
-                    ) : (
-                      <button
-                        onClick={() => goToPage(page as number)}
-                        className={`px-3 py-2 text-sm font-medium transition-colors border-r border-gray-300 last:border-r-0 ${
-                          currentPage === page
-                            ? 'bg-slate-800 text-white'
-                            : 'text-gray-700 hover:bg-gray-50'
-                        }`}
-                      >
-                        {page}
-                      </button>
-                    )}
-                  </div>
-                ))}
-
-                {/* Next Button */}
-                <button
-                  onClick={goToNext}
-                  disabled={currentPage === totalPages}
-                  className={`px-3 py-2 text-gray-500 hover:text-gray-700 transition-colors ${
-                    currentPage === totalPages ? 'cursor-not-allowed opacity-50' : 'hover:bg-gray-50'
-                  }`}
-                >
-                  <ChevronRight className="w-4 h-4" />
-                </button>
-              </div>
-            </div>
-          )}
-
-          {/* Results Info */}
-          {filteredShows.length > 0 && (
-            <div className="text-center mt-4 text-sm text-gray-600">
-              Showing {startIndex + 1}-{Math.min(endIndex, filteredShows.length)} of {filteredShows.length} trade shows
-            </div>
-          )}
 
           {/* No Results Message */}
           {filteredShows.length === 0 && (
@@ -205,13 +67,12 @@ export default function TradeShowGrid({ initialShows, totalShows }: TradeShowGri
                 </p>
                 
                 {/* View Other Trade Shows Button */}
-                <Button 
-                  size="lg"
+                <button 
                   onClick={openQuoteModal}
-                  className="bg-[#A5CD39] hover:bg-[#8fb32e] text-white px-8"
+                  className="bg-[#A5CD39] hover:bg-[#8fb32e] text-white font-medium py-3 px-6 rounded-lg transition-colors"
                 >
                   View Other Trade Shows
-                </Button>
+                </button>
               </div>
             </div>
           )}

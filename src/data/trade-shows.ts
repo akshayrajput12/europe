@@ -43,6 +43,17 @@ export interface TradeShowData {
   shows: TradeShow[];
 }
 
+// Optimized interface for paginated trade shows (only fields needed for display)
+export interface TradeShowCardData {
+  id: string;
+  slug: string;
+  title: string;
+  startDate: string;
+  endDate: string;
+  location: string;
+  logo: string;
+}
+
 // Helper function to check if a trade show is expired
 export function isTradeShowExpired(endDate: string): boolean {
   const today = new Date();
@@ -320,38 +331,23 @@ export async function getTradeShowHeroImage(): Promise<{ url: string; alt: strin
   }
 }
 
-// Add a new function to get paginated trade shows
-export async function getPaginatedTradeShows(page: number = 1, limit: number = 6): Promise<{ shows: TradeShow[]; total: number } | null> {
+// Add a new function to get paginated trade shows with optimized data
+export async function getPaginatedTradeShows(page: number = 1, limit: number = 6, searchTerm: string = ''): Promise<{ shows: TradeShowCardData[]; total: number } | null> {
   try {
-    const data = await dbGetPaginatedTradeShows(page, limit);
+    const data = await dbGetPaginatedTradeShows(page, limit, searchTerm);
     if (!data) return null;
 
-    // Fetch the page data to get the hero image
-    const pageData = await getTradeShowsPageData();
-
     // Transform database data to match the interface and filter out expired shows
-    const shows: TradeShow[] = data.shows
+    const shows: TradeShowCardData[] = data.shows
       .filter(show => !isTradeShowExpired(show.end_date)) // Filter out expired trade shows
       .map(show => ({
         id: show.id,
         slug: show.slug,
         title: show.title,
-        excerpt: show.excerpt,
-        content: show.content,
         startDate: show.start_date,
         endDate: show.end_date,
         location: show.location,
-        country: show.country,
-        city: show.city,
-        logo: show.logo,
-        logoAlt: show.logo_alt,
-        heroImage: pageData?.hero_background_image,
-        heroImageAlt: pageData?.hero_background_image_alt,
-        website: show.website,
-        organizer: show.organizer,  // Add organizer field
-        metaTitle: show.meta_title,
-        metaDescription: show.meta_description,
-        metaKeywords: show.meta_keywords
+        logo: show.logo
       }));
 
     return {

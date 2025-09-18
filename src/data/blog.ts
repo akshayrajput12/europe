@@ -357,25 +357,28 @@ export async function getPaginatedBlogPosts(page: number = 1, limit: number = 6)
     // Calculate offset
     const offset = (page - 1) * limit
 
-    // Get total count first
-    const { count, error: countError } = await client
-      .from('blog_posts')
-      .select('*', { count: 'exact', head: true })
-      .eq('is_active', true)
-    
+    // Get total count and paginated posts in parallel for better performance
+    const [countResult, postsResult] = await Promise.all([
+      client
+        .from('blog_posts')
+        .select('*', { count: 'exact', head: true })
+        .eq('is_active', true),
+      client
+        .from('blog_posts')
+        .select('*')
+        .eq('is_active', true)
+        .order('sort_order')
+        .range(offset, offset + limit - 1)
+    ])
+
+    const { count, error: countError } = countResult
+    const { data, error } = postsResult
+
     if (countError) {
       console.error('Error fetching blog posts count:', countError)
       return null
     }
 
-    // Get paginated posts
-    const { data, error } = await client
-      .from('blog_posts')
-      .select('*')
-      .eq('is_active', true)
-      .order('sort_order')
-      .range(offset, offset + limit - 1)
-    
     if (error) {
       console.error('Error fetching paginated blog posts:', error)
       return null
