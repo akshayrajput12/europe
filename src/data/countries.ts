@@ -43,6 +43,7 @@ export interface ProcessStep {
 
 export interface ProcessSection {
   title: string
+  subtitle: string
   steps: ProcessStep[]
 }
 
@@ -161,6 +162,7 @@ export const getCountryBySlugFromDB = async (slug: string): Promise<CountryDetai
       },
       processSection: {
         title: data.process_section_title || '',
+        subtitle: data.process_section_subtitle_html || '',
         steps: data.process_section_steps && Array.isArray(data.process_section_steps) 
           ? data.process_section_steps.map((step: { id?: string; icon?: string; title?: string; description?: string }, index: number) => ({
               id: step.id || `${index + 1}`,

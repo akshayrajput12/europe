@@ -27,6 +27,12 @@ export default function ProcessSection({ data }: ProcessSectionProps) {
           <h2 className="text-2xl md:text-3xl font-bold text-slate-800">
             {data.title}
           </h2>
+          {data.subtitle && (
+            <div 
+              className="mt-4 text-slate-600 max-w-3xl mx-auto"
+              dangerouslySetInnerHTML={{ __html: data.subtitle }}
+            />
+          )}
         </div>
 
         {/* Process Steps */}
