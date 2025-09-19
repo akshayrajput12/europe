@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { X } from 'lucide-react';
 
 export default function CookieConsent() {
@@ -50,11 +51,11 @@ export default function CookieConsent() {
             <p className="text-gray-600 mt-1">
               We use cookies to improve your experience on our website. By continuing to browse, you agree to our 
               {' '}
-              <a href="/privacy-policy" className="text-primary hover:underline">Privacy Policy</a>
+              <Link href="/privacy-policy" className="text-primary hover:underline">Privacy Policy</Link>
               {' '}
               and 
               {' '}
-              <a href="/terms-conditions" className="text-primary hover:underline">Terms of Service</a>.
+              <Link href="/terms-conditions" className="text-primary hover:underline">Terms of Service</Link>.
             </p>
           </div>
           
