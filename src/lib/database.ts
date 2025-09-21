@@ -1104,4 +1104,70 @@ export async function getTermsPageData(): Promise<TermsPageDB | null> {
   }
 }
 
+// Sitemap interfaces
+export interface SitemapEntry {
+  id: number;
+  url: string;
+  priority: number;
+  changefreq: string;
+  lastmod: string;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+}
 
+// Sitemap functions
+export async function getAllSitemapEntries(): Promise<SitemapEntry[] | null> {
+  try {
+    let client
+    try {
+      client = createServerClient()
+    } catch {
+      client = supabase
+    }
+
+    const { data, error } = await client
+      .from('sitemap')
+      .select('*')
+      .eq('is_active', true)
+      .order('url');
+    
+    if (error) {
+      console.error('Error fetching sitemap entries:', error);
+      return null;
+    }
+    
+    return data as SitemapEntry[];
+  } catch (error) {
+    console.error('Unexpected error fetching sitemap entries:', error);
+    return null;
+  }
+}
+
+export async function getSitemapEntryByUrl(url: string): Promise<SitemapEntry | null> {
+  try {
+    let client
+    try {
+      client = createServerClient()
+    } catch {
+      client = supabase
+    }
+
+    const { data, error } = await client
+      .from('sitemap')
+      .select('*')
+      .eq('url', url)
+      .eq('is_active', true)
+      .single();
+    
+    if (error) {
+      console.error(`Error fetching sitemap entry for url ${url}:`, error);
+      return null;
+    }
+    
+    return data as SitemapEntry;
+  } catch (error) {
+    console.error(`Unexpected error fetching sitemap entry for url ${url}:`, error);
+    return null;
+  }
+}
